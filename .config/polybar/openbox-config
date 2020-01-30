@@ -1,0 +1,347 @@
+;=====================================================
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/jaagr/polybar
+;
+;   The README contains alot of information
+;
+;=====================================================
+
+[colors]
+;background = ${xrdb:color0:#222}
+background = #00000000
+background-alt = #444
+;foreground = ${xrdb:color7:#222}
+foreground = #dfdfdf
+foreground-alt = #b3b3b3
+primary = #ffffff
+secondary = #ffffff
+alert = #ffffff
+
+[bar/openbar]
+monitor = ${env:MONITOR:eDP1}
+;monitor = ${env:MONITOR:DP1-2}
+;monitor = ${env:MONITOR:DP2-2}
+override-redirect = true
+width = 99%
+height = 35
+offset-x = 0
+offset-y = 1%
+radius = 0 
+fixed-center = false
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 0
+line-color = #f00
+
+border-size = 0
+border-color = #00000000
+
+padding-left = 0
+padding-right = 1
+
+module-margin-left = 1
+module-margin-right = 2
+
+font-0 = FontAwesome 5 Brands:pixelsize=12;2
+font-1 = FontAwesome 5 Free:style=Solid:pixelsize=11;2
+font-2 = Roboto:style=Regular:pixelsize=12;2
+font-3 = Material Icons:pixelsize=14;3
+
+modules-left = 
+modules-center = 
+modules-right = battery date wlan eth powermenu
+
+tray-position = right
+tray-padding = 2
+tray-offset-x = 0
+tray-detached = false
+;tray-transparent = true
+;tray-background = #0063ff
+
+;wm-restack = bspwm
+;wm-restack = i3
+
+;override-redirect = true
+
+;scroll-up = bspwm-desknext
+;scroll-down = bspwm-deskprev
+
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:30:...%
+
+
+[module/workspaces]
+type = internal/xworkspaces
+pin-workspaces = false
+enable-click = true
+enable-scroll = true
+format-padding = 0
+icon-0 = 1;
+icon-1 = 2;
+icon-2 = 3;
+icon-3 = 4;
+icon-4 = 5;
+icon-5 = 6;
+icon-6 = 7;
+icon-7 = 8;
+icon-8 = 9;
+icon-9 = 10;
+icon-default =
+format = <label-state>
+; active
+label-active = %icon% %name%
+label-active-padding = 1
+label-active-foreground = ${colors.active}
+label-active-underline = ${colors.active}
+; occupied
+label-occupied = %icon% %name%
+label-occupied-padding = 1
+label-occupied-foreground = ${colors.occupied}
+label-occupied-underline = ${colors.occupied}
+; urgent
+label-urgent = %icon% %name%
+label-urgent-padding = 1
+label-urgent-foreground = ${colors.urgent}
+label-urgent-underline = ${colors.urgent}
+; empty
+label-empty = %icon% %name%
+label-empty-padding = 1
+label-empty-foreground = ${colors.foreground}
+
+
+[module/i3]
+type = internal/i3
+
+pin-workspaces = true
+strip-wsnumbers = true
+index-sort = true
+enable-scroll = false
+
+format = <label-state>
+format-padding-right = 2
+
+label-unfocused-foreground = #b1beed
+label-unfocused-padding = 1
+
+label-focused-foreground = #79e083
+label-focused-padding = 1
+
+label-urgent-foreground = #e4b226
+label-urgent-padding = 1
+
+[module/mpd]
+type = internal/mpd
+format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+
+label-song-maxlen = 25
+label-song-ellipsis = true
+
+[module/xbacklight]
+type = internal/xbacklight
+
+format = <label> <bar>
+label = BL
+
+bar-width = 10
+bar-indicator = |
+bar-indicator-foreground = #ff
+bar-indicator-font = 2
+bar-fill = ─
+bar-fill-font = 2
+bar-fill-foreground = #9f78e1
+bar-empty = ─
+bar-empty-font = 2
+bar-empty-foreground = ${colors.foreground-alt}
+
+[module/backlight-acpi]
+inherit = module/xbacklight
+type = internal/backlight
+card = intel_backlight
+
+[module/wlan]
+type = internal/network
+interface = wlp2s0
+interval = 3.0
+format-connected = %{A1:notify-send -t 4000 "$(nmcli connection show --active | grep wifi)":}<ramp-signal>%{A}
+format-connected-alt = <label-connected>
+format-connected-underline = #9f78e1
+label-connected = %essid%
+
+format-disconnected =
+;format-disconnected = <label-disconnected>
+;format-disconnected-underline = ${self.format-connected-underline}
+;label-disconnected = %ifname% disconnected
+;label-disconnected-foreground = ${colors.foreground-alt}
+
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
+ramp-signal-foreground = ${colors.foreground-alt}
+
+[module/eth]
+type = internal/network
+interface = enp14s0u1u2
+interval = 3.0
+
+format-connected-underline = #55aa55
+format-connected-prefix-foreground = ${colors.foreground}
+label-connected = %{A1:notify-send -t 5000 %local_ip%:}%{A}
+label-connected-foreground = ${colors.foreground-alt}
+
+format-disconnected =
+;format-disconnected = <label-disconnected>
+;format-disconnected-underline = ${self.format-connected-underline}
+;label-disconnected = %ifname% disconnected
+;label-disconnected-foreground = ${colors.foreground-alt}
+
+[module/date]
+type = internal/date
+interval = 5
+
+date = 
+date-alt =
+
+time = %I:%M
+time-alt = %m-%d
+
+format-prefix = 
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #0a6cf5
+
+label = %time%
+
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+; Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
+; If not, uses default sink
+sink = alsa_output.pci-0000_12_00.3.analog-stereo
+
+; Use PA_VOLUME_UI_MAX (~153%) if true, or PA_VOLUME_NORM (100%) if false
+; Default: true
+use-ui-max = false
+
+; Interval for volume increase/decrease (in percent points) (unreleased)
+; Default: 5
+interval = 5%
+
+bar-volume-width = 5
+bar-volume-empty = o
+bar-volume-fill = o
+bar-volume-indicator = o
+
+bar-volume-indicator-foreground = ${colors.primary}
+bar-volume-width-foreground = ${colors.foreground-alt}
+bar-volume-empty-foreground = ${colors.foreground-alt}
+bar-volume-fill-foreground = ${colors.foreground-alt}
+
+; Available tags:
+;   <label-volume> (default)
+;   <ramp-volume>
+;   <bar-volume>
+format-volume = <ramp-volume> <bar-volume>
+
+; Available tokens:
+;   %percentage% (default)
+;label-volume = %percentage%%
+
+; Available tokens:
+;   %percentage% (default)
+label-muted =  
+label-muted-foreground = #666
+
+; Only applies if <ramp-volume> is used
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC0
+full-at = 98
+
+format-charging = <label-charging>
+format-charging-underline = #ffb52a
+
+format-discharging = <label-discharging> 
+format-discharging-underline = ${self.format-charging-underline}
+
+format-full-prefix = 
+format-full-prefix-foreground = ${colors.foreground-alt}
+format-full-underline = ${self.format-charging-underline}
+
+ramp-capacity-0 = <label-discharging>
+ramp-capacity-1 = <label-discharging>
+ramp-capacity-2 = <label-discharging>
+ramp-capacity-3 = <label-discharging>
+ramp-capacity-4 = <label-discharging>
+ramp-capacity-5 = <label-discharging>
+ramp-capacity-6 =  
+ramp-capacity-foreground = ${colors.primary}
+
+
+[module/powermenu]
+type = custom/menu
+
+expand-right = true
+
+format-spacing = 1
+
+label-open = 
+label-open-foreground = ${colors.secondary}
+label-close = 
+label-close-foreground = ${colors.secondary}
+label-separator = |
+label-separator-foreground = ${colors.background}
+
+menu-0-2 = 
+menu-0-2-exec = i3lock-fancy-rapid 5 3 &
+menu-0-1 = 
+menu-0-1-exec = menu-open-1
+menu-0-0 = 
+menu-0-0-exec = menu-open-2
+menu-0-3 = 
+menu-0-3-exec =  systemctl suspend & i3lock-fancy-rapid 5 3 &
+
+menu-1-0 = 
+menu-1-0-exec = menu-open-0
+menu-1-1 = 
+menu-1-1-exec = reboot &
+
+menu-2-0 = 
+menu-2-0-exec = shutdown now &
+menu-2-1 = 
+menu-2-1-exec = menu-open-0
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+; vim:ft=dosini

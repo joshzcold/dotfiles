@@ -1,0 +1,6 @@
+compton --config .config/compton.conf &
+xfsettingsd &
+sleep 1; openbox-triple-screen &
+sleep 1; nitrogen --restore &
+tint2 &
+sleep 1; volumeicon &
