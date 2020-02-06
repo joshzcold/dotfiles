@@ -4,7 +4,7 @@
 
 # terminal emulator
 mod4 + Return
-	termite
+	konsole
 
 # program launcher
 mod4 + d

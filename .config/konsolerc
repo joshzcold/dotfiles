@@ -1,0 +1,14 @@
+[Desktop Entry]
+DefaultProfile=Termite.profile
+
+[Favorite Profiles]
+Favorites=Termite.profile
+
+[KonsoleWindow]
+ShowMenuBarByDefault=false
+
+[MainWindow]
+MenuBar=Disabled
+State=AAAA/wAAAAD9AAAAAAAAB2QAAAP+AAAABAAAAAQAAAAIAAAACPwAAAAA
+ToolBarsMovable=Disabled
+Window-Maximized 1080x1920=true
