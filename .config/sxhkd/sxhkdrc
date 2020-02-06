@@ -46,7 +46,7 @@ mod4 + y
 
 # swap the current node and the biggest node
 mod4 + g
-	bspc node -s biggest
+	bspc node -s biggest.local
 
 #
 # state/flags
