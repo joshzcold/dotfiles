@@ -7,11 +7,11 @@ SCREEN_COUNT="$(xrandr | grep -c -w connected)"
 
 if [ $SCREEN_COUNT > 1 ];
 then
-bspc monitor DP1-2-8 -d  5 6 7 8
-bspc monitor DP2-2 -d 1 2 3 4
-elif [ $SCREEN_COUNT == 1 ];
-then
-bspc monitor DP-1 -d 1 2 3 4 5 6 7 8  
+  bspc monitor DP1-2-8 -d  5 6 7 8
+  bspc monitor DP2-2 -d 1 2 3 4
+else
+  m=$(xrandr --query | grep " connected" | cut -d" " -f1); 
+  bspc monitor $m -d 1 2 3 4 5 6 7 8  
 fi
 
 bspc config border_width         2
