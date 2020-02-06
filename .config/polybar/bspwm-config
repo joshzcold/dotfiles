@@ -8,23 +8,23 @@
 ;=====================================================
 
 [colors]
-background = #1b1d1e
+background = #212121
 background-alt = #c79081
-foreground = #FFFFFF
+foreground = #EEFFFF
 foreground-alt = #000000
-primary = #ffb52a
-secondary = #e60053
-alert = #bd2c40
+primary = #89ddff
+secondary = #EEFFFF
+alert = #F07178
 
 [bar/example]
 ;monitor = ${env:MONITOR:DP2-2}
 ;monitor = ${env:MONITOR:DP1-2-8}
 monitor = ${env:MONITOR}
-width = 100%
+width = 50%
 height = 25
-offset-x = 0
+offset-x = 25%
 offset-y = 0
-radius = 0
+radius = 5
 fixed-center = false
 override-redirect = false
 bottom = true
@@ -39,15 +39,15 @@ border-size = 0
 border-color = #00000000
 
 padding-left = 2
-padding-right = 2
+; padding-right = 2
 
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = FontAwesome 5 Brands:pixelsize=10;0
-font-1 = FontAwesome 5 Free:style=Solid:pixelsize=10;2
-font-2 = FontAwesome 5 Free:pixelsize=10;2
-font-3 = Roboto:style=Regular:pixelsize=10;2
+; font-1 = FontAwesome 5 Brands:pixelsize=10;0
+font-0 = FontAwesome 5 Free:style=Solid:pixelsize=10;2
+; font-2 = FontAwesome 5 Free:pixelsize=10;2
+font-1 = Roboto:style=Regular:pixelsize=10;2
 
 modules-left = bspwm
 modules-center = 
@@ -55,6 +55,11 @@ modules-right = volume memory cpu wlan eth battery date powermenu
 
 tray-position = right
 tray-padding = 2
+padding-right = 13
+
+tray-detached = true
+
+tray-offset-x = -4
 ;tray-transparent = true
 ;tray-background = #0063ff
 
@@ -227,8 +232,8 @@ label-volume = 
 label-volume-foreground = ${root.foreground}
 
 format-muted-prefix = 
-format-muted-foreground = ${colors.foreground-alt}
-label-muted = " muted "
+format-muted-foreground = ${colors.foreground}
+label-muted = " "
 
 bar-volume-width = 10
 bar-volume-foreground-0 = ${colors.primary}
@@ -238,11 +243,11 @@ bar-volume-foreground-3 = ${colors.primary}
 bar-volume-foreground-4 = ${colors.primary}
 bar-volume-foreground-5 = ${colors.alert}
 bar-volume-foreground-6 = ${colors.alert}
-bar-volume-gradient = false
-bar-volume-indicator = 
+bar-volume-gradient = true
+bar-volume-indicator = +
 bar-volume-indicator-font = 2
-bar-volume-fill = -
-bar-volume-fill-font = 2
+bar-volume-fill = \
+bar-volume-fill-font = 1
 bar-volume-empty = -
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.foreground-alt}
