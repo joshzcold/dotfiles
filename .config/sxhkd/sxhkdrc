@@ -10,6 +10,14 @@ mod4 + Return
 mod4 + d
 	rofi -show drun
 
+# program launcher
+mod4 + w
+	rofi -show window
+
+# emoji picker Enter to copy to clipboard
+mod4 + e
+	rofi -show emoji -modi emoji
+
 # Launch firefox
 mod4 + i
   firefox
@@ -83,6 +91,10 @@ mod4 + bracket{left,right}
 # focus the last node/desktop
 mod4 + {grave,Tab}
 	bspc {node,desktop} -f last
+
+# focus the last node
+alt + Tab
+	bspc node -f last
 
 # focus the older or newer node in the focus history
 mod4 + {o,i}
