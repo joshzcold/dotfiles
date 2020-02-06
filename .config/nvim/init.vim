@@ -16,6 +16,12 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 call plug#end()
 
+" color tweaks
+:highlight Pmenu ctermfg=15 ctermbg=235
+:highlight PmenuSel ctermfg=15 ctermbg=233
+:highlight ErrorMsg ctermfg=15 ctermbg=88 guifg=none guibg=none
+:highlight Search ctermfg=235 ctermbg=222
+
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
@@ -47,6 +53,7 @@ nmap <C-A> : CocCommand explorer<CR>
 nmap <C-S> :GFiles<CR>
 
 " line numbers
+set number
 set relativenumber
 
 " clipboard modification
