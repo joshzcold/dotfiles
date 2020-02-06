@@ -22,30 +22,34 @@ call plug#end()
 :highlight ErrorMsg ctermfg=15 ctermbg=88 guifg=none guibg=none
 :highlight Search ctermfg=235 ctermbg=222
 
+" Insert new lines with going into INSERT
+nmap <S-Enter> O<Esc>
+nmap <CR> o<Esc>
+
 let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
+      \ 'ctrl-t': 'tab split',
+      \ 'ctrl-x': 'split',
+      \ 'ctrl-v': 'vsplit' }
 
 let g:lightline = {
-			\'colorscheme': 'seoul256',
-			\}
+      \'colorscheme': 'seoul256',
+      \}
 
 let g:ale_lint_on_text_changed = 'never'
 
 " Groovy Tabbar support
 let g:tagbar_type_groovy = {
-    \ 'ctagstype' : 'groovy',
-    \ 'kinds'     : [
-        \ 'p:package:1',
-        \ 'c:classes',
-        \ 'i:interfaces',
-        \ 't:traits',
-        \ 'e:enums',
-        \ 'm:methods',
-        \ 'f:fields:1'
-    \ ]
-\ }
+      \ 'ctagstype' : 'groovy',
+      \ 'kinds'     : [
+      \ 'p:package:1',
+      \ 'c:classes',
+      \ 'i:interfaces',
+      \ 't:traits',
+      \ 'e:enums',
+      \ 'm:methods',
+      \ 'f:fields:1'
+      \ ]
+      \ }
 
 " User configured hotkeys
 nmap <C-X> :TagbarToggle<CR> 
