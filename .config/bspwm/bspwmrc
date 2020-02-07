@@ -1,20 +1,23 @@
 #! /bin/sh
 
-sxhkd &
+# sxhkd &
 
-SCREEN_COUNT="$(xrandr | grep -c -w connected)"
+SCREEN_COUNT="$(polybar -m | wc -l)"
 pkill polybar
 
-if [[ $SCREEN_COUNT > 1 ]]
+if [[ $SCREEN_COUNT = 2 ]]
 then
-  bspc monitor DP1-2-8 -d  5 6 7 8
-  bspc monitor DP2-2 -d 1 2 3 4
-
-  for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+  i=1
+  a=1
+  for m in $(polybar -m | cut -d " " -f1 | cut -d ":" -f1); do
+    echo $m  $i $((i+1)) $((i+2)) $((i+3))
+    bspc monitor ^$a -d $i $((i+1)) $((i+2)) $((i+3))
     MONITOR=$m polybar --reload example -c ~/.config/polybar/bspwm-config &
+    ((i+=4))
+    ((a+=1))
   done
 else
-  m=$(xrandr --query | grep " connected" | cut -d" " -f1); 
+  m=$(polybar -m | cut -d " " -f1 | cut -d ":" -f1); 
   bspc monitor $m -d 1 2 3 4 5 6 7 8  
   MONITOR=$m polybar --reload example -c ~/.config/polybar/bspwm-config &
 fi

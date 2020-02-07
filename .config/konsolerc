@@ -8,11 +8,11 @@ Favorites=Termite.profile
 ShowMenuBarByDefault=false
 
 [MainWindow]
-Height 1080=1080
+Height 1080=1052
 MenuBar=Disabled
 State=AAAA/wAAAAD9AAAAAAAAA4QAAAP5AAAABAAAAAQAAAAIAAAACPwAAAAA
 ToolBarsMovable=Disabled
-Width 1920=1920
+Width 1920=900
 Window-Maximized 1080x1920=true
 
 [Notification Messages]

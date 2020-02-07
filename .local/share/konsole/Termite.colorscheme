@@ -104,5 +104,5 @@ RandomSaturationRange=100
 Blur=false
 ColorRandomization=false
 Description=Termite
-Opacity=0.8
+Opacity=1
 Wallpaper=
