@@ -4,7 +4,7 @@
 #                                  App Startup                                 #
 #------------------------------------------------------------------------------#
 hsetroot -solid "#0B5C70" &
-# compton -b --config ~/.config/compton.conf &
+compton &
 setxkbmap -option caps:escape &
 nm-applet &
 pamac-tray &
