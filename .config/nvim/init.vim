@@ -25,12 +25,6 @@ call plug#end()
 
 command SudoWrite w !sudo -A tee %
 
-" Insert new lines with going into INSERT
-nmap <S-Enter> O<Esc>
-nmap <CR> o<Esc>
-
-" command wx w !sudo tee %
-
 let g:fzf_action = {
       \ 'ctrl-t': 'tab split',
       \ 'ctrl-x': 'split',
