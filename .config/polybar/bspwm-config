@@ -55,7 +55,7 @@ modules-right = volume memory cpu  battery date powermenu
 
 tray-position = right
 tray-padding = 2
-padding-right = 13
+padding-right = 16
 
 tray-detached = true
 

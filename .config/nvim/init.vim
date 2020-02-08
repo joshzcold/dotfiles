@@ -4,6 +4,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'cometsong/commentframe.vim'
 Plug 'tpope/vim-commentary'
+Plug 'mbbill/undotree'
 Plug 'majutsushi/tagbar'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sheerun/vim-polyglot'
@@ -50,10 +51,16 @@ let g:tagbar_type_groovy = {
       \ ]
       \ }
 
-" User configured hotkeys
-nmap <C-X> :TagbarToggle<CR> 
-nmap <C-A> : CocCommand explorer<CR>
+"------------------------------------------------------------------------------"
+"                                 User Hotkeys                                 "
+"------------------------------------------------------------------------------"
+nmap <C-X> :TagbarToggle<CR>
+nmap <C-A> :CocCommand explorer<CR>
 nmap <C-S> :GFiles<CR>
+nmap <C-S-u> :UndotreeToggle<CR>
+"In neovim, use the option set inccommand=split to
+"get an incremental visual feedback when doing the substitude command.
+set inccommand=split
 
 " line numbers
 set number
@@ -159,8 +166,8 @@ omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
 " Use <TAB> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-nmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <TAB> <Plug>(coc-range-select)
+" nmap <silent> <TAB> <Plug>(coc-range-select)
+" xmap <silent> <TAB> <Plug>(coc-range-select)
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')

@@ -10,7 +10,8 @@ nm-applet &
 pamac-tray &
 wmname LG3D & # make intellij work with bspwm
 sxhkd &
-autorandr #use tool arandr to set monitors then save with autorandr
+autorandr & #use tool arandr to set monitors then save with autorandr
+powerkit &
 
 #------------------------------------------------------------------------------#
 #                                 BSPWM Config                                 #
