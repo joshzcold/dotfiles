@@ -4,7 +4,6 @@
 #                                  App Startup                                 #
 #------------------------------------------------------------------------------#
 hsetroot -solid "#0B5C70" &
-compton &
 setxkbmap -option caps:escape &
 nm-applet &
 pamac-tray &
