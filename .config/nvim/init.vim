@@ -2,6 +2,7 @@
 call plug#begin()
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'cometsong/commentframe.vim'
 Plug 'tpope/vim-commentary'
 Plug 'majutsushi/tagbar'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -22,9 +23,13 @@ call plug#end()
 :highlight ErrorMsg ctermfg=15 ctermbg=88 guifg=none guibg=none
 :highlight Search ctermfg=235 ctermbg=222
 
+command SudoWrite w !sudo -A tee %
+
 " Insert new lines with going into INSERT
 nmap <S-Enter> O<Esc>
 nmap <CR> o<Esc>
+
+" command wx w !sudo tee %
 
 let g:fzf_action = {
       \ 'ctrl-t': 'tab split',

@@ -82,6 +82,7 @@ export ANDROID_HOME="/home/joshua/Documents/Android"
 #export JAVA_HOME="/usr/lib/jvm/java-11-openjdk/"
 export JPDA_ADDRESS=5005
 export JPDA_TRANSPORT=dt_socket
+export SUDO_ASKPASS=/usr/bin/ksshaskpass
 
 bindkey -v
 # bind to allow deletion after exiting normal mode vi
