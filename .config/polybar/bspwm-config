@@ -24,7 +24,7 @@ width = 50%
 height = 25
 offset-x = 25%
 offset-y = 0
-radius = 5
+;radius = 5
 fixed-center = false
 override-redirect = false
 bottom = true
@@ -55,9 +55,9 @@ modules-right = volume memory cpu  battery date powermenu
 
 tray-position = right
 tray-padding = 2
-padding-right = 16
+padding-right = 2
 
-tray-detached = true
+tray-detached = false
 
 tray-offset-x = -4
 ;tray-transparent = true
