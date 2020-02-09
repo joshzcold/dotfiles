@@ -20,7 +20,7 @@ mod4 + e
 
 # Launch firefox
 mod4 + i
-  firefox
+  qutebrowser
 
 mod4 + shift + m
   /usr/bin/triple-screen-bspwm
