@@ -57,7 +57,7 @@ let g:tagbar_type_groovy = {
 nmap <C-X> :TagbarToggle<CR>
 nmap <C-A> :CocCommand explorer<CR>
 nmap <C-S> :GFiles<CR>
-nmap <C-S-u> :UndotreeToggle<CR>
+" nmap <C-S-u> :UndotreeToggle<CR>
 "In neovim, use the option set inccommand=split to
 "get an incremental visual feedback when doing the substitude command.
 set inccommand=split
