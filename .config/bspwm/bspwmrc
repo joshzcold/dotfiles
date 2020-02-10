@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 
 #------------------------------------------------------------------------------#
 #                                  App Startup                                 #
@@ -9,7 +9,6 @@ nm-applet &
 pamac-tray &
 wmname LG3D & # make intellij work with bspwm
 sxhkd &
-autorandr & #use tool arandr to set monitors then save with autorandr
 
 #------------------------------------------------------------------------------#
 #                                 BSPWM Config                                 #
@@ -22,24 +21,36 @@ bspc config split_ratio          0.52
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
+bspc config remove_disabled_monitors true
+bspc config remove_unplugged_monitors true
+bspc config merge_overlapping_monitors true
 #------------------------------------------------------------------------------#
 #                             Monitor Desktop Setup                            #
 #------------------------------------------------------------------------------#
 execute_polybar(){
   pkill polybar
-  for m in $(bspc query -M --names); do
+  for m in $(polybar -m | cut -f1 -d":"); do
     echo This is monitor for polybar $m
     MONITOR=$m polybar --reload example -c ~/.config/polybar/bspwm-config &
   done
 }
-
 monitor_setup(){
-  if [ "$(bspc query -M | wc -l)" -eq "3" ]; then
+  if [ "$(bspc query -M)" -eq "3" ]; then
+	autorandr -l work3mon & 
+  elif [ "$(bspc query -M)" -eq "2" ]; then
+	autorandr &
+  else
+	autorandr &
+  fi
+}
+
+bspwm_setup(){
+  if [ "$(polybar -m | cut -f1 -d":" | wc -l)" -eq "3" ]; then
     bspc monitor $(bspc query -M | sed -n 1p) -d 1 4
     bspc monitor $(bspc query -M | sed -n 2p) -d 2 5 
     bspc monitor $(bspc query -M | sed -n 3p) -d 3 6
     execute_polybar
-  elif [ "$(bspc query -M | wc -l)" -eq "2" ]; then
+  elif [ "$(polybar -m | cut -f1 -d":" | wc -l)" -eq "2" ]; then
     bspc monitor $(bspc query -M | sed -n 1p) -d 1 3 6
     bspc monitor $(bspc query -M | sed -n 2p) -d 2 4 5
     execute_polybar
@@ -54,6 +65,7 @@ bspc subscribe monitor | while read -r line; do
 case $line in
   monitor_add*|monitor_geometry*)
     monitor_setup
+    bspwm_setup
     ;;
   *)
     ;;
