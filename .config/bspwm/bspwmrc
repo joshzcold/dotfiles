@@ -1,65 +1,75 @@
-#! /bin/bash
+#! /bin/bash -xe
 
 #------------------------------------------------------------------------------#
 #                                  App Startup                                 #
 #------------------------------------------------------------------------------#
-hsetroot -solid "#0B5C70" &
-setxkbmap -option caps:escape &
+hsetroot -solid "#0B5C70" 
+setxkbmap -option caps:escape 
 nm-applet &
 pamac-tray &
-wmname LG3D & # make intellij work with bspwm
-sxhkd &
+wmname LG3D  # make intellij work with bspwm
+pkill bspc &
+pkill polybar &
+case "$(pidof sxhkd | wc -w)" in
+
+0)  echo "Starting sxhkd:"
+    sxhkd &
+    ;;
+1)  echo "sxhkd already running"
+    ;;
+esac
 
 #------------------------------------------------------------------------------#
 #                                 BSPWM Config                                 #
 #------------------------------------------------------------------------------#
-bspc config border_width         2
-bspc config window_gap          12
-bspc config focus_follows_pointer true
-
-bspc config split_ratio          0.52
-bspc config borderless_monocle   true
-bspc config gapless_monocle      true
-
-bspc config remove_disabled_monitors true
-bspc config remove_unplugged_monitors true
+bspc config border_width         2 &
+bspc config window_gap          12 &
+bspc config focus_follows_pointer true &
+bspc config split_ratio          0.52 &
+bspc config borderless_monocle   true &
+bspc config gapless_monocle      true &
+bspc config remove_disabled_monitors true &
+bspc config remove_unplugged_monitors true &
 # bspc config merge_overlapping_monitors true
 #------------------------------------------------------------------------------#
 #                             Monitor Desktop Setup                            #
 #------------------------------------------------------------------------------#
 execute_polybar(){
-  pkill polybar
   for m in $(polybar -m | cut -f1 -d":"); do
     echo This is monitor for polybar $m
     MONITOR=$m polybar --reload example -c ~/.config/polybar/bspwm-config &
   done
 }
 monitor_setup(){
-  if [ "$(bspc query -M)" -eq "3" ]; then
-	autorandr -l work3mon & 
-  elif [ "$(bspc query -M)" -eq "2" ]; then
+  pkill polybar &
+  if [ "$(bspc query -M | wc -l)" -eq "3" ]; then
+	autorandr -l work &
+  elif [ "$(bspc query -M | wc -l)" -eq "2" ]; then
 	autorandr &
   else
-	autorandr &
+	autorandr -l laptop &
+
   fi
 }
 
 bspwm_setup(){
   if [ "$(polybar -m | cut -f1 -d":" | wc -l)" -eq "3" ]; then
+    echo 3 monitor
     bspc monitor $(bspc query -M | sed -n 1p) -d 1 2
     bspc monitor $(bspc query -M | sed -n 2p) -d 3 4
     bspc monitor $(bspc query -M | sed -n 3p) -d 5 6
     execute_polybar
   elif [ "$(polybar -m | cut -f1 -d":" | wc -l)" -eq "2" ]; then
+    echo 2 monitor
     bspc monitor $(bspc query -M | sed -n 1p) -d 1 2 3
     bspc monitor $(bspc query -M | sed -n 2p) -d 4 5 6
     execute_polybar
   else
+    echo 1 monitor
     bspc monitor -d 1 2 3 4 5 6
     execute_polybar
   fi
 }
-
 # Subcribe to monitor changes and execute monitor setup
 bspc subscribe monitor | while read -r line; do
 case $line in
@@ -73,6 +83,7 @@ esac
 done &
 
 monitor_setup #Execute Monitor Setup
+bspwm_setup
 
 #------------------------------------------------------------------------------#
 #                                 Window Rules                                 #

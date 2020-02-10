@@ -20,3 +20,6 @@ settings:
     - termite
     - -e
     - vim {}
+  url.searchengines:
+    global:
+      DEFAULT: https://google.com/search?q={}
