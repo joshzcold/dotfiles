@@ -42,12 +42,20 @@ execute_polybar(){
 }
 monitor_setup(){
   pkill polybar &
-  if [ "$(bspc query -M | wc -l)" -eq "3" ]; then
-	autorandr -l work &
+  MON=$(bspc query -M)
+  COUNT=$(bspc query -M | wc -l)
+  if [ $COUNT -eq "3" ]; then
+    if [[ "${MON[@]}" =~ "0x00400012" ]]; then
+      autorandr -l work &
+      echo found DP1-2-8
+    fi
   elif [ "$(bspc query -M | wc -l)" -eq "2" ]; then
-	autorandr &
+    if [[ "${MON[@]}" =~ "0x00400012" ]]; then
+      autorandr -l work &
+      echo found DP1-2-8
+    fi
   else
-	autorandr -l laptop &
+    autorandr -l laptop &
 
   fi
 }
