@@ -1,8 +1,8 @@
 [Desktop Entry]
-DefaultProfile=Termite.profile
+DefaultProfile=Main.profile
 
 [Favorite Profiles]
-Favorites=Termite.profile
+Favorites=Main.profile
 
 [KonsoleWindow]
 ShowMenuBarByDefault=false
