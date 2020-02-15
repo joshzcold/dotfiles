@@ -17,6 +17,12 @@ settings:
   confirm_quit:
     global:
     - multiple-tabs
+  content.desktop_capture:
+    https://teams.microsoft.com: true
+    https://zoom.us: true
+  content.media_capture:
+    https://teams.microsoft.com: true
+    https://zoom.us: true
   content.notifications:
     https://teams.microsoft.com: true
     https://www.reddit.com: false
