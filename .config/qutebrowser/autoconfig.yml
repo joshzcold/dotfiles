@@ -31,6 +31,8 @@ settings:
     - termite
     - -e
     - vim {}
+  scrolling.smooth:
+    global: false
   url.searchengines:
     global:
       DEFAULT: https://google.com/search?q={}
