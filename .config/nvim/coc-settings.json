@@ -5,13 +5,5 @@
       "args" : ["-jar", "/opt/groovy-language-server/build/libs/groovy-language-server.jar"],
       "filetypes": ["groovy"]
      }
-  },
-  "languageserver": {
-    "bash": {
-      "command": "bash-language-server",
-      "args": ["start"],
-      "filetypes": ["sh"],
-      "ignoredRootPaths": ["~"]
-    }
   }
 }

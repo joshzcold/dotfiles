@@ -80,6 +80,7 @@ alias markdown-preview="grip -b "
 alias vssh="ssh -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null"
 alias kdel="kubectl delete -f"
 alias kcre="kubectl apply -f"
+export KUBECONFIG=~/.kube/aa_cluster.yaml
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 export ANDROID_HOME="/home/joshua/Documents/Android"
 #export JAVA_HOME="/usr/lib/jvm/java-11-openjdk/"

@@ -17,8 +17,11 @@ settings:
   confirm_quit:
     global:
     - multiple-tabs
+  content.desktop_capture:
+    https://teams.microsoft.com: true
   content.notifications:
     https://teams.microsoft.com: true
+    https://web.whatsapp.com: true
     https://www.reddit.com: false
   editor.command:
     global:

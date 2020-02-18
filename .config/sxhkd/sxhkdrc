@@ -13,6 +13,13 @@ mod4 + d
 # program launcher
 mod4 + w
 	rofi -show window
+# screen shot selection
+Print
+  maim -s | xclip -selection clipboard -t image/png
+
+# screen shot selection
+mod4 + p
+  maim -s | xclip -selection clipboard -t image/png
 
 # emoji picker Enter to copy to clipboard
 mod4 + e
