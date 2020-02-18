@@ -5,6 +5,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'cometsong/commentframe.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'inkarkat/vim-ingo-library'
+Plug 'vim-scripts/SyntaxRange'
 Plug 'mbbill/undotree'
 Plug 'majutsushi/tagbar'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}

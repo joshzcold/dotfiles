@@ -19,6 +19,10 @@ settings:
     - multiple-tabs
   content.desktop_capture:
     https://teams.microsoft.com: true
+    https://zoom.us: true
+  content.media_capture:
+    https://teams.microsoft.com: true
+    https://zoom.us: true
   content.notifications:
     https://teams.microsoft.com: true
     https://web.whatsapp.com: true
@@ -28,6 +32,8 @@ settings:
     - termite
     - -e
     - vim {}
+  scrolling.smooth:
+    global: false
   url.searchengines:
     global:
       DEFAULT: https://google.com/search?q={}
