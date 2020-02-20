@@ -1,9 +1,0 @@
-{
-  "languageserver": {
-    "groovy": {
-      "command": "java",
-      "args" : ["-jar", "/opt/groovy-language-server/build/libs/groovy-language-server.jar"],
-      "filetypes": ["groovy"]
-     }
-  }
-}
