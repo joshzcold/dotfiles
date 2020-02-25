@@ -20,11 +20,14 @@ settings:
   content.desktop_capture:
     https://teams.microsoft.com: true
     https://zoom.us: true
+  content.geolocation:
+    https://www.google.com: true
   content.media_capture:
     https://teams.microsoft.com: true
     https://zoom.us: true
   content.notifications:
     https://teams.microsoft.com: true
+    https://web.whatsapp.com: true
     https://www.reddit.com: false
   editor.command:
     global:
