@@ -67,3 +67,5 @@ Jellyfin - Remote http://68.66.170.109:32103/web/index.html
 Movies - Radarr - Remote http://68.66.170.109:32105/
 Sonarr - Remote http://68.66.170.109:32104/
 NZBGet - Remote http://68.66.170.109:32106/
+Microfocus product downloads https://dl.netiq.com/index.jsp
+Edir Team Build Server http://blr-iam-jenkins3.labs.blr.novell.com:8080

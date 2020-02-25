@@ -22,10 +22,14 @@ settings:
     https://zoom.us: true
   content.geolocation:
     https://www.google.com: true
+    https://web.fuze.com: true
+  content.geolocation:
+    https://www.google.com: false
   content.media_capture:
     https://teams.microsoft.com: true
-    https://zoom.us: true
+    https://web.fuze.com: true
   content.notifications:
+    https://examples.javacodegeeks.com: false
     https://teams.microsoft.com: true
     https://web.whatsapp.com: true
     https://www.reddit.com: false
@@ -34,8 +38,6 @@ settings:
     - termite
     - -e
     - vim {}
-  scrolling.smooth:
-    global: false
   url.searchengines:
     global:
       DEFAULT: https://google.com/search?q={}
