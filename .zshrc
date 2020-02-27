@@ -87,6 +87,7 @@ export ANDROID_HOME="/home/joshua/Documents/Android"
 export JPDA_ADDRESS=5005
 export JPDA_TRANSPORT=dt_socket
 export SUDO_ASKPASS=/usr/bin/ksshaskpass
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
 
 bindkey -v
 # bind to allow deletion after exiting normal mode vi
