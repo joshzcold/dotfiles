@@ -162,8 +162,22 @@ bar {
 }
 
 #set the lock screen
-bindsym Ctrl+Shift+l exec i3lock-fancy-rapid 5 3
+set $Locker i3lock-fancy-rapid 5 3 && sleep 1
 
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym Ctrl+Shift+l mode "$mode_system"
 # Pulse Audio Controls
 #increase volume
 bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 5
@@ -184,23 +198,20 @@ new_window 1pixel
 default_border pixel 3
 
 # Gaps
-gaps outer 12
-gaps inner 12
+gaps outer 4
+gaps inner 8
 
 # Shortcuts for starting foreground applications
 bindsym $mod+i exec qutebrowser
-bindsym $mod+Shift+m exec /usr/bin/polybar-reload
 bindsym $mod+u exec idea
 
 # Execute programs on i3 startup
 
 #triple monitor setup and polybar
 exec_always --no-startup-id autorandr
-#exec_always --no-startup-id nitrogen --restore
 exec_always --no-startup-id xfsettingsd
 exec_always --no-startup-id hsetroot -solid "#0B5C70"
 exec --no-startup-id /usr/bin/compton -b --config ~/.config/compton.conf
 exec_always --no-startup-id setxkbmap -option caps:escape
 exec_always --no-startup-id nm-applet 
 exec_always --no-startup-id pamac-tray
-#exec_always --no-startup-id polybar-reload
