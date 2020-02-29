@@ -8,25 +8,25 @@
 ;=====================================================
 
 [colors]
-background = #1b1d1e
+background = #212121
 background-alt = #c79081
-foreground = #FFFFFF
+foreground = #EEFFFF
 foreground-alt = #000000
-primary = #ffb52a
-secondary = #e60053
-alert = #bd2c40
+primary = #89ddff
+secondary = #EEFFFF
+alert = #F07178
 
 [bar/example]
 ;monitor = ${env:MONITOR:DP2-2}
 ;monitor = ${env:MONITOR:DP1-2-8}
-monitor = ${env:MONITOR:eDP1}
-width = 100%
+monitor = ${env:MONITOR}
+width = 50%
 height = 25
-offset-x = 0
+offset-x = 25%
 offset-y = 0
-radius = 0
+;radius = 5
 fixed-center = false
-override-redirect = false
+override-redirect = true
 bottom = true
 
 background = ${colors.background}
@@ -39,35 +39,39 @@ border-size = 0
 border-color = #00000000
 
 padding-left = 2
-padding-right = 2
+; padding-right = 2
 
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = FontAwesome 5 Brands:pixelsize=10;0
-font-1 = FontAwesome 5 Free:style=Solid:pixelsize=10;2
-font-2 = FontAwesome 5 Free:pixelsize=10;2
-font-3 = Roboto:style=Regular:pixelsize=10;2
+; font-1 = FontAwesome 5 Brands:pixelsize=10;0
+font-0 = FontAwesome 5 Free:style=Solid:pixelsize=10;2
+; font-2 = FontAwesome 5 Free:pixelsize=10;2
+font-1 = Roboto:style=Regular:pixelsize=10;2
 
 modules-left = i3
 modules-center = 
-modules-right = volume memory cpu wlan eth battery date powermenu
+modules-right = volume memory cpu  battery date powermenu
 
 tray-position = right
 tray-padding = 2
+padding-right = 2
+
+tray-detached = false
+
+tray-offset-x = -4
 ;tray-transparent = true
 ;tray-background = #0063ff
 
-;wm-restack = bspwm
-wm-restack = i3
+;wm-restack = i3
 
 ;override-redirect = true
 
 ;scroll-up = bspwm-desknext
 ;scroll-down = bspwm-deskprev
 
-;scroll-up = i3wm-wsnext
-;scroll-down = i3wm-wsprev
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -105,35 +109,14 @@ label-unmounted-foreground = ${colors.foreground-alt}
 [module/i3]
 type = internal/i3
 
+; Only show workspaces defined on the same output as the bar
+;
+; Useful if you want to show monitor specific workspaces
+; on different bars
+;
+; Default: false
 pin-workspaces = true
-strip-wsnumbers = true
-index-sort = true
-enable-scroll = false
 
-format = <label-state>
-format-padding-right = 2
-
-label-unfocused-foreground = ${colors.secondary}
-label-unfocused-padding = 1
-
-label-focused-foreground = ${colors.primary}
-label-focused-padding = 1
-
-label-urgent-foreground = ${colors.alert}
-label-urgent-padding = 1
-
-[module/mpd]
-type = internal/mpd
-format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
-
-icon-prev = 
-icon-stop = 
-icon-play = 
-icon-pause = 
-icon-next = 
-
-label-song-maxlen = 25
-label-song-ellipsis = true
 
 [module/xbacklight]
 type = internal/xbacklight
@@ -216,14 +199,11 @@ type = internal/date
 interval = 5
 
 date = %m-%d
-date-alt = " %Y-%m-%d"
-
 time = %I:%M
-time-alt = %H:%M:%S
 
 format-prefix = " "   
 format-prefix-foreground = ${root.foreground}
-format-underline = #0a6cf5
+format-underline = ${root.foreground}
 
 label = %date% %time%
 
@@ -235,8 +215,8 @@ label-volume = 
 label-volume-foreground = ${root.foreground}
 
 format-muted-prefix = 
-format-muted-foreground = ${colors.foreground-alt}
-label-muted = " muted "
+format-muted-foreground = ${colors.foreground}
+label-muted = " "
 
 bar-volume-width = 10
 bar-volume-foreground-0 = ${colors.primary}
@@ -246,11 +226,11 @@ bar-volume-foreground-3 = ${colors.primary}
 bar-volume-foreground-4 = ${colors.primary}
 bar-volume-foreground-5 = ${colors.alert}
 bar-volume-foreground-6 = ${colors.alert}
-bar-volume-gradient = false
-bar-volume-indicator = 
+bar-volume-gradient = true
+bar-volume-indicator = +
 bar-volume-indicator-font = 2
-bar-volume-fill = -
-bar-volume-fill-font = 2
+bar-volume-fill = \
+bar-volume-fill-font = 1
 bar-volume-empty = -
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.foreground-alt}
@@ -321,6 +301,8 @@ menu-0-1 = 
 menu-0-1-exec = menu-open-2
 menu-0-2 = 
 menu-0-2-exec = menu-open-3
+menu-0-3 = 
+menu-0-3-exec = menu-open-4
 
 menu-1-0 = 
 menu-1-0-exec = menu-open-0
@@ -333,9 +315,15 @@ menu-2-1 = 
 menu-2-1-exec = menu-open-0
 
 menu-3-0 = 
-menu-3-0-exec = i3-msg exit
+menu-3-0-exec = bspc quit
 menu-3-1 = 
 menu-3-1-exec = menu-open-0
+
+menu-4-0 = 
+menu-4-0-exec = systemctl suspend
+menu-4-1 = 
+menu-4-1-exec = menu-open-0
+
 
 [settings]
 screenchange-reload = true
@@ -344,8 +332,3 @@ screenchange-reload = true
 ;compositing-foreground = source
 ;compositing-border = over
 
-[global/wm]
-margin-top = 5
-margin-bottom = 5
-
-; vim:ft=dosini
