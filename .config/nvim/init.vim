@@ -18,6 +18,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'mattn/emmet-vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'pechorin/any-jump.vim'
 call plug#end()
 
 " color tweaks
@@ -60,6 +61,7 @@ nmap <C-X> :TagbarToggle<CR>
 nmap <C-A> :CocCommand explorer<CR>
 nmap <C-S> :GFiles<CR>
 nmap <C-C> :Rg<CR>
+nmap <silent> gd :AnyJump<CR>
 " nmap <C-S-u> :UndotreeToggle<CR>
 "In neovim, use the option set inccommand=split to
 "get an incremental visual feedback when doing the substitude command.
@@ -130,7 +132,6 @@ inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)

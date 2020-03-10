@@ -18,7 +18,12 @@ alias kcre="kubectl apply -f"
 export KUBECONFIG=~/.kube/devops_cluster.yaml
 export SUDO_ASKPASS=/usr/bin/ksshaskpass
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
-
+export GOVC_INSECURE=1
+# export GOVC_URL="https://vlabvc08.nqeng.lab/sdk"
+export GOVC_URL=https://prvengvc01.nqeng.lab/sdk
+export GOVC_DATACENTER=Main
+# export GOVC_DATACENTER="K8S"
+export GOVC_USERNAME="corpdom\jcold"
 bindkey -v
 # bind to allow deletion after exiting normal mode vi
 bindkey "^?" backward-delete-char

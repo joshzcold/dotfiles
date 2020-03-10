@@ -24,7 +24,7 @@ bindsym $mod+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec rofi -show drun
-bindsym $mod+e exec emoji-keyboard 
+bindsym $mod+e exec rofi -show emoji -modi emoji
 
 # Try to get fibbinochi windows
 # ------------
@@ -214,4 +214,5 @@ exec_always --no-startup-id /usr/bin/compton -b --config ~/.config/compton.conf
 exec_always --no-startup-id setxkbmap -option caps:escape
 exec_always --no-startup-id nm-applet 
 exec_always --no-startup-id pamac-tray
+exec_always --no-startup-id wmnme LG3D
 exec_always --no-startup-id /usr/bin/i3-focus-last
