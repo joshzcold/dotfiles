@@ -9,22 +9,32 @@ set $alt Mod1
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+bindsym $mod+Tab workspace back_and_forth
+bindsym $alt+Tab [con_mark=_last] focus
+
 # start a terminal
 bindsym $mod+Return exec termite
 
 # take a selection screen shot
 bindsym Print exec maim -s | xclip -selection clipboard -t image/png
+bindsym $mod+s exec maim -s | xclip -selection clipboard -t image/png
 
 # kill focused window
 bindsym $mod+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec rofi -show drun
-bindsym $mod+e exec emoji-keyboard -k
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+e exec rofi -show emoji -modi emoji
+
+# Try to get fibbinochi windows
+# ------------
+# |      | B | 
+# |  A   |---|
+# |      | C |
+# ------------
+default_orientation horizontal #start in opposite orientation from your monitor
+for_window [class=".*"] split toggle #toggles split at each new window
+bindsym $mod+w layout toggle split # should already exist but use if split orientation  messes up
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -32,16 +42,16 @@ bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-bindsym $mod+h focus down
-bindsym $mod+j focus left
-bindsym $mod+k focus right
-bindsym $mod+l focus up
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # move focused window
-bindsym $mod+Shift+h move down
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move right
-bindsym $mod+Shift+l move up
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -53,8 +63,8 @@ bindsym $mod+Shift+Right move right
 
 bindsym $mod+c split h
 bindsym $mod+v split v
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+# bindsym $mod+s layout stacking
+# bindsym $mod+w layout tabbed
 
 bindsym Ctrl+$alt+Shift+h layout splith
 bindsym Ctrl+$alt+Shift+v layout splitv
@@ -139,13 +149,34 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 ## finds out, if available)
-#bar {
-#        status_command i3status
-#}
+bar {
+        tray_output primary
+        status_command i3status --config ~/.config/i3/i3status.conf
+        tray_padding 0
+        strip_workspace_numbers yes
+        colors {
+        background #212121
+        statusline #EEFFFF
+        }
+}
 
 #set the lock screen
-bindsym Ctrl+Shift+l exec i3lock-fancy-rapid 5 3
+set $Locker i3lock-fancy-rapid 5 3 && sleep 1
 
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym Ctrl+Shift+l mode "$mode_system"
 # Pulse Audio Controls
 #increase volume
 bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 5
@@ -166,23 +197,22 @@ new_window 1pixel
 default_border pixel 3
 
 # Gaps
-gaps outer 12
-gaps inner 15
-border_radius 0
+gaps outer 4
+gaps inner 8
 
 # Shortcuts for starting foreground applications
-bindsym $mod+i exec firefox
-bindsym $mod+Shift+m exec triple-screen
+bindsym $mod+i exec qutebrowser
 bindsym $mod+u exec idea
 
 # Execute programs on i3 startup
 
 #triple monitor setup and polybar
-exec_always --no-startup-id /bin/triple-screen
-#exec_always --no-startup-id nitrogen --restore
+exec_always --no-startup-id autorandr
 exec_always --no-startup-id xfsettingsd
-exec_always --no-startup-id hsetroot -solid "#c79081"
-exec --no-startup-id /usr/bin/compton -b --config ~/.config/compton.conf
+exec_always --no-startup-id hsetroot -solid "#0B5C70"
+exec_always --no-startup-id /usr/bin/compton -b --config ~/.config/compton.conf
 exec_always --no-startup-id setxkbmap -option caps:escape
 exec_always --no-startup-id nm-applet 
 exec_always --no-startup-id pamac-tray
+exec_always --no-startup-id wmnme LG3D
+exec_always --no-startup-id /usr/bin/i3-focus-last
