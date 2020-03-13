@@ -7,19 +7,9 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'inkarkat/vim-ingo-library'
 Plug 'vim-scripts/SyntaxRange'
-" Vim LSP plugins
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
-Plug 'Shougo/deoplete.nvim'
-Plug 'lighttiger2505/deoplete-vim-lsp'
-Plug 'thomasfaingnaert/vim-lsp-snippets'
-Plug 'thomasfaingnaert/vim-lsp-ultisnips'
-" End Vim LSP Plugins
-
 Plug 'mbbill/undotree'
 Plug 'majutsushi/tagbar'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sheerun/vim-polyglot'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'godlygeek/tabular'
@@ -38,15 +28,6 @@ call plug#end()
 :highlight Search ctermfg=235 ctermbg=222
 
 command SudoWrite w !sudo -A tee %
-
-let g:lsp_signs_enabled = 1         " enable signs
-let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
-let g:deoplete#enable_at_startup = 1
-let g:lsp_highlight_references_enabled = 1
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-
 
 let g:fzf_action = {
       \ 'ctrl-t': 'tab split',
@@ -106,14 +87,14 @@ let g:UltiSnipsExpandTrigger = "<nop>"
 " coc.nvim configuration
 "===================================================================
 " if hidden is not set, TextEdit might fail.
-"set hidden
+set hidden
 
-"" Some servers have issues with backup files, see #649
-"set nobackup
-"set nowritebackup
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
 
-"" Better display for messages
-"set cmdheight=2
+" Better display for messages
+set cmdheight=2
 
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=300
@@ -185,4 +166,3 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
