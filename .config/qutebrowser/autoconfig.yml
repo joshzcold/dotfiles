@@ -19,6 +19,9 @@ settings:
     - multiple-tabs
   content.desktop_capture:
     https://teams.microsoft.com: true
+    https://zoom.us: true
+  content.geolocation:
+    https://www.google.com: true
     https://web.fuze.com: true
   content.geolocation:
     https://www.google.com: false

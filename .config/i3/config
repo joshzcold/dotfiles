@@ -151,7 +151,7 @@ bindsym $mod+r mode "resize"
 ## finds out, if available)
 bar {
         tray_output primary
-        status_command i3status --config ~/.config/i3/i3status.conf
+        status_command i3status 
         tray_padding 0
         strip_workspace_numbers yes
         colors {
@@ -210,7 +210,6 @@ bindsym $mod+u exec idea
 exec_always --no-startup-id autorandr
 exec_always --no-startup-id xfsettingsd
 exec_always --no-startup-id hsetroot -solid "#0B5C70"
-exec_always --no-startup-id /usr/bin/compton -b --config ~/.config/compton.conf
 exec_always --no-startup-id setxkbmap -option caps:escape
 exec_always --no-startup-id nm-applet 
 exec_always --no-startup-id pamac-tray
