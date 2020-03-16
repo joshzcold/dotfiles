@@ -1,6 +1,8 @@
 [Appearance]
+AntiAliasFonts=true
+BoldIntense=true
 ColorScheme=Termite
-Font=Iosevka Light,11,-1,5,25,0,0,0,0,0,Regular
+Font=Hack,11,-1,5,50,0,0,0,0,0,Regular
 LineSpacing=0
 UseFontLineChararacters=true
 
