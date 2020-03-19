@@ -8,14 +8,11 @@ Plug 'tpope/vim-surround'
 Plug 'inkarkat/vim-ingo-library'
 Plug 'vim-scripts/SyntaxRange'
 Plug 'mbbill/undotree'
-Plug 'majutsushi/tagbar'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sheerun/vim-polyglot'
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'godlygeek/tabular'
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'mattn/emmet-vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'pechorin/any-jump.vim'
@@ -40,24 +37,9 @@ let g:lightline = {
 
 let g:ale_lint_on_text_changed = 'never'
 
-" Groovy Tabbar support
-let g:tagbar_type_groovy = {
-      \ 'ctagstype' : 'groovy',
-      \ 'kinds'     : [
-      \ 'p:package:1',
-      \ 'c:classes',
-      \ 'i:interfaces',
-      \ 't:traits',
-      \ 'e:enums',
-      \ 'm:methods',
-      \ 'f:fields:1'
-      \ ]
-      \ }
-
 "------------------------------------------------------------------------------"
 "                                 User Hotkeys                                 "
 "------------------------------------------------------------------------------"
-nmap <C-X> :TagbarToggle<CR>
 nmap <C-A> :CocCommand explorer<CR>
 nmap <C-S> :GFiles<CR>
 nmap <C-C> :Rg<CR>

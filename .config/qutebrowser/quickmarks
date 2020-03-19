@@ -69,3 +69,5 @@ Sonarr - Remote http://68.66.170.109:32104/
 NZBGet - Remote http://68.66.170.109:32106/
 Microfocus product downloads https://dl.netiq.com/index.jsp
 Edir Team Build Server http://blr-iam-jenkins3.labs.blr.novell.com:8080
+Jenkins Pipeline Syntax https://jenkins.io/doc/book/pipeline/syntax/
+TAL automation dashboard http://151.155.162.1/

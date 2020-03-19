@@ -214,4 +214,5 @@ exec_always --no-startup-id setxkbmap -option caps:escape
 exec_always --no-startup-id nm-applet 
 exec_always --no-startup-id pamac-tray
 exec_always --no-startup-id wmnme LG3D
+exec_always --no-startup-id keynav
 exec_always --no-startup-id /usr/bin/i3-focus-last

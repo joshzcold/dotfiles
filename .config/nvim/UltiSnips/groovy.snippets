@@ -11,6 +11,14 @@ snippet stage "Jenkins Stage Template" b
     }
 endsnippet
 
+snippet string "Jenkins string parameter" b
+string(name: '${1}', defaultValue: '${2}', description: '${3}')
+endsnippet
+
+snippet text "Jenkins text parameter" b
+text(name: '${1}', defaultValue: '${2}', description: '${3}')
+endsnippet
+
 snippet k8s_pipeline "Jenkins Pipeline with kubernetes Pod" b
 
 pipeline {
