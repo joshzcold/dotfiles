@@ -25,6 +25,7 @@ call plug#end()
 :highlight Search ctermfg=235 ctermbg=222
 
 command SudoWrite w !sudo -A tee %
+command Gsync :Gwrite <bar>:Gcommit -m "pipeline small tweak, git sync" <bar>:Gpush
 
 let g:fzf_action = {
       \ 'ctrl-t': 'tab split',
