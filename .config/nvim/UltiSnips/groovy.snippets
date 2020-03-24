@@ -3,6 +3,11 @@ sh"""
 ${1:echo 'Hello World!'}
 """
 endsnippet
+
+snippet input "Jenkins pause for Input" b
+stage('Pause for Input'){ input { message "Should we continue?" ok "Yes, we should." } steps{ echo "continue" } }
+endsnippet
+
 snippet stage "Jenkins Stage Template" b
     stage('${1:Stage}') {
       steps {

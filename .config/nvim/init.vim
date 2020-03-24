@@ -38,6 +38,17 @@ let g:lightline = {
 
 let g:ale_lint_on_text_changed = 'never'
 
+
+inoremap (<CR> (<CR>)<C-c>O
+inoremap {<CR> {<CR>}<C-c>O
+inoremap [<CR> [<CR>]<C-c>O
+
+inoremap (;<CR> (<CR>);<C-c>O
+inoremap (,<CR> (<CR>),<C-c>O
+inoremap {;<CR> {<CR>};<C-c>O
+inoremap {,<CR> {<CR>},<C-c>O
+inoremap [;<CR> [<CR>];<C-c>O
+inoremap [,<CR> [<CR>],<C-c>O
 "------------------------------------------------------------------------------"
 "                                 User Hotkeys                                 "
 "------------------------------------------------------------------------------"
