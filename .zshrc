@@ -33,6 +33,9 @@ function zle-keymap-select() {
   zle -R
 }
 
+function notes(){
+  cat $(readlink -f $(find ~/codepaste -not -path '*/\.*' -type f | fzf))
+}
 
 zle -N zle-keymap-select
 function vi_mode_prompt_info() {
