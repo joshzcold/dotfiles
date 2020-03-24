@@ -34,7 +34,7 @@ bindsym $mod+e exec rofi -show emoji -modi emoji
 # ------------
 default_orientation horizontal #start in opposite orientation from your monitor
 for_window [class=".*"] split toggle #toggles split at each new window
-bindsym $mod+w layout toggle split # should already exist but use if split orientation  messes up
+bindsym $mod+w layout toggle  # should already exist but use if split orientation  messes up
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -64,7 +64,6 @@ bindsym $mod+Shift+Right move right
 bindsym $mod+c split h
 bindsym $mod+v split v
 # bindsym $mod+s layout stacking
-# bindsym $mod+w layout tabbed
 
 bindsym Ctrl+$alt+Shift+h layout splith
 bindsym Ctrl+$alt+Shift+v layout splitv
@@ -163,7 +162,7 @@ bar {
 #set the lock screen
 set $Locker i3lock-fancy-rapid 5 3 && sleep 1
 
-set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+set $mode_system System (l) lock, (e) logout, (s) suspend, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id $Locker, mode "default"
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
