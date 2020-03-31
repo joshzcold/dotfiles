@@ -11,6 +11,7 @@ Plug 'mbbill/undotree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sheerun/vim-polyglot'
 Plug 'godlygeek/tabular'
+Plug 'mbbill/undotree'
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'SirVer/ultisnips'
@@ -24,9 +25,13 @@ call plug#end()
 :highlight ErrorMsg ctermfg=15 ctermbg=88 guifg=none guibg=none
 :highlight Search ctermfg=235 ctermbg=222
 
+" attempt to write the file with sudo 
 command SudoWrite w !sudo -A tee %
 command CypressOpen !./node_modules/cypress/bin/cypress open &
+" Push a change just on current file with no intervention
 command Gsync :Gwrite <bar>:Gcommit -m "pipeline small tweak, git sync" <bar>:Gpush
+" Delete surrounding and keep inner content
+command DeleteEnclosing :normal $%dd''.==
 
 let g:fzf_action = {
       \ 'ctrl-t': 'tab split',
@@ -39,11 +44,10 @@ let g:lightline = {
 
 let g:ale_lint_on_text_changed = 'never'
 
-
+" auto pairing
 inoremap (<CR> (<CR>)<C-c>O
 inoremap {<CR> {<CR>}<C-c>O
 inoremap [<CR> [<CR>]<C-c>O
-
 inoremap (;<CR> (<CR>);<C-c>O
 inoremap (,<CR> (<CR>),<C-c>O
 inoremap {;<CR> {<CR>};<C-c>O
@@ -53,16 +57,33 @@ inoremap [,<CR> [<CR>],<C-c>O
 "------------------------------------------------------------------------------"
 "                                 User Hotkeys                                 "
 "------------------------------------------------------------------------------"
+" file explorer
 nmap <C-A> :CocCommand explorer<CR>
+" fzf git files
 nmap <C-S> :GFiles<CR>
-nmap <C-C> :Rg<CR>
+" rip grep
+nmap <C-C> :Rg<CR> 
 nmap <silent> gd :AnyJump<CR>
-" nmap <C-S-u> :UndotreeToggle<CR>
+nmap u :UndotreeToggle<CR> <C-w><C-w>
+" easy switch windows
+nnoremap <c-j> <c-w>j
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+nnoremap <c-k> <c-w>k
+" traversal by line wraps
+nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
+nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+
 "In neovim, use the option set inccommand=split to
 "get an incremental visual feedback when doing the substitude command.
 set inccommand=split
 set diffopt+=vertical
 set nohlsearch
+set undofile
+set undodir=~/.config/nvim/undodir
+set smartcase
+set ignorecase
+
 
 
 " line numbers
@@ -112,9 +133,6 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-let g:coc_snippet_next = '<tab>'
-" end neoclide/coc-snippets
-
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
@@ -141,8 +159,6 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
 xmap <leader>a  <Plug>(coc-codeaction-selected)
