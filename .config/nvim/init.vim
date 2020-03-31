@@ -25,6 +25,7 @@ call plug#end()
 :highlight Search ctermfg=235 ctermbg=222
 
 command SudoWrite w !sudo -A tee %
+command CypressOpen !./node_modules/cypress/bin/cypress open &
 command Gsync :Gwrite <bar>:Gcommit -m "pipeline small tweak, git sync" <bar>:Gpush
 
 let g:fzf_action = {
@@ -61,6 +62,8 @@ nmap <silent> gd :AnyJump<CR>
 "get an incremental visual feedback when doing the substitude command.
 set inccommand=split
 set diffopt+=vertical
+set nohlsearch
+
 
 " line numbers
 set number

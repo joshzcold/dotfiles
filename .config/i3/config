@@ -10,7 +10,6 @@ set $alt Mod1
 floating_modifier $mod
 
 bindsym $mod+Tab workspace back_and_forth
-bindsym $alt+Tab [con_mark=_last] focus
 
 # start a terminal
 bindsym $mod+Return exec konsole
@@ -34,7 +33,7 @@ bindsym $mod+e exec rofi -show emoji -modi emoji
 # ------------
 default_orientation horizontal #start in opposite orientation from your monitor
 for_window [class=".*"] split toggle #toggles split at each new window
-bindsym $mod+w layout toggle  # should already exist but use if split orientation  messes up
+bindsym $mod+w layout toggle split  # should already exist but use if split orientation  messes up
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -214,4 +213,6 @@ exec_always --no-startup-id nm-applet
 exec_always --no-startup-id pamac-tray
 exec_always --no-startup-id wmnme LG3D
 exec_always --no-startup-id keynav
-exec_always --no-startup-id /usr/bin/i3-focus-last
+for_window [class="Cypress"] floating enable
+for_window [class="Google-chrome"] floating enable
+

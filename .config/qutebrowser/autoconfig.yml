@@ -30,6 +30,8 @@ settings:
     https://teams.microsoft.com: true
     https://web.whatsapp.com: true
     https://www.reddit.com: false
+  content.user_stylesheets:
+    global: null
   editor.command:
     global:
     - termite
