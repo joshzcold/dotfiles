@@ -8,16 +8,16 @@ configuration {
 	display-run:     "Execute";
 	display-window:  "Window";
 	show-icons:      true;
-	sidebar-mode:    true;
+	sidebar-mode:    false;
 }
 
 * {
-	background-color:            #080808;
+	background-color:            #282828;
 	text-color:                  #d3d7cf;
 	selbg:                       #215d9c;
-	actbg:                       #262626;
+	actbg:                       #363c4a;
 	urgbg:                       #e53935;
-	winbg:			     #26c6da;
+	winbg:			     #ffffff;
 
 	selected-normal-foreground:  @winbg;
 	normal-foreground:           @text-color;
@@ -43,17 +43,18 @@ configuration {
 }
 
 window {
-	location:	 west;
-	anchor:		 west;
-	height:		 100%;
-	width:		 22%;
+	location:	 center;
+	anchor:		 center;
+	height:		 30%;
+	width:		 35%;
 	orientation: horizontal;
 	children:	 [mainbox];
+
 }
 
 mainbox {
 	spacing:  0.8em;
-	children: [ entry,listview,mode-switcher ];
+	children: [ entry,listview,sidebar ];
 }
 
 button { padding: 5px 2px; }
