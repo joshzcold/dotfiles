@@ -37,6 +37,25 @@ function notes(){
   cat $(readlink -f $(find ~/codepaste -not -path '*/\.*' -type f | fzf))
 }
 
+function pass(){
+  lpass show $(lpass ls | fzf | sed 's/[^0-9]*//g')
+}
+
+function countdown(){
+   date1=$((`date +%s` + $1)); 
+   while [ "$date1" -ge `date +%s` ]; do 
+     echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
+     sleep 0.1
+   done
+}
+function stopwatch(){
+  date1=`date +%s`; 
+   while true; do 
+    echo -ne "$(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S)\r"; 
+    sleep 0.1
+   done
+}
+
 zle -N zle-keymap-select
 function vi_mode_prompt_info() {
   echo "${${KEYMAP/vicmd/[% NORMAL]%}/(main|viins)/[% INSERT]%}"
