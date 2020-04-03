@@ -64,7 +64,7 @@ nmap <C-S> :GFiles<CR>
 " rip grep
 nmap <C-C> :Rg<CR> 
 nmap <silent> gd :AnyJump<CR>
-nmap u :UndotreeToggle<CR> <C-w><C-w>
+nmap U :UndotreeToggle<CR> <C-w><C-w>
 " easy switch windows
 nnoremap <c-j> <c-w>j
 nnoremap <c-h> <c-w>h

@@ -28,6 +28,10 @@ bindkey -v
 # bind to allow deletion after exiting normal mode vi
 bindkey "^?" backward-delete-char
 # Updates editor information when the keymap changes.
+
+function grep-all(){
+  grep --color=always -z $1 $2
+}
 function zle-keymap-select() {
   zle reset-prompt
   zle -R
