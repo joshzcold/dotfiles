@@ -72,3 +72,4 @@ Edir Team Build Server http://blr-iam-jenkins3.labs.blr.novell.com:8080
 Jenkins Pipeline Syntax https://jenkins.io/doc/book/pipeline/syntax/
 TAL automation dashboard http://151.155.162.1/
 nam BUILDS http://prvbuilder02.provo.novell.com/artifacts/
+Jenkins Env Vars https://vlab055512.dom055500.lab/jenkins/env-vars.html/
