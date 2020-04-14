@@ -1,6 +1,7 @@
 
 call plug#begin()
 Plug 'itchyny/lightline.vim'
+Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'cometsong/commentframe.vim'
 Plug 'tpope/vim-commentary'
@@ -25,14 +26,6 @@ call plug#end()
 :highlight ErrorMsg ctermfg=15 ctermbg=88 guifg=none guibg=none
 :highlight Search ctermfg=235 ctermbg=222
 
-" attempt to write the file with sudo 
-command SudoWrite w !sudo -A tee %
-command CypressOpen !./node_modules/cypress/bin/cypress open &
-" Push a change just on current file with no intervention
-command Gsync :Gwrite <bar>:Gcommit -m "pipeline small tweak, git sync" <bar>:Gpush
-" Delete surrounding and keep inner content
-command DeleteEnclosing :normal $%dd''.==
-
 let g:fzf_action = {
       \ 'ctrl-t': 'tab split',
       \ 'ctrl-x': 'split',
@@ -41,9 +34,53 @@ let g:fzf_action = {
 let g:lightline = {
       \'colorscheme': 'seoul256',
       \}
-
 let g:ale_lint_on_text_changed = 'never'
 
+"In neovim, use the option set inccommand=split to
+"get an incremental visual feedback when doing the substitude command.
+set inccommand=split
+set diffopt+=vertical
+set nohlsearch
+set undofile
+set undodir=~/.config/nvim/undodir
+set smartcase
+set ignorecase
+
+" line numbers
+set number
+set relativenumber
+
+" clipboard modification
+set clipboard+=unnamedplus
+
+" split windows below
+set splitbelow
+
+" tab settings change to 2 spaces
+set tabstop=2
+set shiftwidth=2
+set expandtab     "expand tabs to spaces
+
+" Needed for coc.nvim
+let g:UltiSnipsExpandTrigger = "<nop>"
+
+
+"------------------------------------------------------------------------------"
+"                                 User Commands                                "
+"------------------------------------------------------------------------------"
+" attempt to write the file with sudo 
+command SudoWrite w !sudo -A tee %
+command CypressOpen !./node_modules/cypress/bin/cypress open &
+" Push a change just on current file with no intervention
+command Gsync :Gwrite <bar>:Gcommit -m "pipeline small tweak, git sync" <bar>:Gpush
+" Delete surrounding and keep inner content
+command DeleteEnclosing :normal $%dd''.==
+command RefreshConfig :source $MYVIMRC
+
+
+"------------------------------------------------------------------------------"
+"                              User Insert Config                              "
+"------------------------------------------------------------------------------"
 " auto pairing
 inoremap (<CR> (<CR>)<C-c>O
 inoremap {<CR> {<CR>}<C-c>O
@@ -63,7 +100,7 @@ nmap <C-A> :CocCommand explorer<CR>
 nmap <C-S> :GFiles<CR>
 " rip grep
 nmap <C-C> :Rg<CR> 
-nmap <silent> gd :AnyJump<CR>
+nmap <silent>gd :call JumpToDefinition()<CR>
 nmap U :UndotreeToggle<CR> <C-w><C-w>
 " easy switch windows
 nnoremap <c-j> <c-w>j
@@ -74,36 +111,21 @@ nnoremap <c-k> <c-w>k
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 
-"In neovim, use the option set inccommand=split to
-"get an incremental visual feedback when doing the substitude command.
-set inccommand=split
-set diffopt+=vertical
-set nohlsearch
-set undofile
-set undodir=~/.config/nvim/undodir
-set smartcase
-set ignorecase
 
+"------------------------------------------------------------------------------"
+"                                User Functions                                "
+"------------------------------------------------------------------------------"
 
+function! JumpToDefinition()
+   let s = execute("normal \<Plug>(coc-definition)") 
+   if strtrans(s)=="^@[coc.nvim]Definition provider not found for current document^@[coc.nvim]Definition provider not found for current document"
+    execute "AnyJump"
+   endif
+endfunction
 
-" line numbers
-set number
-set relativenumber
-
-" clipboard modification
-set clipboard+=unnamedplus
-" split windows below
-set splitbelow
-" " tab settings change to 2 spaces
-set tabstop=2
-set shiftwidth=2
-set expandtab     "expand tabs to spaces
-
-" Needed for coc.nvim
-let g:UltiSnipsExpandTrigger = "<nop>"
-"===================================================================
-" coc.nvim configuration
-"===================================================================
+"------------------------------------------------------------------------------"
+"                                CoC.vim Config                                "
+"------------------------------------------------------------------------------"
 " if hidden is not set, TextEdit might fail.
 set hidden
 
@@ -146,11 +168,6 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " <cr> mean Keyboard Enter
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" Remap keys for gotos
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -160,13 +177,6 @@ function! s:show_documentation()
 endfunction
 
 
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Use <TAB> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-" nmap <silent> <TAB> <Plug>(coc-range-select)
-" xmap <silent> <TAB> <Plug>(coc-range-select)
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
