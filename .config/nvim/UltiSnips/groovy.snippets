@@ -4,6 +4,13 @@ ${1:echo 'Hello World!'}
 """
 endsnippet
 
+snippet sh-returnStdout "multiline shell that returns std out to variable" b
+def ${1:myVar} = sh(script: """
+
+""", returnStdout: true).trim()
+
+endsnippet
+
 snippet input "Jenkins pause for Input" b
 stage('Pause for Input'){ input { message "Should we continue?" ok "Yes, we should." } steps{ echo "continue" } }
 endsnippet
