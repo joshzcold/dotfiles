@@ -22,15 +22,20 @@ alias markdown-preview="grip -b "
 alias vssh="ssh -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null"
 alias kdel="kubectl delete -f"
 alias kcre="kubectl apply -f"
-export KUBECONFIG=~/.kube/devops_cluster.yaml
+alias k="kubectl"
+alias kp="kubectl get pods"
+
+export KUBECONFIG="/home/joshua/.kube/aa.yaml"
 export SUDO_ASKPASS=/usr/bin/ksshaskpass
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
 export GOVC_INSECURE=1
 # export GOVC_URL="https://vlabvc08.nqeng.lab/sdk"
-export GOVC_URL=https://prvengvc01.nqeng.lab/sdk
-export GOVC_DATACENTER=Main
+export GOVC_URL=https://vlabw1vc.nqeng.lab/sdk
+export GOVC_DATACENTER=main
 # export GOVC_DATACENTER="K8S"
 export GOVC_USERNAME="corpdom\jcold"
+export GOPATH=$HOME/git/go
+export PATH=$HOME/git/go/bin:$PATH
 bindkey -v
 # bind to allow deletion after exiting normal mode vi
 bindkey "^?" backward-delete-char
@@ -39,6 +44,15 @@ bindkey "^?" backward-delete-char
 function grep-all(){
   grep --color=always -z $1 $2
 }
+
+function format-shell-cmd() {
+  BUFFER=$(echo "$BUFFER" | sed -e :a -e '/\\$/N; s/\\\n//; ta' | format_shell_cmd.py)
+}
+
+zle -N format-shell-cmd
+
+bindkey '^f' format-shell-cmd   
+
 function zle-keymap-select() {
   zle reset-prompt
   zle -R
@@ -48,9 +62,25 @@ function notes(){
   cat $(readlink -f $(find ~/codepaste -not -path '*/\.*' -type f | fzf))
 }
 
+function kc(){
+  found_config=$(readlink -f $(find /home/joshua/.kube/  -type f -name "*.yaml" | fzf))
+  export KUBECONFIG=$found_config
+}
+
 function pass(){
   lpass show $(lpass ls | fzf | sed 's/[^0-9]*//g')
 }
+
+function cgit(){
+  cd $(dirname $(readlink -f $(find ~/git -name ".git"  -type d -prune | fzf))) 
+  vim
+}
+
+zle -N cgit
+bindkey '^s' cgit
+
+#reverse menu on shift-tab
+bindkey '^[[Z' reverse-menu-complete
 
 function countdown(){
    date1=$((`date +%s` + $1)); 

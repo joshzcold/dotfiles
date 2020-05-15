@@ -23,6 +23,14 @@ snippet stage "Jenkins Stage Template" b
     }
 endsnippet
 
+snippet choice "Jenkins Choice parameter" b
+choice(name: '${1}', choices: ['${2:Choice1}', '${3:Choice2}'], description: '${4}')
+endsnippet
+
+snippet booleanParam "Jenkins Boolean parameter" b
+booleanParam(name: '${1}', defaultValue: true, description: '${2}')
+endsnippet
+
 snippet string "Jenkins string parameter" b
 string(name: '${1}', defaultValue: '${2}', description: '${3}')
 endsnippet

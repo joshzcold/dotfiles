@@ -213,6 +213,9 @@ exec_always --no-startup-id nm-applet
 exec_always --no-startup-id pamac-tray
 exec_always --no-startup-id wmnme LG3D
 exec_always --no-startup-id keynav
+exec_always --no-startup-id kdeconnect-indicator
 for_window [class="Cypress"] floating enable
 for_window [class="Google-chrome"] floating enable
+for_window [class="Chromium"] floating enable
+for_window [class="Thunar"] floating enable
 

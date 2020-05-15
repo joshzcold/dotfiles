@@ -24,6 +24,15 @@ call plug#end()
 :highlight Pmenu ctermfg=15 ctermbg=235
 :highlight PmenuSel ctermfg=15 ctermbg=233
 :highlight ErrorMsg ctermfg=15 ctermbg=88 guifg=none guibg=none
+
+let g:coc_global_extensions = [
+      \'coc-markdownlint',
+      \'coc-highlight',
+      \'coc-go',
+      \'coc-tsserver',
+      \'coc-python',
+      \'coc-explorer',
+      \]
 :highlight Search ctermfg=235 ctermbg=222
 
 let g:fzf_action = {
@@ -45,6 +54,7 @@ set undofile
 set undodir=~/.config/nvim/undodir
 set smartcase
 set ignorecase
+set scrolloff=5
 
 " line numbers
 set number
@@ -76,6 +86,9 @@ command Gsync :Gwrite <bar>:Gcommit -m "pipeline small tweak, git sync" <bar>:Gp
 " Delete surrounding and keep inner content
 command DeleteEnclosing :normal $%dd''.==
 command RefreshConfig :source $MYVIMRC
+command! -range FormatShellCmd <line1>!format_shell_cmd.py
+command IndentFile :normal gg=G<C-o>
+
 
 
 "------------------------------------------------------------------------------"
@@ -110,6 +123,10 @@ nnoremap <c-k> <c-w>k
 " traversal by line wraps
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+set spelllang=en
+autocmd BufRead,BufNewFile *.md setlocal spell
+autocmd BufRead,BufNewFile *.txt setlocal spell
+autocmd BufRead,BufNewFile COMMIT_EDITMSG setlocal spell
 
 
 "------------------------------------------------------------------------------"
