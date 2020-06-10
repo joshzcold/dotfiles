@@ -1,0 +1,11 @@
+#!/bin/sh
+
+while true; do
+  xsetroot -name "$( date +"%F %R" ) | $(cat /sys/class/power_supply/BAT0/capacity)%"
+   sleep 1m    # Update time every minute
+done &
+
+while true
+do
+dwm
+done
