@@ -35,7 +35,7 @@ export GOVC_DATACENTER=main
 # export GOVC_DATACENTER="K8S"
 export GOVC_USERNAME="corpdom\jcold"
 export GOPATH=$HOME/git/go
-export PATH=$HOME/git/go/bin:$PATH
+export PATH=$HOME/git/go/bin:$HOME/.local/bin:$PATH
 bindkey -v
 # bind to allow deletion after exiting normal mode vi
 bindkey "^?" backward-delete-char
@@ -62,7 +62,7 @@ function notes(){
   cat $(readlink -f $(find ~/codepaste -not -path '*/\.*' -type f | fzf))
 }
 
-function kc(){
+function kconf(){
   found_config=$(readlink -f $(find /home/joshua/.kube/  -type f -name "*.yaml" | fzf))
   export KUBECONFIG=$found_config
 }

@@ -9,6 +9,7 @@ Plug 'tpope/vim-surround'
 Plug 'inkarkat/vim-ingo-library'
 Plug 'vim-scripts/SyntaxRange'
 Plug 'mbbill/undotree'
+Plug 'chrisbra/Colorizer'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sheerun/vim-polyglot'
 Plug 'godlygeek/tabular'
@@ -24,6 +25,8 @@ call plug#end()
 :highlight Pmenu ctermfg=15 ctermbg=235
 :highlight PmenuSel ctermfg=15 ctermbg=233
 :highlight ErrorMsg ctermfg=15 ctermbg=88 guifg=none guibg=none
+
+let g:colorizer_auto_filetype='css,html,cpp,vim'
 
 let g:coc_global_extensions = [
       \'coc-markdownlint',
@@ -82,7 +85,7 @@ let g:UltiSnipsExpandTrigger = "<nop>"
 command SudoWrite w !sudo -A tee %
 command CypressOpen !./node_modules/cypress/bin/cypress open &
 " Push a change just on current file with no intervention
-command Gsync :Gwrite <bar>:Gcommit -m "pipeline small tweak, git sync" <bar>:Gpush
+command Gsync :Gwrite <bar>:Gcommit -m "pipeline small tweak, (REBASE SQUASH)" <bar>:Gpush
 " Delete surrounding and keep inner content
 command DeleteEnclosing :normal $%dd''.==
 command RefreshConfig :source $MYVIMRC

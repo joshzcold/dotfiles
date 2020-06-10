@@ -27,8 +27,10 @@ settings:
     https://discordapp.com: true
     https://teams.microsoft.com: true
     https://web.fuze.com: true
+    https://www.onlinemictest.com: true
   content.notifications:
     https://examples.javacodegeeks.com: false
+    https://peachappliancerepair.com: false
     https://teams.microsoft.com: true
     https://web.whatsapp.com: true
     https://www.facebook.com: false
