@@ -12,6 +12,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(
   git
   colored-man-pages
+  vi-mode
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -24,7 +25,10 @@ alias kdel="kubectl delete -f"
 alias kcre="kubectl apply -f"
 alias k="kubectl"
 alias kp="kubectl get pods"
-
+alias gitl="git log --stats"
+alias kssh="kitty +kitten ssh"
+alias cdf="cd $(ls -d */|head -n 1)" # cd into first dir
+export KUBE_EDITOR=nvim
 export KUBECONFIG="/home/joshua/.kube/aa.yaml"
 export SUDO_ASKPASS=/usr/bin/ksshaskpass
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
@@ -41,17 +45,12 @@ bindkey -v
 bindkey "^?" backward-delete-char
 # Updates editor information when the keymap changes.
 
+function cdg(){
+  cd $(git rev-parse --show-toplevel)
+}
 function grep-all(){
   grep --color=always -z $1 $2
 }
-
-function format-shell-cmd() {
-  BUFFER=$(echo "$BUFFER" | sed -e :a -e '/\\$/N; s/\\\n//; ta' | format_shell_cmd.py)
-}
-
-zle -N format-shell-cmd
-
-bindkey '^f' format-shell-cmd   
 
 function zle-keymap-select() {
   zle reset-prompt
@@ -72,8 +71,8 @@ function pass(){
 }
 
 function cgit(){
-  cd $(dirname $(readlink -f $(find ~/git -name ".git"  -type d -prune | fzf))) 
-  vim
+  cd $(dirname $(readlink -f $(find ~/git -maxdepth 3 -name ".git"  -type d -prune | fzf))) 
+  git status -s -b
 }
 
 zle -N cgit

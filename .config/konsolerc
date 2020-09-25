@@ -8,14 +8,15 @@ Favorites=Main.profile
 ShowMenuBarByDefault=false
 
 [MainWindow]
-Height 1080=1047
+Height 1080=1031
 Height 1920=1867
 MenuBar=Disabled
 State=AAAA/wAAAAD9AAAAAAAAA4QAAAP5AAAABAAAAAQAAAAIAAAACPwAAAAA
 ToolBarsMovable=Disabled
 Width 1080=497
-Width 1920=1044
+Width 1920=938
 Window-Maximized 1200x1920=true
 
 [Notification Messages]
+CloseAllTabs=true
 ShowPasteUnprintableWarning=false

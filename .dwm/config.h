@@ -38,7 +38,7 @@ static const Rule rules[] = {
 	{ "Gimp",    NULL,     NULL,           0,         1,          0,           0,        -1 },
 	{ "Firefox", NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
 	{ "st",      NULL,     NULL,           0,         0,          1,          -1,        -1 },
-	{ "konsole",      NULL,     NULL,           0,         0,          1,          -1,        -1 },
+	{ "kitty",      NULL,     NULL,           0,         0,          1,          -1,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         1,          0,           1,        -1 }, /* xev */
 };
 
@@ -68,19 +68,19 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "konsole", NULL };
-static const char *browsercmd[] = {"qutebrowser", NULL};
+static const char *termcmd[]  = { "kitty", NULL };
 static const char *screenshotcmd[] = {"/home/joshua/.config/usr-scripts/screenshot.sh"};
 static const char *applaunchercmd[] = {"/home/joshua/.config/rofi/launchers/launcher.sh"};
 static const char *emojilaunchercmd[] = {"/home/joshua/.config/rofi/launchers/emoji.sh"};
+static const char *sleepcmd[] = {"systemd","suspend", NULL};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_d,      spawn,          {.v = applaunchercmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,             XK_s,      spawn,          {.v = screenshotcmd } },
-	{ MODKEY,                       XK_i,      spawn,          {.v = browsercmd } },
+	{ MODKEY,                       XK_s,      spawn,          {.v = screenshotcmd } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = emojilaunchercmd } },
+  { MODKEY|ShiftMask,             XK_l,      spawn,          {.v = sleepcmd} },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },

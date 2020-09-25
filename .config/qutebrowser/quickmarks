@@ -10,11 +10,11 @@ Firebase console https://console.firebase.google.com/u/0/?pli=1
 Rally app https://rallyup.app/
 Rally app Dev https://rallydev-40f78.firebaseapp.com/
 Wireless Router Archer C1200 http://192.168.2.1/webpages/index.html
-NZBGet http://192.168.2.180:6789/
-Plex Manager http://192.168.2.180:32400/web
-Sonarr http://192.168.2.180:8989/
-Movies - Radarr http://192.168.2.180:7878/
-Jellyfin http://192.168.2.180:8096/web/index.html
+NZBGet http://192.168.2.154:6789/
+Plex Manager http://192.168.2.154:32400/web
+Sonarr http://192.168.2.154:8989/
+Movies - Radarr http://192.168.2.154:7878/
+Jellyfin http://192.168.2.154:8096/web/index.html
 Developer Dashboard https://chrome.google.com/webstore/devconsole
 Build Server Jenkins http://prvjenkins01.provo.novell.com:8080/view/SSPR/
 Fuze https://web.fuze.com/#/auth/login
@@ -22,7 +22,6 @@ Mail - Joshua.Cold@microfocus.com https://outlook.office365.com/owa/
 Record Work Time https://clarity.innerweb.novell.com/niku/nu#action:npt.overview
 Chat | Microsoft Teams https://teams.microsoft.com/_#/conversations/?ctx=chat
 AA Octane https://almoctane-eur.saas.microfocus.com/
-AA Jenkins CI Dashboard http://prvqeaa950.aadom900.lab:8080/
 Steve's Build Server http://10.204.35.15:8080/
 VMware vSphere https://prvengvc01.nqeng.lab/
 Login | Fortify on Demand https://ams.fortify.com/Login
@@ -77,3 +76,15 @@ VLab New Env https://vlabw1vc.nqeng.lab/
 TAL Worker IP Chart http://151.155.162.7/
 rancher slack rancher-customers.slack.com
 Geico Home Self Service https://ici.homesite.com/OnlineServicing/Policy/Documents/
+Security Home Mortgage https://securityhomemortgage.yourmortgageonline.com/
+Springville Bill Pay https://www.xpressbillpay.com/#/?org=Springville10040
+Lincoln Leave My https://www.mylincolnportal.com/customer/public/login
+Docker Registry prvbld https://prvbldnam91.nqbuild.lab/home
+html emoji reference https://www.w3schools.com/charsets/ref_emoji.asp
+html color reference https://www.w3schools.com/colors/colors_names.asp
+aws aa us-east-2 https://us-east-2.console.aws.amazon.com/console/home?region=us-east-2#
+MIT Icons https://iconify.design/icon-sets/
+Docker repo artifactory https://svsartifactory.swinfra.net/artifactory/webapp/#/home
+Microfocus Service Portal https://serviceportal.microfocus.net/
+Google Podcasts https://podcasts.google.com
+Documentation AA 6.3 https://www.netiq.com/documentation/advanced-authentication-63/
