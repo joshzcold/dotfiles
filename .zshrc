@@ -17,7 +17,6 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-alias cat="bat -p"
 alias vim="nvim"
 alias markdown-preview="grip -b "
 alias vssh="ssh -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null"
@@ -71,8 +70,18 @@ function pass(){
 }
 
 function cgit(){
-  cd $(dirname $(readlink -f $(find ~/git -maxdepth 3 -name ".git"  -type d -prune | fzf))) 
+  cd $(dirname $(readlink -f $(find ~/git -maxdepth 3 -name ".git"  -prune | fzf))) 
   git status -s -b
+}
+
+function cy(){
+  nohup kitty nvim >/dev/null 2>&1 &
+  npx cypress open &
+}
+
+function cypress(){
+  nohup kitty nvim >/dev/null 2>&1 &
+  npx cypress open &
 }
 
 zle -N cgit

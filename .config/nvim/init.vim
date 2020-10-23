@@ -126,6 +126,7 @@ command GPDelete :Gwrite <bar>:Gcommit -m "pipeline small tweak, (REBASE DROP)" 
 command DeleteEnclosing :normal $%dd''.==
 command RefreshConfig :source $MYVIMRC
 command EditConfig :e $MYVIMRC
+command JenkinsLint :call JenkinsLint()
 
 "------------------------------------------------------------------------------"
 "                              User Insert Config                              "
@@ -156,6 +157,7 @@ nmap <leader>gg :G<CR>
 nmap <leader>gh :diffget //3<CR>
 nmap <leader>gu :diffget //2<CR>
 nmap <leader>gd :call JumpToDefinition()<CR>
+nmap <leader>jf :call JenkinsLint()<CR>
 nmap <leader>u :UndotreeToggle<CR> <C-w><C-w>
 " easy switch windows
 nnoremap <c-j> <c-w>j
@@ -183,6 +185,16 @@ function! JumpToDefinition()
    if strtrans(s)=="^@[coc.nvim]Definition provider not found for current document^@[coc.nvim]Definition provider not found for current document"
     execute "AnyJump"
    endif
+endfunction
+
+function! JenkinsLint()
+   let jenkins_url = "https://vlab055512.dom055500.lab/jenkins"
+   let crumb_command = "curl -s -k \"".jenkins_url.'/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)"'
+   let jenkins_crumb = system(crumb_command)
+   let validate_command = "curl -k -X POST -H ".jenkins_crumb." -F \"jenkinsfile=<".expand('%:p')."\" ".jenkins_url."/pipeline-model-converter/validate"
+   echo validate_command
+   let result = system(validate_command)
+   echo result
 endfunction
 
 "------------------------------------------------------------------------------"

@@ -1,13 +1,40 @@
 #!/bin/sh
+set -x
+
+battery(){
+  local percent=$(cat /sys/class/power_supply/BAT0/capacity)
+  local status=$(cat /sys/class/power_supply/BAT0/uevent | grep -o -P "(?<=POWER_SUPPLY_STATUS=).*")
+  if [[ ! "$percent" = 100 ]]; then
+    if [[ "$status" = "Charging" ]]; then
+      echo "[bat ⚡ $percent%]" 
+    else
+      echo "[bat $percent%]" 
+    fi
+  fi
+}
+
+vpn(){
+  local vpn=$(nmcli c show --active | grep -P ".*?(?=[ \t]vpn[ \t])" | awk '{print $1}')
+  if [[ ! -z $vpn ]]; then
+    echo "[vpn $vpn]"
+  fi
+}
+
+wifi(){
+  local wifi=$(nmcli c show --active | grep -P ".*?(?=[ \t]wifi.*wlp2s0)" | awk '{print $1}')
+  if [[ ! -z $wifi ]]; then
+    echo "[wifi $wifi]"
+  fi
+}
 
 while true; do
-  xsetroot -name "$( date +"%F %R" ) | $(cat /sys/class/power_supply/BAT0/capacity)%"
-   sleep 1m    # Update time every minute
+  xsetroot -name "$(battery)$(wifi)$(vpn) $(date +"%m-%d %r")"
+   sleep 10    # Update time every minute
 done &
 
 while true; do
     # Log stderror to a file 
-    dwm 2> ~/.dwm.log
+    # dwm 2> ~/.dwm.log
     # No error logging
-    #dwm >/dev/null 2>&1
+    dwm >/dev/null 2>&1
 done
