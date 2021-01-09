@@ -8,20 +8,24 @@ battery(){
     if [[ "$status" = "Charging" ]]; then
       echo "[bat ⚡ $percent%]" 
     else
-      echo "[bat $percent%]" 
+      if [[ $percent < 15 ]]; then
+        echo "[bat $percent% LOW BATTERY !]" 
+      else
+        echo "[bat $percent%]" 
+      fi
     fi
   fi
 }
 
 vpn(){
-  local vpn=$(nmcli c show --active | grep -P ".*?(?=[ \t]vpn[ \t])" | awk '{print $1}')
+  local vpn=$(nmcli c show --active | grep -P ".*?(?=[ \t]vpn[ \t])" | awk -F '  ' '{print $1}')
   if [[ ! -z $vpn ]]; then
     echo "[vpn $vpn]"
   fi
 }
 
 wifi(){
-  local wifi=$(nmcli c show --active | grep -P ".*?(?=[ \t]wifi.*wlp2s0)" | awk '{print $1}')
+  local wifi=$(nmcli c show --active | grep -P ".*?(?=[ \t]wifi.*wlp2s0)" | awk -F '  ' '{print $1}')
   if [[ ! -z $wifi ]]; then
     echo "[wifi $wifi]"
   fi
@@ -29,12 +33,12 @@ wifi(){
 
 while true; do
   xsetroot -name "$(battery)$(wifi)$(vpn) $(date +"%m-%d %r")"
-   sleep 10    # Update time every minute
+   sleep 5    # Update time every 5 seconds
 done &
 
 while true; do
     # Log stderror to a file 
-    # dwm 2> ~/.dwm.log
+    /usr/local/bin/dwm 2> ~/.dwm.log
     # No error logging
-    dwm >/dev/null 2>&1
+    # dwm >/dev/null 2>&1
 done
