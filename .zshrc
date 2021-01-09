@@ -5,9 +5,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+export PYTHONBREAKPOINT="pudb.set_trace"
 export ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
+KEYTIMEOUT=1
 
 plugins=(
   git
@@ -22,8 +24,12 @@ alias markdown-preview="grip -b "
 alias vssh="ssh -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null"
 alias kdel="kubectl delete -f"
 alias kcre="kubectl apply -f"
+alias phone="scrcpy --shortcut-mod=lctrl -b2M -m800  "
 alias k="kubectl"
+alias config="nvim ~/.zshrc"
 alias kp="kubectl get pods"
+alias kw="watch -n 1 kubectl get pods"
+alias cat="bat -p"
 alias gitl="git log --stats"
 alias kssh="kitty +kitten ssh"
 alias cdf="cd $(ls -d */|head -n 1)" # cd into first dir
@@ -74,14 +80,33 @@ function cgit(){
   git status -s -b
 }
 
+function kre(){
+  kubectl delete -f $1 && kubectl apply -f $1
+}
+
 function cy(){
   nohup kitty nvim >/dev/null 2>&1 &
   npx cypress open &
 }
 
 function cypress(){
-  nohup kitty nvim >/dev/null 2>&1 &
+  nohup kitty nvim cypress.json >/dev/null 2>&1 &
   npx cypress open &
+}
+
+function sshaa-unit(){
+  kitty sshpass -p novell ssh root@aa_unit_1 &
+  nohup kitty sshpass -p novell ssh root@aa_unit_2 >/dev/null 2>&1 &
+  nohup kitty sshpass -p novell ssh root@aa_unit_3 >/dev/null 2>&1 &
+  nohup kitty sshpass -p novell ssh root@aa_unit_4 >/dev/null 2>&1 &
+}
+
+function sshdops-workers(){
+  kitty sshpass -p Control123 ssh dops@dops-worker4 &
+  nohup kitty sshpass -p Control123 ssh dops@dops-worker0 >/dev/null 2>&1 &
+  nohup kitty sshpass -p Control123 ssh dops@dops-worker1 >/dev/null 2>&1 &
+  nohup kitty sshpass -p Control123 ssh dops@dops-worker2 >/dev/null 2>&1 &
+  nohup kitty sshpass -p Control123 ssh dops@dops-worker3 >/dev/null 2>&1 &
 }
 
 zle -N cgit

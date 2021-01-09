@@ -5,10 +5,6 @@ CharMap - Powered by OpenType.js http://bluejamesbond.github.io/CharacterMap/
 Android Messa https://messages.android.com/
 Gas Bill Payment https://www.dominionenergy.com/
 Electric Bill Pay https://www.rockymountainpower.net/index.html
-Renters Insurance https://manage.myassurantpolicy.com/
-Firebase console https://console.firebase.google.com/u/0/?pli=1
-Rally app https://rallyup.app/
-Rally app Dev https://rallydev-40f78.firebaseapp.com/
 Wireless Router Archer C1200 http://192.168.2.1/webpages/index.html
 NZBGet http://192.168.2.154:6789/
 Plex Manager http://192.168.2.154:32400/web
@@ -16,56 +12,28 @@ Sonarr http://192.168.2.154:8989/
 Movies - Radarr http://192.168.2.154:7878/
 Jellyfin http://192.168.2.154:8096/web/index.html
 Developer Dashboard https://chrome.google.com/webstore/devconsole
-Build Server Jenkins http://prvjenkins01.provo.novell.com:8080/view/SSPR/
 Fuze https://web.fuze.com/#/auth/login
 Mail - Joshua.Cold@microfocus.com https://outlook.office365.com/owa/
-Record Work Time https://clarity.innerweb.novell.com/niku/nu#action:npt.overview
 Chat | Microsoft Teams https://teams.microsoft.com/_#/conversations/?ctx=chat
-AA Octane https://almoctane-eur.saas.microfocus.com/
+Octane https://almoctane-eur.saas.microfocus.com/
 Steve's Build Server http://10.204.35.15:8080/
-VMware vSphere https://prvengvc01.nqeng.lab/
 Login | Fortify on Demand https://ams.fortify.com/Login
 SonarQube http://10.204.128.210:9000/about
 Devops Jenkins https://vlab055512.dom055500.lab/jenkins/
 GitLab https://prvbldnam90.nqeng.lab/jcold
-Timeoff Request https://psselfservice.innerweb.novell.com/psp/ps8prod1/EMPLOYEE/HRMS/c/ROLE_EMPLOYEE.NV_CALENDAR_EMPL.GBL
-Carl's test ncc channel http://builder.provo.novell.com/web_data/test_ncc_channel/sspr/x86_64/update/
 Steve Shaw Token Interface Automation http://151.155.161.155/
-Flow charts in code: enter graphviz and the “dot” language http://melp.nl/2013/08/flow-charts-in-code-enter-graphviz-and-the-dot-language/
 Dayforce https://usr54.dayforcehcm.com/MyDayforce/u/NXwCzW2ClEGkdhTuy0P2Vg/Common/
-Intranet microfocus https://intra.microfocus.net/company/
-Job Config Editor Kal http://151.155.162.8/
 Request Time Off || WorkDay https://microfocusinternational.sharepoint.com/sites/hr/WSC/Pages/workday-support-center.aspx
 Builds for All Products http://builder.provo.novell.com/artifacts/
-Denis Jenkins Performance [Jenkins] http://10.204.132.140:8080/job/Performance/
-Documentation - Advanced Authentication 6.2 https://www.netiq.com/documentation/advanced-authentication-62/
 Emoji unicode characters for use on the web https://apps.timwhitlock.info/emoji/tables/unicode
 AA Wiki https://wiki.provo.microfocus.com:8443/pages/viewpage.action?spaceKey=AUTH&title=Advanced+Authentication+Engineering+Home
 kubectl Cheat Sheet - Kubernetes https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 Text formatting in cards - Teams | Microsoft Docs https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/cards/cards-format
-Rio Service Request Center https://rio.microfocuscloud.com/tmtrack/tmtrack.dll?shell=srp#catalog
 Rancher https://vlab055503.dom055500.lab/login
 Your Benefits Resources -- Greeting Page http://digital.alight.com/microfocus/
-vlab002800.dom002800.lab https://vlab002800.dom002800.lab/
-vlab002801.dom002800.lab https://vlab002801.dom002800.lab/
-vlab002802.dom002800.lab https://vlab002802.dom002800.lab/
-vlab002803.dom002800.lab https://vlab002803.dom002800.lab/
-vlab002804.dom002800.lab https://vlab002804.dom002800.lab/
-vlab002805.dom002800.lab https://vlab002805.dom002800.lab/
-vlab002806.dom002800.lab https://vlab002806.dom002800.lab/
-vlab002807.dom002800.lab https://vlab002807.dom002800.lab/
-vlab002808.dom002800.lab https://vlab002808.dom002800.lab/
-vlab002809.dom002800.lab https://vlab002809.dom002800.lab/
-GitHub - meain/vim-printer: Quickly print/log the variable in your favourite language https://github.com/meain/vim-printer
-Vim Awesome https://vimawesome.com/
-Vim Cheat Sheet https://vim.rtorr.com/
 Nintendo Wii - Scrubbed Retail Collection (NTSC) - Google Drive https://drive.google.com/drive/folders/0B7H6hIZDxNXeQW9uODA5UkM0ZG8
 GitHub MicroFocus https://github.houston.softwaregrp.net/
 Devops vSphere Client https://vlabvc08.nqeng.lab/ui/
-Jellyfin - Remote http://68.66.170.109:32103/web/index.html
-Movies - Radarr - Remote http://68.66.170.109:32105/
-Sonarr - Remote http://68.66.170.109:32104/
-NZBGet - Remote http://68.66.170.109:32106/
 Microfocus product downloads https://dl.netiq.com/index.jsp
 Edir Team Build Server http://blr-iam-jenkins3.labs.blr.novell.com:8080
 Jenkins Pipeline Syntax https://jenkins.io/doc/book/pipeline/syntax/
@@ -87,6 +55,8 @@ MIT Icons https://iconify.design/icon-sets/
 Docker repo artifactory https://svsartifactory.swinfra.net/artifactory/webapp/#/home
 Microfocus Service Portal https://serviceportal.microfocus.net/
 Google Podcasts https://podcasts.google.com
-Documentation AA 6.3 https://www.netiq.com/documentation/advanced-authentication-63/
 vsphere-sharepoint https://microfocusinternational.sharepoint.com/teams/engineering_RDLab
 Microfocus AA MultiFactor https://aafreg.microfocus.net/account/authenticators
+Jenkins AA Build server http://10.204.35.15:8080/job/AA_SaaS/job/advancedauth-saas/
+Time Tracking TPS https://source.microfocuscloud.com/workcenter/tmtrack.dll?shell=swc#2
+Access Devops Dashboard https://vlab055512.dom055500.lab/dashboard

@@ -19,7 +19,9 @@ Plug 'junegunn/goyo.vim'                        " Enable Goyo mode to remove dis
 Plug 'SirVer/ultisnips'                         " custom code snippets manager
 Plug 'honza/vim-snippets'                       " Needed for Coc snippets
 Plug 'pechorin/any-jump.vim'                    " search for code definition using a ripgrep search
+Plug 'justinmk/vim-sneak'                       " jump to points in file using label prompts
 call plug#end()
+
 
 " color tweaks
 :highlight SignColumn ctermbg=none
@@ -80,8 +82,11 @@ let g:limelight_conceal_ctermfg = 'gray'
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 
+let g:sneak#label = 1
 set inccommand=split
+set noequalalways " keep window sizes the same when there are changes
 set diffopt+=vertical
+set autoread
 set nohlsearch
 set iskeyword+=-
 set undofile
@@ -113,20 +118,21 @@ set expandtab     "expand tabs to spaces
 " Needed for coc.nvim
 let g:UltiSnipsExpandTrigger = "<nop>"
 
+
 "------------------------------------------------------------------------------"
 "                                 User Commands                                "
 "------------------------------------------------------------------------------"
 " attempt to write the file with sudo 
 command SudoWrite w !sudo -A tee %
 command CypressOpen !./node_modules/cypress/bin/cypress open &
-" Push a change just on current file with no intervention
-command GPSquash :Gwrite <bar>:Gcommit -m "pipeline small tweak, (REBASE SQUASH)" <bar>:Gpush
-command GPDelete :Gwrite <bar>:Gcommit -m "pipeline small tweak, (REBASE DROP)" <bar>:Gpush
 " Delete surrounding and keep inner content
 command DeleteEnclosing :normal $%dd''.==
 command RefreshConfig :source $MYVIMRC
 command EditConfig :e $MYVIMRC
+command IndentFile :normal mqHmwgg=G`wzt`q
 command JenkinsLint :call JenkinsLint()
+command GPush :call GitPush()
+command Term :new +resize8 term://zsh 
 
 "------------------------------------------------------------------------------"
 "                              User Insert Config                              "
@@ -138,26 +144,37 @@ inoremap [ []<Left>
 inoremap { {}<Left>
 
 "Auto pair common pairings, if on second part of pair then move out of pair
-inoremap <expr> ) matchstr(getline('.'), '\%' . col('.') . 'c.') == ')' ? '<Esc>la' : ')'
-inoremap <expr> ] matchstr(getline('.'), '\%' . col('.') . 'c.') == ']' ? '<Esc>la' : ']'
-inoremap <expr> } matchstr(getline('.'), '\%' . col('.') . 'c.') == '}' ? '<Esc>la' : '}'
+" inoremap <expr> ) matchstr(getline('.'), '\%' . col('.') . 'c.') == ')' ? '<Esc>la' : ')'
+" inoremap <expr> ] matchstr(getline('.'), '\%' . col('.') . 'c.') == ']' ? '<Esc>la' : ']'
+" inoremap <expr> } matchstr(getline('.'), '\%' . col('.') . 'c.') == '}' ? '<Esc>la' : '}'
 inoremap <expr> <CR> matchstr(getline('.'), '\%' . col('.') . 'c.') == '}' ? '<Space><BS><CR><Space><BS><CR><Esc>ka<Tab>' : '<Space><BS><CR>'
 
 "------------------------------------------------------------------------------"
 "                                 User Hotkeys                                 "
 "------------------------------------------------------------------------------"
+autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
 let mapleader = " "
 " fzf git files
 nmap <leader>f :GFiles<CR>
 " rip grep
 nmap <leader>d :Rg<CR> 
-nmap <leader>s :CocCommand explorer<CR>
+" replace currently selected text with default register
+" without yanking it
+vnoremap p "_dP
+" easier return to normal mode in terminal mode
+tnoremap <Esc> <C-\><C-n> 
+nmap <leader>a :CocCommand explorer<CR>
+nmap <leader>ss :%s///gc<Left><Left><Left><Left>
+nmap <leader>se :g/^$/d
+nmap <leader>sd :g//d<Left><Left>
+nmap <leader>si :normal mqHmwgg=G`wzt`q<CR>
+nmap <leader>b :Buffers<CR>
 nmap <leader>gc :GBranches<CR>
-nmap <leader>gg :G<CR>
+nmap <leader>gp :GPush<CR>
+nmap <leader>gg :vertical G<CR>
 nmap <leader>gh :diffget //3<CR>
 nmap <leader>gu :diffget //2<CR>
 nmap <leader>gd :call JumpToDefinition()<CR>
-nmap <leader>jf :call JenkinsLint()<CR>
 nmap <leader>u :UndotreeToggle<CR> <C-w><C-w>
 " easy switch windows
 nnoremap <c-j> <c-w>j
@@ -167,6 +184,7 @@ nnoremap <c-k> <c-w>k
 " traversal by line wraps
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+nnoremap $ g_
 set spelllang=en
 autocmd BufRead,BufNewFile *.md, *txt, COMMIT_EDITMSG setlocal spell
 
@@ -176,25 +194,32 @@ autocmd BufRead,BufNewFile *.md, *txt, COMMIT_EDITMSG setlocal spell
 
 " Should do a quick hightlight on yank
 augroup highlight_yank
-    autocmd!
-    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
+  autocmd!
+  autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
 augroup END
 
 function! JumpToDefinition()
-   let s = execute("normal \<Plug>(coc-definition)") 
-   if strtrans(s)=="^@[coc.nvim]Definition provider not found for current document^@[coc.nvim]Definition provider not found for current document"
+  let s = execute("normal \<Plug>(coc-definition)") 
+  if strtrans(s)=="^@[coc.nvim]Definition provider not found for current document^@[coc.nvim]Definition provider not found for current document"
     execute "AnyJump"
-   endif
+  endif
+endfunction
+
+function! GitPush()
+  execute("Gwrite")
+  let message = input("commit message: ")
+  execute("Gcommit -m '".message."' ")
+  execute("Gpush")
 endfunction
 
 function! JenkinsLint()
-   let jenkins_url = "https://vlab055512.dom055500.lab/jenkins"
-   let crumb_command = "curl -s -k \"".jenkins_url.'/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)"'
-   let jenkins_crumb = system(crumb_command)
-   let validate_command = "curl -k -X POST -H ".jenkins_crumb." -F \"jenkinsfile=<".expand('%:p')."\" ".jenkins_url."/pipeline-model-converter/validate"
-   echo validate_command
-   let result = system(validate_command)
-   echo result
+  let jenkins_url = "https://vlab055512.dom055500.lab/jenkins"
+  let crumb_command = "curl -s -k \"".jenkins_url.'/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)"'
+  let jenkins_crumb = system(crumb_command)
+  let validate_command = "curl -k -X POST -H ".jenkins_crumb." -F \"jenkinsfile=<".expand('%:p')."\" ".jenkins_url."/pipeline-model-converter/validate"
+  echo validate_command
+  let result = system(validate_command)
+  echo result
 endfunction
 
 "------------------------------------------------------------------------------"
