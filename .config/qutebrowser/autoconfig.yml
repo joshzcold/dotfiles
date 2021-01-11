@@ -6,7 +6,5 @@
 
 config_version: 2
 settings:
-  content.media.audio_capture:
-    https://teams.microsoft.com: true
-  content.register_protocol_handler:
-    https://mail.google.com?extsrc=mailto&url=%25s: true
+  content.desktop_capture:
+    https://www.webrtc-experiment.com: true

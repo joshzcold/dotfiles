@@ -113,6 +113,7 @@ set splitbelow
 " tab settings change to 2 spaces
 set tabstop=2
 set shiftwidth=2
+set shiftround "when indenting round to the nearst
 set expandtab     "expand tabs to spaces
 
 " Needed for coc.nvim
