@@ -62,6 +62,12 @@ function zle-keymap-select() {
   zle -R
 }
 
+function kpdel(){
+  kubectl delete pod $1 &
+  kubectl delete svc $1 &
+  kubectl delete configmap $1 &
+}
+
 function notes(){
   cat $(readlink -f $(find ~/codepaste -not -path '*/\.*' -type f | fzf))
 }
