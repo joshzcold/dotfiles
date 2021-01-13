@@ -37,6 +37,7 @@ static const Rule rules[] = {
   /* { "Firefox" , NULL , NULL           , 1 << 8 , 0 , 0 , -1 , -1 } , */
   { "st"         , NULL , NULL           , 0      , 0 , 1 , -1 , -1 } ,
   { "kitty"      , NULL , NULL           , 0      , 0 , 1 , -1 , -1 } ,
+  { "Peek"       , NULL , NULL           , 0      , 1 , 0 , 1 , -1 } ,
   { "termite"    , NULL , NULL           , 0      , 1 , 1 , -1 , -1 } ,
   { NULL         , NULL , "Event Tester" , 0      , 1 , 0 , 1  , -1 } , /* xev */
 };
@@ -100,6 +101,18 @@ static Key keys[] = {
   { MODKEY,                       XK_space,  setlayout,      {0} },
   { MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
   { MODKEY|ShiftMask,                       XK_s,      togglesticky,   {0} },
+  { MODKEY|ControlMask,                       XK_j,   moveresize,     {.v = "0x 75y 0w 0h" } },
+  { MODKEY|ControlMask,                       XK_k,     moveresize,     {.v = "0x -75y 0w 0h" } },
+  { MODKEY|ControlMask,                       XK_l,  moveresize,     {.v = "75x 0y 0w 0h" } },
+  { MODKEY|ControlMask,                       XK_h,   moveresize,     {.v = "-75x 0y 0w 0h" } },
+  { MODKEY|ShiftMask,             XK_j,   moveresize,     {.v = "0x 0y 0w 75h" } },
+  { MODKEY|ShiftMask,             XK_k,     moveresize,     {.v = "0x 0y 0w -75h" } },
+  { MODKEY|ShiftMask,             XK_l,  moveresize,     {.v = "0x 0y 75w 0h" } },
+  { MODKEY|ShiftMask,             XK_h,   moveresize,     {.v = "0x 0y -75w 0h" } },
+  { MODKEY|ControlMask|ShiftMask,           XK_k,     moveresizeedge, {.v = "t"} },
+  { MODKEY|ControlMask|ShiftMask,           XK_j,   moveresizeedge, {.v = "b"} },
+  { MODKEY|ControlMask|ShiftMask,           XK_h,   moveresizeedge, {.v = "l"} },
+  { MODKEY|ControlMask|ShiftMask,           XK_l,  moveresizeedge, {.v = "r"} },
   { MODKEY,                       XK_0,      view,           {.ui = ~0 } },
   { MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
   { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
