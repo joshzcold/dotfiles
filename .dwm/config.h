@@ -38,6 +38,8 @@ static const Rule rules[] = {
   { "st"         , NULL , NULL           , 0      , 0 , 1 , -1 , -1 } ,
   { "kitty"      , NULL , NULL           , 0      , 0 , 1 , -1 , -1 } ,
   { "Peek"       , NULL , NULL           , 0      , 1 , 0 , 1 , -1 } ,
+  { "Blueman-manager"       , NULL , NULL           , 0      , 1 , 0 , 1 , -1 } ,
+  { "Pavucontrol"       , NULL , NULL           , 0      , 1 , 0 , 1 , -1 } ,
   { "termite"    , NULL , NULL           , 0      , 1 , 1 , -1 , -1 } ,
   { NULL         , NULL , "Event Tester" , 0      , 1 , 0 , 1  , -1 } , /* xev */
 };

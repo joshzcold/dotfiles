@@ -1,10 +1,12 @@
 call plug#begin()
 Plug 'itchyny/lightline.vim'                    " replace default Vim status line with something nice
+Plug 'alvan/vim-closetag'
 Plug 'tpope/vim-fugitive'                       " Very helpful git tool
 Plug 'stsewd/fzf-checkout.vim'                  " Extra git tool functionality
 Plug 'tpope/vim-abolish'                        " some helpful actions like keep case on find, replace
 Plug 'tpope/vim-commentary'                     " be able to comment any syntax out
 Plug 'tpope/vim-surround'                       " Vim actions to surround word with quotes
+Plug 'tpope/vim-sensible'                       " Vim actions to surround word with quotes
 Plug 'inkarkat/vim-ingo-library'                " Needed for Syntax range
 Plug 'vim-scripts/SyntaxRange'                  " Highlight section and color differently
 Plug 'chrisbra/Colorizer'                       " Colors Hex codes
@@ -12,7 +14,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} " LSP client, ide actions
 Plug 'sheerun/vim-polyglot'                     " Syntax Highlighting
 Plug 'godlygeek/tabular'                        " Tab formatting tool
 Plug 'mbbill/undotree'                          " Undo file tool
-Plug '~/.fzf'                                   " fuzzy completion tool
+Plug '/usr/bin/fzf'                                   " fuzzy completion tool
 Plug 'junegunn/fzf.vim'                         " fuzzy completion tool
 Plug 'junegunn/limelight.vim'                   " Highlight paragraphs in goyo mode
 Plug 'junegunn/goyo.vim'                        " Enable Goyo mode to remove distractions
@@ -82,7 +84,15 @@ let g:limelight_conceal_ctermfg = 'gray'
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 
+
+" filenames like *.xml, *.html, *.xhtml, ...
+" These are the file extensions where this plugin is enabled.
+"
+let g:closetag_filenames = '*.html, *.svelte, *.js, *.md'
+
 let g:sneak#label = 1
+set autoread " auto load file if it changes on disk
+au CursorHold,CursorHoldI * checktime " auto load on cursor stop
 set inccommand=split
 set noequalalways " keep window sizes the same when there are changes
 set diffopt+=vertical
@@ -94,9 +104,7 @@ set undodir=~/.config/nvim/undodir
 set smartcase
 set hidden
 set updatetime=50
-set smartindent
 set ignorecase
-"set termguicolors
 set scrolloff=5
 set showmatch matchtime=3 
 
@@ -110,12 +118,6 @@ set clipboard+=unnamedplus
 " split windows below
 set splitbelow
 
-" tab settings change to 2 spaces
-set tabstop=2
-set shiftwidth=2
-set shiftround "when indenting round to the nearst
-set expandtab     "expand tabs to spaces
-
 " Needed for coc.nvim
 let g:UltiSnipsExpandTrigger = "<nop>"
 
@@ -124,16 +126,18 @@ let g:UltiSnipsExpandTrigger = "<nop>"
 "                                 User Commands                                "
 "------------------------------------------------------------------------------"
 " attempt to write the file with sudo 
-command SudoWrite w !sudo -A tee %
-command CypressOpen !./node_modules/cypress/bin/cypress open &
+command! SudoWrite w !sudo -A tee %
+command! CypressOpen !./node_modules/cypress/bin/cypress open &
 " Delete surrounding and keep inner content
-command DeleteEnclosing :normal $%dd''.==
-command RefreshConfig :source $MYVIMRC
-command EditConfig :e $MYVIMRC
-command IndentFile :normal mqHmwgg=G`wzt`q
-command JenkinsLint :call JenkinsLint()
-command GPush :call GitPush()
-command Term :new +resize8 term://zsh 
+command! DeleteEnclosing :normal $%dd''.==
+command! RefreshConfig :source $MYVIMRC
+command! EditConfig :e $MYVIMRC
+command! CleanBuffers :%bd|e#
+command! IndentFile :normal mqHmwgg=G`wzt`q
+command! JenkinsLint :call JenkinsLint()
+command! GPush :call GitPush()
+command! Term :new +resize8 term://zsh 
+command! Bdel :bn|:bd#
 
 "------------------------------------------------------------------------------"
 "                              User Insert Config                              "
@@ -145,9 +149,9 @@ inoremap [ []<Left>
 inoremap { {}<Left>
 
 "Auto pair common pairings, if on second part of pair then move out of pair
-" inoremap <expr> ) matchstr(getline('.'), '\%' . col('.') . 'c.') == ')' ? '<Esc>la' : ')'
-" inoremap <expr> ] matchstr(getline('.'), '\%' . col('.') . 'c.') == ']' ? '<Esc>la' : ']'
-" inoremap <expr> } matchstr(getline('.'), '\%' . col('.') . 'c.') == '}' ? '<Esc>la' : '}'
+inoremap <expr> ) matchstr(getline('.'), '\%' . col('.') . 'c.') == ')' ? '<Esc>la' : ')'
+inoremap <expr> ] matchstr(getline('.'), '\%' . col('.') . 'c.') == ']' ? '<Esc>la' : ']'
+inoremap <expr> } matchstr(getline('.'), '\%' . col('.') . 'c.') == '}' ? '<Esc>la' : '}'
 inoremap <expr> <CR> matchstr(getline('.'), '\%' . col('.') . 'c.') == '}' ? '<Space><BS><CR><Space><BS><CR><Esc>ka<Tab>' : '<Space><BS><CR>'
 
 "------------------------------------------------------------------------------"
@@ -164,19 +168,21 @@ nmap <leader>d :Rg<CR>
 vnoremap p "_dP
 " easier return to normal mode in terminal mode
 tnoremap <Esc> <C-\><C-n> 
-nmap <leader>a :CocCommand explorer<CR>
-nmap <leader>ss :%s///gc<Left><Left><Left><Left>
-nmap <leader>se :g/^$/d
-nmap <leader>sd :g//d<Left><Left>
-nmap <leader>si :normal mqHmwgg=G`wzt`q<CR>
-nmap <leader>b :Buffers<CR>
-nmap <leader>gc :GBranches<CR>
-nmap <leader>gp :GPush<CR>
-nmap <leader>gg :vertical G<CR>
-nmap <leader>gh :diffget //3<CR>
-nmap <leader>gu :diffget //2<CR>
-nmap <leader>gd :call JumpToDefinition()<CR>
-nmap <leader>u :UndotreeToggle<CR> <C-w><C-w>
+nnoremap <leader>aa :CocCommand explorer --toggle<CR>
+nnoremap <leader>ss :%s///gc<Left><Left><Left><Left>
+nnoremap <leader>se :g/^$/d
+nnoremap <leader>sd :g//d<Left><Left>
+nnoremap <leader>si :normal mqHmwgg=G`wzt`q<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>gc :GBranches<CR>
+nnoremap <leader>gp :GPush<CR>
+nnoremap <leader>gg :vertical G<CR>
+nnoremap <leader>gh :diffget //3<CR>
+nnoremap <leader>gu :diffget //2<CR>
+nnoremap <leader>gd :call JumpToDefinition()<CR>
+nnoremap <leader>u :UndotreeToggle<CR> <C-w><C-w>
+nnoremap <leader>rr :source $MYVIMRC <CR>
+nnoremap <leader>t :Term<CR>
 " easy switch windows
 nnoremap <c-j> <c-w>j
 nnoremap <c-h> <c-w>h
@@ -188,6 +194,10 @@ nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 nnoremap $ g_
 set spelllang=en
 autocmd BufRead,BufNewFile *.md, *txt, COMMIT_EDITMSG setlocal spell
+autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal! g`\"" |
+     \ endif
 
 "------------------------------------------------------------------------------"
 "                                User Functions                                "

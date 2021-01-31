@@ -26,6 +26,7 @@ alias kdel="kubectl delete -f"
 alias kcre="kubectl apply -f"
 alias phone="scrcpy --shortcut-mod=lctrl -b2M -m800  "
 alias k="kubectl"
+alias e="emacs -nw"
 alias config="nvim ~/.zshrc"
 alias kp="kubectl get pods"
 alias kw="watch -n 1 kubectl get pods"
@@ -81,6 +82,18 @@ function pass(){
   lpass show $(lpass ls | fzf | sed 's/[^0-9]*//g')
 }
 
+function vgit(){
+ found_path=$(readlink -f $(sudo find ~/git \
+   -not -path '*/\.*' \
+   -not -path '*/\node_modules*' \
+   -not -path '*/\target*' \
+   -not -path '*/\build*' \
+   -not -path '*/\bin*' \
+   -not -path '*/\root*' \
+   -type f  -prune | fzf))
+ [ ! -z $found_path ] && nvim $found_path
+}
+
 function cgit(){
   cd $(dirname $(readlink -f $(find ~/git -maxdepth 3 -name ".git"  -prune | fzf))) 
   git status -s -b
@@ -117,6 +130,9 @@ function sshdops-workers(){
 
 zle -N cgit
 bindkey '^s' cgit
+
+zle -N vgit
+bindkey '^f' vgit
 
 #reverse menu on shift-tab
 bindkey '^[[Z' reverse-menu-complete

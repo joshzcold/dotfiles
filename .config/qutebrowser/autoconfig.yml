@@ -6,10 +6,42 @@
 
 config_version: 2
 settings:
+  bindings.commands:
+    global:
+      normal:
+        <Ctrl+i>: tab-focus stack-next
+        <Ctrl+o>: tab-focus stack-prev
+        <F12>: devtools
+        J: tab-prev
+        K: tab-next
+        gj: tab-move +
+        gk: tab-move -
+        j: scroll down
+  colors.webpage.darkmode.enabled:
+    global: true
+  colors.webpage.darkmode.policy.images:
+    global: never
+  colors.webpage.prefers_color_scheme_dark:
+    global: true
+  content.desktop_capture:
+    https://teams.microsoft.com: true
+    https://www.webrtc-experiment.com: true
+  content.geolocation:
+    https://www.google.com: true
   content.media.audio_capture:
     https://teams.microsoft.com: true
+    https://voice.google.com: true
   content.media.audio_video_capture:
     https://teams.microsoft.com: true
   content.notifications:
+    https://messages.google.com: true
+    https://outlook.office.com: true
     https://teams.microsoft.com: true
+    https://voice.google.com: true
     https://www.reddit.com: false
+  tabs.favicons.scale:
+    global: 1.0
+  tabs.position:
+    global: top
+  tabs.title.alignment:
+    global: left

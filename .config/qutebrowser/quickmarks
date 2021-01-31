@@ -60,3 +60,5 @@ Jenkins AA Build server http://10.204.35.15:8080/job/AA_SaaS/job/advancedauth-sa
 Time Tracking TPS https://source.microfocuscloud.com/workcenter/tmtrack.dll?shell=swc#2
 Access Devops Dashboard https://vlab055512.dom055500.lab/dashboard
 Vlab Share Point, VC08 Nameing range https://microfocusinternational.sharepoint.com/sites/engineering_IASLab/Lists/VC08NamingRange/Allitemsg.aspx
+Workday Microfocus https://wd5.myworkday.com/microfocus/d/home.htmld
+Jenkins K8S Debugging Box https://vlab055512.dom055500.lab/jenkins/job/AA/job/Installation/job/K8S_Debugging_Box/
