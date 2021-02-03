@@ -1,125 +1,97 @@
-;; .emacs.d/init.el
+;; The default is 800 kilobytes.  Measured in bytes.
+(setq gc-cons-threshold (* 50 1000 1000))
 
-;; Package Support via straight package manager
+;; Profile emacs startup
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "*** Emacs loaded in %s with %d garbage collections."
+                     (format "%.2f seconds"
+                             (float-time
+                              (time-subtract after-init-time before-init-time)))
+                     gcs-done)))
+
+;; Bootstrap straight.el
 (defvar bootstrap-version)
 (let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
       (bootstrap-version 5))
   (unless (file-exists-p bootstrap-file)
     (with-current-buffer
         (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
+        "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+        'silent 'inhibit-cookies)
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
+;; Use straight.el for use-package expressions
+(straight-use-package 'use-package)
+(setq straight-use-package-by-default t)
 
-;; Packages ==============================================
-(straight-use-package 'evil)               ;; vim mode
-(straight-use-package 'better-defaults)    ;; https://git.sr.ht/~technomancy/better-defaults
-(straight-use-package 'company)            ;; completion
-(straight-use-package 'flycheck)           ;; syntax error highlight
-(straight-use-package 'undo-fu)            ;; undo handler
-(straight-use-package 'undo-fu-session)    ;; persistent undo
-(straight-use-package 'use-package)        ;; package config organization
-(straight-use-package 'helm)               ;; workspace manager and file finder
-(straight-use-package 'helm-ls-git)        ;; search on files in git
-(straight-use-package 'smart-mode-line)    ;; better bottom bar
-(straight-use-package 'doom-themes)        ;; collection of themes
-(straight-use-package 'doom-modeline)
-(straight-use-package 'all-the-icons)
-(straight-use-package 'minions)
-(straight-use-package 'org)          
-(straight-use-package 'org-bullets)
-(straight-use-package 'org-superstar)
-(straight-use-package 'org-tree-slide)
-(straight-use-package 'visual-fill-column)
-(straight-use-package 'unicode-fonts)
-(straight-use-package 'diminish)
-;; Programming ---------------
-(straight-use-package 'magit)              ;; git handler
-(straight-use-package 'evil-nerd-commenter) ;; comment out code
-(straight-use-package 'lsp-mode)           ;; language server protcol
-(straight-use-package 'lsp-ui)             ;; provides ui tips during lsp
-(straight-use-package 'json-mode)
-(straight-use-package 'yaml-mode)
-(straight-use-package 'svelte-mode)
-(straight-use-package 'jenkinsfile-mode)
-(straight-use-package 'groovy-mode)
-(straight-use-package 'yasnippet)          ;; snippet engine
-(straight-use-package 'yasnippet-snippets) ;; collection of snippets
-;; =======================================================
+(use-package better-defaults)
+(use-package undo-fu)
+(use-package undo-fu-session)
 
-;; GLOBAL Config =================================================
-(setq inhibit-startup-message t)                               ;; Hide the startup message
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 2)
-(setq auto-save-file-name-transforms                           ;;
-  `((".*" "~/.emacs-saves/" t)))                               ;; divert auto save files to one location
-(setq backup-directory-alist                                   ;;
-          `(("." . ,(concat user-emacs-directory "backups")))) ;; divert backups to one location
-(electric-pair-mode 1)                                         ;; complete common pairs {} [] ()
-(set-frame-parameter (selected-frame) 'alpha '(90 . 90))
+(use-package json-mode)
+(use-package js2-mode
+  :init
+  (setq js2-strict-missing-semi-warning nil
+        js2-highlight-level 3)) 
+(use-package yaml-mode)
+(use-package lsp-mode)
+(use-package lsp-ui)
+(use-package svelte-mode)
+(use-package jenkinsfile-mode)
+(use-package groovy-mode)
+(use-package magit)
+
+(setq inhibit-startup-message t) ;; Hide the startup message
+ (setq-default indent-tabs-mode nil)
+ (setq-default tab-width 2)
+ (electric-pair-mode 1)           ;; complete common pairs {} [] ()
+ (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
  (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+ (global-undo-fu-session-mode)    ;; actiavte undo fu session mode
+ (menu-bar-mode -1)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)         ;; map escapte to keyboard escape for getting out of menus
+(global-set-key (kbd "C-S-v") 'paste)
+(global-set-key (kbd "C-S-c") 'copy)
 
 (column-number-mode)
 (dolist (mode '(text-mode-hook
                 prog-mode-hook
                 conf-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 1))))
+(add-hook mode (lambda () (display-line-numbers-mode 1))))
 
 (dolist (mode '(org-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+(add-hook mode (lambda () (display-line-numbers-mode 0))))
 
-(setq display-line-numbers-type 'relative)                     ;; line numbers are relative 
-(global-undo-fu-session-mode)                                  ;; actiavte undo fu session mode
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)         ;; map escapte to keyboard escape for getting out of menus
-(global-set-key (kbd "C-S-v") 'paste)
-(global-set-key (kbd "C-S-c") 'copy)
-                                                              ;; disable menu bar in terminal mode
-(unless (display-graphic-p)                                    ;; unless in graphic mode remove menu bar
-(menu-bar-mode -1))
+(setq display-line-numbers-type 'relative)                     ;; line numbers are relative
 
-;; Unicode font config
-(defun dw/replace-unicode-font-mapping (block-name old-font new-font)
-  (let* ((block-idx (cl-position-if
-                         (lambda (i) (string-equal (car i) block-name))
-                         unicode-fonts-block-font-mapping))
-         (block-fonts (cadr (nth block-idx unicode-fonts-block-font-mapping)))
-         (updated-block (cl-substitute new-font old-font block-fonts :test 'string-equal)))
-    (setf (cdr (nth block-idx unicode-fonts-block-font-mapping))
-          `(,updated-block))))
-
-(use-package unicode-fonts
-  :straight t
-  :custom
-  (unicode-fonts-skip-font-groups '(low-quality-glyphs))
-  :config
-  ;; Fix the font mappings to use the right emoji font
-  (mapcar
-    (lambda (block-name)
-      (dw/replace-unicode-font-mapping block-name "Apple Color Emoji" "Noto Color Emoji"))
-    '("Dingbats"
-      "Emoticons"
-      "Miscellaneous Symbols and Pictographs"
-      "Transport and Map Symbols"))
-  (unicode-fonts-setup))
-
-
-;; ===============================================================
-
-;; USER Functions ================================================
+(use-package no-littering
+  :init
+  (setq no-littering-etc-directory
+        (expand-file-name "config/" user-emacs-directory))
+  (setq no-littering-var-directory
+        (expand-file-name "data/" user-emacs-directory))
+  (setq auto-save-file-name-transforms
+      `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+  )
 
 (defun Term()
   (interactive)
   (shell)
   )
-;; ===============================================================
 
-(use-package better-defaults)
-(use-package evil-nerd-commenter
-  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
+(use-package doom-themes
+  :config
+  (setq doom-themes-enable-bold t    ;; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ;; if nil, italics is universally disabled
+  (load-theme 'doom-dark+ t)         ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config) ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
 
 (use-package minions
   :hook (doom-modeline-mode . minions-mode)
@@ -151,7 +123,32 @@
   (doom-modeline-github-timer nil)
   (doom-modeline-gnus-timer nil))
 
-;; Turn on indentation and auto-fill mode for Org files
+;; Unicode font config
+(use-package all-the-icons)
+(defun dw/replace-unicode-font-mapping (block-name old-font new-font)
+  (let* ((block-idx (cl-position-if
+                     (lambda (i) (string-equal (car i) block-name))
+                     unicode-fonts-block-font-mapping))
+         (block-fonts (cadr (nth block-idx unicode-fonts-block-font-mapping)))
+         (updated-block (cl-substitute new-font old-font block-fonts :test 'string-equal)))
+    (setf (cdr (nth block-idx unicode-fonts-block-font-mapping))
+          `(,updated-block))))
+
+(use-package unicode-fonts
+  :straight t
+  :custom
+  (unicode-fonts-skip-font-groups '(low-quality-glyphs))
+  :config
+  ;; Fix the font mappings to use the right emoji font
+  (mapcar
+   (lambda (block-name)
+     (dw/replace-unicode-font-mapping block-name "Apple Color Emoji" "Noto Color Emoji"))
+   '("Dingbats"
+     "Emoticons"
+     "Miscellaneous Symbols and Pictographs"
+     "Transport and Map Symbols"))
+  (unicode-fonts-setup))
+
 (defun dw/org-mode-setup ()
   (org-indent-mode)
   (variable-pitch-mode 1)
@@ -162,8 +159,10 @@
   :defer t
   :hook (org-mode . dw/org-mode-setup)
   :config
+  (if (display-graphic-p)
+      (setq org-hide-emphasis-markers t))
+
   (setq org-ellipsis " ▾"
-        org-hide-emphasis-markers t
         org-src-fontify-natively t
         org-src-tab-acts-natively t
         org-edit-src-content-indentation 2
@@ -178,20 +177,30 @@
   (setq org-outline-path-complete-in-steps nil)
   (setq org-refile-use-outline-path t)
 
+  ;; Since we don't want to disable org-confirm-babel-evaluate all
+  ;; of the time, do it around the after-save-hook
+  (defun dw/org-babel-tangle-dont-ask ()
+    ;; Dynamic scoping to the rescue
+    (let ((org-confirm-babel-evaluate nil))
+      (org-babel-tangle)))
+
+  (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'dw/org-babel-tangle-dont-ask
+                                                'run-at-end 'only-in-org-mode)))
+
   (evil-define-key '(normal insert visual) org-mode-map (kbd "C-j") 'org-next-visible-heading)
   (evil-define-key '(normal insert visual) org-mode-map (kbd "C-k") 'org-previous-visible-heading)
 
   (evil-define-key '(normal insert visual) org-mode-map (kbd "M-j") 'org-metadown)
+  (evil-define-key '(normal insert visual) org-mode-map (kbd "TAB") 'org-cycle)
   (evil-define-key '(normal insert visual) org-mode-map (kbd "M-k") 'org-metaup)
 
-(use-package org-superstar
-  :after org
-  :hook (org-mode . org-superstar-mode)
-  :custom
-  (org-superstar-remove-leading-stars t)
-  (org-superstar-headline-bullets-list '("\u200b"))
-  )
-
+  (if (display-graphic-p)
+      (use-package org-superstar
+        :after org
+        :hook (org-mode . org-superstar-mode)
+        :custom
+        (org-superstar-remove-leading-stars t)
+        (org-superstar-headline-bullets-list '("\u200b"))))
 ;; Replace list hyphen with dot
 ;; (font-lock-add-keywords 'org-mode
 ;;                         '(("^ *\\([-]\\) "
@@ -234,47 +243,44 @@
 (use-package visual-fill-column
   :hook (org-mode . efs/org-mode-visual-fill))
 
-(use-package doom-themes
-  :config
-  (setq doom-themes-enable-bold t    ;; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ;; if nil, italics is universally disabled
-  (load-theme 'doom-one t)         ;; Enable flashing mode-line on errors
-  (doom-themes-visual-bell-config) ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config))
-
-(use-package helm
-  :config
-  (global-set-key (kbd "M-SPC") 'helm-ls-git-ls)
-  (global-set-key (kbd "M-d") 'helm-grep-do-git-grep)
-  )
-
-(use-package yasnippet                  ;; Snippets
-  :config
-  (define-key yas-minor-mode-map (kbd "C-j") 'yas-next-field)
-  (define-key yas-minor-mode-map (kbd "C-k") 'yas-prev-field)
-  (yas-reload-all)
-  (yas-global-mode))
-
 (use-package evil
   :init
-  (setq evil-want-C-u-scroll t)
+  (setq evil-want-keybinding nil)
   (setq evil-cross-lines t)
   (setq evil-search-module "evil-search")
   (setq evil-undo-system 'undo-fu)
+  (setq evil-shift-width 2)
   (setq evil-search-highlight-background-colour "purple1")
   (setq-default evil-cross-lines t)
   :config
-  (evil-mode 1)
+  (evil-mode 1) ;; enable evil mode
   (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
   (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
   (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
   (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+  (define-key evil-normal-state-map (kbd "gd") 'lsp-find-definition)
+  (define-key evil-normal-state-map (kbd "gD") 'lsp-find-references)
   (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
   (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
   (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
   (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
-  (define-key evil-insert-state-map (kbd "C-k") nil)
+  (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
+  (define-key evil-insert-state-map (kbd "C-k") nil))
 
+(use-package evil-collection
+  :after evil
+  :custom
+  (evil-collection-setup-minibuffer t)
+  :config
+  (evil-collection-init)
+  (evil-collection-define-key '(insert normal) 'helm-map
+    (kbd "M-[") 'helm-previous-source
+    (kbd "M-]") 'helm-next-source
+    (kbd "M-l") 'helm-execute-persistent-action
+    (kbd "C-j") 'helm-next-line
+    (kbd "C-k") 'helm-previous-line
+    (kbd "C-f") 'helm-next-page
+    (kbd "C-b") 'helm-previous-page)
   )
 
 (use-package lsp-mode
@@ -290,9 +296,6 @@
 	 (bash-mode . lsp)
 	 (javascript-mode . lsp)
    )
-  :config
-  (define-key lsp-mode-map (kbd "gd") 'lsp-find-definition)
-  (define-key lsp-mode-map (kbd "gD") 'lsp-find-references)
   :commands lsp)
 
 (use-package company
@@ -300,33 +303,38 @@
   (define-key company-active-map (kbd "TAB") #'company-complete-selection)
   (define-key company-active-map (kbd "C-j") #'company-select-next)
   (define-key company-active-map (kbd "C-k") #'company-select-previous)
+
   (add-hook 'after-init-hook 'global-company-mode)
   (defun mars/company-backend-with-yas (backends)
       (if (and (listp backends) (memq 'company-yasnippet backends))
-	  backends
-	(append (if (consp backends)
-		    backends
-		  (list backends))
-		'(:with company-yasnippet))))
+    backends
+  (append (if (consp backends)
+        backends
+      (list backends))
+    '(:with company-yasnippet))))
 
     ;; add yasnippet to all backends
   (setq company-backends (mapcar #'mars/company-backend-with-yas company-backends))
   :init
   (setq company-minimum-prefix-length 2 company-idle-delay 0.0) 
+  (setq company-dabbrev-downcase nil)
+
 )
 
+(use-package yasnippet                  ;; Snippets
+  :config
+  (define-key yas-minor-mode-map (kbd "C-j") 'yas-next-field)
+  (define-key yas-minor-mode-map (kbd "C-k") 'yas-prev-field)
+  (yas-reload-all)
+  (yas-global-mode))
+(use-package yasnippet-snippets)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default))
- '(package-selected-packages '(material-theme better-defaults evil)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(use-package helm-ls-git)
+(use-package helm
+  :config
+  (global-set-key (kbd "M-f") 'helm-ls-git-ls)
+  (global-set-key (kbd "M-d") 'helm-grep-do-git-grep)
+  )
+
+(use-package evil-nerd-commenter
+  :bind ("M-/" . evilnc-comment-or-uncomment-lines))

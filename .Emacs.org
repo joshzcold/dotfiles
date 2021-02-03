@@ -1,0 +1,407 @@
+#+TITLE: Emacs Configuration
+#+PROPERTY: header-args:emacs-lisp :tangle ./.emacs.d/init.el
+
+* Startup performance
+
+Make startup faster by reducing the frequency of garbage collection and then use a hook to measure Emacs startup time.
+
+#+begin_src emacs-lisp 
+
+  ;; The default is 800 kilobytes.  Measured in bytes.
+  (setq gc-cons-threshold (* 50 1000 1000))
+
+  ;; Profile emacs startup
+  (add-hook 'emacs-startup-hook
+            (lambda ()
+              (message "*** Emacs loaded in %s with %d garbage collections."
+                       (format "%.2f seconds"
+                               (float-time
+                                (time-subtract after-init-time before-init-time)))
+                       gcs-done)))
+
+#+end_src
+
+* Package mangement
+** Package Manager
+Use =straight-package= for package management
+#+begin_src emacs-lisp 
+
+  ;; Bootstrap straight.el
+  (defvar bootstrap-version)
+  (let ((bootstrap-file
+        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+        (bootstrap-version 5))
+    (unless (file-exists-p bootstrap-file)
+      (with-current-buffer
+          (url-retrieve-synchronously
+          "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+          'silent 'inhibit-cookies)
+        (goto-char (point-max))
+        (eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
+
+  ;; Use straight.el for use-package expressions
+  (straight-use-package 'use-package)
+  (setq straight-use-package-by-default t)
+#+end_src
+** General Packages
+#+begin_src emacs-lisp 
+  (use-package better-defaults)
+  (use-package undo-fu)
+  (use-package undo-fu-session)
+#+end_src
+** Programming
+#+begin_src emacs-lisp 
+  (use-package json-mode)
+  (use-package js2-mode
+    :init
+    (setq js2-strict-missing-semi-warning nil
+          js2-highlight-level 3)) 
+  (use-package yaml-mode)
+  (use-package lsp-mode)
+  (use-package lsp-ui)
+  (use-package svelte-mode)
+  (use-package jenkinsfile-mode)
+  (use-package groovy-mode)
+  (use-package magit)
+#+end_src
+* User config
+** General Tweaks
+#+begin_src emacs-lisp 
+  (setq inhibit-startup-message t) ;; Hide the startup message
+  (setq-default indent-tabs-mode nil)
+  (setq-default tab-width 2)
+  (electric-pair-mode 1)           ;; complete common pairs {} [] ()
+  (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
+  (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+  (global-undo-fu-session-mode)    ;; actiavte undo fu session mode
+  (menu-bar-mode -1)
+ (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+
+#+end_src
+** User Hot Keys
+#+begin_src emacs-lisp 
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)         ;; map escapte to keyboard escape for getting out of menus
+(global-set-key (kbd "C-S-v") 'paste)
+(global-set-key (kbd "C-S-c") 'copy)
+#+end_src
+
+** Line numbers
+#+begin_src emacs-lisp 
+(column-number-mode)
+(dolist (mode '(text-mode-hook
+                prog-mode-hook
+                conf-mode-hook))
+(add-hook mode (lambda () (display-line-numbers-mode 1))))
+
+(dolist (mode '(org-mode-hook))
+(add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+(setq display-line-numbers-type 'relative)                     ;; line numbers are relative 
+#+end_src
+
+** Keep .emacs.d clean
+#+begin_src emacs-lisp
+  (use-package no-littering
+    :init
+    (setq no-littering-etc-directory
+          (expand-file-name "config/" user-emacs-directory))
+    (setq no-littering-var-directory
+          (expand-file-name "data/" user-emacs-directory))
+    (setq auto-save-file-name-transforms
+        `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+    )
+#+end_src
+* User functions
+#+begin_src emacs-lisp 
+(defun Term()
+  (interactive)
+  (shell)
+  )
+#+end_src
+
+* Theme
+#+begin_src emacs-lisp 
+(use-package doom-themes
+  :config
+  (setq doom-themes-enable-bold t    ;; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ;; if nil, italics is universally disabled
+  (load-theme 'doom-dark+ t)         ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config) ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+
+#+end_src
+* Mode line
+#+begin_src emacs-lisp 
+(use-package minions
+  :hook (doom-modeline-mode . minions-mode)
+  :custom
+  (minions-mode-line-lighter ""))
+
+(use-package doom-modeline
+  :hook (after-init . doom-modeline-mode)
+  :custom    
+  (doom-modeline-height 25)
+  (doom-modeline-bar-width 1)
+  (doom-modeline-icon nil)
+  (doom-modeline-major-mode-icon nil)
+  (doom-modeline-major-mode-color-icon t)
+  (doom-modeline-buffer-modification-icon t)
+  (doom-modeline-unicode-fallback nil)
+  (doom-modeline-buffer-file-name-style 'truncate-upto-project)
+  (doom-modeline-buffer-state-icon t)
+  (doom-modeline-buffer-modification-icon t)
+  (doom-modeline-minor-modes nil)
+  (doom-modeline-enable-word-count nil)
+  (doom-modeline-buffer-encoding nil)
+  (setq doom-modeline-lsp t)
+  (doom-modeline-indent-info nil)
+  (doom-modeline-checker-simple-format t)
+  (doom-modeline-vcs-max-length 12)
+  (doom-modeline-env-version t)
+  (doom-modeline-irc-stylize 'identity)
+  (doom-modeline-github-timer nil)
+  (doom-modeline-gnus-timer nil))
+
+#+end_src
+* Font config
+#+begin_src emacs-lisp 
+    ;; Unicode font config
+  (use-package all-the-icons)
+  (defun dw/replace-unicode-font-mapping (block-name old-font new-font)
+    (let* ((block-idx (cl-position-if
+                       (lambda (i) (string-equal (car i) block-name))
+                       unicode-fonts-block-font-mapping))
+           (block-fonts (cadr (nth block-idx unicode-fonts-block-font-mapping)))
+           (updated-block (cl-substitute new-font old-font block-fonts :test 'string-equal)))
+      (setf (cdr (nth block-idx unicode-fonts-block-font-mapping))
+            `(,updated-block))))
+
+  (use-package unicode-fonts
+    :straight t
+    :custom
+    (unicode-fonts-skip-font-groups '(low-quality-glyphs))
+    :config
+    ;; Fix the font mappings to use the right emoji font
+    (mapcar
+     (lambda (block-name)
+       (dw/replace-unicode-font-mapping block-name "Apple Color Emoji" "Noto Color Emoji"))
+     '("Dingbats"
+       "Emoticons"
+       "Miscellaneous Symbols and Pictographs"
+       "Transport and Map Symbols"))
+    (unicode-fonts-setup))
+
+#+end_src
+* Org mode
+
+#+begin_src emacs-lisp 
+  (defun dw/org-mode-setup ()
+    (org-indent-mode)
+    (variable-pitch-mode 1)
+    (visual-line-mode 1)
+    (diminish org-indent-mode))
+
+  (use-package org
+    :defer t
+    :hook (org-mode . dw/org-mode-setup)
+    :config
+    (if (display-graphic-p)
+        (setq org-hide-emphasis-markers t))
+
+    (setq org-ellipsis " ▾"
+          org-src-fontify-natively t
+          org-src-tab-acts-natively t
+          org-edit-src-content-indentation 2
+          org-hide-block-startup nil
+          org-src-preserve-indentation nil
+          org-startup-folded 'content
+          org-cycle-separator-lines 2)
+
+    (setq org-refile-targets '((nil :maxlevel . 2)
+                               (org-agenda-files :maxlevel . 2)))
+
+    (setq org-outline-path-complete-in-steps nil)
+    (setq org-refile-use-outline-path t)
+
+    ;; Since we don't want to disable org-confirm-babel-evaluate all
+    ;; of the time, do it around the after-save-hook
+    (defun dw/org-babel-tangle-dont-ask ()
+      ;; Dynamic scoping to the rescue
+      (let ((org-confirm-babel-evaluate nil))
+        (org-babel-tangle)))
+
+    (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'dw/org-babel-tangle-dont-ask
+                                                  'run-at-end 'only-in-org-mode)))
+
+    (evil-define-key '(normal insert visual) org-mode-map (kbd "C-j") 'org-next-visible-heading)
+    (evil-define-key '(normal insert visual) org-mode-map (kbd "C-k") 'org-previous-visible-heading)
+
+    (evil-define-key '(normal insert visual) org-mode-map (kbd "M-j") 'org-metadown)
+    (evil-define-key '(normal insert visual) org-mode-map (kbd "TAB") 'org-cycle)
+    (evil-define-key '(normal insert visual) org-mode-map (kbd "M-k") 'org-metaup)
+
+    (if (display-graphic-p)
+        (use-package org-superstar
+          :after org
+          :hook (org-mode . org-superstar-mode)
+          :custom
+          (org-superstar-remove-leading-stars t)
+          (org-superstar-headline-bullets-list '("\u200b"))))
+  ;; Replace list hyphen with dot
+  ;; (font-lock-add-keywords 'org-mode
+  ;;                         '(("^ *\\([-]\\) "
+  ;;                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+  ;; Increase the size of various headings
+  ;;(set-face-attribute 'org-document-title nil :font "Cantarell" :weight 'bold :height 1.3)
+  (dolist (face '((org-level-1 . 1.5)
+                  (org-level-2 . 1.3)
+                  (org-level-3 . 1.2)
+                  (org-level-4 . 1.0)
+                  (org-level-5 . 1.0)
+                  (org-level-6 . 1.0)
+                  (org-level-7 . 1.0)
+                  (org-level-8 . 1.0)))
+    (set-face-attribute (car face) nil :font "Cantarell" :weight 'regular :height (cdr face)))
+
+  ;; Make sure org-indent face is available
+  (require 'org-indent)
+
+  ;; Ensure that anything that should be fixed-pitch in Org files appears that way
+  (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-table nil  :inherit 'fixed-pitch)
+  (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
+  (set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
+  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+
+  )
+
+  ;; add left padding on org mode
+  (defun efs/org-mode-visual-fill ()
+    (setq visual-fill-column-width 100
+          visual-fill-column-center-text t)
+    (visual-fill-column-mode 1))
+
+  (use-package visual-fill-column
+    :hook (org-mode . efs/org-mode-visual-fill))
+
+#+end_src
+* Evil mode
+
+#+begin_src emacs-lisp 
+  (use-package evil
+    :init
+    (setq evil-want-keybinding nil)
+    (setq evil-cross-lines t)
+    (setq evil-search-module "evil-search")
+    (setq evil-undo-system 'undo-fu)
+    (setq evil-shift-width 2)
+    (setq evil-search-highlight-background-colour "purple1")
+    (setq-default evil-cross-lines t)
+    :config
+    (evil-mode 1) ;; enable evil mode
+    (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+    (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+    (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+    (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+    (define-key evil-normal-state-map (kbd "gd") 'lsp-find-definition)
+    (define-key evil-normal-state-map (kbd "gD") 'lsp-find-references)
+    (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
+    (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
+    (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
+    (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
+    (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
+    (define-key evil-insert-state-map (kbd "C-k") nil))
+#+end_src
+** Evil Mapping
+#+begin_src emacs-lisp
+  (use-package evil-collection
+    :after evil
+    :custom
+    (evil-collection-setup-minibuffer t)
+    :config
+    (evil-collection-init)
+    (evil-collection-define-key '(insert normal) 'helm-map
+      (kbd "M-[") 'helm-previous-source
+      (kbd "M-]") 'helm-next-source
+      (kbd "M-l") 'helm-execute-persistent-action
+      (kbd "C-j") 'helm-next-line
+      (kbd "C-k") 'helm-previous-line
+      (kbd "C-f") 'helm-next-page
+      (kbd "C-b") 'helm-previous-page)
+    )
+#+end_src
+* Programming
+** Language Server Protocol
+#+begin_src emacs-lisp 
+(use-package lsp-mode
+  :init
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  (setq lsp-keymap-prefix "C-c l")
+  :hook (
+         ;; launch lsp when using these modes
+	 (python-mode . lsp)
+	 (json-mode . lsp)
+	 (svelte-mode . lsp)
+	 (yaml-mode . lsp)
+	 (bash-mode . lsp)
+	 (javascript-mode . lsp)
+   )
+  :commands lsp)
+
+#+end_src
+** Code Completion
+#+begin_src emacs-lisp 
+  (use-package company
+    :config
+    (define-key company-active-map (kbd "TAB") #'company-complete-selection)
+    (define-key company-active-map (kbd "C-j") #'company-select-next)
+    (define-key company-active-map (kbd "C-k") #'company-select-previous)
+
+    (add-hook 'after-init-hook 'global-company-mode)
+    (defun mars/company-backend-with-yas (backends)
+        (if (and (listp backends) (memq 'company-yasnippet backends))
+      backends
+    (append (if (consp backends)
+          backends
+        (list backends))
+      '(:with company-yasnippet))))
+
+      ;; add yasnippet to all backends
+    (setq company-backends (mapcar #'mars/company-backend-with-yas company-backends))
+    :init
+    (setq company-minimum-prefix-length 2 company-idle-delay 0.0) 
+    (setq company-dabbrev-downcase nil)
+
+  )
+
+#+end_src
+** Snippets
+#+begin_src emacs-lisp 
+  (use-package yasnippet                  ;; Snippets
+    :config
+    (define-key yas-minor-mode-map (kbd "C-j") 'yas-next-field)
+    (define-key yas-minor-mode-map (kbd "C-k") 'yas-prev-field)
+    (yas-reload-all)
+    (yas-global-mode))
+  (use-package yasnippet-snippets)
+#+end_src
+** Project management
+#+begin_src emacs-lisp 
+  (use-package helm-ls-git)
+  (use-package helm
+    :config
+    (global-set-key (kbd "M-f") 'helm-ls-git-ls)
+    (global-set-key (kbd "M-d") 'helm-grep-do-git-grep)
+    )
+#+end_src
+** Comments
+#+begin_src emacs-lisp 
+(use-package evil-nerd-commenter
+  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
+#+end_src

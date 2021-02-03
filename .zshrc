@@ -26,8 +26,7 @@ alias kdel="kubectl delete -f"
 alias kcre="kubectl apply -f"
 alias phone="scrcpy --shortcut-mod=lctrl -b2M -m800  "
 alias k="kubectl"
-alias e="env TERM=xterm-256color emacsclient -c --alternate-editor=\"\""
-alias emacs="env TERM=xterm-256color emacs -bg black"
+alias etodo="ALTERNATE_EDITOR=\"\" emacsclient -c ~/git/org/todo/todo-$(date +"%m_%d_%Y").org"
 alias config="nvim ~/.zshrc"
 alias kp="kubectl get pods"
 alias kw="watch -n 1 kubectl get pods"
@@ -51,6 +50,21 @@ bindkey -v
 # bind to allow deletion after exiting normal mode vi
 bindkey "^?" backward-delete-char
 # Updates editor information when the keymap changes.
+
+function e(){
+    if [ -z $1 ];then
+        ALTERNATE_EDITOR="" emacsclient -c .
+    else
+        ALTERNATE_EDITOR="" emacsclient -c $1
+    fi
+}
+
+function restart_emacs(){
+  set -x
+  emacsclient -e '(save-buffers-kill-emacs)'
+  nohup emacs --daemon > /dev/null &
+  set +x
+}
 
 function cdg(){
   cd $(git rev-parse --show-toplevel)
