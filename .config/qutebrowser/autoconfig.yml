@@ -16,6 +16,7 @@ settings:
         K: tab-next
         gj: tab-move +
         gk: tab-move -
+        gu: edit-url
         j: scroll down
   colors.webpage.darkmode.enabled:
     global: true
@@ -34,10 +35,12 @@ settings:
   content.media.audio_video_capture:
     https://teams.microsoft.com: true
   content.notifications:
+    global: true
     https://messages.google.com: true
     https://outlook.office.com: true
     https://teams.microsoft.com: true
     https://voice.google.com: true
+    https://www.bennish.net: true
     https://www.reddit.com: false
   tabs.favicons.scale:
     global: 1.0

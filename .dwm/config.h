@@ -82,6 +82,7 @@ static Key keys[] = {
   { MODKEY,                       XK_d,      spawn,          {.v = applaunchercmd } },
   { MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
   { MODKEY,                       XK_s,      spawn,          {.v = screenshotcmd } },
+  { MODKEY|ControlMask|ShiftMask, XK_s,      spawn,          {.v = screenshotcmd } },
   { MODKEY,                       XK_e,      spawn,          {.v = emojilaunchercmd } },
   { 0,                            XF86XK_MonBrightnessUp,   spawn, {.v = brightness_up } },
   { 0,                            XF86XK_MonBrightnessDown, spawn, {.v = brightness_down } },

@@ -11,9 +11,10 @@ Plug 'inkarkat/vim-ingo-library'                " Needed for Syntax range
 Plug 'vim-scripts/SyntaxRange'                  " Highlight section and color differently
 Plug 'chrisbra/Colorizer'                       " Colors Hex codes
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " LSP client, ide actions
-Plug 'sheerun/vim-polyglot'                     " Syntax Highlighting
 Plug 'godlygeek/tabular'                        " Tab formatting tool
 Plug 'mbbill/undotree'                          " Undo file tool
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " treesitter for better syntax highlight
+Plug 'nvim-treesitter/playground'
 Plug '/usr/bin/fzf'                                   " fuzzy completion tool
 Plug 'junegunn/fzf.vim'                         " fuzzy completion tool
 Plug 'junegunn/limelight.vim'                   " Highlight paragraphs in goyo mode
@@ -22,8 +23,9 @@ Plug 'SirVer/ultisnips'                         " custom code snippets manager
 Plug 'honza/vim-snippets'                       " Needed for Coc snippets
 Plug 'pechorin/any-jump.vim'                    " search for code definition using a ripgrep search
 Plug 'justinmk/vim-sneak'                       " jump to points in file using label prompts
+Plug 'sheerun/vim-polyglot'
+Plug 'https://github.com/ludovicchabant/vim-gutentags'
 call plug#end()
-
 
 " color tweaks
 :highlight SignColumn ctermbg=none
@@ -37,6 +39,8 @@ call plug#end()
 "Colorizer Plugin
 let g:colorizer_auto_filetype='css,html,cpp,vim,conf'
 
+" lua require'nvim-treesitter.configs'.setup { ensure_installed = "maintained",highlight = { enable = true } }
+
 let g:coc_global_extensions = [
       \'coc-markdownlint',
       \'coc-highlight',
@@ -46,7 +50,6 @@ let g:coc_global_extensions = [
       \'coc-explorer',
       \]
 :highlight Search ctermfg=235 ctermbg=222
-
 
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
 let $FZF_DEFAULT_OPTS='--reverse'
@@ -77,6 +80,7 @@ let g:lightline = {
       \ },
       \ }
 let g:ale_lint_on_text_changed = 'never'
+let g:markdown_folding = 1 " fold markdown by default
 
 " Limelight plugin
 let g:limelight_conceal_guifg = 'DarkGray'
@@ -107,6 +111,11 @@ set updatetime=50
 set ignorecase
 set scrolloff=5
 set showmatch matchtime=3 
+
+" set tabstop     =2
+" set softtabstop =2
+" set shiftwidth  =2
+" set expandtab
 
 " line numbers
 set number
@@ -160,28 +169,40 @@ inoremap <expr> <CR> matchstr(getline('.'), '\%' . col('.') . 'c.') == '}' ? '<S
 autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
 let mapleader = " "
 " fzf git files
-nmap <leader>f :GFiles<CR>
+nmap <leader><leader> :Files<CR>
 " rip grep
-nmap <leader>d :Rg<CR> 
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --no-heading --no-line-number --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+nmap <leader>/ :Rg!<CR> 
 " replace currently selected text with default register
 " without yanking it
 vnoremap p "_dP
 " easier return to normal mode in terminal mode
 tnoremap <Esc> <C-\><C-n> 
 nnoremap <leader>aa :CocCommand explorer --toggle<CR>
-nnoremap <leader>ss :%s///gc<Left><Left><Left><Left>
+nnoremap <leader>ss :Snippets<CR>
 nnoremap <leader>se :g/^$/d
 nnoremap <leader>sd :g//d<Left><Left>
 nnoremap <leader>si :normal mqHmwgg=G`wzt`q<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>gc :GBranches<CR>
+nnoremap <leader>gs :GFiles?<CR>
 nnoremap <leader>gp :GPush<CR>
 nnoremap <leader>gg :vertical G<CR>
-nnoremap <leader>gh :diffget //3<CR>
-nnoremap <leader>gu :diffget //2<CR>
+
+"[c	jump to previous hunk
+"]c	jump to next hunk
+"dp	shorthand for `:diffput`
+":only	close all windows apart from the current one
+":Gwrite[!]	write the current file to the index
+nnoremap <leader>gi :Gdiffsplit!<CR>
+
 nnoremap <leader>gd :call JumpToDefinition()<CR>
 nnoremap <leader>u :UndotreeToggle<CR> <C-w><C-w>
 nnoremap <leader>rr :source $MYVIMRC <CR>
+nnoremap <leader>rc :e $MYVIMRC <CR>
 nnoremap <leader>t :Term<CR>
 " easy switch windows
 nnoremap <c-j> <c-w>j

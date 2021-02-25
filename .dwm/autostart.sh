@@ -5,6 +5,7 @@ spotifyd --no-daemon -b pulseaudio -u j_j_c-us -p Joshisnumber13! &
 setxkbmap -option caps:escape &
 emacs --daemon &
 nm-applet  &
+dunst &
 nitrogen --restore &
 pamac-tray &
 wmnme LG3D &

@@ -7,6 +7,7 @@ fi
 
 export PYTHONBREAKPOINT="pudb.set_trace"
 export ZSH=$HOME/.oh-my-zsh
+export PATH=$HOME/.emacs.d/bin:$HOME/apps/node_modules/bin/:$PATH
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 KEYTIMEOUT=1
@@ -37,7 +38,7 @@ alias cdf="cd $(ls -d */|head -n 1)" # cd into first dir
 export KUBE_EDITOR=nvim
 export KUBECONFIG="/home/joshua/.kube/aa.yaml"
 export SUDO_ASKPASS=/usr/bin/ksshaskpass
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
+export FZF_DEFAULT_COMMAND='rg --files'
 export GOVC_INSECURE=1
 # export GOVC_URL="https://vlabvc08.nqeng.lab/sdk"
 export GOVC_URL=https://vlabw1vc.nqeng.lab/sdk
@@ -85,7 +86,7 @@ function kpdel(){
 }
 
 function notes(){
-  cat $(readlink -f $(find ~/codepaste -not -path '*/\.*' -type f | fzf))
+  command cat $(readlink -f $(find ~/codepaste -not -path '*/\.*' -type f | fzf))
 }
 
 function kconf(){
@@ -110,8 +111,17 @@ function vgit(){
 }
 
 function cgit(){
-  cd $(dirname $(readlink -f $(find ~/git -maxdepth 3 -name ".git"  -prune | fzf))) 
-  git status -s -b
+  local git_list=$(dirname $(find ~/git -maxdepth 3 -name ".git"  -prune ))
+  local fzf_list=""
+  while IFS= read -r git_dir; do
+    branch=$(cd "$git_dir"; git  branch | grep '^\*' | cut -d' ' -f2) 
+
+    fzf_list+="$git_dir # $branch\n"   
+  done <<< "$git_list"
+  cd_dir=$(echo "$fzf_list" | column -t -s' ' | fzf)
+  cd_dir2=$(echo "$cd_dir" | cut -d" " -f1)
+  cd $cd_dir2
+  git status -s -b # show status after cd
 }
 
 function kre(){
