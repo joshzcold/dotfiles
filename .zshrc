@@ -21,18 +21,18 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 alias vim="nvim"
+alias vimrc="nvim /home/joshua/.config/nvim/init.vim"
+alias zshrc="nvim /home/joshua/.zshrc && source /home/joshua/.zshrc"
 alias markdown-preview="grip -b "
 alias vssh="ssh -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null"
 alias kdel="kubectl delete -f"
 alias kcre="kubectl apply -f"
-alias phone="scrcpy --shortcut-mod=lctrl -b2M -m800  "
 alias k="kubectl"
-alias etodo="ALTERNATE_EDITOR=\"\" emacsclient -c ~/git/org/todo/todo-$(date +"%m_%d_%Y").org"
-alias config="nvim ~/.zshrc"
+alias mde="kitty --class=markdown nvim"
 alias kp="kubectl get pods"
 alias kw="watch -n 1 kubectl get pods"
 alias cat="bat -p"
-alias gitl="git log --stats"
+alias gl="git log --stats"
 alias kssh="kitty +kitten ssh"
 alias cdf="cd $(ls -d */|head -n 1)" # cd into first dir
 export KUBE_EDITOR=nvim
@@ -52,24 +52,26 @@ bindkey -v
 bindkey "^?" backward-delete-char
 # Updates editor information when the keymap changes.
 
-function e(){
-    if [ -z $1 ];then
-        ALTERNATE_EDITOR="" emacsclient -c .
-    else
-        ALTERNATE_EDITOR="" emacsclient -c $1
-    fi
+function cdg(){ cd $(git rev-parse --show-toplevel) }
+
+function todo(){
+  last_monday=$(date -dlast-monday +"%m_%d_%Y")
+  todo_file="/home/joshua/git/org/todo/todo-$last_monday.md"
+  [ ! -f "$todo_file" ] && echo "# todo $last_monday" > $todo_file
+  nvim $todo_file
 }
 
-function restart_emacs(){
-  set -x
-  emacsclient -e '(save-buffers-kill-emacs)'
-  nohup emacs --daemon > /dev/null &
-  set +x
+function searchGit(){
+  cgit
+  INITIAL_QUERY=""
+  RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+  FZF_DEFAULT_COMMAND="$RG_PREFIX '$INITIAL_QUERY'" \
+    fzf --bind "change:reload:$RG_PREFIX {q} || true" \
+    --ansi --disabled --query "$INITIAL_QUERY" \
+    --height=50% --layout=reverse
+  cd -
 }
 
-function cdg(){
-  cd $(git rev-parse --show-toplevel)
-}
 function grep-all(){
   grep --color=always -z $1 $2
 }
@@ -83,6 +85,12 @@ function kpdel(){
   kubectl delete pod $1 &
   kubectl delete svc $1 &
   kubectl delete configmap $1 &
+}
+
+function kclean(){
+  # assuming all temporary k8s pods have yamls in /tmp
+  find /tmp/ -name "*.yaml" | parallel kubectl delete -f
+  find /tmp/ -name "*.yaml" | rm
 }
 
 function notes(){
@@ -129,13 +137,13 @@ function kre(){
 }
 
 function cy(){
-  nohup kitty nvim >/dev/null 2>&1 &
-  npx cypress open &
+  nohup npx cypress open  >/dev/null 2>&1  &
+  nvim cypress.json
 }
 
 function cypress(){
-  nohup kitty nvim cypress.json >/dev/null 2>&1 &
-  npx cypress open &
+  nohup npx cypress open  >/dev/null 2>&1  &
+  nvim cypress.json
 }
 
 function sshaa-unit(){
@@ -158,6 +166,9 @@ bindkey '^s' cgit
 
 zle -N vgit
 bindkey '^f' vgit
+
+zle -N searchGit
+bindkey '^a' searchGit
 
 #reverse menu on shift-tab
 bindkey '^[[Z' reverse-menu-complete

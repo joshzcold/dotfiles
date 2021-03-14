@@ -2,44 +2,58 @@ call plug#begin()
 Plug 'itchyny/lightline.vim'                    " replace default Vim status line with something nice
 Plug 'alvan/vim-closetag'
 Plug 'tpope/vim-fugitive'                       " Very helpful git tool
-Plug 'stsewd/fzf-checkout.vim'                  " Extra git tool functionality
 Plug 'tpope/vim-abolish'                        " some helpful actions like keep case on find, replace
 Plug 'tpope/vim-commentary'                     " be able to comment any syntax out
 Plug 'tpope/vim-surround'                       " Vim actions to surround word with quotes
-Plug 'tpope/vim-sensible'                       " Vim actions to surround word with quotes
+Plug 'tpope/vim-sensible'                       " tpope defaults
 Plug 'inkarkat/vim-ingo-library'                " Needed for Syntax range
 Plug 'vim-scripts/SyntaxRange'                  " Highlight section and color differently
 Plug 'chrisbra/Colorizer'                       " Colors Hex codes
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " LSP client, ide actions
 Plug 'godlygeek/tabular'                        " Tab formatting tool
-Plug 'mbbill/undotree'                          " Undo file tool
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " treesitter for better syntax highlight
-Plug 'nvim-treesitter/playground'
 Plug '/usr/bin/fzf'                                   " fuzzy completion tool
 Plug 'junegunn/fzf.vim'                         " fuzzy completion tool
+Plug 'stsewd/fzf-checkout.vim'                  " Extra git tool functionality
 Plug 'junegunn/limelight.vim'                   " Highlight paragraphs in goyo mode
 Plug 'junegunn/goyo.vim'                        " Enable Goyo mode to remove distractions
 Plug 'SirVer/ultisnips'                         " custom code snippets manager
 Plug 'honza/vim-snippets'                       " Needed for Coc snippets
-Plug 'pechorin/any-jump.vim'                    " search for code definition using a ripgrep search
-Plug 'justinmk/vim-sneak'                       " jump to points in file using label prompts
 Plug 'sheerun/vim-polyglot'
-Plug 'https://github.com/ludovicchabant/vim-gutentags'
+"markdown
+Plug 'plasticboy/vim-markdown'
+Plug 'iamcco/markdown-preview.nvim'
+
+" trial plugins. remove full url when accepted
+Plug 'https://github.com/liuchengxu/vim-which-key'
+Plug 'https://github.com/simnalamburt/vim-mundo'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " treesitter for better syntax highlight
+Plug 'nvim-treesitter/playground'
 call plug#end()
 
+" put highlights in function incase a plugin sets them and 
+" doesn't set them back
+function! SetHighlight()
 " color tweaks
-:highlight SignColumn ctermbg=none
-:highlight Pmenu ctermfg=15 ctermbg=235
-:highlight PmenuSel ctermfg=15 ctermbg=233
-:highlight ErrorMsg ctermfg=15 ctermbg=88 guifg=none guibg=none
-:hi DiffAdd      ctermfg=22         ctermbg=121
-:hi DiffChange   ctermfg=94        ctermbg=187
-:hi DiffDelete   ctermfg=52         ctermbg=217
-:hi DiffText     ctermfg=24         ctermbg=153
-"Colorizer Plugin
+      :highlight SignColumn ctermbg=none
+      :highlight Pmenu ctermfg=15 ctermbg=235
+      :highlight PmenuSel ctermfg=15 ctermbg=233
+      :highlight ErrorMsg ctermfg=15 ctermbg=88 guifg=none guibg=none
+      :hi DiffAdd      ctermfg=22         ctermbg=121
+      :hi DiffChange   ctermfg=94        ctermbg=187
+      :hi DiffDelete   ctermfg=52         ctermbg=217
+      :hi DiffText     ctermfg=24         ctermbg=153
+endfunction
+:call SetHighlight()
+
+"------------------------------------------------------------------------------"
+"                                 User Variables                              "
+"------------------------------------------------------------------------------"
+
+"Colorizer Plugin example: ctermbg=100
 let g:colorizer_auto_filetype='css,html,cpp,vim,conf'
 
 " lua require'nvim-treesitter.configs'.setup { ensure_installed = "maintained",highlight = { enable = true } }
+"
 
 let g:coc_global_extensions = [
       \'coc-markdownlint',
@@ -73,30 +87,33 @@ let g:lightline = {
       \ 'colorscheme': 'seoul256',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'filetype' ]
+      \   ]
       \ },
       \ 'component_function': {
       \   'gitbranch': 'FugitiveHead'
       \ },
       \ }
-let g:ale_lint_on_text_changed = 'never'
-let g:markdown_folding = 1 " fold markdown by default
+set noshowmode "light line provides mode status
 
-" Limelight plugin
+let g:ale_lint_on_text_changed = 'never'
+
+" Limelight/Goyo plugin
 let g:limelight_conceal_guifg = 'DarkGray'
 let g:limelight_conceal_ctermfg = 'gray'
 autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
+autocmd! User GoyoLeave Limelight! | :call SetHighlight()
 
-
-" filenames like *.xml, *.html, *.xhtml, ...
-" These are the file extensions where this plugin is enabled.
-"
+" autoclose using alvan/vim-closetag in these files
 let g:closetag_filenames = '*.html, *.svelte, *.js, *.md'
 
+" justinmk/vim-sneak
 let g:sneak#label = 1
+
 set autoread " auto load file if it changes on disk
-au CursorHold,CursorHoldI * checktime " auto load on cursor stop
 set inccommand=split
 set noequalalways " keep window sizes the same when there are changes
 set diffopt+=vertical
@@ -121,7 +138,7 @@ set showmatch matchtime=3
 set number
 set relativenumber
 
-" clipboard modification
+" clipboard modification, allows system clipboard
 set clipboard+=unnamedplus
 
 " split windows below
@@ -130,28 +147,24 @@ set splitbelow
 " Needed for coc.nvim
 let g:UltiSnipsExpandTrigger = "<nop>"
 
+" Spelling 
+set spelllang=en
+" set spell for file types
+autocmd FileType latex,tex,md,markdown,text setlocal spell
 
 "------------------------------------------------------------------------------"
 "                                 User Commands                                "
 "------------------------------------------------------------------------------"
-" attempt to write the file with sudo 
-command! SudoWrite w !sudo -A tee %
-command! CypressOpen !./node_modules/cypress/bin/cypress open &
 " Delete surrounding and keep inner content
 command! DeleteEnclosing :normal $%dd''.==
-command! RefreshConfig :source $MYVIMRC
-command! EditConfig :e $MYVIMRC
-command! CleanBuffers :%bd|e#
-command! IndentFile :normal mqHmwgg=G`wzt`q
 command! JenkinsLint :call JenkinsLint()
 command! GPush :call GitPush()
-command! Term :new +resize8 term://zsh 
-command! Bdel :bn|:bd#
+command! CopyFileName let @+ = expand('%:p')
 
 "------------------------------------------------------------------------------"
 "                              User Insert Config                              "
 "------------------------------------------------------------------------------"
-" auto pairing
+" auto pairing 
 " Move back into pair
 inoremap ( ()<Left>
 inoremap [ []<Left>
@@ -166,76 +179,178 @@ inoremap <expr> <CR> matchstr(getline('.'), '\%' . col('.') . 'c.') == '}' ? '<S
 "------------------------------------------------------------------------------"
 "                                 User Hotkeys                                 "
 "------------------------------------------------------------------------------"
+" escape from fzf using escape
 autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
-let mapleader = " "
-" fzf git files
-nmap <leader><leader> :Files<CR>
+
+"WhichKey mappings
+let g:mapleader = "\<Space>"
+let g:maplocalleader = ','
+set timeoutlen=200
+nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+call which_key#register('<Space>', "g:which_key_map")
+let g:which_key_map =  {}
+let g:which_key_map[' '] = [':call fzf#vim#files(".", {"options": "--no-preview"})', 'files']
+let g:which_key_map['w'] = {
+      \ 'name' : '+windows' ,
+      \ 'w' : ['<C-W>w'     , 'other-window']          ,
+      \ 'o' : [':only'      , 'close-other-windows']          ,
+      \ 'd' : ['<C-W>c'     , 'delete-window']         ,
+      \ '-' : ['<C-W>s'     , 'split-window-below']    ,
+      \ '|' : ['<C-W>v'     , 'split-window-right']    ,
+      \ '2' : ['<C-W>v'     , 'layout-double-columns'] ,
+      \ 'h' : ['<C-W>h'     , 'window-left']           ,
+      \ 'j' : ['<C-W>j'     , 'window-below']          ,
+      \ 'l' : ['<C-W>l'     , 'window-right']          ,
+      \ 'k' : ['<C-W>k'     , 'window-up']             ,
+      \ 'H' : ['<C-W>5<'    , 'expand-window-left']    ,
+      \ 'J' : [':resize +5' , 'expand-window-below']   ,
+      \ 'L' : ['<C-W>5>'    , 'expand-window-right']   ,
+      \ 'K' : [':resize -5' , 'expand-window-up']      ,
+      \ '=' : ['<C-W>='     , 'balance-window']        ,
+      \ 's' : ['<C-W>s'     , 'split-window-below']    ,
+      \ 'v' : ['<C-W>v'     , 'split-window-below']    ,
+      \ '?' : ['Windows'    , 'fzf-window']
+      \ }
+
+let g:which_key_map.b = {
+      \ 'name' : '+buffer' ,
+      \ '1' : ['b1'        , 'buffer 1']        ,
+      \ '2' : ['b2'        , 'buffer 2']        ,
+      \ 'd' : [':bn|:bd#'        , 'delete-buffer']   ,
+      \ 'f' : ['bfirst'    , 'first-buffer']    ,
+      \ 'h' : ['Startify'  , 'home-buffer']     ,
+      \ 'l' : ['blast'     , 'last-buffer']     ,
+      \ 'n' : ['bnext'     , 'next-buffer']     ,
+      \ 'p' : ['bprevious' , 'previous-buffer'] ,
+      \ 'x' : [':%bd|e#' , 'delete-other-buffers'] ,
+      \ 'b' : [':call fzf#vim#buffers({"options": "--no-preview"})','list-buffers']
+      \ }
+
+let g:which_key_map.g = {
+      \ 'name': '+git'                       ,
+      \ 'b' : [':GBranches'                  , 'git-branches']        ,
+      \ 's' : [':GFiles'                     , 'git-files']           ,
+      \ 'p' : [':GPush'                      , 'git-push--file']      ,
+      \ 'g' : [':vertical G'                 , 'git']                 ,
+      \ 'i' : [':Gdiffsplit!'                , 'git-diff']            ,
+      \ 'd' : ['<Plug>(coc-definition)'      , 'coc-definition']      ,
+      \ '[' : ['<Plug>(coc-diagnostic-prev)' , 'coc-diagnostic-prev'] ,
+      \ ']' : ['<Plug>(coc-diagnostic-next)' , 'coc-diagnostic-next'] ,
+      \ 'r' : ['<Plug>(coc-references)'      , 'coc-references']
+      \}
+
+let g:which_key_map.j ={
+      \ 'name': '+misc',
+      \ 'n' : [':Snippets'               , 'snippets']     ,
+      \ '=' : [':normal mqHmwgg=G`wzt`q' , 'indent-file']  ,
+      \ 'g' : [':Goyo 120'               , 'present-code'] ,
+      \ 'j' : [':call JenkinsLint()'     , 'jenkins-lint'] ,
+      \ 'u' : ['MundoToggle'             , 'undo-tree']
+      \}
+
+let g:which_key_map.s ={
+      \ 'name': '+substitute',
+      \ 'd' : {
+            \ 'name': '+delete',
+            \  '2':[':g/^\_$\n\_^$/d'   , 'clear >2 blank lines'] ,
+            \  '0':[':g/^\s*$/d'   ,'clear all blank lines'] ,
+            \  'u':[':%!uniq'   ,'delete-duplicate-lines'] ,
+            \},
+      \}
+
+let g:which_key_map.v ={
+      \ 'name': '+vim'            ,
+      \ 'r' : [':source $MYVIMRC' , 'refresh-config'] ,
+      \ 'e' : [':e $MYVIMRC'      , 'edit-vimrc']
+      \}
+
+let g:which_key_map.t ={
+      \ 'name': '+term'  ,
+      \ 't' : [':new +resize8 term://zsh'  , 'term-below']
+      \}
+
+let g:which_key_map.f ={
+      \ 'name': '+file'  ,
+      \ 'z' : {
+            \ 'name': '+fold'  ,
+            \ 't': ['za'  , 'toggle-fold (za)'],
+            \ 'c': ['zM'  , 'close-all-folds (zM)'],
+            \ 'o': ['zR'  , 'open-all-folds (zR)'],
+            \},
+      \ 's' : {
+            \ 'name': '+spell'  ,
+            \ ']': ['s]'  , 'next-mispell (s])'],
+            \ '[': ['s['  , 'prev-mispell (s[)'],
+            \ '=': ['z='  , 'interactive-fix (z=)'],
+            \ 'a': ['zg'  , 'add-to-dictionary (zg)'],
+            \ 'x': ['zw'  , 'mark-as-misspell (zw)'],
+            \},
+      \'!' : [':w !sudo -A tee %','sudo-save']
+      \}
+
+let g:which_key_map['/'] = {
+      \ 'name': '+search'    ,
+      \ '/' : [':Rg!'        , 'search-directory']   ,
+      \ 'b' : [':Lines'      , 'lines-buffers']      ,
+      \ 'l' : [':BLines'     , 'lines-current-file'] ,
+      \ 'g' : [':GFiles'     , 'git-files']          ,
+      \ 'f' : [':call fzf#vim#files(".", {"options": "--no-preview"})', 'files'],
+      \ 's' : [':GFiles?'    , 'git-files-status']
+      \}
+
+let g:which_key_map.y ={
+      \'name': '+yank',
+      \'y' :['^yg_' , 'yank-line-no-newl'],
+      \'f' :["CopyFileName", 'yank-file-path']
+      \}
+
+" fzf :Files without preview 
+nnoremap <silent> <leader><leader> :call fzf#vim#files('.', {'options': '--no-preview'})<CR>
+
 " rip grep
-command! -bang -nargs=* Rg
+command! -bang -nargs=* Rgnl
   \ call fzf#vim#grep(
   \   'rg --column --no-heading --no-line-number --color=always --smart-case -- '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(), <bang>0)
-nmap <leader>/ :Rg!<CR> 
+
 " replace currently selected text with default register
-" without yanking it
+" without yanking it in visual mode
 vnoremap p "_dP
 " easier return to normal mode in terminal mode
 tnoremap <Esc> <C-\><C-n> 
-nnoremap <leader>aa :CocCommand explorer --toggle<CR>
-nnoremap <leader>ss :Snippets<CR>
-nnoremap <leader>se :g/^$/d
-nnoremap <leader>sd :g//d<Left><Left>
-nnoremap <leader>si :normal mqHmwgg=G`wzt`q<CR>
-nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>gc :GBranches<CR>
-nnoremap <leader>gs :GFiles?<CR>
-nnoremap <leader>gp :GPush<CR>
-nnoremap <leader>gg :vertical G<CR>
 
-"[c	jump to previous hunk
-"]c	jump to next hunk
-"dp	shorthand for `:diffput`
-":only	close all windows apart from the current one
-":Gwrite[!]	write the current file to the index
-nnoremap <leader>gi :Gdiffsplit!<CR>
-
-nnoremap <leader>gd :call JumpToDefinition()<CR>
-nnoremap <leader>u :UndotreeToggle<CR> <C-w><C-w>
-nnoremap <leader>rr :source $MYVIMRC <CR>
-nnoremap <leader>rc :e $MYVIMRC <CR>
-nnoremap <leader>t :Term<CR>
-" easy switch windows
-nnoremap <c-j> <c-w>j
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
-nnoremap <c-k> <c-w>k
+" next quick fix
+nnoremap <silent> <c-j> :cnext<CR>
+nnoremap <silent> <c-k> :cprev<CR>
 " traversal by line wraps
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
-nnoremap $ g_
-set spelllang=en
-autocmd BufRead,BufNewFile *.md, *txt, COMMIT_EDITMSG setlocal spell
-autocmd BufReadPost *
-     \ if line("'\"") > 0 && line("'\"") <= line("$") |
-     \   exe "normal! g`\"" |
-     \ endif
+
+" to end with character, ignore white space
+nnoremap $ g_ 
+" capital Y yanks to end of line
+nnoremap Y y$
+
+" join like `J` but downwards. uses k register
+" vim purists would probably hate this
+nnoremap K ^"kdg_"_ddg_i <esc>"kp
 
 "------------------------------------------------------------------------------"
 "                                User Functions                                "
 "------------------------------------------------------------------------------"
+
+" when reopening a file go to previous line visited
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g`\"" | endif
+endif
 
 " Should do a quick hightlight on yank
 augroup highlight_yank
   autocmd!
   autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
 augroup END
-
-function! JumpToDefinition()
-  let s = execute("normal \<Plug>(coc-definition)") 
-  if strtrans(s)=="^@[coc.nvim]Definition provider not found for current document^@[coc.nvim]Definition provider not found for current document"
-    execute "AnyJump"
-  endif
-endfunction
 
 function! GitPush()
   execute("Gwrite")
@@ -278,5 +393,4 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
-" <cr> mean Keyboard Enter
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"

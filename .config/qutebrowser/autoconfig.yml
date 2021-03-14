@@ -14,6 +14,7 @@ settings:
         <F12>: devtools
         J: tab-prev
         K: tab-next
+        gI: hint inputs --first ;; mode-enter insert ;; later 50 edit-text
         gj: tab-move +
         gk: tab-move -
         gu: edit-url
@@ -22,14 +23,15 @@ settings:
     global: true
   colors.webpage.darkmode.policy.images:
     global: never
-  colors.webpage.prefers_color_scheme_dark:
-    global: true
+  colors.webpage.preferred_color_scheme:
+    global: dark
   content.desktop_capture:
     https://teams.microsoft.com: true
     https://www.webrtc-experiment.com: true
   content.geolocation:
     https://www.google.com: true
   content.media.audio_capture:
+    https://online-voice-recorder.com: true
     https://teams.microsoft.com: true
     https://voice.google.com: true
   content.media.audio_video_capture:
