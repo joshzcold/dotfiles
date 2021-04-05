@@ -5,7 +5,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-export LAST_PWD=/home/joshua/git
+export LAST_PWD=/home/joshua/git/aaf-performance
 export PYTHONBREAKPOINT="pudb.set_trace"
 export ZSH=$HOME/.oh-my-zsh
 export PATH=$HOME/.emacs.d/bin:$HOME/apps/node_modules/bin/:$PATH
@@ -41,7 +41,7 @@ alias cat="bat -p"
 alias gl="git log --stats"
 alias kssh="kitty +kitten ssh"
 alias sleep="systemctl suspend"
-alias cd="cdz"
+alias cd="cd_last_pwd"
 alias cdf="cd $(ls -d */|head -n 1)" # cd into first dir
 export KUBE_EDITOR=nvim
 export KUBECONFIG="/home/joshua/.kube/aa.yaml"
@@ -62,12 +62,10 @@ bindkey "^?" backward-delete-char
 
 function cdg(){ cd $(git rev-parse --show-toplevel) }
 
-function cdz(){
+function cd_last_pwd(){
   \cd $1
   export LAST_PWD=$PWD
-  sed -i "s#LAST_PWD=.*#LAST_PWD=$PWD#g" ~/.zshrc
-  echo $PWD
-
+  sed -i "0,/LAST_PWD/ s#LAST_PWD=.*#LAST_PWD=$PWD#" ~/.zshrc
 }
 
 function todo(){
@@ -217,3 +215,5 @@ if [ /usr/bin/kubectl ]; then source <(kubectl completion zsh); fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+cd $LAST_PWD
