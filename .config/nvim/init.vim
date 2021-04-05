@@ -108,7 +108,7 @@ autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight! | :call SetHighlight()
 
 " autoclose using alvan/vim-closetag in these files
-let g:closetag_filenames = '*.html, *.svelte, *.js, *.md'
+let g:closetag_filenames = '*.html, *.svelte, *.js, *.md, *.groovy, Jenkinsfile'
 
 " justinmk/vim-sneak
 let g:sneak#label = 1
@@ -127,6 +127,7 @@ set hidden
 set updatetime=50
 set ignorecase
 set scrolloff=5
+set nrformats+=alpha "allow increment via Ctrl+a in words
 set showmatch matchtime=3 
 
 " set tabstop     =2
@@ -210,8 +211,15 @@ let g:which_key_map['w'] = {
       \ '=' : ['<C-W>='     , 'balance-window']        ,
       \ 's' : ['<C-W>s'     , 'split-window-below']    ,
       \ 'v' : ['<C-W>v'     , 'split-window-below']    ,
-      \ '?' : ['Windows'    , 'fzf-window']
+      \ '?' : ['Windows'    , 'fzf-window'],
+      \ 'V' : [':norm <C-W>t<C-W>H' ,'horizontal->vertical'],
+      \ '>' : [':norm <C-W>t<C-W>K' ,'vertical->horizontal']
       \ }
+
+let g:which_key_map.p = {
+      \'name': '+project',
+      \'a':[':CocCommand explorer','file explorer']
+      \}
 
 let g:which_key_map.b = {
       \ 'name' : '+buffer' ,
@@ -230,7 +238,8 @@ let g:which_key_map.b = {
 let g:which_key_map.g = {
       \ 'name': '+git'                       ,
       \ 'b' : [':GBranches'                  , 'git-branches']        ,
-      \ 's' : [':GFiles'                     , 'git-files']           ,
+      \ 'f' : [':GFiles'                     , 'git-files']           ,
+      \ 's' : [':GFiles?'    , 'git-files-status'],
       \ 'p' : [':GPush'                      , 'git-push--file']      ,
       \ 'g' : [':vertical G'                 , 'git']                 ,
       \ 'i' : [':Gdiffsplit!'                , 'git-diff']            ,
@@ -246,6 +255,7 @@ let g:which_key_map.j ={
       \ '=' : [':normal mqHmwgg=G`wzt`q' , 'indent-file']  ,
       \ 'g' : [':Goyo 120'               , 'present-code'] ,
       \ 'j' : [':call JenkinsLint()'     , 'jenkins-lint'] ,
+      \ 's' : [':call Scratch()'     , 'scratch-buffer'] ,
       \ 'u' : ['MundoToggle'             , 'undo-tree']
       \}
 
@@ -253,7 +263,8 @@ let g:which_key_map.s ={
       \ 'name': '+substitute',
       \ 'd' : {
             \ 'name': '+delete',
-            \  '2':[':g/^\_$\n\_^$/d'   , 'clear >2 blank lines'] ,
+            \  '1':[':g/^\_$\n\_^$/d'   , 'clear >1 blank lines'] ,
+            \  '2':[':g/^\_$\n\_^$\n\_^$/d', 'clear >2 blank lines'] ,
             \  '0':[':g/^\s*$/d'   ,'clear all blank lines'] ,
             \  'u':[':%!uniq'   ,'delete-duplicate-lines'] ,
             \},
@@ -267,7 +278,9 @@ let g:which_key_map.v ={
 
 let g:which_key_map.t ={
       \ 'name': '+term'  ,
-      \ 't' : [':new +resize8 term://zsh'  , 'term-below']
+      \ 'V' : [':new +resize8 term://zsh'  , 'term-below'],
+      \ 't' : [':new +resize8 term://zsh'  , 'term-below'],
+      \ '>' : [':vnew term://zsh'  , 'term-right']
       \}
 
 let g:which_key_map.f ={
@@ -296,8 +309,14 @@ let g:which_key_map['/'] = {
       \ 'l' : [':BLines'     , 'lines-current-file'] ,
       \ 'g' : [':GFiles'     , 'git-files']          ,
       \ 'f' : [':call fzf#vim#files(".", {"options": "--no-preview"})', 'files'],
+      \ 'e':[':CocCommand explorer','file explorer'],
       \ 's' : [':GFiles?'    , 'git-files-status']
       \}
+
+let g:which_key_map.k = {
+      \'name': '+mmkay',
+      \'k':[':norm "kdg_j$"kp','join down break line']
+      \}  
 
 let g:which_key_map.y ={
       \'name': '+yank',
@@ -317,12 +336,27 @@ command! -bang -nargs=* Rgnl
 " replace currently selected text with default register
 " without yanking it in visual mode
 vnoremap p "_dP
-" easier return to normal mode in terminal mode
-tnoremap <Esc> <C-\><C-n> 
+
+" easier return to other windows, preserves Esc in terminal for vi-mode
+tnoremap <c-j> <C-\><C-n><c-w>j
+tnoremap <c-k> <C-\><C-n><c-w>k
+tnoremap <c-h> <C-\><C-n><c-w>h
+tnoremap <c-l> <C-\><C-n><c-w>l
+" escape
+tnoremap <c-n> <C-\><C-n>
+
+au FileType fzf tnoremap <buffer> <c-j> <c-j>
+au FileType fzf tnoremap <buffer> <c-k> <c-k>
+au FileType fzf tnoremap <buffer> <c-h> <c-h>
+au FileType fzf tnoremap <buffer> <c-l> <c-l>
 
 " next quick fix
-nnoremap <silent> <c-j> :cnext<CR>
-nnoremap <silent> <c-k> :cprev<CR>
+nnoremap <c-j> <c-w>j
+nnoremap <c-h> <c-w>h
+nnoremap <A-j> :cnext<CR>
+nnoremap <A-k> :cprev<CR>
+nnoremap <c-l> <c-w>l
+nnoremap <c-k> <c-w>k
 " traversal by line wraps
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
@@ -334,7 +368,7 @@ nnoremap Y y$
 
 " join like `J` but downwards. uses k register
 " vim purists would probably hate this
-nnoremap K ^"kdg_"_ddg_i <esc>"kp
+nnoremap K ^"kdg_"_ddg_a <esc>"kp
 
 "------------------------------------------------------------------------------"
 "                                User Functions                                "
@@ -367,6 +401,16 @@ function! JenkinsLint()
   echo validate_command
   let result = system(validate_command)
   echo result
+endfunction
+
+function! Scratch()
+    split
+    noswapfile hide enew
+    setlocal buftype=nofile
+    setlocal bufhidden=hide
+    "setlocal nobuflisted
+    "lcd ~
+    file scratch
 endfunction
 
 "------------------------------------------------------------------------------"

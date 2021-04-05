@@ -9,14 +9,14 @@ settings:
   bindings.commands:
     global:
       normal:
-        <Ctrl+i>: tab-focus stack-next
+        <Ctrl+i>: edit-text
         <Ctrl+o>: tab-focus stack-prev
         <F12>: devtools
         J: tab-prev
         K: tab-next
         gI: hint inputs --first ;; mode-enter insert ;; later 50 edit-text
-        gj: tab-move +
-        gk: tab-move -
+        gj: tab-move -
+        gk: tab-move +
         gu: edit-url
         j: scroll down
   colors.webpage.darkmode.enabled:
@@ -30,6 +30,8 @@ settings:
     https://www.webrtc-experiment.com: true
   content.geolocation:
     https://www.google.com: true
+  content.javascript.can_access_clipboard:
+    global: true
   content.media.audio_capture:
     https://online-voice-recorder.com: true
     https://teams.microsoft.com: true

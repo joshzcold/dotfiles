@@ -5,6 +5,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+export LAST_PWD=/home/joshua/git
 export PYTHONBREAKPOINT="pudb.set_trace"
 export ZSH=$HOME/.oh-my-zsh
 export PATH=$HOME/.emacs.d/bin:$HOME/apps/node_modules/bin/:$PATH
@@ -14,8 +15,13 @@ KEYTIMEOUT=1
 
 plugins=(
   git
+  git-auto-fetch
   colored-man-pages
+  man
   vi-mode
+  docker
+  helm
+  kubectl
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -34,6 +40,8 @@ alias kw="watch -n 1 kubectl get pods"
 alias cat="bat -p"
 alias gl="git log --stats"
 alias kssh="kitty +kitten ssh"
+alias sleep="systemctl suspend"
+alias cd="cdz"
 alias cdf="cd $(ls -d */|head -n 1)" # cd into first dir
 export KUBE_EDITOR=nvim
 export KUBECONFIG="/home/joshua/.kube/aa.yaml"
@@ -53,6 +61,14 @@ bindkey "^?" backward-delete-char
 # Updates editor information when the keymap changes.
 
 function cdg(){ cd $(git rev-parse --show-toplevel) }
+
+function cdz(){
+  \cd $1
+  export LAST_PWD=$PWD
+  sed -i "s#LAST_PWD=.*#LAST_PWD=$PWD#g" ~/.zshrc
+  echo $PWD
+
+}
 
 function todo(){
   last_monday=$(date -dlast-monday +"%m_%d_%Y")
@@ -137,12 +153,12 @@ function kre(){
 }
 
 function cy(){
-  nohup npx cypress open  >/dev/null 2>&1  &
+  nohup kitty --detach ./node_modules/cypress/bin/cypress open  >/dev/null 2>&1  &
   nvim cypress.json
 }
 
 function cypress(){
-  nohup npx cypress open  >/dev/null 2>&1  &
+  nohup kitty --detach ./node_modules/cypress/bin/cypress open  >/dev/null 2>&1  &
   nvim cypress.json
 }
 

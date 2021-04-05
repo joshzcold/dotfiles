@@ -42,6 +42,7 @@ static const Rule rules[] = {
   { "st"              , NULL     , NULL           , 0         , 0          , 1          , -1        , -1 }       ,
   { "todo"            , NULL     , NULL           , 0         , 0          , 1          , 1         , -1 }       ,
   { "kitty"           , NULL     , NULL           , 0         , 0          , 1          , -1        , -1 }       ,
+  { "cypress"           , NULL     , NULL           , 0         , 0          , 1          , -1        , -1 }       ,
   { "Peek"            , NULL     , NULL           , 0         , 1          , 0          , 1         , -1 }       ,
   { "Blueman-manager" , NULL     , NULL           , 0         , 1          , 0          , 1         , -1 }       ,
   { "Pavucontrol"     , NULL     , NULL           , 0         , 1          , 0          , 1         , -1 }       ,
@@ -73,7 +74,8 @@ static const char *termcmd[]  = { "kitty", NULL };
 static const char *screenshotcmd[] = {"/home/joshua/.config/usr-scripts/screenshot.sh"};
 static const char *applaunchercmd[] = {"/home/joshua/.config/rofi/launchers/launcher.sh"};
 static const char *emojilaunchercmd[] = {"/home/joshua/.config/rofi/launchers/emoji.sh"};
-static const char *sleepcmd[] = {"systemd","suspend", NULL};
+static const char *totpcmd[] = {"/usr/local/bin/totp"};
+static const char *sleepcmd[] = {"systemctl","suspend", NULL};
 static const char *brightness_up[] = {"light", "-A","10", NULL};
 static const char *brightness_down[] = {"light", "-U","10", NULL};
 static const char *volume_up[] = {"pactl", "set-sink-volume", "@DEFAULT_SINK@", "+10%", NULL};
@@ -84,8 +86,9 @@ static Key keys[] = {
   { MODKEY,                       XK_d,      spawn,          {.v = applaunchercmd } },
   { MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
   { MODKEY,                       XK_s,      spawn,          {.v = screenshotcmd } },
-  { MODKEY|ControlMask|ShiftMask, XK_s,      spawn,          {.v = screenshotcmd } },
+  { ControlMask|ShiftMask,        XK_s,      spawn,          {.v = sleepcmd } },
   { MODKEY,                       XK_e,      spawn,          {.v = emojilaunchercmd } },
+  { MODKEY,                       XK_t,      spawn,          {.v = totpcmd } },
   { 0,                            XF86XK_MonBrightnessUp,   spawn, {.v = brightness_up } },
   { 0,                            XF86XK_MonBrightnessDown, spawn, {.v = brightness_down } },
   { 0,                            XF86XK_AudioRaiseVolume, spawn, {.v = volume_up } },

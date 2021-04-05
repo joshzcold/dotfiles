@@ -91,17 +91,20 @@ endsnippet
 snippet pipeline "Default Declarative Jenkins Pipeline"
 
 pipeline {
-    agent {
-        node {
-            label 'AA_Master'
-        }
+		parameters{
+      string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+        // text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
+        // booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
+        // choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
+        // password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
     }
+    agent {label 'dops-worker'}
     stages {
         stage('setup') {
             steps {
                 git branch: 'master',
-                        credentialsId: 'githubapi',
-                        url: 'https://github.houston.softwaregrp.net/aauth/aaf-automation.git'
+                        credentialsId: 'github-app-aa',
+                        url: 'URL'
             }
         }
         stage('${1:execute}') {
@@ -110,138 +113,20 @@ pipeline {
 						}
         }
     }
-    post {
-				aborted {
-
-				}
-        success {
-
-        }
-        failure {
-
-				}
-        unstable{
-
-        }
-    }
+//    post {
+//				aborted {
+//
+//				}
+//        success {
+//
+//        }
+//        failure {
+//
+//				}
+//        unstable{
+//
+//        }
+//    }
 }
 endsnippet
 
-snippet test_pipeline "Insert Jekins Test Pipeline"
-
-pipeline {
-    agent {
-        node {
-            label 'AA_Master'
-        }
-    }
-    stages {
-        stage('git checkout') {
-            steps {
-                git branch: 'master',
-                        credentialsId: 'githubapi',
-                        url: 'https://github.houston.softwaregrp.net/aauth/aaf-automation.git'
-            }
-        }
-        stage('edit config') {
-            steps {
-                script {
-                    currentBuild.displayName = "build: $BuildNumber"
-                    echo "Version: $Version Build: $BuildNumber"
-                    def boxes = env.AA_BOXES.split("\n")
-                    env.SUITEFILE = "mvn clean test -DsuiteXmlFile=src/main/resources/automation/suites"
-                    env.REPORT = "aaf/target/surefire-reports/TEST-TestSuite.xml"
-
-                    sh """
-                    sed -ie "s/^masterHostname:.*/masterHostname: ${boxes[0]}/" aaf/src/main/resources/automation/sites/global-master.yaml
-                    sed -ie "s/^slaveHostname:.*/slaveHostname: ${boxes[1]}/" aaf/src/main/resources/automation/sites/global-master.yaml
-                    sed -ie "s/^webserverHostname:.*/webserverHostname: ${boxes[2]}/" aaf/src/main/resources/automation/sites/global-master.yaml
-                    sed -ie "s/^version:.*/version: $Version/" aaf/src/main/resources/automation/sites/global-master.yaml
-
-                    sed -ie "s/^masterHostname:.*/masterHostname: ${boxes[3]}/" aaf/src/main/resources/automation/sites/site-b.yaml
-                    sed -ie "s/^slaveHostname:.*/slaveHostname: ${boxes[4]}/" aaf/src/main/resources/automation/sites/site-b.yaml
-                    sed -ie "s/^webserverHostname:.*/webserverHostname: ${boxes[5]}/" aaf/src/main/resources/automation/sites/site-b.yaml
-                    sed -ie "s/^version:.*/version: $Version/" aaf/src/main/resources/automation/sites/site-b.yaml
-
-                    cat aaf/src/main/resources/automation/sites/global-master.yaml
-                    cat aaf/src/main/resources/automation/sites/site-b.yaml
-                    """
-            }
-        }
-        stage('${1:smoke}') {
-            steps {
-                sh "$env.SUITEFILE/$1.xml"
-                junit(allowEmptyResults: true, testResults: "$env.REPORT")
-            }
-        }
-        stage('${2:test2}') {
-            steps {
-                sh "$env.SUITEFILE/$2.xml"
-                junit(allowEmptyResults: true, testResults: "$env.REPORT")
-            }
-        }
-    }
-    post {
-        unstable {
-            script {
-                env.TEAMS_MESSAGE =
-                        "<h2>$JOB_NAME $BUILD_DISPLAY_NAME</h2>" +
-                                "<p><strong>Ui Test Failures </strong> " +
-                                "<a href=$BUILD_URL/testReport>$JOB_NAME test report</a></p>" +
-				"<p><strong>Test Result Summary</strong></p>"+
-				"<p>${testStatuses()}</p>"
-                                // "<at>zachary.hall@microfocus.com</at>" +
-                                // "<at>reed.mcfadden@microfocus.com</at>"
-            }
-            build job: "AA/Utility/NotifyTeamsUIChannel", parameters: [
-                    string(name: "Body", value: "$TEAMS_MESSAGE")
-            ]
-        }
-        success {
-            script {
-                env.TEAMS_MESSAGE =
-                        "<h2>$JOB_NAME $BUILD_DISPLAY_NAME</h2>" +
-                                "<p><strong>no ui test failures reported </strong> " +
-                                "<a href=$BUILD_URL>$JOB_NAME</a></p>" +
-				"<p><strong>Test Result Summary</strong></p>"+
-				"<p>${testStatuses()}</p>"
-                                // "<at>zachary.hall@microfocus.com</at>" +
-                                // "<at>reed.mcfadden@microfocus.com</at>"
-            }
-            build job: "AA/Utility/NotifyTeamsUIChannel", parameters: [
-                    string(name: "Body", value: "$TEAMS_MESSAGE")
-            ]
-        }
-        failure {
-            script {
-                env.TEAMS_MESSAGE =
-                        "<h2>$JOB_NAME $BUILD_DISPLAY_NAME</h2>" +
-                                "<p><strong>Pipeline failure found</strong> " +
-                                "<a href=$BUILD_URL/console>$JOB_NAME console</a></p>"
-                                // "<at>joshua.cold@microfocus.com</at>" +
-                                // "<at>zachary.hall@microfocus.com</at>"
-            }
-            build job: "AA/Utility/NotifyTeamsUIChannel", parameters: [
-                    string(name: "Body", value: "$TEAMS_MESSAGE")
-            ]
-        }
-    }
-}
-
-import hudson.tasks.test.AbstractTestResultAction
-
-@NonCPS
-def testStatuses() {
-    def testStatus = ""
-    AbstractTestResultAction testResultAction = currentBuild.rawBuild.getAction(AbstractTestResultAction.class)
-    if (testResultAction != null) {
-        def total = testResultAction.totalCount
-        def failed = testResultAction.failCount
-        def skipped = testResultAction.skipCount
-        def passed = total - failed - skipped
-        testStatus = "Passed: ${passed}, Failed: ${failed} Skipped: ${skipped}"
-
-    }
-    return testStatus
-}
-endsnippet

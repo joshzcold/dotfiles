@@ -5,11 +5,12 @@ setxkbmap -option caps:escape &
 emacs --daemon &
 nm-applet  &
 dunst &
-nitrogen --restore &
 pamac-tray &
 wmnme LG3D &
 picom &
 keynav &
 blueman-applet &
 volctl &
+sleep 5
+nitrogen --restore &
 
