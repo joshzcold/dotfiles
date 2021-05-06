@@ -20,7 +20,7 @@ settings:
         gu: edit-url
         j: scroll down
   colors.webpage.darkmode.enabled:
-    global: true
+    global: false
   colors.webpage.darkmode.policy.images:
     global: never
   colors.webpage.preferred_color_scheme:
@@ -38,7 +38,9 @@ settings:
     https://voice.google.com: true
   content.media.audio_video_capture:
     https://teams.microsoft.com: true
-  content.notifications:
+  content.media.video_capture:
+    https://teams.microsoft.com: true
+  content.notifications.enabled:
     global: true
     https://messages.google.com: true
     https://outlook.office.com: true
@@ -52,3 +54,6 @@ settings:
     global: top
   tabs.title.alignment:
     global: left
+  url.searchengines:
+    global:
+      DEFAULT: https://google.com/search?q={}

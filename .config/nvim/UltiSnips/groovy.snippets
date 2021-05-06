@@ -17,15 +17,22 @@ def ${1:myVar} = sh(script: """
 endsnippet
 
 snippet input "Jenkins pause for Input" b
-stage('Pause for Input'){ input { message "Should we continue?" ok "Yes, we should." } steps{ echo "continue" } }
+stage('Pause for Input'){ 
+    input {
+        message "Should we continue?" ok "Yes, we should."
+    } 
+    steps{
+        echo "continue"
+    }
+}
 endsnippet
 
 snippet stage "Jenkins Stage Template" b
-    stage('${1:Stage}') {
-      steps {
-			${2:Put Executions Here}
-      }
-    }
+stage('${1:Stage}') {
+  steps {
+  ${2:Put Executions Here}
+  }
+}
 endsnippet
 
 snippet choice "Jenkins Choice parameter" b

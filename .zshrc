@@ -5,7 +5,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-export LAST_PWD=/home/joshua/git/aaf-performance
+export LAST_PWD=/home/joshua/git/aa-ui-testing
 export PYTHONBREAKPOINT="pudb.set_trace"
 export ZSH=$HOME/.oh-my-zsh
 export PATH=$HOME/.emacs.d/bin:$HOME/apps/node_modules/bin/:$PATH
@@ -41,7 +41,7 @@ alias cat="bat -p"
 alias gl="git log --stats"
 alias kssh="kitty +kitten ssh"
 alias sleep="systemctl suspend"
-alias cd="cd_last_pwd"
+# alias cd="cd_last_pwd"
 alias cdf="cd $(ls -d */|head -n 1)" # cd into first dir
 export KUBE_EDITOR=nvim
 export KUBECONFIG="/home/joshua/.kube/aa.yaml"
@@ -142,8 +142,10 @@ function cgit(){
   done <<< "$git_list"
   cd_dir=$(echo "$fzf_list" | column -t -s' ' | fzf)
   cd_dir2=$(echo "$cd_dir" | cut -d" " -f1)
-  cd $cd_dir2
-  git status -s -b # show status after cd
+  if [ -d "$cd_dir2" ];then
+    cd $cd_dir2
+    git status -s -b # show status after cd
+  fi
 }
 
 function kre(){
@@ -216,4 +218,4 @@ if [ /usr/bin/kubectl ]; then source <(kubectl completion zsh); fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-cd $LAST_PWD
+# cd $LAST_PWD

@@ -22,12 +22,14 @@ Plug 'sheerun/vim-polyglot'
 "markdown
 Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim'
+Plug 'simnalamburt/vim-mundo'
 
 " trial plugins. remove full url when accepted
 Plug 'https://github.com/liuchengxu/vim-which-key'
-Plug 'https://github.com/simnalamburt/vim-mundo'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " treesitter for better syntax highlight
 Plug 'nvim-treesitter/playground'
+Plug 'https://github.com/AndrewRadev/linediff.vim'
+Plug 'https://github.com/dhruvasagar/vim-dotoo'
 call plug#end()
 
 " put highlights in function incase a plugin sets them and 
@@ -51,6 +53,9 @@ endfunction
 
 "Colorizer Plugin example: ctermbg=100
 let g:colorizer_auto_filetype='css,html,cpp,vim,conf'
+
+let g:dotoo#agenda#files=['~/git/org/*.dotoo']
+let g:dotoo#capture#refile='~/git/org/dotoo.refile'
 
 " lua require'nvim-treesitter.configs'.setup { ensure_installed = "maintained",highlight = { enable = true } }
 "
@@ -218,7 +223,8 @@ let g:which_key_map['w'] = {
 
 let g:which_key_map.p = {
       \'name': '+project',
-      \'a':[':CocCommand explorer','file explorer']
+      \'a':['<Plug>(dotoo-agenda)','agena view'],
+      \'c':['<Plug>(dotoo-capture)','capture dotoo']
       \}
 
 let g:which_key_map.b = {
@@ -365,6 +371,7 @@ nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 nnoremap $ g_ 
 " capital Y yanks to end of line
 nnoremap Y y$
+nnoremap vv vg_
 
 " join like `J` but downwards. uses k register
 " vim purists would probably hate this
@@ -389,8 +396,8 @@ augroup END
 function! GitPush()
   execute("Gwrite")
   let message = input("commit message: ")
-  execute("Gcommit -m '".message."' ")
-  execute("Gpush")
+  execute("Git commit -m '".message."' ")
+  execute("Git push")
 endfunction
 
 function! JenkinsLint()

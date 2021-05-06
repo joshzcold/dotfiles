@@ -6,11 +6,11 @@ Android Messa https://messages.android.com/
 Gas Bill Payment https://www.dominionenergy.com/
 Electric Bill Pay https://www.rockymountainpower.net/index.html
 Wireless Router Archer C1200 http://192.168.2.1/webpages/index.html
-NZBGet http://192.168.2.154:6789/
-Plex Manager http://192.168.2.154:32400/web
-Sonarr http://192.168.2.154:8989/
-Movies - Radarr http://192.168.2.154:7878/
-Jellyfin http://192.168.2.154:8096/web/index.html
+NZBGet http://192.168.2.156:6789/
+Plex Manager http://192.168.2.156:32400/web
+Sonarr http://192.168.2.156:8989/
+Movies - Radarr http://192.168.2.156:7878/
+Jellyfin http://192.168.2.156:8096/web/index.html
 Developer Dashboard https://chrome.google.com/webstore/devconsole
 Fuze https://web.fuze.com/#/auth/login
 Mail - Joshua.Cold@microfocus.com https://outlook.office365.com/owa/
@@ -64,3 +64,4 @@ Workday Microfocus https://wd5.myworkday.com/microfocus/d/home.htmld
 Jenkins K8S Debugging Box https://vlab055512.dom055500.lab/jenkins/job/AA/job/Installation/job/K8S_Debugging_Box/
 AA NFS Test Results http://10.204.128.211:8000/
 Microfocus Wiki Confluence https://rndwiki.houston.softwaregrp.net/confluence/#all-updates
+Test Video Server  http://10.204.237.189:8000/
