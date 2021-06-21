@@ -8,7 +8,7 @@ fi
 export LAST_PWD=/home/joshua/git/aa-ui-testing
 export PYTHONBREAKPOINT="pudb.set_trace"
 export ZSH=$HOME/.oh-my-zsh
-export PATH=$HOME/.emacs.d/bin:$HOME/apps/node_modules/bin/:$PATH
+export PATH=$HOME/.emacs.d/bin:$HOME/apps/node_modules/bin/:/home/joshua/.gem/ruby/3.0.0/bin:$HOME/apps/bin:$PATH
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 KEYTIMEOUT=1
@@ -29,10 +29,12 @@ source $ZSH/oh-my-zsh.sh
 alias vim="nvim"
 alias vimrc="nvim /home/joshua/.config/nvim/init.vim"
 alias zshrc="nvim /home/joshua/.zshrc && source /home/joshua/.zshrc"
+alias make="/usr/bin/make -j 8"
 alias markdown-preview="grip -b "
 alias vssh="ssh -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null"
 alias kdel="kubectl delete -f"
 alias kcre="kubectl apply -f"
+alias e="emacs"
 alias k="kubectl"
 alias mde="kitty --class=markdown nvim"
 alias kp="kubectl get pods"
@@ -68,6 +70,13 @@ function cd_last_pwd(){
   sed -i "0,/LAST_PWD/ s#LAST_PWD=.*#LAST_PWD=$PWD#" ~/.zshrc
 }
 
+function ascii(){
+  file=$(ls /usr/share/figlet/fonts | 
+    fzf --preview "figlet -f {} ${1:-Moo}" )
+  clear
+  figlet -f $file ${*:-Moo}
+}
+
 function todo(){
   last_monday=$(date -dlast-monday +"%m_%d_%Y")
   todo_file="/home/joshua/git/org/todo/todo-$last_monday.md"
@@ -96,9 +105,16 @@ function zle-keymap-select() {
 }
 
 function kpdel(){
-  kubectl delete pod $1 &
-  kubectl delete svc $1 &
-  kubectl delete configmap $1 &
+  read -k1 "?Deleting $* is that okay? [y/n]?" confirm
+  if [ "$confirm" = "y" ];then
+    for var in "$@"
+    do
+      kubectl delete pod $var &
+      kubectl delete svc $var &
+      kubectl delete ingresses.networking.k8s.io $var &
+      kubectl delete configmap $var &
+    done
+  fi
 }
 
 function kclean(){
@@ -117,7 +133,11 @@ function kconf(){
 }
 
 function pass(){
-  lpass show $(lpass ls | fzf | sed 's/[^0-9]*//g')
+  if bw login; then
+  else
+    bw list items | jq -r '.[] | [.name, .login.username, .login.password ] | @tsv' | fzf
+  fi
+
 }
 
 function vgit(){

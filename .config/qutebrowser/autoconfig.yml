@@ -30,16 +30,24 @@ settings:
     https://www.webrtc-experiment.com: true
   content.geolocation:
     https://www.google.com: true
+    https://www.harborfreight.com: true
+    https://www.lowes.com: true
   content.javascript.can_access_clipboard:
     global: true
   content.media.audio_capture:
     https://online-voice-recorder.com: true
     https://teams.microsoft.com: true
+    https://us02web.zoom.us: true
+    https://us04web.zoom.us: true
     https://voice.google.com: true
+    https://www.facebook.com: true
   content.media.audio_video_capture:
     https://teams.microsoft.com: true
+    https://www.facebook.com: true
   content.media.video_capture:
     https://teams.microsoft.com: true
+    https://us02web.zoom.us: true
+    https://www.facebook.com: true
   content.notifications.enabled:
     global: true
     https://messages.google.com: true
@@ -48,6 +56,9 @@ settings:
     https://voice.google.com: true
     https://www.bennish.net: true
     https://www.reddit.com: false
+  spellcheck.languages:
+    global:
+    - en-US
   tabs.favicons.scale:
     global: 1.0
   tabs.position:

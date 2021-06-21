@@ -64,4 +64,7 @@ Workday Microfocus https://wd5.myworkday.com/microfocus/d/home.htmld
 Jenkins K8S Debugging Box https://vlab055512.dom055500.lab/jenkins/job/AA/job/Installation/job/K8S_Debugging_Box/
 AA NFS Test Results http://10.204.128.211:8000/
 Microfocus Wiki Confluence https://rndwiki.houston.softwaregrp.net/confluence/#all-updates
-Test Video Server  http://10.204.237.189:8000/
+Test Video Server http://10.204.237.189:8000/
+job dsl api-viewer https://vlab080002.dom080000.lab/jenkins/plugin/job-dsl/api-viewer/index.html
+crontab guru https://crontab.guru/
+DNS Self Service https://selfservice.nqeng.lab/webjea/
