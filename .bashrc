@@ -138,9 +138,6 @@ ex ()
   fi
 }
 
-# better yaourt colors
-export YAOURT_COLORS="nb=1:pkg=1:ver=1;32:lver=1;45:installed=1;42:grp=1;34:od=1;41;5:votes=1;44:dsc=0:other=1;35"
-export ANDROID_HOME="/home/joshua/Documents/Android"
-export JAVA_HOME="/usr/lib/jvm/java-11-openjdk/"
-
+bind 'set show-all-if-ambiguous on'
+bind 'TAB:menu-complete'
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

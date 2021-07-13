@@ -58,7 +58,6 @@ Google Podcasts https://podcasts.google.com
 Microfocus AA MultiFactor https://aafreg.microfocus.net/account/authenticators
 Jenkins AA Build server http://10.204.35.15:8080/job/AA_SaaS/job/advancedauth-saas/
 Time Tracking TPS https://source.microfocuscloud.com/workcenter/tmtrack.dll?shell=swc#2
-Access Devops Dashboard https://vlab055512.dom055500.lab/dashboard
 Vlab Share Point, VC08 Nameing range https://microfocusinternational.sharepoint.com/sites/engineering_IASLab/Lists/VC08NamingRange/Allitemsg.aspx
 Workday Microfocus https://wd5.myworkday.com/microfocus/d/home.htmld
 Jenkins K8S Debugging Box https://vlab055512.dom055500.lab/jenkins/job/AA/job/Installation/job/K8S_Debugging_Box/
@@ -68,3 +67,4 @@ Test Video Server http://10.204.237.189:8000/
 job dsl api-viewer https://vlab080002.dom080000.lab/jenkins/plugin/job-dsl/api-viewer/index.html
 crontab guru https://crontab.guru/
 DNS Self Service https://selfservice.nqeng.lab/webjea/
+dashboard devops https://dashboard.devops.dom080000.lab/

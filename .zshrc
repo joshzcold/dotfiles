@@ -1,14 +1,14 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# zmodload zsh/zprof
+ # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-export LAST_PWD=/home/joshua/git/aa-ui-testing
 export PYTHONBREAKPOINT="pudb.set_trace"
 export ZSH=$HOME/.oh-my-zsh
-export PATH=$HOME/.emacs.d/bin:$HOME/apps/node_modules/bin/:/home/joshua/.gem/ruby/3.0.0/bin:$HOME/apps/bin:$PATH
+export PATH=$HOME/.emacs.d/bin:$HOME/apps/node_modules/bin/:/home/joshua/.gem/ruby/3.0.0/bin:$HOME/apps/bin:/home/joshua/.cargo/bin:$PATH
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 KEYTIMEOUT=1
@@ -21,9 +21,11 @@ plugins=(
   vi-mode
   docker
   helm
-  kubectl
+  # kubectl
 )
 
+# auto update oh my zsh instead of asking.
+DISABLE_UPDATE_PROMPT=true 
 source $ZSH/oh-my-zsh.sh
 
 alias vim="nvim"
@@ -34,7 +36,7 @@ alias markdown-preview="grip -b "
 alias vssh="ssh -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null"
 alias kdel="kubectl delete -f"
 alias kcre="kubectl apply -f"
-alias e="emacs"
+alias e="emacsclient -nw"
 alias k="kubectl"
 alias mde="kitty --class=markdown nvim"
 alias kp="kubectl get pods"
@@ -61,6 +63,15 @@ bindkey -v
 # bind to allow deletion after exiting normal mode vi
 bindkey "^?" backward-delete-char
 # Updates editor information when the keymap changes.
+
+# lazy load kubectl completion
+function kubectl() {
+    if ! type __start_kubectl >/dev/null 2>&1; then
+        source <(command kubectl completion zsh)
+    fi
+
+    command kubectl "$@"
+}
 
 function cdg(){ cd $(git rev-parse --show-toplevel) }
 
@@ -107,12 +118,17 @@ function zle-keymap-select() {
 function kpdel(){
   read -k1 "?Deleting $* is that okay? [y/n]?" confirm
   if [ "$confirm" = "y" ];then
-    for var in "$@"
+    objects=( namespace pod svc ingresses.networking.k8s.io configmap )
+    for ob in "${objects[@]}"
     do
-      kubectl delete pod $var &
-      kubectl delete svc $var &
-      kubectl delete ingresses.networking.k8s.io $var &
-      kubectl delete configmap $var &
+      content=$(kubectl get $ob --all-namespaces)
+      for var in "$@"
+      do
+        if echo "$content" | grep $var >/dev/null; then
+          echo "delete $ob $var"
+          kubectl delete $ob $var &
+        fi
+      done
     done
   fi
 }
@@ -209,21 +225,6 @@ bindkey '^a' searchGit
 #reverse menu on shift-tab
 bindkey '^[[Z' reverse-menu-complete
 
-function countdown(){
-   date1=$((`date +%s` + $1)); 
-   while [ "$date1" -ge `date +%s` ]; do 
-     echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
-     sleep 0.1
-   done
-}
-function stopwatch(){
-  date1=`date +%s`; 
-   while true; do 
-    echo -ne "$(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S)\r"; 
-    sleep 0.1
-   done
-}
-
 zle -N zle-keymap-select
 function vi_mode_prompt_info() {
   echo "${${KEYMAP/vicmd/[% NORMAL]%}/(main|viins)/[% INSERT]%}"
@@ -233,9 +234,7 @@ function vi_mode_prompt_info() {
 RPS1='$(vi_mode_prompt_info)'
 RPS2=$RPS1
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-if [ /usr/bin/kubectl ]; then source <(kubectl completion zsh); fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# cd $LAST_PWD
+# zprof

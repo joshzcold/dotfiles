@@ -19,9 +19,9 @@ Plug 'junegunn/goyo.vim'                        " Enable Goyo mode to remove dis
 Plug 'SirVer/ultisnips'                         " custom code snippets manager
 Plug 'honza/vim-snippets'                       " Needed for Coc snippets
 Plug 'sheerun/vim-polyglot'
-"markdown
-Plug 'plasticboy/vim-markdown'
+
 Plug 'iamcco/markdown-preview.nvim'
+
 Plug 'simnalamburt/vim-mundo'
 
 " trial plugins. remove full url when accepted
@@ -30,7 +30,6 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " treesitter for be
 Plug 'nvim-treesitter/playground'
 Plug 'https://github.com/AndrewRadev/linediff.vim'
 Plug 'https://github.com/dhruvasagar/vim-dotoo'
-Plug 'https://github.com/joshzcold/coc-groovy'
 Plug 'https://github.com/neo4j-contrib/cypher-vim-syntax'
 call plug#end()
 
@@ -49,11 +48,7 @@ let g:dotoo#capture#refile = expand('/home/joshua/git/org/refile.dotoo')
 lua require'nvim-treesitter.configs'.setup { ensure_installed = "maintained", highlight = { enable = true, additional_vim_regex_highlighting = true }, indent = { enabled = false } }
 
 let g:coc_global_extensions = [
-                  \'coc-markdownlint',
                   \'coc-highlight',
-                  \'coc-go',
-                  \'coc-tsserver',
-                  \'coc-python',
                   \'coc-explorer',
                   \]
 :highlight Search ctermfg=235 ctermbg=222
@@ -124,12 +119,6 @@ set scrolloff=5
 set showmatch matchtime=3 
 set noea
 
-
-" set tabstop     =2
-" set softtabstop =2
-" set shiftwidth  =2
-" set expandtab
-
 " line numbers
 set number
 set relativenumber
@@ -178,8 +167,6 @@ function! ToggleHiddenAll()
         set showcmd
     endif
 endfunction
-
-nnoremap <S-h> :call ToggleHiddenAll()<CR>
 
 
 "------------------------------------------------------------------------------"
@@ -283,7 +270,8 @@ let g:which_key_map.j ={
                   \ 'j' : [':call JenkinsLint()'     , 'jenkins-lint'] ,
                   \ 'p' : [':call ToggleHiddenAll()' , 'clean-mode'] ,
                   \ 'c' : [':call Scratch()'     , 'scratch-buffer'] ,
-                  \ 's' : ['syntax sync fromstart'     , 'reload syntax'] ,
+                  \ 's' : [':syntax sync fromstart'     , 'reload syntax'] ,
+                  \ 'q' : [':hardcopy > %.ps | !ps2pdf %.ps && rm %.ps', 'print-to-pdf'],
                   \ 'u' : ['MundoToggle'             , 'undo-tree']
                   \}
 
@@ -356,10 +344,7 @@ let g:which_key_map.y ={
 nnoremap <silent> <leader><leader> :call fzf#vim#files('.', {'options': '--no-preview'})<CR>
 
 " rip grep
-command! -bang -nargs=* Rgnl
-                  \ call fzf#vim#grep(
-                  \   'rg --column --no-heading --no-line-number --color=always --smart-case -- '.shellescape(<q-args>), 1,
-                  \   fzf#vim#with_preview(), <bang>0)
+command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0) 
 
 " replace currently selected text with default register
 " without yanking it in visual mode
