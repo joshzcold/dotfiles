@@ -1,5 +1,4 @@
-# zmodload zsh/zprof
- # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -8,7 +7,8 @@ fi
 
 export PYTHONBREAKPOINT="pudb.set_trace"
 export ZSH=$HOME/.oh-my-zsh
-export PATH=$HOME/.emacs.d/bin:$HOME/apps/node_modules/bin/:/home/joshua/.gem/ruby/3.0.0/bin:$HOME/apps/bin:/home/joshua/.cargo/bin:$PATH
+export PATH=$HOME/.emacs.d/bin:$HOME/apps/node_modules/bin/:/home/joshua/.gem/ruby/3.0.0/bin:$HOME/apps/bin:/home/joshua/.cargo/bin:./node_modules/.bin:$PATH
+export EDITOR=nvim
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 KEYTIMEOUT=1
@@ -21,7 +21,6 @@ plugins=(
   vi-mode
   docker
   helm
-  # kubectl
 )
 
 # auto update oh my zsh instead of asking.
@@ -36,7 +35,7 @@ alias markdown-preview="grip -b "
 alias vssh="ssh -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null"
 alias kdel="kubectl delete -f"
 alias kcre="kubectl apply -f"
-alias e="emacsclient -nw"
+alias e="emacsclient"
 alias k="kubectl"
 alias mde="kitty --class=markdown nvim"
 alias kp="kubectl get pods"
@@ -75,24 +74,11 @@ function kubectl() {
 
 function cdg(){ cd $(git rev-parse --show-toplevel) }
 
-function cd_last_pwd(){
-  \cd $1
-  export LAST_PWD=$PWD
-  sed -i "0,/LAST_PWD/ s#LAST_PWD=.*#LAST_PWD=$PWD#" ~/.zshrc
-}
-
 function ascii(){
   file=$(ls /usr/share/figlet/fonts | 
     fzf --preview "figlet -f {} ${1:-Moo}" )
   clear
   figlet -f $file ${*:-Moo}
-}
-
-function todo(){
-  last_monday=$(date -dlast-monday +"%m_%d_%Y")
-  todo_file="/home/joshua/git/org/todo/todo-$last_monday.md"
-  [ ! -f "$todo_file" ] && echo "# todo $last_monday" > $todo_file
-  nvim $todo_file
 }
 
 function searchGit(){
@@ -118,7 +104,7 @@ function zle-keymap-select() {
 function kpdel(){
   read -k1 "?Deleting $* is that okay? [y/n]?" confirm
   if [ "$confirm" = "y" ];then
-    objects=( namespace pod svc ingresses.networking.k8s.io configmap )
+    objects=( namespace pod svc ingresses.networking.k8s.io configmap pvc pv )
     for ob in "${objects[@]}"
     do
       content=$(kubectl get $ob --all-namespaces)
@@ -188,13 +174,12 @@ function kre(){
   kubectl delete -f $1 && kubectl apply -f $1
 }
 
-function cy(){
-  nohup kitty --detach ./node_modules/cypress/bin/cypress open  >/dev/null 2>&1  &
-  nvim cypress.json
-}
-
 function cypress(){
-  nohup kitty --detach ./node_modules/cypress/bin/cypress open  >/dev/null 2>&1  &
+sudo tee /tmp/cypress-launch > /dev/null <<EOT
+export KUBECONFIG=${KUBECONFIG}
+./node_modules/cypress/bin/cypress open
+EOT
+  nohup kitty --detach sh /tmp/cypress-launch >/dev/null 2>&1 &
   nvim cypress.json
 }
 
@@ -211,6 +196,14 @@ function sshdops-workers(){
   nohup kitty sshpass -p Control123 ssh dops@dops-worker1 >/dev/null 2>&1 &
   nohup kitty sshpass -p Control123 ssh dops@dops-worker2 >/dev/null 2>&1 &
   nohup kitty sshpass -p Control123 ssh dops@dops-worker3 >/dev/null 2>&1 &
+}
+
+function geb() {
+    git grep -E -n $1 | while IFS=: read i j k; do git blame -L $j,$j $i | cat; done
+}
+
+function sk(){
+  screenkey -p fixed -g $(slop -n -f '%g') --opacity 0.2 -s small --compr-cnt 10 &
 }
 
 zle -N cgit
