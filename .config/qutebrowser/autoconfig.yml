@@ -9,11 +9,12 @@ settings:
   bindings.commands:
     global:
       normal:
-        <Ctrl+i>: edit-text
+        <Ctrl+i>: tab-focus stack-next
         <Ctrl+o>: tab-focus stack-prev
         <F12>: devtools
         J: tab-prev
         K: tab-next
+        Y: spawn mpv {url}
         gI: hint inputs --first ;; mode-enter insert ;; later 50 edit-text
         gj: tab-move -
         gk: tab-move +

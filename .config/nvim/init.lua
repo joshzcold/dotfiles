@@ -130,6 +130,7 @@ require( "packer").startup(
         use 'https://github.com/kristijanhusak/orgmode.nvim'
         -- ASCII Drawing Program
         use 'https://github.com/jbyuki/venn.nvim'
+        use 'https://github.com/lervag/vimtex'
     end
     )
 
@@ -426,7 +427,25 @@ require( "telescope").setup {
     }
 }
 
+function _G.toggle_venn()
+    local venn_enabled = vim.inspect(vim.b.venn_enabled) 
+    if(venn_enabled == "nil") then
+        vim.b.venn_enabled = true
+        vim.cmd[[setlocal ve=all]]
+        vim.api.nvim_buf_set_keymap(0, "n", "J", "<C-v>j:VBox<cr>", {noremap = true})
+        vim.api.nvim_buf_set_keymap(0, "n", "K", "<C-v>k:VBox<cr>", {noremap = true})
+        vim.api.nvim_buf_set_keymap(0, "n", "L", "<C-v>l:VBox<cr>", {noremap = true})
+        vim.api.nvim_buf_set_keymap(0, "n", "H", "<C-v>h:VBox<cr>", {noremap = true})
+        vim.api.nvim_buf_set_keymap(0, "v", "f", ":VBox<cr>", {noremap = true})
+    else
+        vim.cmd[[setlocal ve=]]
+        vim.cmd[[mapclear <buffer>]]
+        vim.b.venn_enabled = nil
+    end
 
+end
+-- toggle keymappings for venn
+vim.api.nvim_set_keymap('n', '<leader>dz', ":lua toggle_venn()<cr>", { noremap = true})
 
 --Add leader shortcuts
 -- Large WhichKey mappings
@@ -474,43 +493,6 @@ wk.register(
                 '<cmd>:%bd|e#<cr>' ,
                 'delete-other-buffers'
             }
-        },
-        d = {
-            name = "draw it",
-            i = {
-                function()
-                    vim.cmd [[call DrawIt#DrawItStart()]]
-                    vim.cmd [[set timeoutlen=100]]
-                    vim.api.nvim_buf_set_keymap(0, "n", "J", ":call DrawIt#DrawDown()<cr>", {noremap = true})
-                    vim.api.nvim_buf_set_keymap(0, "n", "K", ":call DrawIt#DrawUp()<cr>", {noremap = true})
-                    vim.api.nvim_buf_set_keymap(0, "n", "L", ":call DrawIt#DrawRight()<cr>", {noremap = true})
-                    vim.api.nvim_buf_set_keymap(0, "n", "H", ":call DrawIt#DrawLeft()<cr>", {noremap = true})
-                    vim.api.nvim_buf_set_keymap(0, "n", "JL", ":call DrawIt#DrawSlantDownRight()<cr>", {noremap = true})
-                    vim.api.nvim_buf_set_keymap(0, "n", "JH", ":call DrawIt#DrawSlantDownLeft()<cr>", {noremap = true})
-                    vim.api.nvim_buf_set_keymap(0, "n", "KL", ":call DrawIt#DrawSlantUpRight()<cr>", {noremap = true})
-                    vim.api.nvim_buf_set_keymap(0, "n", "KH", ":call DrawIt#DrawSlantUpLeft()<cr>", {noremap = true})
-                end,                                           
-                "Drawit Start"
-            },
-            z = {
-             function()
-                 vim.cmd[[setlocal ve=all]]
-                 vim.api.nvim_buf_set_keymap(0, "n", "J", "<C-v>j:VBox<cr>", {noremap = true})
-                 vim.api.nvim_buf_set_keymap(0, "n", "K", "<C-v>k:VBox<cr>", {noremap = true})
-                 vim.api.nvim_buf_set_keymap(0, "n", "L", "<C-v>l:VBox<cr>", {noremap = true})
-                 vim.api.nvim_buf_set_keymap(0, "n", "H", "<C-v>h:VBox<cr>", {noremap = true})
-                 vim.api.nvim_buf_set_keymap(0, "v", "f", ":VBox<cr>", {noremap = true})
-             end,
-             "venn"
-            },
-            s = {
-                function()
-                    vim.cmd[[call DrawIt#DrawItStop()]]
-                    vim.cmd[[mapclear <buffer>]]
-                    vim.cmd[[set timeoutlen=400]]
-                end,
-                "Drawit Stop"
-            },
         },
         j = {
             name = "misc",
@@ -665,6 +647,7 @@ vim.g.nvim_tree_icons = {
         error = ""
     }
 }
+
 -- vim.api.nvim_set_keymap('n', '<leader><space>', [[<cmd>lua require('telescope.builtin').buffers()<CR>]], { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap('n', '<leader>sf', [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]], { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap('n', '<leader>sb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]], { noremap = true, silent = true })

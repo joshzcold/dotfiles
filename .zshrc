@@ -85,10 +85,13 @@ function searchGit(){
   cgit
   INITIAL_QUERY=""
   RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
-  FZF_DEFAULT_COMMAND="$RG_PREFIX '$INITIAL_QUERY'" \
+  result=$(FZF_DEFAULT_COMMAND="$RG_PREFIX '$INITIAL_QUERY'" \
     fzf --bind "change:reload:$RG_PREFIX {q} || true" \
     --ansi --disabled --query "$INITIAL_QUERY" \
-    --height=50% --layout=reverse
+    --height=50% --layout=reverse)
+  result=$(echo "$result" | cut -d ":" -f 4- |sed 's/^ *//g' )
+  echo "$result"
+  echo "$result" | xclip -selection c
   cd -
 }
 
@@ -99,6 +102,10 @@ function grep-all(){
 function zle-keymap-select() {
   zle reset-prompt
   zle -R
+}
+
+function kold(){
+  kubectl get $1 -o go-template --template '{{range .items}}{{.metadata.name}} {{.metadata.creationTimestamp}}{{"\n"}}{{end}}' | awk '$2 <= "'$(date -d '2 days ago' -Ins --utc | sed 's/+0000/Z/')'" { print $1 }'
 }
 
 function kpdel(){
@@ -214,6 +221,9 @@ bindkey '^f' vgit
 
 zle -N searchGit
 bindkey '^a' searchGit
+
+zle -N kconf
+bindkey '^k' kconf
 
 #reverse menu on shift-tab
 bindkey '^[[Z' reverse-menu-complete
