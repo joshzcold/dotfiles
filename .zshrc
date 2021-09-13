@@ -133,7 +133,8 @@ function kclean(){
 }
 
 function notes(){
-  command cat $(readlink -f $(find ~/codepaste -not -path '*/\.*' -type f | fzf))
+  command cat $(readlink -f $(find ~/git/codepaste -not -path '*/\.*' -type f | \
+    fzf --preview "cat {}" ))
 }
 
 function kconf(){
