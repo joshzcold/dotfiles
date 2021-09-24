@@ -1,12 +1,11 @@
 [global]
 monitor = 0
 follow = mouse
-geometry = "280x50+10-10"
+geometry = "280x50-10+44"
 indicate_hidden = yes
 shrink = no
 separator_height = 4
 separator_color = auto
-origin = bottom-left
 padding = 20
 horizontal_padding = 20
 frame_width = 0

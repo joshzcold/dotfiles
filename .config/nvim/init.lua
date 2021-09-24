@@ -236,7 +236,7 @@ require( "nvim-ts-autotag").setup()
 
 --Incremental live completion
 vim.o.inccommand = "split"
-vim.g.UltiSnipsExpandTrigger = "<nop>"
+vim.g.UltiSnipsExpandTrigger = "<cr>"
 
 
 --Set highlight on search
