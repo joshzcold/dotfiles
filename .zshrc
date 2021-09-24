@@ -44,6 +44,7 @@ alias cat="bat -p"
 alias gl="git log --stats"
 alias kssh="kitty +kitten ssh"
 alias sleep="systemctl suspend"
+alias ssh="TERM=xterm-color ssh"
 # alias cd="cd_last_pwd"
 alias cdf="cd $(ls -d */|head -n 1)" # cd into first dir
 export KUBE_EDITOR=nvim

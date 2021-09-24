@@ -465,7 +465,7 @@ require(
 wk.register(
     {
         [" "] = {
-            "<cmd>Telescope find_files<cr>",
+            "<cmd>lua require\"telescope.builtin\".find_files({ hidden = true })<cr>",
             "Find File"
         },
         f = {
@@ -899,3 +899,4 @@ hi DiffChange ctermfg=none guifg=#a37500 guibg=none ctermbg=none
 hi DiffDelete ctermfg=none guifg=#7a0000 guibg=none ctermbg=none
 
 ]]
+
