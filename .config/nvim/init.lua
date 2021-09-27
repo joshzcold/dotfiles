@@ -236,7 +236,7 @@ require( "nvim-ts-autotag").setup()
 
 --Incremental live completion
 vim.o.inccommand = "split"
-vim.g.UltiSnipsExpandTrigger = "<cr>"
+vim.g.UltiSnipsExpandTrigger = "<ctrl>p"
 
 
 --Set highlight on search
@@ -882,7 +882,7 @@ function! GitPush()
 endfunction
 
 function! JenkinsLint()
-      let jenkins_url = "https://vlab055512.dom055500.lab/jenkins"
+      let jenkins_url = "https://10.29.158.99"
       let crumb_command = "curl -s -k \"".jenkins_url.'/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)"'
       let jenkins_crumb = system(crumb_command)
       let validate_command = "curl -k -X POST -H ".jenkins_crumb." -F \"jenkinsfile=<".expand('%:p')."\" ".jenkins_url."/pipeline-model-converter/validate"
@@ -899,4 +899,8 @@ hi DiffChange ctermfg=none guifg=#a37500 guibg=none ctermbg=none
 hi DiffDelete ctermfg=none guifg=#7a0000 guibg=none ctermbg=none
 
 ]]
-
+vim.cmd[[
+set encoding=utf-8
+setglobal fileencoding=utf-8
+set fillchars=vert:\┃
+]]

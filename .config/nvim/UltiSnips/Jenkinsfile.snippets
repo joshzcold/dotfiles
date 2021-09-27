@@ -16,21 +16,39 @@ def ${1:myVar} = sh(script: """
 
 endsnippet
 
+snippet currentBuild.description "jenkins change job description"
+currentBuild.description = $1
+endsnippet
+
+snippet currentBuild.displayName "jenkins change job name"
+currentBuild.displayName = $1
+endsnippet
+
+snippet buildJob "jenkins build child job"
+build job: "${1:folder/job}",
+  parameters: [
+   // string(name: 'parameter', value: ''),
+   // booleanParam(name: 'parameter', value: true),
+   // choice(name: 'parameter', value: ''),
+   // text(name: 'parameter', value: ''),
+  ]
+endsnippet
+
+snippet git "git clone function"
+git branch: "${1:master}" url: "${2}",
+  credentialsId: "${3}"
+endsnippet
+
 snippet input "Jenkins pause for Input" b
-stage('Pause for Input'){ 
-    input {
-        message "Should we continue?" ok "Yes, we should."
-    } 
-    steps{
-        echo "continue"
-    }
-}
+input( message: "$1" )
 endsnippet
 
 snippet stage "Jenkins Stage Template" b
 stage('${1:Stage}') {
   steps {
-  ${2:Put Executions Here}
+		script{
+			${2:Put Executions Here}
+		}
   }
 }
 endsnippet
@@ -136,4 +154,5 @@ pipeline {
 //    }
 }
 endsnippet
+
 
