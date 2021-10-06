@@ -96,7 +96,6 @@ require( "packer").startup(
         use "https://github.com/joshzcold/nvim-compe" -- Autocompletion plugin
 
         use "L3MON4D3/LuaSnip" -- Snippets plugin
-        use "windwp/nvim-autopairs" -- Autopair characters
         use "folke/which-key.nvim" -- emacs style leader preview
         use "simnalamburt/vim-mundo"
         use "https://github.com/godlygeek/tabular"
@@ -113,7 +112,10 @@ require( "packer").startup(
         use "wfxr/minimap.vim"
 
         use "kyazdani42/nvim-web-devicons"
-        use "https://github.com/kyazdani42/nvim-tree.lua"
+        use {
+            'kyazdani42/nvim-tree.lua',
+            requires = 'kyazdani42/nvim-web-devicons'
+        }
         use "https://github.com/windwp/nvim-ts-autotag"
         use 'https://github.com/norcalli/nvim-colorizer.lua'                       
         use 'tomasiser/vim-code-dark' 
@@ -123,7 +125,7 @@ require( "packer").startup(
             requires = {'kyazdani42/nvim-web-devicons', opt = true},
         }
         use 'https://github.com/phaazon/hop.nvim'
-
+        use 'https://github.com/windwp/nvim-autopairs'
         use 'https://github.com/mhartington/formatter.nvim'
         use 'https://github.com/nvim-lua/lsp-status.nvim'
         use 'https://github.com/glepnir/lspsaga.nvim'
@@ -169,9 +171,47 @@ require('formatter').setup({
 vim.api.nvim_exec([[
 augroup FormatAutogroup
   autocmd!
-  autocmd BufWritePost *.js,*.ts,*.css,*.scss,*.md,*.html,*.json,*.yaml : FormatWrite
+  autocmd BufWritePost *.js,*.ts,*.css,*.scss,*.md,*.html,*.json,*.yaml$ : FormatWrite
 augroup END
 ]], true)
+
+require('nvim-autopairs').setup{}
+
+local npairs = require'nvim-autopairs'
+local Rule   = require'nvim-autopairs.rule'
+local cond = require('nvim-autopairs.conds')
+
+npairs.add_rules {
+    Rule("'", "'")
+        :with_pair(cond.not_before_regex_check("%w"))
+        :with_pair(cond.not_after_regex_check("%w")),
+    Rule('"', '"')
+        :with_pair(cond.not_before_regex_check("%w"))
+        :with_pair(cond.not_after_regex_check("%w")),
+  Rule(' ', ' ')
+    :with_pair(function (opts)
+      local pair = opts.line:sub(opts.col - 1, opts.col)
+      return vim.tbl_contains({ '()', '[]', '{}' }, pair)
+    end),
+  Rule('( ', ' )')
+      :with_pair(function() return false end)
+      :with_move(function(opts)
+          return opts.prev_char:match('.%)') ~= nil
+      end)
+      :use_key(')'),
+  Rule('{ ', ' }')
+      :with_pair(function() return false end)
+      :with_move(function(opts)
+          return opts.prev_char:match('.%}') ~= nil
+      end)
+      :use_key('}'),
+  Rule('[ ', ' ]')
+      :with_pair(function() return false end)
+      :with_move(function(opts)
+          return opts.prev_char:match('.%]') ~= nil
+      end)
+      :use_key(']')
+}
 
 require('hop').setup()
 require "lualine".setup {
@@ -213,12 +253,6 @@ require "lualine".setup {
   tabline = {},
   extensions = {}
 }
-require( "nvim-autopairs").setup( {
-        disable_filetype = {
-            "TelescopePrompt",
-            "vim"
-        }
-    })
 
 local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
 
@@ -236,7 +270,7 @@ require( "nvim-ts-autotag").setup()
 
 --Incremental live completion
 vim.o.inccommand = "split"
-vim.g.UltiSnipsExpandTrigger = "<ctrl>p"
+vim.g.UltiSnipsExpandTrigger = "<NUL>"
 
 
 --Set highlight on search
@@ -465,7 +499,7 @@ require(
 wk.register(
     {
         [" "] = {
-            "<cmd>lua require\"telescope.builtin\".find_files({ hidden = true })<cr>",
+            "<cmd>lua require\"telescope.builtin\".find_files({ })<cr>",
             "Find File"
         },
         f = {
@@ -580,83 +614,51 @@ wk.register(
 map("v", "<leader>ff", "<cmd>lua require'hop'.hint_words()<cr>")
 map("v", "<leader>fl", "<cmd>lua require'hop'.hint_lines()<cr>")
 
-local tree_cb =
-require "nvim-tree.config".nvim_tree_callback
-vim.g.nvim_tree_update_cwd = 1
-vim.g.nvim_tree_follow = 1
-vim.g.nvim_tree_bindings = {
-    { key = { "<CR>", "o", "<2-LeftMouse>", "l" }, cb = tree_cb( "edit") },
-    { key = { "<2-RightMouse>", "<C-]>" }, cb = tree_cb( "cd") },
-    { key = "<C-v>", cb = tree_cb( "vsplit") },
-    { key = "<C-x>", cb = tree_cb( "split") },
-    { key = "<C-t>", cb = tree_cb( "tabnew") },
-    { key = "<", cb = tree_cb( "prev_sibling") },
-    { key = ">", cb = tree_cb( "next_sibling") },
-    { key = "P", cb = tree_cb( "parent_node") },
-    { key = { "<BS>", "h" }, cb = tree_cb( "close_node") },
-    { key = "<S-CR>", cb = tree_cb( "close_node") },
-    { key = "<Tab>", cb = tree_cb( "preview") },
-    { key = "K", cb = tree_cb( "first_sibling") },
-    { key = "J", cb = tree_cb( "last_sibling") },
-    { key = "I", cb = tree_cb( "toggle_ignored") },
-    { key = "H", cb = tree_cb( "toggle_dotfiles") },
-    { key = "R", cb = tree_cb( "refresh") },
-    { key = "a", cb = tree_cb( "create") },
-    { key = "df", cb = tree_cb( "remove") },
-    { key = "dd", cb = tree_cb( "cut") },
-    { key = "r", cb = tree_cb( "rename") },
-    { key = "<C-r>", cb = tree_cb( "full_rename") },
-    { key = "x", cb = tree_cb( "cut") },
-    { key = "c", cb = tree_cb( "copy") },
-    { key = "p", cb = tree_cb( "paste") },
-    { key = "y", cb = tree_cb( "copy_name") },
-    { key = "Y", cb = tree_cb( "copy_path") },
-    { key = "gy", cb = tree_cb( "copy_absolute_path") },
-    { key = "[c", cb = tree_cb( "prev_git_item") },
-    { key = "]c", cb = tree_cb( "next_git_item") },
-    { key = "-", cb = tree_cb( "dir_up") },
-    { key = "q", cb = tree_cb( "close") },
-    { key = "?", cb = tree_cb( "toggle_help") }
-}
-vim.g.nvim_tree_icons = {
-    default = " ",
-    symlink = " ",
-    git = {
-        unstaged = "✗",
-        staged = "✓",
-        unmerged = "",
-        renamed = "➜",
-        untracked = "★",
-        deleted = "",
-        ignored = ""
-    },
-    folder = {
-        arrow_open = "",
-        arrow_closed = "",
-        default = "",
-        open = "",
-        empty = "",
-        empty_open = "",
-        symlink = "",
-        symlink_open = ""
-    },
-    lsp = {
-        hint = "",
-        info = "",
-        warning = "",
-        error = ""
+local tree_cb = require "nvim-tree.config".nvim_tree_callback
+require'nvim-tree'.setup {
+    update_cwd = true,
+    view = {
+        auto_resize = true,
+        width = 50,
+        mappings = {
+            list = {
+                { key = { "<CR>", "o", "<2-LeftMouse>", "l" }, cb = tree_cb( "edit") },
+                { key = { "<2-RightMouse>", "<C-]>" }, cb = tree_cb( "cd") },
+                { key = "<C-v>", cb = tree_cb( "vsplit") },
+                { key = "<C-x>", cb = tree_cb( "split") },
+                { key = "<C-t>", cb = tree_cb( "tabnew") },
+                { key = "<", cb = tree_cb( "prev_sibling") },
+                { key = ">", cb = tree_cb( "next_sibling") },
+                { key = "P", cb = tree_cb( "parent_node") },
+                { key = { "<BS>", "h" }, cb = tree_cb( "close_node") },
+                { key = "<S-CR>", cb = tree_cb( "close_node") },
+                { key = "<Tab>", cb = tree_cb( "preview") },
+                { key = "K", cb = tree_cb( "first_sibling") },
+                { key = "J", cb = tree_cb( "last_sibling") },
+                { key = "I", cb = tree_cb( "toggle_ignored") },
+                { key = "H", cb = tree_cb( "toggle_dotfiles") },
+                { key = "R", cb = tree_cb( "refresh") },
+                { key = "a", cb = tree_cb( "create") },
+                { key = "df", cb = tree_cb( "remove") },
+                { key = "dd", cb = tree_cb( "cut") },
+                { key = "r", cb = tree_cb( "rename") },
+                { key = "<C-r>", cb = tree_cb( "full_rename") },
+                { key = "x", cb = tree_cb( "cut") },
+                { key = "c", cb = tree_cb( "copy") },
+                { key = "p", cb = tree_cb( "paste") },
+                { key = "y", cb = tree_cb( "copy_name") },
+                { key = "Y", cb = tree_cb( "copy_path") },
+                { key = "gy", cb = tree_cb( "copy_absolute_path") },
+                { key = "[c", cb = tree_cb( "prev_git_item") },
+                { key = "]c", cb = tree_cb( "next_git_item") },
+                { key = "-", cb = tree_cb( "dir_up") },
+                { key = "q", cb = tree_cb( "close") },
+                { key = "?", cb = tree_cb( "toggle_help") }
+
+            }
+        }
     }
 }
-
--- vim.api.nvim_set_keymap('n', '<leader><space>', [[<cmd>lua require('telescope.builtin').buffers()<CR>]], { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', '<leader>sf', [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]], { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', '<leader>sb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]], { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', '<leader>sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]], { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', '<leader>st', [[<cmd>lua require('telescope.builtin').tags()<CR>]], { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', '<leader>sd', [[<cmd>lua require('telescope.builtin').grep_string()<CR>]], { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', '<leader>sp', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', '<leader>?', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]], { noremap = true, silent = true })
 
 -- Highlight on yank
 vim.api.nvim_exec(
@@ -677,8 +679,6 @@ vim.api.nvim_exec(
     vim.api.nvim_set_keymap("n", "n", "nzzzv", {noremap = true})
     vim.api.nvim_set_keymap("n", "N", "Nzzzv", {noremap = true})
     vim.api.nvim_set_keymap("n", "J", "mzJ`z", {noremap = true})
-    -- undo breakpoints while inserting text
-    vim.api.nvim_set_keymap("i", ",", ",<c-g>u", {noremap = true})
     vim.api.nvim_set_keymap("i", ".", ".<c-g>u", {noremap = true})
     vim.api.nvim_set_keymap("i", "!", "!<c-g>u", {noremap = true})
     vim.api.nvim_set_keymap("i", "?", "?<c-g>u", {noremap = true})
@@ -838,7 +838,7 @@ vim.api.nvim_exec(
             then
             return t "<Tab>"
         else
-            return vim.fn[ "compe#complete" ]()
+            return vim.fn[ "compe#confirm" ]()
         end
     end
 
@@ -861,19 +861,13 @@ vim.api.nvim_exec(
     vim.api.nvim_set_keymap( "s", "<S-Tab>", "v:lua.s_tab_complete()", { expr = true })
 
     -- Map compe confirm and complete functions
-    vim.api.nvim_set_keymap("i", "<CR>", "compe#confirm({ 'keys': '<CR>', 'select': v:true })", { expr = true })
+    vim.api.nvim_set_keymap("i", "<CR>", "compe#confirm('<CR>')", { expr = true })
 
-    vim.cmd([[
-inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr()"))
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
-inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
-]])
 -- User Functions
 
 vim.cmd [[
 au BufRead *.groovy if search('pipeline', 'nw') | setlocal ft=Jenkinsfile | endif
+
 function! GitPush()
       execute("Gwrite")
       let message = input("commit message: ")
@@ -897,10 +891,9 @@ vim.cmd [[
 hi DiffAdd ctermfg=none guifg=#007504 guibg=none ctermbg=none
 hi DiffChange ctermfg=none guifg=#a37500 guibg=none ctermbg=none
 hi DiffDelete ctermfg=none guifg=#7a0000 guibg=none ctermbg=none
-
-]]
-vim.cmd[[
-set encoding=utf-8
-setglobal fileencoding=utf-8
-set fillchars=vert:\┃
+hi Normal guibg=NONE ctermbg=NONE
+hi SignColumn guibg=NONE ctermbg=NONE
+autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
+autocmd vimenter * hi SignColumn guibg=NONE ctermbg=NONE
+autocmd vimenter * hi LineNr guibg=NONE ctermbg=NONE
 ]]

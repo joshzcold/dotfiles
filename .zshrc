@@ -9,6 +9,15 @@ export PYTHONBREAKPOINT="pudb.set_trace"
 export ZSH=$HOME/.oh-my-zsh
 export PATH=$HOME/.emacs.d/bin:$HOME/apps/node_modules/bin/:/home/joshua/.gem/ruby/3.0.0/bin:$HOME/apps/bin:/home/joshua/.cargo/bin:./node_modules/.bin:$PATH
 export EDITOR=nvim
+export NPM_PACKAGES="${HOME}/.npm-packages"
+export PATH="$PATH:$NPM_PACKAGES/bin"
+export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
+export GOPATH=$HOME/.go/
+export PATH=$GOPATH/bin:$PATH
+export KUBE_EDITOR=nvim
+export SUDO_ASKPASS=/usr/bin/ksshaskpass
+export FZF_DEFAULT_COMMAND='rg --files'
+export PYTHONWARNINGS="ignore:Unverified HTTPS request"
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 KEYTIMEOUT=1
@@ -43,22 +52,9 @@ alias kw="watch -n 1 kubectl get pods"
 alias cat="bat -p"
 alias gl="git log --stats"
 alias kssh="kitty +kitten ssh"
-alias sleep="systemctl suspend"
 alias ssh="TERM=xterm-color ssh"
 # alias cd="cd_last_pwd"
 alias cdf="cd $(ls -d */|head -n 1)" # cd into first dir
-export KUBE_EDITOR=nvim
-export KUBECONFIG="/home/joshua/.kube/aa.yaml"
-export SUDO_ASKPASS=/usr/bin/ksshaskpass
-export FZF_DEFAULT_COMMAND='rg --files'
-export GOVC_INSECURE=1
-# export GOVC_URL="https://vlabvc08.nqeng.lab/sdk"
-export GOVC_URL=https://vlabw1vc.nqeng.lab/sdk
-export GOVC_DATACENTER=main
-# export GOVC_DATACENTER="K8S"
-export GOVC_USERNAME="corpdom\jcold"
-export GOPATH=$HOME/git/go
-export PATH=$HOME/git/go/bin:$HOME/.local/bin:$PATH
 bindkey -v
 # bind to allow deletion after exiting normal mode vi
 bindkey "^?" backward-delete-char
@@ -164,19 +160,24 @@ function vgit(){
 }
 
 function cgit(){
-  local git_list=$(dirname $(find ~/git -maxdepth 3 -name ".git"  -prune ))
-  local fzf_list=""
-  while IFS= read -r git_dir; do
-    branch=$(cd "$git_dir"; git  branch | grep '^\*' | cut -d' ' -f2) 
 
-    fzf_list+="$git_dir # $branch\n"   
-  done <<< "$git_list"
-  cd_dir=$(echo "$fzf_list" | column -t -s' ' | fzf)
-  cd_dir2=$(echo "$cd_dir" | cut -d" " -f1)
-  if [ -d "$cd_dir2" ];then
-    cd $cd_dir2
-    git status -s -b # show status after cd
+  # local cmd="find ~/git -maxdepth 3 -name \".git\"  -prune"
+
+  local cmd="${FZF_ALT_C_COMMAND:-"command find ~/git -name \"*.git\" -type d  -exec dirname {} \; -prune 2>/dev/null  "}"
+  setopt localoptions pipefail no_aliases 2> /dev/null
+  local dir="$(eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS" $(__fzfcmd) +m)"
+  if [[ -z "$dir" ]]; then
+    zle redisplay
+    return 0
   fi
+  zle push-line # Clear buffer. Auto-restored on next prompt.
+  BUFFER="cd ${(q)dir}"
+
+  zle accept-line
+  local ret=$?
+  unset dir # ensure this doesn't end up appearing in prompt expansion
+  zle reset-prompt
+  return $ret
 }
 
 function kre(){

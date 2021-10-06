@@ -7,6 +7,7 @@ dunst &
 pamac-tray &
 wmnme LG3D &
 picom &
+kalarm &
 keynav &
 blueman-applet &
 volctl &
