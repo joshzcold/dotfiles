@@ -1,3 +1,33 @@
+snippet triggercron "Jenkins trigger on cron" b
+  triggers{
+    // daily at 12 pm
+    cron('0 12 * * *')
+  }
+endsnippet
+
+snippet optionsstack "Jenkins generic options" b
+  options{
+    // buildDiscarder(logRotator(numToKeepStr: '10')) }
+    // disableConcurrentBuilds()
+    // retry(3) 
+    // skipDefaultCheckout()
+    // skipStagesAfterUnstable()
+    // timeout(time: 1, unit: 'HOURS')
+    // timestamps()
+  }
+endsnippet
+
+snippet withCredentials "Jenkins with credentials" b
+  withCredentials([
+    // sshUserPrivateKey(credentialsId: '', keyFileVariable: '', passphraseVariable: '', usernameVariable: ''),
+    // file(credentialsId: '', variable: ''), [$class: 'ZipFileBinding', credentialsId: '', variable: ''],
+    // string(credentialsId: '', variable: ''),
+    // usernamePassword(credentialsId: '', passwordVariable: '', usernameVariable: '')
+  ]) {
+    // some block
+  }
+endsnippet
+
 snippet dir "jenkins work into directory" b
 dir("${1:newDir}"{
 

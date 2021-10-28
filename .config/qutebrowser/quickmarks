@@ -44,3 +44,6 @@ Site failover Imperva WAF https://securitymetrics.atlassian.net/wiki/spaces/DEVO
 production vitals https://www.securitymetrics.com/api/v2/scheduler/vitals
 Devops Site diagram https://lucid.app/lucidchart/1aaccb78-0f51-4888-a514-0682943210b7/view?page=0_0#
 IT servicedesk https://securitymetrics.atlassian.net/servicedesk/customer/portals
+ansible filters https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html
+jenkins env vars https://hq-devops-v-jenkins/env-vars.html/
+jenkins pipeline synatax https://www.jenkins.io/doc/book/pipeline/syntax/

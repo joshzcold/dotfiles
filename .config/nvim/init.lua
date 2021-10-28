@@ -90,12 +90,16 @@ require( "packer").startup(
         -- Additional textobjects for treesitter
         use "nvim-treesitter/nvim-treesitter-textobjects"
         use "neovim/nvim-lspconfig" -- Collection of configurations for built-in LSP client
-        use "https://github.com/kabouzeid/nvim-lspinstall"
+        use "https://github.com/williamboman/nvim-lsp-installer"
 
-        -- use "hrsh7th/nvim-compe" -- Autocompletion plugin
-        use "https://github.com/joshzcold/nvim-compe" -- Autocompletion plugin
+        use "quangnguyen30192/cmp-nvim-ultisnips"
+        use 'hrsh7th/cmp-nvim-lsp'
+        use 'hrsh7th/cmp-buffer'
+        use 'hrsh7th/cmp-path'
+        use 'hrsh7th/cmp-cmdline'
+        use 'hrsh7th/nvim-cmp'
+        use 'https://github.com/onsails/lspkind-nvim'
 
-        use "L3MON4D3/LuaSnip" -- Snippets plugin
         use "folke/which-key.nvim" -- emacs style leader preview
         use "simnalamburt/vim-mundo"
         use "https://github.com/godlygeek/tabular"
@@ -119,7 +123,6 @@ require( "packer").startup(
         use "https://github.com/windwp/nvim-ts-autotag"
         use 'https://github.com/norcalli/nvim-colorizer.lua'                       
         use 'tomasiser/vim-code-dark' 
-        use 'https://github.com/joshzcold/DrawIt'
         use {
             'hoob3rt/lualine.nvim',
             requires = {'kyazdani42/nvim-web-devicons', opt = true},
@@ -132,7 +135,6 @@ require( "packer").startup(
         use 'https://github.com/kristijanhusak/orgmode.nvim'
         -- ASCII Drawing Program
         use 'https://github.com/jbyuki/venn.nvim'
-        use 'https://github.com/lervag/vimtex'
     end
     )
 
@@ -164,14 +166,24 @@ require('formatter').setup({
       scss = {prettier},
       markdown = {prettier},
       json = {prettier},
-      yaml = {prettier}
+      yaml = {prettier},
+      sh = {
+          -- Shell Script Formatter
+       function()
+         return {
+           exe = "shfmt",
+           args = { "-i", 2 },
+           stdin = true,
+         }
+       end,
+      }
   }
 })
 
 vim.api.nvim_exec([[
 augroup FormatAutogroup
-  autocmd!
-  autocmd BufWritePost *.js,*.ts,*.css,*.scss,*.md,*.html,*.json,*.yaml$ : FormatWrite
+  autocmd FileType sh,js,ts,css,scss,md,html,json,yaml 
+   \ autocmd! BufWritePost <buffer> :FormatWrite
 augroup END
 ]], true)
 
@@ -181,13 +193,20 @@ local npairs = require'nvim-autopairs'
 local Rule   = require'nvim-autopairs.rule'
 local cond = require('nvim-autopairs.conds')
 
+require('nvim-autopairs').remove_rule('"')
+require('nvim-autopairs').remove_rule("'")
+require('nvim-autopairs').remove_rule("`")
+
 npairs.add_rules {
     Rule("'", "'")
-        :with_pair(cond.not_before_regex_check("%w"))
-        :with_pair(cond.not_after_regex_check("%w")),
+        :with_pair(cond.not_before_regex_check("%S"))
+        :with_pair(cond.not_after_regex_check("%S")),
+    Rule("`", "`")
+        :with_pair(cond.not_before_regex_check("%S"))
+        :with_pair(cond.not_after_regex_check("%S")),
     Rule('"', '"')
-        :with_pair(cond.not_before_regex_check("%w"))
-        :with_pair(cond.not_after_regex_check("%w")),
+        :with_pair(cond.not_before_regex_check("%S"))
+        :with_pair(cond.not_after_regex_check("%S")),
   Rule(' ', ' ')
     :with_pair(function (opts)
       local pair = opts.line:sub(opts.col - 1, opts.col)
@@ -271,7 +290,6 @@ require( "nvim-ts-autotag").setup()
 --Incremental live completion
 vim.o.inccommand = "split"
 vim.g.UltiSnipsExpandTrigger = "<NUL>"
-
 
 --Set highlight on search
 vim.o.hlsearch = false
@@ -611,8 +629,8 @@ wk.register(
     },
     { prefix = "<leader>" })
 
-map("v", "<leader>ff", "<cmd>lua require'hop'.hint_words()<cr>")
-map("v", "<leader>fl", "<cmd>lua require'hop'.hint_lines()<cr>")
+map("v", "f", "<cmd>lua require'hop'.hint_words()<cr>")
+map("n", "f", "<cmd>lua require'hop'.hint_words()<cr>")
 
 local tree_cb = require "nvim-tree.config".nvim_tree_callback
 require'nvim-tree'.setup {
@@ -673,6 +691,7 @@ vim.api.nvim_exec(
     vim.api.nvim_set_keymap( "n", "Y", "y$", { noremap = true }) 
     -- vv visual to end of characters
     vim.api.nvim_set_keymap( "n", "vv", "vg_", { noremap = true })
+    -- vim.api.nvim_set_keymap( "n", "V", "0vg_", { noremap = true })
     -- don't copy white space when using $
     vim.api.nvim_set_keymap( "n", "$", "g_", { noremap = true })
     -- keep centered while jumping around in search/J
@@ -721,17 +740,40 @@ vim.api.nvim_exec(
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-    require'lspinstall'.setup() -- important
+    -- Setup lspconfig.
+    require "lspconfig".efm.setup{}
+    local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    local lsp_installer = require("nvim-lsp-installer")
 
-    local servers = require'lspinstall'.installed_servers()
-    for _, lsp in ipairs(servers) do
-        nvim_lsp[lsp].setup {
-            on_attach = on_attach,
-            flags = {
-                debounce_text_changes = 150,
-            }
-        }
-    end
+    lsp_installer.on_server_ready(function(server)
+        local opts = {}
+
+        -- (optional) Customize the options passed to the server
+        -- if server.name == "tsserver" then
+        --     opts.root_dir = function() ... end
+        -- end
+
+        -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
+        server:setup(opts)
+        vim.cmd [[ do User LspAttachBuffers ]]
+    end)
+    -- local function setup_servers()
+    --     require'lspinstall'.setup()
+    --     local servers = require'lspinstall'.installed_servers()
+    --     for _, server in pairs(servers) do
+    --         require'lspconfig'[server].setup{
+    --             capabilities = capabilities
+    --         }
+    --     end
+    -- end
+
+    -- setup_servers()
+
+    -- -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+    -- require'lspinstall'.post_install_hook = function ()
+    --     setup_servers() -- reload installed servers
+    --     vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+    -- end
     -- Make runtime files discoverable to the server
     local runtime_path = vim.split( package.path, ";")
     table.insert( runtime_path, "lua/?.lua")
@@ -794,74 +836,66 @@ vim.api.nvim_exec(
         }
     }
 
-    -- Set completeopt to have a better completion experience
-    vim.o.completeopt = "menuone,noselect"
-    -- Compe setup
-    require("compe").setup ({
-        allow_hidden_buffers = true,
-        source = {
-            ultisnips = true,
-            path = true,
-            nvim_lsp = true,
-            orgmode = true,
-            tags = true,
-            spell = true,
-            calc = true,
-            luasnip = false,
-            buffer = true,
-            nvim_lua = true,
-            vsnip = false
+     -- Setup nvim-cmp.
+      local cmp = require'cmp'
+      local lspkind = require('lspkind')
+
+      cmp.setup({
+        formatting = {
+            format = lspkind.cmp_format({with_text = false, maxwidth = 50})
+        },
+        snippet = {
+          expand = function(args)
+            -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+            -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+            vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+            -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
+          end,
+        },
+        mapping = {
+          ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+          ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+          ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+          ['<C-y>'] = cmp.config.disable, -- If you want to remove the default `<C-y>` mapping, You can specify `cmp.config.disable` value.
+          ['<C-e>'] = cmp.mapping({
+            i = cmp.mapping.abort(),
+            c = cmp.mapping.close(),
+          }),
+          ['<CR>'] = cmp.mapping.confirm({ select = true }),
+          ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' })
+        },
+            
+        sources = cmp.config.sources({
+          { name = 'nvim_lsp' },
+          { name = 'ultisnips' }, -- For ultisnips users.
+          {
+              name = 'buffer', 
+              opts = {
+                  get_bufnrs = function()
+                      return vim.api.nvim_list_bufs()
+                  end
+              }
+          },
+          { name = 'path' },
+          
+        })
+      })
+
+      -- Use buffer source for `/`.
+      cmp.setup.cmdline('/', {
+        sources = {
+          { name = 'buffer' }
         }
-    })
+      })
 
-    -- Utility functions for compe and luasnip 
-    local t = function(str)
-        return vim.api.nvim_replace_termcodes(str, true, true, true)
-    end
-
-    local check_back_space = function()
-        local col = vim.fn.col('.') - 1
-        return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
-    end
-
-    -- Use (s-)tab to:
-    --- move to prev/next item in completion menuone
-    --- jump to prev/next snippet's placeholder
-
-    _G.tab_complete = function()
-        if
-            vim.fn.pumvisible() == 1
-            then
-            return t "<C-n>"
-        elseif
-            check_back_space()
-            then
-            return t "<Tab>"
-        else
-            return vim.fn[ "compe#confirm" ]()
-        end
-    end
-
-
-    _G.s_tab_complete = function()
-        if
-            vim.fn.pumvisible() == 1
-            then
-            return t "<C-p>"
-        else
-            return t "<S-Tab>"
-
-        end
-    end
-
-    -- Map tab to the above tab complete functiones
-    vim.api.nvim_set_keymap( "i", "<Tab>", "v:lua.tab_complete()", { expr = true })
-    vim.api.nvim_set_keymap( "s", "<Tab>", "v:lua.tab_complete()", { expr = true })
-    vim.api.nvim_set_keymap( "i", "<S-Tab>", "v:lua.s_tab_complete()", { expr = true })
-    vim.api.nvim_set_keymap( "s", "<S-Tab>", "v:lua.s_tab_complete()", { expr = true })
-
-    -- Map compe confirm and complete functions
-    vim.api.nvim_set_keymap("i", "<CR>", "compe#confirm('<CR>')", { expr = true })
+      -- Use cmdline & path source for ':'.
+      cmp.setup.cmdline(':', {
+        sources = cmp.config.sources({
+          { name = 'path' }
+        }, {
+          { name = 'cmdline' }
+        })
+      })
 
 -- User Functions
 
@@ -872,7 +906,7 @@ function! GitPush()
       execute("Gwrite")
       let message = input("commit message: ")
       execute("Git commit -m '".message."' ")
-      execute("Git push")
+      execute("Git pushg")
 endfunction
 
 function! JenkinsLint()
@@ -896,4 +930,9 @@ hi SignColumn guibg=NONE ctermbg=NONE
 autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
 autocmd vimenter * hi SignColumn guibg=NONE ctermbg=NONE
 autocmd vimenter * hi LineNr guibg=NONE ctermbg=NONE
+
+au BufRead,BufNewFile *.groovy set filetype=Jenkinsfile
+
+autocmd FileType groovy setlocal commentstring=//\ %s
+autocmd FileType Jenkinsfile setlocal commentstring=//\ %s
 ]]
