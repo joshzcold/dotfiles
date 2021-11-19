@@ -54,11 +54,14 @@ settings:
     https://us02web.zoom.us: true
     https://www.facebook.com: true
   content.notifications.enabled:
-    global: true
+    https://calendar.google.com: true
+    https://chat.gooogle.com: true
+    https://mail.google.com: true
     https://messages.google.com: true
     https://outlook.office.com: true
     https://teams.microsoft.com: true
     https://voice.google.com: true
+    https://web.whatsapp.com: true
     https://www.bennish.net: true
     https://www.reddit.com: false
   content.register_protocol_handler:

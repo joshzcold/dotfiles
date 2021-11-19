@@ -1,3 +1,13 @@
+snippet /**/ "groovy block comment" b
+/*
+* $1
+*/
+endsnippet
+
+snippet @Library_ "Jenkins library statement" b
+@Library('${1:jenkins-library}') _
+endsnippet
+
 snippet triggercron "Jenkins trigger on cron" b
   triggers{
     // daily at 12 pm

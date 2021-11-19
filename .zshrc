@@ -19,7 +19,7 @@ export KUBE_EDITOR=nvim
 export SUDO_ASKPASS=/usr/bin/ksshaskpass
 export FZF_DEFAULT_COMMAND='rg --files'
 export PYTHONWARNINGS="ignore:Unverified HTTPS request"
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk/
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 KEYTIMEOUT=1
@@ -165,7 +165,7 @@ function cgit(){
 
   # local cmd="find ~/git -maxdepth 3 -name \".git\"  -prune"
 
-  local cmd="${FZF_ALT_C_COMMAND:-"command find ~/git -name \"*.git\" -type d  -exec dirname {} \; -prune 2>/dev/null  "}"
+  local cmd="${FZF_ALT_C_COMMAND:-"command find -L ~/git -name \"*.git\" -type d  -exec dirname {} \; -prune 2>/dev/null  "}"
   setopt localoptions pipefail no_aliases 2> /dev/null
   local dir="$(eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS" $(__fzfcmd) +m)"
   if [[ -z "$dir" ]]; then

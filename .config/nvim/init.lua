@@ -60,7 +60,6 @@ require( "packer").startup(
     function()
         use "wbthomason/packer.nvim" -- Package manager
         use "tpope/vim-fugitive" -- Git commands in nvim
-        use "tpope/vim-rhubarb" -- Fugitive-companion to interact with github
         use "tpope/vim-commentary" -- "gc" to comment visual regions/lines
         -- UI to select things (files, grep results, open buffers...)
         use {
@@ -132,7 +131,6 @@ require( "packer").startup(
         use 'https://github.com/mhartington/formatter.nvim'
         use 'https://github.com/nvim-lua/lsp-status.nvim'
         use 'https://github.com/glepnir/lspsaga.nvim'
-        use 'https://github.com/kristijanhusak/orgmode.nvim'
         -- ASCII Drawing Program
         use 'https://github.com/jbyuki/venn.nvim'
     end
@@ -143,10 +141,10 @@ vim.cmd [[colorscheme codedark]]
 vim.cmd ([[ highlight Comment cterm=italic gui=italic ]])
 vim.g["minimap_highlight"] = "Comment"
 
-require('orgmode').setup({
-  org_agenda_files = {'~/git/org/*'},
-  org_default_notes_file = '~/git/org/refile.org',
-})
+-- require('orgmode').setup({
+--   org_agenda_files = {'~/git/org/*'},
+--   org_default_notes_file = '~/git/org/refile.org',
+-- })
 
 local prettier = function()
   return {
@@ -188,7 +186,6 @@ augroup END
 ]], true)
 
 require('nvim-autopairs').setup{}
-
 local npairs = require'nvim-autopairs'
 local Rule   = require'nvim-autopairs.rule'
 local cond = require('nvim-autopairs.conds')
@@ -199,9 +196,6 @@ require('nvim-autopairs').remove_rule("`")
 
 npairs.add_rules {
     Rule("'", "'")
-        :with_pair(cond.not_before_regex_check("%S"))
-        :with_pair(cond.not_after_regex_check("%S")),
-    Rule("`", "`")
         :with_pair(cond.not_before_regex_check("%S"))
         :with_pair(cond.not_after_regex_check("%S")),
     Rule('"', '"')
@@ -741,7 +735,6 @@ vim.api.nvim_exec(
     capabilities.textDocument.completion.completionItem.snippetSupport = true
 
     -- Setup lspconfig.
-    require "lspconfig".efm.setup{}
     local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
     local lsp_installer = require("nvim-lsp-installer")
 
@@ -861,7 +854,7 @@ vim.api.nvim_exec(
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
           }),
-          ['<CR>'] = cmp.mapping.confirm({ select = true }),
+          ['<CR>'] = cmp.mapping.confirm({ }),
           ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' })
         },
             
@@ -890,9 +883,7 @@ vim.api.nvim_exec(
 
       -- Use cmdline & path source for ':'.
       cmp.setup.cmdline(':', {
-        sources = cmp.config.sources({
-          { name = 'path' }
-        }, {
+        sources = cmp.config.sources( {
           { name = 'cmdline' }
         })
       })
