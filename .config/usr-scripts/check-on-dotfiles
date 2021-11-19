@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+while true; do
+  status=$(yadm status --short)
+  if [ -n "$status" ]; then
+    notify-send -u 'normal' "sitting dotfiles, please push updates
+${status}"
+  fi
+  sleep 1h
+done
