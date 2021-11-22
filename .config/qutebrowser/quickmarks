@@ -35,7 +35,7 @@ bitbucket git https://bitbucket.secmet.co/dashboard
 google chat https://mail.google.com/chat/u/0/#chat/welcome
 jira confluence https://securitymetrics.atlassian.net/projects/DEVOPS/summary
 security metrics benefits https://www.employeenavigator.com/employee/Home
-devops jenkins https://10.29.158.99/loginError
+devops jenkins https://10.29.158.99/
 jenkins job dsl https://jenkinsci.github.io/job-dsl-plugin/
 foxpass https://console.foxpass.com/settings/sshkeys/
 Production Docker Swarm Overview https://docs.google.com/document/d/1RNgqHtCJJw9P2ytqzCdGeEQQJ8Ta3FFeJolizFARSYg/edit#
@@ -50,3 +50,11 @@ jenkins extended choice reference https://github.com/jenkinsci/extended-choice-p
 security metrics hsa https://member.my.healthequity.com/hsa/22698249-010
 microfocus hsa https://smart-choice.wealthcareportal.com/Page/Dashboard
 ansible vault https://vault.secmet.co:8200/ui/vault/secrets
+ansible filters https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html
+jenkins env vars https://hq-devops-v-jenkins/env-vars.html/
+jenkins pipeline synatax https://www.jenkins.io/doc/book/pipeline/syntax/
+jenkins examples https://www.jenkins.io/doc/pipeline/examples/
+jenkins gdsl https://10.29.158.99/job/Theater/pipeline-syntax/gdsl
+jenkins configuration as code docs https://10.29.158.99/configuration-as-code/reference
+dk-prod1 jenkins https://dk-prod1-v-jenkins.secmet.co/
+build jenkins http://jenkins.secmet.co:8080/

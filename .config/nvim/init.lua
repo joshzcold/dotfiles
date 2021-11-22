@@ -98,6 +98,7 @@ require( "packer").startup(
         use 'hrsh7th/cmp-cmdline'
         use 'hrsh7th/nvim-cmp'
         use 'https://github.com/onsails/lspkind-nvim'
+        use 'joshzcold/cmp-jenkinsfile'
 
         use "folke/which-key.nvim" -- emacs style leader preview
         use "simnalamburt/vim-mundo"
@@ -140,11 +141,6 @@ vim.cmd [[set termguicolors]]
 vim.cmd [[colorscheme codedark]]
 vim.cmd ([[ highlight Comment cterm=italic gui=italic ]])
 vim.g["minimap_highlight"] = "Comment"
-
--- require('orgmode').setup({
---   org_agenda_files = {'~/git/org/*'},
---   org_default_notes_file = '~/git/org/refile.org',
--- })
 
 local prettier = function()
   return {
@@ -226,6 +222,15 @@ npairs.add_rules {
       :use_key(']')
 }
 
+function GetRepoName()
+  local handle = io.popen([[git config --get remote.origin.url | sed 's/.*\/\([^ ]*\/[^.]*\).*/\1/' || true]])
+  local result = handle:read("*a")
+  if(result)then
+      return result.gsub(result, "%s+", "")
+  end
+  handle:close()
+end
+
 require('hop').setup()
 require "lualine".setup {
  options = {
@@ -237,7 +242,7 @@ require "lualine".setup {
   },
   sections = {
     lualine_a = {"mode", "paste"},
-    lualine_b = {"branch", "diff"},
+    lualine_b = {GetRepoName, "branch", "diff" },
     lualine_c = {
       {"filename", file_status = true, full_path = true},
       require "lsp-status".status
@@ -619,7 +624,7 @@ wk.register(
                 "Git Diff Split"
             }
         },
-        t = { [[<cmd>ToggleTerm<cr>]], "Term" },
+        t = { [[<cmd>ToggleTerm size=120 direction=vertical<cr>]], "Term" },
     },
     { prefix = "<leader>" })
 
@@ -695,6 +700,9 @@ vim.api.nvim_exec(
     vim.api.nvim_set_keymap("i", ".", ".<c-g>u", {noremap = true})
     vim.api.nvim_set_keymap("i", "!", "!<c-g>u", {noremap = true})
     vim.api.nvim_set_keymap("i", "?", "?<c-g>u", {noremap = true})
+
+    -- visual select pasted text if in visual mode
+    vim.api.nvim_set_keymap("v", "p", "p `[v`]", {noremap = true})
 
     -- LSP settings
     local nvim_lsp = require('lspconfig')
@@ -854,8 +862,9 @@ vim.api.nvim_exec(
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
           }),
-          ['<CR>'] = cmp.mapping.confirm({ }),
-          ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' })
+          ['<CR>'] = cmp.mapping.confirm({}),
+          ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
+          ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' })
         },
             
         sources = cmp.config.sources({
@@ -870,23 +879,43 @@ vim.api.nvim_exec(
               }
           },
           { name = 'path' },
-          
         })
       })
 
-      -- Use buffer source for `/`.
-      cmp.setup.cmdline('/', {
-        sources = {
-          { name = 'buffer' }
-        }
-      })
+     vim.cmd[[
+     autocmd FileType Jenkinsfile lua require'cmp'.setup.buffer {
+        \   sources = {
+        \     { name = 'jenkinsfile',
+        \        opts = {
+        \            jenkins_url = "http://jenkins.secmet.co:8080"
+        \        }
+        \     },
+        \     { 
+        \         name = 'buffer',
+        \         opts = {
+        \             get_bufnrs = function()
+        \                 return vim.api.nvim_list_bufs()
+        \             end
+        \         }
+        \     },
+        \     { name = 'ultisnips' }
+        \   },
+        \ }
+     ]]
+
+      -- -- Use buffer source for `/`.
+      -- cmp.setup.cmdline('/', {
+      --   sources = {
+      --     { name = 'buffer' }
+      --   }
+      -- })
 
       -- Use cmdline & path source for ':'.
-      cmp.setup.cmdline(':', {
-        sources = cmp.config.sources( {
-          { name = 'cmdline' }
-        })
-      })
+      -- cmp.setup.cmdline(':', {
+      --   sources = cmp.config.sources( {
+      --     { name = 'cmdline' }
+      --   })
+      -- })
 
 -- User Functions
 

@@ -14,3 +14,5 @@ volctl &
 sleep 5
 nitrogen --restore &
 /home/joshua/.config/usr-scripts/check-on-dotfiles &
+kdeconnect-indicator &
+
