@@ -388,6 +388,9 @@ vim.cmd [[au FileType fugitive nnoremap <silent> <buffer> q :norm gq<cr>]]
 --Switch quickfix with alt
 vim.api.nvim_set_keymap( "n", "<A-j>", ":cnext<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap( "n", "<A-k>", ":cprev<cr>", { noremap = true, silent = true })
+--Switch buffers with shift-alt
+vim.api.nvim_set_keymap( "n", "<S-A-j>", ":bnext<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap( "n", "<S-A-k>", ":bprev<cr>", { noremap = true, silent = true })
 
 -- H and L move to start and end of the line
 vim.api.nvim_set_keymap("n", "H", "^", {noremap = true, silent = true})
