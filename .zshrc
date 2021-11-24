@@ -21,7 +21,6 @@ export FZF_DEFAULT_COMMAND='rg --files'
 export PYTHONWARNINGS="ignore:Unverified HTTPS request"
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
 KEYTIMEOUT=1
 
 plugins=(
@@ -248,3 +247,4 @@ RPS2=$RPS1
 # zprof
 
 . ~/.bash_completion
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
