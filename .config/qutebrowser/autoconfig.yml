@@ -64,6 +64,7 @@ settings:
     https://web.whatsapp.com: true
     https://www.bennish.net: true
     https://www.reddit.com: false
+    https://www.youtube.com: false
   content.register_protocol_handler:
     https://calendar.google.com?cid=%25s: true
     https://mail.google.com?extsrc=mailto&url=%25s: true

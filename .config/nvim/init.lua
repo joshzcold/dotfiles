@@ -875,7 +875,7 @@ vim.api.nvim_exec(
           { name = 'ultisnips' }, -- For ultisnips users.
           {
               name = 'buffer', 
-              opts = {
+              options = {
                   get_bufnrs = function()
                       return vim.api.nvim_list_bufs()
                   end
@@ -889,13 +889,13 @@ vim.api.nvim_exec(
      autocmd FileType Jenkinsfile lua require'cmp'.setup.buffer {
         \   sources = {
         \     { name = 'jenkinsfile',
-        \        opts = {
+        \        options = {
         \            jenkins_url = "http://jenkins.secmet.co:8080"
         \        }
         \     },
         \     { 
         \         name = 'buffer',
-        \         opts = {
+        \         options = {
         \             get_bufnrs = function()
         \                 return vim.api.nvim_list_bufs()
         \             end
