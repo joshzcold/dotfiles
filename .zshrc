@@ -164,7 +164,7 @@ function cgit(){
 
   # local cmd="find ~/git -maxdepth 3 -name \".git\"  -prune"
 
-  local cmd="${FZF_ALT_C_COMMAND:-"command find -L ~/git -name \"*.git\" -type d  -exec dirname {} \; -prune 2>/dev/null  "}"
+  local cmd="${FZF_ALT_C_COMMAND:-"command find -L ~/git -name \"*.git\" -exec dirname {} \; -prune 2>/dev/null  "}"
   setopt localoptions pipefail no_aliases 2> /dev/null
   local dir="$(eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS" $(__fzfcmd) +m)"
   if [[ -z "$dir" ]]; then
