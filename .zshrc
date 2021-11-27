@@ -48,12 +48,9 @@ alias kdel="kubectl delete -f"
 alias kcre="kubectl apply -f"
 alias e="emacsclient"
 alias k="kubectl"
-alias mde="kitty --class=markdown nvim"
 alias kp="kubectl get pods"
-alias kw="watch -n 1 kubectl get pods"
+alias kw="kubectl get pods -w"
 alias cat="bat -p"
-alias gl="git log --stats"
-alias kssh="kitty +kitten ssh"
 alias ssh="TERM=xterm-color ssh"
 # alias cd="cd_last_pwd"
 alias cdf="cd $(ls -d */|head -n 1)" # cd into first dir
@@ -125,19 +122,13 @@ function kpdel(){
   fi
 }
 
-function kclean(){
-  # assuming all temporary k8s pods have yamls in /tmp
-  find /tmp/ -name "*.yaml" | parallel kubectl delete -f
-  find /tmp/ -name "*.yaml" | rm
-}
-
 function notes(){
   command cat $(readlink -f $(find ~/git/codepaste -not -path '*/\.*' -type f | \
     fzf --preview "cat {}" ))
 }
 
 function kconf(){
-  found_config=$(readlink -f $(find /home/joshua/.kube/  -type f -name "*.yaml" | fzf))
+  found_config=$(readlink -f $(find $HOME/.kube/  -type f -name "*.yaml" | fzf))
   export KUBECONFIG=$found_config
 }
 
@@ -162,9 +153,6 @@ function vgit(){
 }
 
 function cgit(){
-
-  # local cmd="find ~/git -maxdepth 3 -name \".git\"  -prune"
-
   local cmd="${FZF_ALT_C_COMMAND:-"command find -L ~/git -name \"*.git\" -exec dirname {} \; -prune 2>/dev/null  "}"
   setopt localoptions pipefail no_aliases 2> /dev/null
   local dir="$(eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS" $(__fzfcmd) +m)"
@@ -184,30 +172,6 @@ function cgit(){
 
 function kre(){
   kubectl delete -f $1 && kubectl apply -f $1
-}
-
-function cypress(){
-sudo tee /tmp/cypress-launch > /dev/null <<EOT
-export KUBECONFIG=${KUBECONFIG}
-./node_modules/cypress/bin/cypress open
-EOT
-  nohup kitty --detach sh /tmp/cypress-launch >/dev/null 2>&1 &
-  nvim cypress.json
-}
-
-function sshaa-unit(){
-  kitty sshpass -p novell ssh root@aa_unit_1 &
-  nohup kitty sshpass -p novell ssh root@aa_unit_2 >/dev/null 2>&1 &
-  nohup kitty sshpass -p novell ssh root@aa_unit_3 >/dev/null 2>&1 &
-  nohup kitty sshpass -p novell ssh root@aa_unit_4 >/dev/null 2>&1 &
-}
-
-function sshdops-workers(){
-  kitty sshpass -p Control123 ssh dops@dops-worker4 &
-  nohup kitty sshpass -p Control123 ssh dops@dops-worker0 >/dev/null 2>&1 &
-  nohup kitty sshpass -p Control123 ssh dops@dops-worker1 >/dev/null 2>&1 &
-  nohup kitty sshpass -p Control123 ssh dops@dops-worker2 >/dev/null 2>&1 &
-  nohup kitty sshpass -p Control123 ssh dops@dops-worker3 >/dev/null 2>&1 &
 }
 
 function geb() {
