@@ -37,6 +37,7 @@ plugins=(
 DISABLE_UPDATE_PROMPT=true 
 source $ZSH/oh-my-zsh.sh
 
+alias sudo="sudo "
 alias vim="nvim"
 alias vimrc="nvim /home/joshua/.config/nvim/init.vim"
 alias zshrc="nvim /home/joshua/.zshrc && source /home/joshua/.zshrc"
