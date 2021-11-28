@@ -213,3 +213,5 @@ RPS2=$RPS1
 
 . ~/.bash_completion
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+
+bindkey -M vicmd 'V' edit-command-line # this remaps `vv` to `V` (but overrides `visual-mode`)
