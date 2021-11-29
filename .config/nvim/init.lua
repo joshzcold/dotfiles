@@ -704,9 +704,9 @@ vim.api.nvim_exec(
     vim.api.nvim_set_keymap("i", "!", "!<c-g>u", {noremap = true})
     vim.api.nvim_set_keymap("i", "?", "?<c-g>u", {noremap = true})
 
-    vim.api.nvim_set_keymap("x", "p", '"0p', {noremap = true})
+    vim.api.nvim_set_keymap("x", "p", '"_dP', {noremap = true})
     -- visual select pasted text if in visual mode
-    vim.api.nvim_set_keymap("x", "P", '"0p `[v`]', {noremap = true})
+    vim.api.nvim_set_keymap("x", "P", '"_dP `[v`]', {noremap = true})
 
     -- LSP settings
     local nvim_lsp = require('lspconfig')
