@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+_ur_completions() {
+  COMPREPLY=($(compgen -W "$(grep -oP "(?<=name: ).*" ansible-requirements.yml)"))
+}
+
+complete -o bashdefault -o default -F _ur_completions ur
