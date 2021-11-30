@@ -14,7 +14,7 @@ settings:
         <F12>: devtools
         J: tab-prev
         K: tab-next
-        Y: spawn mpv {url}
+        Y: spawn --userscript get_url_path_to_clip
         gI: hint inputs --first ;; mode-enter insert ;; later 50 edit-text
         gj: tab-move -
         gk: tab-move +

@@ -1,0 +1,6 @@
+#!/usr/bin/env python3
+from urllib import parse
+import os
+path = parse.urlparse(os.getenv('QUTE_URL')).path
+os.system(f"echo {path} | xclip -sel clip")
+os.system(f"echo 'message-info \"copied {path} to clipboard\"' >> $QUTE_FIFO")
