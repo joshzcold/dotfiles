@@ -1,39 +1,39 @@
-require "lualine".setup {
- options = {
+require("lualine").setup({
+  options = {
     icons_enabled = true,
     theme = "codedark",
-    component_separators = {"∙", "∙"},
-    section_separators = {"", ""},
-    disabled_filetypes = {}
+    component_separators = { "∙", "∙" },
+    section_separators = { "", "" },
+    disabled_filetypes = {},
   },
   sections = {
-    lualine_a = {"mode", "paste"},
-    lualine_b = {GetRepoName, "branch", "diff" },
+    lualine_a = { "mode", "paste" },
+    lualine_b = { GetRepoName, "branch", "diff" },
     lualine_c = {
-      {"filename", file_status = true, full_path = true},
-      require "lsp-status".status
+      { "filename", file_status = true, full_path = true },
+      require("lsp-status").status,
     },
-    lualine_x = {"filetype"},
+    lualine_x = { "filetype" },
     lualine_y = {
       {
-        "progress"
-      }
+        "progress",
+      },
     },
     lualine_z = {
       {
         "location",
-        icon = ""
-      }
-    }
+        icon = "",
+      },
+    },
   },
   inactive_sections = {
     lualine_a = {},
     lualine_b = {},
-    lualine_c = {"filename"},
-    lualine_x = {"location"},
+    lualine_c = { "filename" },
+    lualine_x = { "location" },
     lualine_y = {},
-    lualine_z = {}
+    lualine_z = {},
   },
   tabline = {},
-  extensions = {}
-}
+  extensions = {},
+})

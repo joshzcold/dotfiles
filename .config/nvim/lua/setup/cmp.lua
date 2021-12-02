@@ -1,10 +1,10 @@
- -- Setup nvim-cmp.
-local cmp = require'cmp'
-local lspkind = require('lspkind')
+-- Setup nvim-cmp.
+local cmp = require("cmp")
+local lspkind = require("lspkind")
 
 cmp.setup({
   formatting = {
-      format = lspkind.cmp_format({with_text = false, maxwidth = 50})
+    format = lspkind.cmp_format({ with_text = false, maxwidth = 50 }),
   },
   snippet = {
     expand = function(args)
@@ -15,30 +15,30 @@ cmp.setup({
     end,
   },
   mapping = {
-    ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-    ['<C-y>'] = cmp.config.disable, -- If you want to remove the default `<C-y>` mapping, You can specify `cmp.config.disable` value.
-    ['<C-e>'] = cmp.mapping({
+    ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+    ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+    ["<C-y>"] = cmp.config.disable, -- If you want to remove the default `<C-y>` mapping, You can specify `cmp.config.disable` value.
+    ["<C-e>"] = cmp.mapping({
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     }),
-    ['<CR>'] = cmp.mapping.confirm({}),
-    ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' })
+    ["<CR>"] = cmp.mapping.confirm({}),
+    ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
+    ["<S-Tab>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "s" }),
   },
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'ultisnips' }, -- For ultisnips users.
+    { name = "nvim_lsp" },
+    { name = "ultisnips" }, -- For ultisnips users.
     {
-        name = 'buffer', 
-        options = {
-            get_bufnrs = function()
-                return vim.api.nvim_list_bufs()
-            end
-        }
+      name = "buffer",
+      options = {
+        get_bufnrs = function()
+          return vim.api.nvim_list_bufs()
+        end,
+      },
     },
-    { name = 'path' },
+    { name = "path" },
     -- -- Use buffer source for `/`.
     -- cmp.setup.cmdline('/', {
     --   sources = {
@@ -52,10 +52,10 @@ cmp.setup({
     --     { name = 'cmdline' }
     --   })
     -- })
-  })
+  }),
 })
 
-vim.cmd[[
+vim.cmd([[
 autocmd FileType Jenkinsfile lua require'cmp'.setup.buffer {
   \   sources = {
   \     { name = 'jenkinsfile',
@@ -74,4 +74,4 @@ autocmd FileType Jenkinsfile lua require'cmp'.setup.buffer {
   \     { name = 'ultisnips' }
   \   },
   \ }
-]]
+]])
