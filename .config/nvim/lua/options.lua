@@ -62,7 +62,7 @@ opt.formatoptions = "l"
 opt.expandtab = true
 opt.cursorcolumn = true
 opt.wrap = true
-opt.cc = "80"
+opt.cc = "120"
 opt.mouse = "a"
 opt.guicursor =
   "n-v-c-sm:block-blinkwait50-blinkon50-blinkoff50,i-ci-ve:ver25-Cursor-blinkon100-blinkoff100,r-cr-o:hor20"
