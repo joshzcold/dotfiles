@@ -52,8 +52,8 @@ alias kp="kubectl get pods"
 alias kw="kubectl get pods -w"
 alias cat="bat -p"
 alias ssh="TERM=xterm-color ssh"
-# alias cd="cd_last_pwd"
-alias cdf="cd $(ls -d */|head -n 1)" # cd into first dir
+# cd into first dir
+alias cdf="cd $(ls -d */|head -n 1)" 
 bindkey -v
 # bind to allow deletion after exiting normal mode vi
 bindkey "^?" backward-delete-char
@@ -215,3 +215,8 @@ RPS2=$RPS1
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 bindkey -M vicmd 'V' edit-command-line # this remaps `vv` to `V` (but overrides `visual-mode`)
+
+[ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
+source /usr/share/nvm/nvm.sh
+source /usr/share/nvm/bash_completion
+source /usr/share/nvm/install-nvm-exec
