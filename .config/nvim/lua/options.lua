@@ -12,7 +12,7 @@ opt.backspace = { "indent", "eol", "start" }
 opt.clipboard = "unnamedplus"
 opt.completeopt = "menu,menuone,noselect"
 --Set highlight on search
-opt.hlsearch = true
+opt.hlsearch = false
 opt.swapfile = false
 opt.backup = false
 opt.writebackup = false

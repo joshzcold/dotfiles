@@ -69,7 +69,4 @@ map("x", "P", '"_dP `[v`]')
 
 -- Quick grep commands
 map("n", "gr", ":grep <cword> *<CR>")
-map("n", "Gr", ":grep <cword> %:p:h/*<CR>")
 map("n", "gR", ":grep '\b<cword>\b' *<CR>")
-map("n", "GR", ":grep '\b<cword>\b' %:p:h/*<CR>")
-
