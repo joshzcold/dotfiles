@@ -69,3 +69,7 @@ opt.guicursor =
 
 vim.cmd("au TextYankPost * lua vim.highlight.on_yank {on_visual = true}") -- disabled in visual mode
 vim.cmd([[ highlight Comment cterm=italic gui=italic ]])
+
+-- grep programs
+opt.grepprg = "rg --vimgrep --no-heading"
+opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
