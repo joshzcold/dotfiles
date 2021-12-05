@@ -7,7 +7,7 @@ vim.cmd([[colorscheme codedark]])
 
 opt.encoding = "utf-8"
 --Incremental live completion
-opt.inccommand = "split"
+opt.inccommand = "nosplit"
 opt.backspace = { "indent", "eol", "start" }
 opt.clipboard = "unnamedplus"
 opt.completeopt = "menu,menuone,noselect"
@@ -48,7 +48,11 @@ opt.scrolloff = 5
 opt.splitbelow = true
 opt.splitright = true
 
-opt.smartindent = true
+opt.smartindent = false
+opt.autoindent = true
+opt.cindent = false
+opt.indentexpr = ""
+
 opt.signcolumn = "yes:1"
 opt.showmode = false
 opt.shiftround = true

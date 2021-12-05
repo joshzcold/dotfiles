@@ -9,8 +9,11 @@ function GetRepoName()
 end
 
 vim.cmd([[
-au BufRead *.groovy if search('pipeline', 'nw') | setlocal ft=Jenkinsfile | endif
+au BufRead *.groovy if search('pipeline', 'nw') | set ft=Jenkinsfile | setlocal indentexpr=GetJavascriptIndent()  | endif
+au BufRead *.groovy  setlocal indentexpr=GetJavascriptIndent()
+]])
 
+vim.cmd([[
 function! GitPush()
       execute("Gwrite")
       let message = input("commit message: ")

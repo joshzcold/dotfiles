@@ -30,7 +30,7 @@ require("packer").startup({
   function(use)
     use("wbthomason/packer.nvim") -- Package manager
     use({ "tpope/vim-fugitive", config = get_setup("fugitive") }) -- Git commands in nvim
-    use("tpope/vim-commentary") -- "gc" to comment visual regions/lines
+    use({ "numToStr/Comment.nvim", config = get_setup("comment") }) -- "gc" to comment visual regions/lines
     -- UI to select things (files, grep results, open buffers...)
     use({
       "nvim-telescope/telescope.nvim",
