@@ -77,7 +77,7 @@ require("packer").startup({
     use("https://github.com/onsails/lspkind-nvim")
     use("joshzcold/cmp-jenkinsfile")
 
-    use({ "folke/which-key.nvim", config = get_setup("which-key") }) -- emacs style leader preview
+    use({ "folke/which-key.nvim" }) -- which-key mappings in lua/mappings.lua
     use("simnalamburt/vim-mundo")
     use("https://github.com/godlygeek/tabular")
 
