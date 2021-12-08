@@ -1,7 +1,7 @@
 -- Here is the formatting config
 local null_ls = require("null-ls")
 local lSsources = {
-  null_ls.builtins.formatting.prettier.with({
+  null_ls.builtins.formatting.prettierd.with({
     filetypes = {
       "javascript",
       "typescript",

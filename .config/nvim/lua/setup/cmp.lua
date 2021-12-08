@@ -38,6 +38,14 @@ cmp.setup({
         end,
       },
     },
+    {
+      name = "rg",
+      option = {
+        debounce = 500,
+        additional_arguments = "--smart-case --max-depth 4",
+      },
+    },
+    { name = "nvim_lua" },
     { name = "path" },
     -- -- Use buffer source for `/`.
     -- cmp.setup.cmdline('/', {
@@ -71,7 +79,14 @@ autocmd FileType Jenkinsfile lua require'cmp'.setup.buffer {
   \             end
   \         }
   \     },
-  \     { name = 'ultisnips' }
+  \     { name = 'ultisnips' },
+  \     {
+  \       name = "rg",
+  \       option = {
+  \         debounce = 500,
+  \         additional_arguments = "--smart-case --max-depth 4",
+  \       },
+  \     },
   \   },
   \ }
 ]])

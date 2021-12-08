@@ -72,12 +72,13 @@ require("packer").startup({
         { "hrsh7th/cmp-buffer" },
         { "hrsh7th/cmp-path" },
         { "hrsh7th/cmp-cmdline" },
+        { "lukas-reineke/cmp-rg" },
       },
     })
     use("https://github.com/onsails/lspkind-nvim")
     use("joshzcold/cmp-jenkinsfile")
 
-    use({ "folke/which-key.nvim", config = get_setup("which-key") }) -- emacs style leader preview
+    use({ "folke/which-key.nvim" }) -- which-key mappings in lua/mappings.lua
     use("simnalamburt/vim-mundo")
     use("https://github.com/godlygeek/tabular")
 
@@ -100,7 +101,9 @@ require("packer").startup({
     })
     use({ "https://github.com/windwp/nvim-ts-autotag", config = get_setup("nvim-ts-autotag") })
     use({ "norcalli/nvim-colorizer.lua", config = get_setup("colorizer") })
-    use("tomasiser/vim-code-dark")
+    use({ "/glepnir/dashboard-nvim", config = get_setup("dashboard") })
+    use({ "/Mofiqul/vscode.nvim", config = get_setup("theme") }) -- vscode like theme
+    use({ "marko-cerovac/material.nvim", config = get_setup("theme") })
     use({
       "hoob3rt/lualine.nvim",
       config = get_setup("lualine"),
