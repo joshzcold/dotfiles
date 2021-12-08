@@ -30,14 +30,16 @@ cmp.setup({
   sources = cmp.config.sources({
     { name = "nvim_lsp" },
     { name = "ultisnips" }, -- For ultisnips users.
-    {
-      name = "buffer",
-      options = {
-        get_bufnrs = function()
-          return vim.api.nvim_list_bufs()
-        end,
-      },
-    },
+    -- {
+    --   name = "buffer",
+    --   options = {
+    --     get_bufnrs = function()
+    --       return vim.api.nvim_list_bufs()
+    --     end,
+    --   },
+    -- },
+    { name = "rg" },
+    { name = "nvim_lua" },
     { name = "path" },
     -- -- Use buffer source for `/`.
     -- cmp.setup.cmdline('/', {

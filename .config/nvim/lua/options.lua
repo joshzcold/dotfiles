@@ -3,7 +3,6 @@ local opt = vim.opt -- to set options
 vim.g.UltiSnipsExpandTrigger = "<NUL>"
 
 opt.termguicolors = true
-vim.cmd([[colorscheme codedark]])
 
 opt.encoding = "utf-8"
 --Incremental live completion
@@ -72,8 +71,10 @@ opt.guicursor =
   "n-v-c-sm:block-blinkwait50-blinkon50-blinkoff50,i-ci-ve:ver25-Cursor-blinkon100-blinkoff100,r-cr-o:hor20"
 
 vim.cmd("au TextYankPost * lua vim.highlight.on_yank {on_visual = true}") -- disabled in visual mode
-vim.cmd([[ highlight Comment cterm=italic gui=italic ]])
 
 -- grep programs
 opt.grepprg = "rg --vimgrep --no-heading"
 opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
+
+-- remove ~ symbol from gutter
+opt.fillchars:append({ eob = " " })

@@ -35,8 +35,6 @@ bitbucket git https://bitbucket.secmet.co/dashboard
 google chat https://mail.google.com/chat/u/0/#chat/welcome
 jira confluence https://securitymetrics.atlassian.net/projects/DEVOPS/summary
 security metrics benefits https://www.employeenavigator.com/employee/Home
-devops jenkins https://10.29.158.99/
-jenkins job dsl https://jenkinsci.github.io/job-dsl-plugin/
 foxpass https://console.foxpass.com/settings/sshkeys/
 Production Docker Swarm Overview https://docs.google.com/document/d/1RNgqHtCJJw9P2ytqzCdGeEQQJ8Ta3FFeJolizFARSYg/edit#
 DevOps Troubleshooting https://docs.google.com/document/d/1vitm12hNX-xDH1NY94-db8WMFO8E1ygR49VHYqcWBw0/edit#
@@ -44,18 +42,18 @@ Site failover Imperva WAF https://securitymetrics.atlassian.net/wiki/spaces/DEVO
 production vitals https://www.securitymetrics.com/api/v2/scheduler/vitals
 Devops Site diagram https://lucid.app/lucidchart/1aaccb78-0f51-4888-a514-0682943210b7/view?page=0_0#
 IT servicedesk https://securitymetrics.atlassian.net/servicedesk/customer/portals
-dk-prod1-jenkins https://dk-prod1-v-jenkins.secmet.co/view/Swarm%20Deploy/
-jenkins secmet co http://jenkins.secmet.co:8080/
-jenkins extended choice reference https://github.com/jenkinsci/extended-choice-parameter-plugin/blob/master/src/main/java/com/cwctravel/hudson/plugins/extended_choice_parameter/ExtendedChoiceParameterDefinition.java
 security metrics hsa https://member.my.healthequity.com/hsa/22698249-010
 microfocus hsa https://smart-choice.wealthcareportal.com/Page/Dashboard
 ansible vault https://vault.secmet.co:8200/ui/vault/secrets
 ansible filters https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html
+confluence https://securitymetrics.atlassian.net/wiki/home
+jenkins extended choice reference https://github.com/jenkinsci/extended-choice-parameter-plugin/blob/master/src/main/java/com/cwctravel/hudson/plugins/extended_choice_parameter/ExtendedChoiceParameterDefinition.java
+jenkins job dsl https://jenkinsci.github.io/job-dsl-plugin/
 jenkins env vars https://hq-devops-v-jenkins/env-vars.html/
 jenkins pipeline synatax https://www.jenkins.io/doc/book/pipeline/syntax/
 jenkins examples https://www.jenkins.io/doc/pipeline/examples/
 jenkins gdsl https://10.29.158.99/job/Theater/pipeline-syntax/gdsl
 jenkins configuration as code docs https://10.29.158.99/configuration-as-code/reference
-dk-prod1 jenkins https://dk-prod1-v-jenkins.secmet.co/
-build jenkins http://jenkins.secmet.co:8080/
-confluence https://securitymetrics.atlassian.net/wiki/home
+jenkins dk-prod1 jenkins https://dk-prod1-v-jenkins.secmet.co/
+jenkins devops jenkins https://10.29.158.99/
+jenkins build jenkins https://jenkins.secmet.co
