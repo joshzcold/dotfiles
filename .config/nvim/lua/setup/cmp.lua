@@ -30,15 +30,21 @@ cmp.setup({
   sources = cmp.config.sources({
     { name = "nvim_lsp" },
     { name = "ultisnips" }, -- For ultisnips users.
-    -- {
-    --   name = "buffer",
-    --   options = {
-    --     get_bufnrs = function()
-    --       return vim.api.nvim_list_bufs()
-    --     end,
-    --   },
-    -- },
-    { name = "rg" },
+    {
+      name = "buffer",
+      options = {
+        get_bufnrs = function()
+          return vim.api.nvim_list_bufs()
+        end,
+      },
+    },
+    {
+      name = "rg",
+      option = {
+        debounce = 500,
+        additional_arguments = "--smart-case --max-depth 4",
+      },
+    },
     { name = "nvim_lua" },
     { name = "path" },
     -- -- Use buffer source for `/`.
@@ -73,7 +79,14 @@ autocmd FileType Jenkinsfile lua require'cmp'.setup.buffer {
   \             end
   \         }
   \     },
-  \     { name = 'ultisnips' }
+  \     { name = 'ultisnips' },
+  \     {
+  \       name = "rg",
+  \       option = {
+  \         debounce = 500,
+  \         additional_arguments = "--smart-case --max-depth 4",
+  \       },
+  \     },
   \   },
   \ }
 ]])
