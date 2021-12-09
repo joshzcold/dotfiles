@@ -43,6 +43,7 @@ cmp.setup({
       option = {
         debounce = 500,
         additional_arguments = "--smart-case --max-depth 4",
+        git_check = true,
       },
     },
     { name = "nvim_lua" },
@@ -67,8 +68,8 @@ vim.cmd([[
 autocmd FileType Jenkinsfile lua require'cmp'.setup.buffer {
   \   sources = {
   \     { name = 'jenkinsfile',
-  \        options = {
-  \            jenkins_url = "http://jenkins.secmet.co:8080"
+  \        option = {
+  \            jenkins_url = "https://jenkins.secmet.co"
   \        }
   \     },
   \     { 

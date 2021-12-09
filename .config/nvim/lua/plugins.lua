@@ -72,7 +72,7 @@ require("packer").startup({
         { "hrsh7th/cmp-buffer" },
         { "hrsh7th/cmp-path" },
         { "hrsh7th/cmp-cmdline" },
-        { "lukas-reineke/cmp-rg" },
+        { "https://github.com/joshzcold/cmp-rg" },
       },
     })
     use("https://github.com/onsails/lspkind-nvim")
