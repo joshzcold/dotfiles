@@ -24,6 +24,16 @@ export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 KEYTIMEOUT=1
 bindkey -v
 
+plugins=(
+  # git
+  # git-auto-fetch
+  # colored-man-pages
+  # man
+  # vi-mode
+  # docker
+  # helm
+)
+
 # auto update oh my zsh instead of asking.
 DISABLE_UPDATE_PROMPT=true
 DISABLE_AUTO_UPDATE=true
