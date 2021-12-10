@@ -1,6 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -25,16 +22,7 @@ export PYTHONWARNINGS="ignore:Unverified HTTPS request"
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 
 KEYTIMEOUT=1
-
-plugins=(
-  git
-  git-auto-fetch
-  colored-man-pages
-  man
-  vi-mode
-  docker
-  helm
-)
+bindkey -v
 
 # auto update oh my zsh instead of asking.
 DISABLE_UPDATE_PROMPT=true
@@ -213,7 +201,6 @@ RPS2=$RPS1
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-# zprof
 
 . ~/.bash_completion
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
@@ -222,7 +209,7 @@ bindkey -M vicmd 'V' edit-command-line # this remaps `vv` to `V` (but overrides 
 
 if [ -d "/usr/share/nvm" ]; then
   [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
-  source /usr/share/nvm/nvm.sh
+  source /usr/share/nvm/nvm.sh --no-use
   source /usr/share/nvm/bash_completion
   source /usr/share/nvm/install-nvm-exec
 fi
