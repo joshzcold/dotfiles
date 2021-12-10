@@ -37,7 +37,8 @@ plugins=(
 )
 
 # auto update oh my zsh instead of asking.
-DISABLE_UPDATE_PROMPT=true 
+DISABLE_UPDATE_PROMPT=true
+DISABLE_AUTO_UPDATE=true
 source $ZSH/oh-my-zsh.sh
 
 alias sudo="sudo "
