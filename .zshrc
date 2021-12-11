@@ -1,6 +1,7 @@
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+zstyle ':completion:*' menu select
+fpath+=$HOME/.zsh/pure
+autoload -U promptinit; promptinit
+prompt pure
 
 export PYTHONBREAKPOINT="pudb.set_trace"
 export ZSH=$HOME/.oh-my-zsh
@@ -21,23 +22,25 @@ export FZF_DEFAULT_COMMAND='rg --files'
 export PYTHONWARNINGS="ignore:Unverified HTTPS request"
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 
+# history
+export HISTFILESIZE=100000
+export HISTSIZE=100000
+export HISTFILE=~/.zsh_history
+
+setopt HIST_FIND_NO_DUPS
+# following should be turned off, if sharing history via setopt SHARE_HISTORY
+setopt INC_APPEND_HISTORY
+
 KEYTIMEOUT=1
 bindkey -v
 
-plugins=(
-  # git
-  # git-auto-fetch
-  # colored-man-pages
-  # man
-  # vi-mode
-  # docker
-  # helm
-)
-
-# auto update oh my zsh instead of asking.
-DISABLE_UPDATE_PROMPT=true
-DISABLE_AUTO_UPDATE=true
-source $ZSH/oh-my-zsh.sh
+# load completions
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+	compinit;
+else
+	compinit -C;
+fi;
 
 alias sudo="sudo "
 alias vim="nvim"
@@ -56,7 +59,6 @@ alias cat="bat -p"
 alias ssh="TERM=xterm-color ssh"
 # cd into first dir
 alias cdf="cd $(ls -d */|head -n 1)" 
-bindkey -v
 # bind to allow deletion after exiting normal mode vi
 bindkey "^?" backward-delete-char
 # Updates editor information when the keymap changes.
@@ -176,6 +178,15 @@ function kre(){
   kubectl delete -f $1 && kubectl apply -f $1
 }
 
+function start_nvm(){
+  if [ -d "/usr/share/nvm" ]; then
+    [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
+    source /usr/share/nvm/nvm.sh --no-use
+    source /usr/share/nvm/bash_completion
+    source /usr/share/nvm/install-nvm-exec
+  fi
+}
+
 function geb() {
     git grep -E -n $1 | while IFS=: read i j k; do git blame -L $j,$j $i | cat; done
 }
@@ -184,17 +195,6 @@ function sk(){
   screenkey -p fixed -g $(slop -n -f '%g') --opacity 0.2 -s small --compr-cnt 10 &
 }
 
-zle -N cgit
-bindkey '^s' cgit
-
-zle -N vgit
-bindkey '^f' vgit
-
-zle -N searchGit
-bindkey '^a' searchGit
-
-zle -N kconf
-bindkey '^k' kconf
 
 #reverse menu on shift-tab
 bindkey '^[[Z' reverse-menu-complete
@@ -209,17 +209,21 @@ RPS1='$(vi_mode_prompt_info)'
 RPS2=$RPS1
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# . ~/.bash_completion
 
-. ~/.bash_completion
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
+# user bindings
 bindkey -M vicmd 'V' edit-command-line # this remaps `vv` to `V` (but overrides `visual-mode`)
+setopt noflowcontrol
 
-if [ -d "/usr/share/nvm" ]; then
-  [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
-  source /usr/share/nvm/nvm.sh --no-use
-  source /usr/share/nvm/bash_completion
-  source /usr/share/nvm/install-nvm-exec
-fi
+zle -N cgit
+bindkey '^S' cgit
+
+zle -N vgit
+bindkey '^f' vgit
+
+zle -N cgit
+bindkey '^a' cgit
+
+zle -N kconf
+bindkey '^k' kconf
