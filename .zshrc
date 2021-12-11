@@ -1,6 +1,24 @@
 fpath+=$HOME/.zsh/pure
 autoload -U promptinit; promptinit
+setopt AUTO_NAME_DIRS
 prompt pure
+prompt_newline='%666v'
+PROMPT=" $PROMPT"
+# ZLE hooks for prompt's vi mode status
+function zle-line-init zle-keymap-select {
+# Change the cursor style depending on keymap mode.
+case $KEYMAP {
+  vicmd)
+    printf '\e[0 q' # Box.
+    ;;
+
+  viins|main)
+    printf '\e[6 q' # Vertical bar.
+    ;;
+  }
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
 
 export PYTHONBREAKPOINT="pudb.set_trace"
 export ZSH=$HOME/.oh-my-zsh
@@ -98,10 +116,6 @@ function grep-all(){
   grep --color=always -z $1 $2
 }
 
-function zle-keymap-select() {
-  zle reset-prompt
-  zle -R
-}
 
 function kold(){
   kubectl get $1 -o go-template --template '{{range .items}}{{.metadata.name}} {{.metadata.creationTimestamp}}{{"\n"}}{{end}}' | awk '$2 <= "'$(date -d '2 days ago' -Ins --utc | sed 's/+0000/Z/')'" { print $1 }'
@@ -198,21 +212,15 @@ function sk(){
 #reverse menu on shift-tab
 bindkey '^[[Z' reverse-menu-complete
 
-zle -N zle-keymap-select
-function vi_mode_prompt_info() {
-  echo "${${KEYMAP/vicmd/[% NORMAL]%}/(main|viins)/[% INSERT]%}"
-}
-
-# define right prompt, regardless of whether the theme defined it
-RPS1='$(vi_mode_prompt_info)'
-RPS2=$RPS1
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # . ~/.bash_completion
 
 
 # user bindings
-bindkey -M vicmd 'V' edit-command-line # this remaps `vv` to `V` (but overrides `visual-mode`)
+autoload edit-command-line; zle -N edit-command-line
+bindkey -M vicmd 'V' edit-command-line 
+
 setopt noflowcontrol
 
 zle -N cgit
