@@ -1,4 +1,3 @@
-zstyle ':completion:*' menu select
 fpath+=$HOME/.zsh/pure
 autoload -U promptinit; promptinit
 prompt pure
@@ -227,3 +226,4 @@ bindkey '^a' cgit
 
 zle -N kconf
 bindkey '^k' kconf
+zstyle ':completion:*' menu select
