@@ -191,7 +191,8 @@ function cgit(){
 }
 
 function fast_ssh(){
-  cat /etc/hosts | fzf | awk '{print $2}' | xargs -o ssh
+  host=$(cat /etc/hosts | fzf | awk '{print $2}'| tr -d '[:space:]')
+  TERM=xterm-color ssh $host </dev/tty
 }
 
 function kre(){
@@ -230,6 +231,8 @@ bindkey -M vicmd 'V' edit-command-line
 
 setopt noflowcontrol
 
+bindkey -s '^x' 'fast_ssh^M'
+
 zle -N cgit
 bindkey '^S' cgit
 
@@ -238,9 +241,6 @@ bindkey '^f' vgit
 
 zle -N cgit
 bindkey '^a' cgit
-
-zle -N fast_ssh
-bindkey '^x' fast_ssh
 
 zle -N kconf
 bindkey '^k' kconf
