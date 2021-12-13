@@ -193,6 +193,12 @@ wk.register({
       "Git Diff Split",
     },
   },
+  y = {
+    f = {
+      [[<cmd>let @" = expand("%")<cr>]],
+      "Yank filename",
+    },
+  },
   t = {
     t = { [[<cmd>ToggleTerm size=10 direction=horizontal<cr>]], "Term Below" },
     l = { [[<cmd>ToggleTerm size=100 direction=vertical<cr>]], "Term Right" },

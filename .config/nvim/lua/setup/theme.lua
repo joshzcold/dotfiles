@@ -37,3 +37,4 @@ require("material").setup({
 })
 
 vim.cmd([[colorscheme vscode]])
+vim.cmd([[highlight Comment cterm=italic gui=italic]])
