@@ -195,8 +195,20 @@ wk.register({
   },
   y = {
     f = {
-      [[<cmd>let @" = expand("%")<cr>]],
+      [[<cmd>let @+ = expand("%")<cr>]],
+      "Yank file relative path",
+    },
+    F = {
+      [[<cmd>let @+ = expand("%:p")<cr>]],
+      "Yank file full path",
+    },
+    y = {
+      [[<cmd>let @+ = expand("%:t")<cr>]],
       "Yank filename",
+    },
+    d = {
+      [[<cmd>let @+ = expand("%:p:h")<cr>]],
+      "Yank directory name",
     },
   },
   t = {
