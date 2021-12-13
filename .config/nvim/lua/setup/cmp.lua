@@ -38,14 +38,14 @@ cmp.setup({
         end,
       },
     },
-    {
-      name = "rg",
-      option = {
-        debounce = 500,
-        additional_arguments = "--smart-case --max-depth 4",
-        git_check = true,
-      },
-    },
+    -- {
+    --   name = "rg",
+    --   option = {
+    --     debounce = 500,
+    --     additional_arguments = "--smart-case --max-depth 4",
+    --     git_check = true,
+    --   },
+    -- },
     { name = "nvim_lua" },
     { name = "path" },
     -- -- Use buffer source for `/`.

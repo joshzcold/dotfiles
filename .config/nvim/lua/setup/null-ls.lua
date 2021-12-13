@@ -26,10 +26,9 @@ local lSsources = {
   null_ls.builtins.formatting.shfmt,
   null_ls.builtins.code_actions.shellcheck,
 }
-require("null-ls").config({
+require("null-ls").setup({
   sources = lSsources,
 })
-require("lspconfig")["null-ls"].setup({})
 -- the duration in there is to stop timeouts on massive files
 vim.cmd("autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync(nil, 7500)")
 vim.o.updatetime = 250

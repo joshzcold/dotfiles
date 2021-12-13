@@ -20,23 +20,24 @@ case $KEYMAP {
 zle -N zle-line-init
 zle -N zle-keymap-select
 
-export PYTHONBREAKPOINT="pudb.set_trace"
-export ZSH=$HOME/.oh-my-zsh
 export PATH=$HOME/.emacs.d/bin:$HOME/apps/node_modules/bin/:/home/joshua/.gem/ruby/3.0.0/bin:$HOME/apps/bin:/home/joshua/.cargo/bin:./node_modules/.bin:$PATH
+export PATH="$PATH:$NPM_PACKAGES/bin"
+export PATH="$PATH:$HOME/.config/usr-scripts"
+# export PATH=~/.local/bin:$PATH
+export PATH=$GOPATH/bin:$PATH
+
+export ZSH=$HOME/.oh-my-zsh
 export EDITOR=nvim
 export NPM_PACKAGES="${HOME}/.npm-packages"
-export PATH="$PATH:$NPM_PACKAGES/bin"
 export VAULT_ADDR="https://vault.secmet.co:8200"
 export VAULT_SKIP_VERIFY=1
-export PATH="$PATH:$HOME/.config/usr-scripts"
 export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 export GOPATH=$HOME/.go/
-export PATH=$GOPATH/bin:$PATH
-export PATH=~/.local/bin:$PATH
 export KUBE_EDITOR=nvim
 export SUDO_ASKPASS=/usr/bin/ksshaskpass
 export FZF_DEFAULT_COMMAND='rg --files'
 export PYTHONWARNINGS="ignore:Unverified HTTPS request"
+export PYTHONBREAKPOINT="pudb.set_trace"
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 
 # history
@@ -59,6 +60,7 @@ else
 	compinit -C;
 fi;
 
+alias ls="ls --color=auto"
 alias sudo="sudo "
 alias vim="nvim"
 alias vimrc="nvim /home/joshua/.config/nvim/init.vim"
@@ -72,7 +74,7 @@ alias e="emacsclient"
 alias k="kubectl"
 alias kp="kubectl get pods"
 alias kw="kubectl get pods -w"
-alias cat="bat -p"
+alias cat="bat -p --pager=never"
 alias ssh="TERM=xterm-color ssh"
 # cd into first dir
 alias cdf="cd $(ls -d */|head -n 1)" 
