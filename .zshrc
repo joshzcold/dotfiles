@@ -191,10 +191,7 @@ function cgit(){
 }
 
 function fast_ssh(){
-  local host=$(cat /etc/hosts | fzf)
-  # kitty --detach zsh -c "ssh $(echo $host | awk '{print $2}')" &
-  # xdotool key super+j
-  ssh -tt "$(echo $host | awk '{print $2}')"
+  cat /etc/hosts | fzf | awk '{print $2}' | xargs -o ssh
 }
 
 function kre(){
