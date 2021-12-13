@@ -1,9 +1,24 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+fpath+=$HOME/.zsh/pure
+autoload -U promptinit; promptinit
+setopt AUTO_NAME_DIRS
+prompt pure
+prompt_newline='%666v'
+PROMPT=" $PROMPT"
+# ZLE hooks for prompt's vi mode status
+function zle-line-init zle-keymap-select {
+# Change the cursor style depending on keymap mode.
+case $KEYMAP {
+  vicmd)
+    printf '\e[0 q' # Box.
+    ;;
+
+  viins|main)
+    printf '\e[6 q' # Vertical bar.
+    ;;
+  }
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
 
 export PYTHONBREAKPOINT="pudb.set_trace"
 export ZSH=$HOME/.oh-my-zsh
@@ -11,6 +26,9 @@ export PATH=$HOME/.emacs.d/bin:$HOME/apps/node_modules/bin/:/home/joshua/.gem/ru
 export EDITOR=nvim
 export NPM_PACKAGES="${HOME}/.npm-packages"
 export PATH="$PATH:$NPM_PACKAGES/bin"
+export VAULT_ADDR="https://vault.secmet.co:8200"
+export VAULT_SKIP_VERIFY=1
+export PATH="$PATH:$HOME/.config/usr-scripts"
 export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 export GOPATH=$HOME/.go/
 export PATH=$GOPATH/bin:$PATH
@@ -21,21 +39,25 @@ export FZF_DEFAULT_COMMAND='rg --files'
 export PYTHONWARNINGS="ignore:Unverified HTTPS request"
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 
+# history
+export HISTFILESIZE=100000
+export HISTSIZE=100000
+export HISTFILE=~/.zsh_history
+
+setopt HIST_FIND_NO_DUPS
+# following should be turned off, if sharing history via setopt SHARE_HISTORY
+setopt INC_APPEND_HISTORY
+
 KEYTIMEOUT=1
+bindkey -v
 
-plugins=(
-  git
-  git-auto-fetch
-  colored-man-pages
-  man
-  vi-mode
-  docker
-  helm
-)
-
-# auto update oh my zsh instead of asking.
-DISABLE_UPDATE_PROMPT=true 
-source $ZSH/oh-my-zsh.sh
+# load completions
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+	compinit;
+else
+	compinit -C;
+fi;
 
 alias sudo="sudo "
 alias vim="nvim"
@@ -54,7 +76,6 @@ alias cat="bat -p"
 alias ssh="TERM=xterm-color ssh"
 # cd into first dir
 alias cdf="cd $(ls -d */|head -n 1)" 
-bindkey -v
 # bind to allow deletion after exiting normal mode vi
 bindkey "^?" backward-delete-char
 # Updates editor information when the keymap changes.
@@ -95,10 +116,6 @@ function grep-all(){
   grep --color=always -z $1 $2
 }
 
-function zle-keymap-select() {
-  zle reset-prompt
-  zle -R
-}
 
 function kold(){
   kubectl get $1 -o go-template --template '{{range .items}}{{.metadata.name}} {{.metadata.creationTimestamp}}{{"\n"}}{{end}}' | awk '$2 <= "'$(date -d '2 days ago' -Ins --utc | sed 's/+0000/Z/')'" { print $1 }'
@@ -174,6 +191,15 @@ function kre(){
   kubectl delete -f $1 && kubectl apply -f $1
 }
 
+function start_nvm(){
+  if [ -d "/usr/share/nvm" ]; then
+    [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
+    source /usr/share/nvm/nvm.sh --no-use
+    source /usr/share/nvm/bash_completion
+    source /usr/share/nvm/install-nvm-exec
+  fi
+}
+
 function geb() {
     git grep -E -n $1 | while IFS=: read i j k; do git blame -L $j,$j $i | cat; done
 }
@@ -182,43 +208,30 @@ function sk(){
   screenkey -p fixed -g $(slop -n -f '%g') --opacity 0.2 -s small --compr-cnt 10 &
 }
 
-zle -N cgit
-bindkey '^s' cgit
-
-zle -N vgit
-bindkey '^f' vgit
-
-zle -N searchGit
-bindkey '^a' searchGit
-
-zle -N kconf
-bindkey '^k' kconf
 
 #reverse menu on shift-tab
 bindkey '^[[Z' reverse-menu-complete
 
-zle -N zle-keymap-select
-function vi_mode_prompt_info() {
-  echo "${${KEYMAP/vicmd/[% NORMAL]%}/(main|viins)/[% INSERT]%}"
-}
-
-# define right prompt, regardless of whether the theme defined it
-RPS1='$(vi_mode_prompt_info)'
-RPS2=$RPS1
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-# zprof
+# . ~/.bash_completion
 
-. ~/.bash_completion
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
-bindkey -M vicmd 'V' edit-command-line # this remaps `vv` to `V` (but overrides `visual-mode`)
+# user bindings
+autoload edit-command-line; zle -N edit-command-line
+bindkey -M vicmd 'V' edit-command-line 
 
-if [ -d "/usr/share/nvm" ]; then
-  [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
-  source /usr/share/nvm/nvm.sh
-  source /usr/share/nvm/bash_completion
-  source /usr/share/nvm/install-nvm-exec
-fi
+setopt noflowcontrol
+
+zle -N cgit
+bindkey '^S' cgit
+
+zle -N vgit
+bindkey '^f' vgit
+
+zle -N cgit
+bindkey '^a' cgit
+
+zle -N kconf
+bindkey '^k' kconf
+zstyle ':completion:*' menu select
