@@ -61,6 +61,7 @@ else
 fi;
 
 alias ls="ls --color=auto"
+alias ps="procs"
 alias sudo="sudo "
 alias vim="nvim"
 alias vimrc="nvim /home/joshua/.config/nvim/init.vim"
@@ -189,6 +190,13 @@ function cgit(){
   return $ret
 }
 
+function fast_ssh(){
+  local host=$(cat /etc/hosts | fzf)
+  # kitty --detach zsh -c "ssh $(echo $host | awk '{print $2}')" &
+  # xdotool key super+j
+  ssh -tt "$(echo $host | awk '{print $2}')"
+}
+
 function kre(){
   kubectl delete -f $1 && kubectl apply -f $1
 }
@@ -233,6 +241,9 @@ bindkey '^f' vgit
 
 zle -N cgit
 bindkey '^a' cgit
+
+zle -N fast_ssh
+bindkey '^x' fast_ssh
 
 zle -N kconf
 bindkey '^k' kconf
