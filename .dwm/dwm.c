@@ -1509,8 +1509,18 @@ nametag(const Arg *arg) {
 		*p = '\0';
 
 	for(i = 0; i < LENGTH(tags); i++)
-		if(selmon->tagset[selmon->seltags] & (1 << i))
-			strcpy(tags[i], name);
+		if(selmon->tagset[selmon->seltags] & (1 << i)){
+			char buf[256];
+			char str[8];
+			sprintf(str, "%d", i + 1);
+			if (strlen(name) > 0){
+				snprintf(buf, sizeof(buf), "%s%s%s", str, " ", name);
+			}else{
+				snprintf(buf, sizeof(buf), "%s", str);
+			}
+			strcpy(tags[i], buf);
+		}
+			
 	drawbars();
 }
 

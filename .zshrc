@@ -45,6 +45,7 @@ export HISTFILESIZE=100000
 export HISTSIZE=100000
 export HISTFILE=~/.zsh_history
 
+setopt share_history
 setopt HIST_FIND_NO_DUPS
 # following should be turned off, if sharing history via setopt SHARE_HISTORY
 setopt INC_APPEND_HISTORY
