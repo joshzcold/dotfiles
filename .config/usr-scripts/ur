@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -eou pipefail
+
+require_block=$(grep -B 2 -Pw "(?<=name:\s)$1" ansible-requirements.yml)
+src=$(echo "$require_block" | grep -Po "(?<=src: ).*")
+version=$(echo "$require_block" | grep -Po "(?<=version: ).*")
+name=$(echo "$require_block" | grep -Po "(?<=name: ).*")
+set -x
+ansible-galaxy install "$src,$version,$name" -f

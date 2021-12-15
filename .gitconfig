@@ -1,0 +1,7 @@
+[user]
+	email = joshua.cold@securitymetrics.com
+	name = Joshua Cold
+[alias]
+	pushg = !git_push.sh
+[push]
+	default = current
