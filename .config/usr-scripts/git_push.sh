@@ -4,8 +4,6 @@ exec 5>&1
 git config --global push.default current
 push_out=$(git push -u 2>&1 | tee >(cat - >&5))
 
-echo "PUSH --> $push_out"
-
 if echo "$push_out" | grep "pull-requests"; then
 	url=$(echo "$push_out" | grep -oP "https://.*")
 	qutebrowser ":open $url" &

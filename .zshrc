@@ -20,12 +20,6 @@ case $KEYMAP {
 zle -N zle-line-init
 zle -N zle-keymap-select
 
-export PATH=$HOME/.emacs.d/bin:$HOME/apps/node_modules/bin/:/home/joshua/.gem/ruby/3.0.0/bin:$HOME/apps/bin:/home/joshua/.cargo/bin:./node_modules/.bin:$PATH
-export PATH="$PATH:$NPM_PACKAGES/bin"
-export PATH="$PATH:$HOME/.config/usr-scripts"
-# export PATH=~/.local/bin:$PATH
-export PATH=$GOPATH/bin:$PATH
-
 export ZSH=$HOME/.oh-my-zsh
 export EDITOR=nvim
 export NPM_PACKAGES="${HOME}/.npm-packages"
@@ -39,6 +33,17 @@ export FZF_DEFAULT_COMMAND='rg --files'
 export PYTHONWARNINGS="ignore:Unverified HTTPS request"
 export PYTHONBREAKPOINT="pudb.set_trace"
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+
+# Path updates
+export PATH=$PATH:$HOME/.emacs.d/bin
+export PATH=$PATH:$HOME/apps/node_modules/bin
+export PATH=$PATH:$HOME/.gem/ruby/3.0.0/bin
+export PATH=$PATH:$HOME/apps/bin
+export PATH=$PATH:$HOME.cargo/bin
+export PATH=$PATH:./node_modules/.bin
+export PATH=$PATH:$NPM_PACKAGES/bin
+export PATH=$PATH:$HOME/.config/usr-scripts
+export PATH=$PATH:$GOPATH/bin
 
 # history
 export HISTFILESIZE=100000
