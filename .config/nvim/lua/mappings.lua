@@ -213,8 +213,8 @@ wk.register({
   },
   t = {
     t = { [[<cmd>ToggleTerm size=10 direction=horizontal<cr>]], "Term Below" },
-    l = { [[<cmd>ToggleTerm size=100 direction=vertical<cr>]], "Term Right" },
-    h = { [[<cmd>ToggleTerm size=100 direction=vertical<cr>]], "Term Left" },
+    l = { [[<cmd>ToggleTerm size=60 direction=vertical<cr>]], "Term Right" },
+    h = { [[<cmd>ToggleTerm size=60 direction=vertical<cr>]], "Term Left" },
     j = { [[<cmd>ToggleTerm size=10 direction=horizontal<cr>]], "Term Below" },
     k = { [[<cmd>ToggleTerm direction=float<cr>]], "Term Float" },
   },
