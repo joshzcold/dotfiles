@@ -11,7 +11,7 @@ fi
 
 git_repo="$(basename $(git rev-parse --show-toplevel))"
 if [[ ${git_repo} =~ .*\.role ]]; then
-	pushd ~/git/master.inventory
+	pushd ~/git/in/master.inventory
 	require_block=$(grep -A 2 "$git_repo" ansible-requirements.yml)
 	src=$(echo "$require_block" | grep -Po "(?<=src: ).*")
 	version=$(echo "$require_block" | grep -Po "(?<=version: ).*")
