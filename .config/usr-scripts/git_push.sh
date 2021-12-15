@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 exec 5>&1
-git config --global push.default current
 push_out=$(git push -u 2>&1 | tee >(cat - >&5))
 
 if echo "$push_out" | grep "pull-requests"; then
