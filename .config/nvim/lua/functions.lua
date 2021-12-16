@@ -13,6 +13,8 @@ au BufRead *.groovy if search('pipeline', 'nw') | set ft=Jenkinsfile | setlocal 
 au BufRead *.groovy  setlocal indentexpr=GetJavascriptIndent()
 ]])
 
+vim.cmd([[autocmd Filetype yaml.* set makeprg=ansible-lint\ -p\ --nocolor\ -x\ role-name]])
+
 vim.cmd([[
 function! GitPush()
       execute("Gwrite")
