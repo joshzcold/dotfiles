@@ -180,6 +180,19 @@ wk.register({
   },
   g = {
     name = "git",
+    l = {
+      function()
+        local Terminal = require("toggleterm.terminal").Terminal
+        local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
+
+        function _lazygit_toggle()
+          lazygit:toggle()
+        end
+        vim.cmd([[:lua _lazygit_toggle()]])
+      end,
+
+      "lazy git",
+    },
     g = {
       [[<cmd>Git<cr>]],
       "Git",
