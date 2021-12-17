@@ -213,8 +213,22 @@ wk.register({
   },
   t = {
     t = { [[<cmd>ToggleTerm size=10 direction=horizontal<cr>]], "Term Below" },
-    l = { [[<cmd>ToggleTerm size=60 direction=vertical<cr>]], "Term Right" },
-    h = { [[<cmd>ToggleTerm size=60 direction=vertical<cr>]], "Term Left" },
+    l = {
+      function()
+        local width = vim.fn.winwidth(0)
+        local set_width = width / 3
+        vim.cmd(":ToggleTerm size=" .. set_width .. " direction=vertical")
+      end,
+      "Term Right",
+    },
+    h = {
+      function()
+        local width = vim.fn.winwidth(0)
+        local set_width = width / 3
+        vim.cmd(":ToggleTerm size=" .. set_width .. " direction=vertical")
+      end,
+      "Term Left",
+    },
     j = { [[<cmd>ToggleTerm size=10 direction=horizontal<cr>]], "Term Below" },
     k = { [[<cmd>ToggleTerm direction=float<cr>]], "Term Float" },
   },
