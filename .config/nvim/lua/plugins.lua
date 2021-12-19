@@ -60,8 +60,8 @@ require("packer").startup({
         "nvim-treesitter/nvim-treesitter-textobjects",
       },
     })
-    use({ "neovim/nvim-lspconfig", config = get_setup("lspconfig") }) -- Collection of configurations for built-in LSP client
-    use("https://github.com/williamboman/nvim-lsp-installer")
+    use({ "neovim/nvim-lspconfig" }) -- Collection of configurations for built-in LSP client
+    use({ "https://github.com/williamboman/nvim-lsp-installer", config = get_setup("lspconfig") })
 
     use({
       "hrsh7th/nvim-cmp",
@@ -78,7 +78,7 @@ require("packer").startup({
     use("https://github.com/onsails/lspkind-nvim")
     use("joshzcold/cmp-jenkinsfile")
 
-    use({ "folke/which-key.nvim" }) -- which-key mappings in lua/mappings.lua
+    use({ "folke/which-key.nvim", config = get_setup("whichkey") }) -- which-key mappings in lua/mappings.lua
     use("simnalamburt/vim-mundo")
     use("https://github.com/godlygeek/tabular")
 

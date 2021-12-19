@@ -10,9 +10,6 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, ...)
   end
 
-  --Enable completion triggered by <c-x><c-o>
-  buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-
   -- Mappings.
   local opts = { noremap = true, silent = true }
 
@@ -36,15 +33,26 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-
--- Setup lspconfig.
--- local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 local lsp_installer = require("nvim-lsp-installer")
 
 lsp_installer.on_server_ready(function(server)
-  local opts = {}
-  server:setup(opts)
+  local default_opts = {
+    on_attach = on_attach,
+  }
+
+  local server_opts = {
+    -- Provide settings that should only apply to the "eslintls" server
+    -- ["eslintls"] = function()
+    --   default_opts.settings = {
+    --     format = {
+    --       enable = true,
+    --     },
+    --   }
+    -- end,
+  }
+
+  local server_options = server_opts[server.name] and server_opts[server.name]() or default_opts
+
+  server:setup(server_options)
   vim.cmd([[ do User LspAttachBuffers ]])
 end)
