@@ -322,6 +322,12 @@ function hide_completion_indicator {
 compprefuncs+=(display_completion_indicator)
 comppostfuncs+=(hide_completion_indicator)
 
-function _yadm-add(){ _ls }
+function _yadm-add(){
+  _alternative \
+    "args:custom arg:(($(yadm status --porcelain=v1 | awk '{printf "\"%s\"\\:\"%s\" ", $2, $1}' )))" \
+    'files:filename:_files'
+}
+
+function _yadm-checkout(){ _yadm-add }
 
 
