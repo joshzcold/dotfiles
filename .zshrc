@@ -323,8 +323,11 @@ compprefuncs+=(display_completion_indicator)
 comppostfuncs+=(hide_completion_indicator)
 
 function _yadm-add(){
+  yadm_path="$(yadm rev-parse --show-toplevel)"
+  yadm_options=$(yadm status --porcelain=v1 |
+    awk -v yadm_path=${yadm_path} '{printf "%s/\"%s\"\\:\"%s\" ",  yadm_path, $2, $1 }' )
   _alternative \
-    "args:custom arg:(($(yadm status --porcelain=v1 | awk '{printf "\"%s\"\\:\"%s\" ", $2, $1}' )))" \
+    "args:custom arg:(($yadm_options))" \
     'files:filename:_files'
 }
 
