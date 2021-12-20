@@ -51,8 +51,8 @@ map("n", "Q", "@q") -- no EX mode, execute q macro
 -- keep selection on indenting lines
 map("v", ">", ">gv")
 map("v", "<", "<gv")
-map("v", "f", "<cmd>lua require'hop'.hint_words()<cr>")
-map("n", "f", "<cmd>lua require'hop'.hint_words()<cr>")
+map("v", "f", ":HopChar1<cr>")
+map("n", "f", ":HopChar1<cr>")
 
 map("n", "Y", "y$") -- Y yank until the end of line
 map("n", "vv", "vg_") -- vv visual to end of characters
