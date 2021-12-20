@@ -1,5 +1,6 @@
 -- Setup nvim-cmp.
 local cmp = require("cmp")
+local luasnip = require("luasnip")
 local lspkind = require("lspkind")
 
 cmp.setup({
@@ -8,10 +9,7 @@ cmp.setup({
   },
   snippet = {
     expand = function(args)
-      -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-      -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-      vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-      -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
+      require("luasnip").lsp_expand(args.body)
     end,
   },
   mapping = {
@@ -24,12 +22,29 @@ cmp.setup({
       c = cmp.mapping.close(),
     }),
     ["<CR>"] = cmp.mapping.confirm({}),
-    ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
-    ["<S-Tab>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "s" }),
+    ["<Tab>"] = function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
+      else
+        fallback()
+      end
+    end,
+    ["<S-Tab>"] = function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
+      else
+        fallback()
+      end
+    end,
   },
   sources = cmp.config.sources({
     { name = "nvim_lsp" },
-    { name = "ultisnips" }, -- For ultisnips users.
+    -- { name = "ultisnips" }, -- For ultisnips users.
+    { name = "luasnip" },
     {
       name = "buffer",
       options = {
@@ -48,19 +63,6 @@ cmp.setup({
     -- },
     { name = "nvim_lua" },
     { name = "path" },
-    -- -- Use buffer source for `/`.
-    -- cmp.setup.cmdline('/', {
-    --   sources = {
-    --     { name = 'buffer' }
-    --   }
-    -- })
-
-    -- Use cmdline & path source for ':'.
-    -- cmp.setup.cmdline(':', {
-    --   sources = cmp.config.sources( {
-    --     { name = 'cmdline' }
-    --   })
-    -- })
   }),
 })
 

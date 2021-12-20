@@ -1,7 +1,5 @@
 local opt = vim.opt -- to set options
 
-vim.g.UltiSnipsExpandTrigger = "<NUL>"
-
 opt.termguicolors = true
 
 opt.encoding = "utf-8"

@@ -62,12 +62,13 @@ require("packer").startup({
     })
     use({ "neovim/nvim-lspconfig" }) -- Collection of configurations for built-in LSP client
     use({ "https://github.com/williamboman/nvim-lsp-installer", config = get_setup("lspconfig") })
-
+    use({ "L3MON4D3/LuaSnip", config = get_setup("luasnip") })
     use({
       "hrsh7th/nvim-cmp",
       config = get_setup("cmp"),
       requires = {
-        { "quangnguyen30192/cmp-nvim-ultisnips" },
+        { "saadparwaiz1/cmp_luasnip" },
+        { "L3MON4D3/LuaSnip" },
         { "hrsh7th/cmp-nvim-lsp" },
         { "hrsh7th/cmp-buffer" },
         { "hrsh7th/cmp-path" },
@@ -82,7 +83,6 @@ require("packer").startup({
     use("simnalamburt/vim-mundo")
     use("https://github.com/godlygeek/tabular")
 
-    use("SirVer/ultisnips") -- custom code snippets manager
     use("honza/vim-snippets") -- lots of pre-made snippets
     use("tpope/vim-surround") -- Vim actions to surround word with quotes
     use("sheerun/vim-polyglot")
