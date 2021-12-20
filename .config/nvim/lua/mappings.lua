@@ -28,7 +28,10 @@ map("t", "<c-h>", "<C-\\><C-n><c-w>h")
 map("t", "<c-l>", "<C-\\><C-n><c-w>l")
 map("t", "<c-n>", "<C-\\><C-n>")
 
-map("v", "p", '"_dP')
+-- don't populate registers on paste
+-- visual select pasted text if in visual mode
+map("x", "p", '"_dp `[v`]')
+map("x", "P", '"_dP `[v`]')
 
 --Switch quickfix with alt
 map("n", "<A-j>", ":cnext<cr>")
@@ -62,10 +65,6 @@ map("n", "J", "mzJ`z")
 map("i", ".", ".<c-g>u")
 map("i", "!", "!<c-g>u")
 map("i", "?", "?<c-g>u")
-
-map("x", "p", '"_dP')
--- visual select pasted text if in visual mode
-map("x", "P", '"_dP `[v`]')
 
 -- Quick grep commands
 map("n", "gr", ":grep <cword> *<CR>")
