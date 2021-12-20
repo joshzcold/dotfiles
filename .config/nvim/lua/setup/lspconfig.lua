@@ -11,7 +11,7 @@ local on_attach = function(client, bufnr)
   end
 
   -- Mappings.
-  local opts = { noremap = true, silent = true }
+  local opts = { noremap = true, silent = false }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
@@ -42,13 +42,11 @@ lsp_installer.on_server_ready(function(server)
 
   local server_opts = {
     -- Provide settings that should only apply to the "eslintls" server
-    -- ["eslintls"] = function()
-    --   default_opts.settings = {
-    --     format = {
-    --       enable = true,
-    --     },
-    --   }
-    -- end,
+   -- ["pylsp"] = function()
+   --   default_opts.settings = {
+   --     pylsp.plugins.flake8.maxLineLength = "120"
+   --   }
+   -- end,
   }
 
   local server_options = server_opts[server.name] and server_opts[server.name]() or default_opts
