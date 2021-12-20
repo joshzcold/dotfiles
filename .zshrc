@@ -34,6 +34,7 @@ export PYTHONWARNINGS="ignore:Unverified HTTPS request"
 export PYTHONBREAKPOINT="pudb.set_trace"
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 
+
 # Path updates
 export PATH=$PATH:$HOME/.emacs.d/bin
 export PATH=$PATH:$HOME/apps/node_modules/bin
@@ -293,3 +294,34 @@ local paste_widgets=(
 x11-clip-wrap-widgets copy $copy_widgets
 x11-clip-wrap-widgets paste  $paste_widgets
 # END vi-mode xclip copying and pasting
+#
+zmodload zsh/terminfo
+
+function set_completion_indicator {
+  echoti sc # save_cursor
+  echoti cup $((LINES - 1)) $((COLUMNS - $#1)) # cursor_position
+  echoti setaf $2 # set_foreground (color)
+  printf %s $1
+  echoti sgr 0 # exit_attribute_mode
+  echoti rc # restore_cursor
+  #sleep 1
+}
+
+completion_indicator_text='(completing)'
+completion_indicator_color=3
+function display_completion_indicator {
+  compprefuncs+=(display_completion_indicator)
+  set_completion_indicator $completion_indicator_text $completion_indicator_color
+}
+
+function hide_completion_indicator {
+  comppostfuncs+=(hide_completion_indicator)
+  # The completion code erases the indicator, so there's nothing to do.
+}
+
+compprefuncs+=(display_completion_indicator)
+comppostfuncs+=(hide_completion_indicator)
+
+function _yadm-add(){ _ls }
+
+

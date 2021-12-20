@@ -1,0 +1,65 @@
+#!/bin/bash
+set -x
+function usage() {
+	echo "Usage :  $(basename "$0") [options] [--]
+
+    Options:
+    -k|kill    kill last running record
+    -r|record  start recording
+		"
+
+} # ----------  end of function usage  ----------
+
+kill_record() {
+	pkill -fxn '(/\S+)*ffmpeg\s.*\sx11grab\s.*'
+}
+
+record() {
+	choice=$(echo "mp4,gif" | tr ',' '\n' | rofi -dmenu)
+	TMP="/tmp/$(date '+%Y-%m-%d.%H:%M:%S')"
+
+	if [[ "$choice" = "mp4" ]]; then
+		ffcast -q -g $(slop -n -f '%g') rec $TMP.mp4
+		notify-send "$TMP.mp4"
+		echo -n "$TMP.mp4" | xclip -selection clipboard
+	elif [[ "$choice" = "gif" ]]; then
+		trap "rm -f $TMP.avi" EXIT
+		ffcast -s % ffmpeg -y -f x11grab -show_region 1 -framerate 15 \
+			-video_size %s -i %D+%c -codec:v huffyuv \
+			-vf crop="iw-mod(iw\\,2):ih-mod(ih\\,2)" $TMP.avi
+		convert -set delay 10 -layers Optimize $TMP.avi $TMP.gif
+		notify-send "$TMP.gif"
+		echo -n "$TMP.gif" | xclip -selection clipboard
+	fi
+}
+
+toggle() {
+	if pgrep "ffmpeg"; then
+		kill_record
+	else
+		record
+	fi
+}
+
+while getopts ":krh" o; do
+	echo $o
+	case "${o}" in
+	k)
+		kill_record
+		exit 0
+		;;
+	r)
+		record
+		exit 0
+		;;
+	h)
+		usage
+		exit 0
+		;;
+	esac
+done
+
+if [ $OPTIND -eq 1 ]; then
+	toggle
+fi
+exit 0
