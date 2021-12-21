@@ -13,7 +13,6 @@ Movies - Radarr http://192.168.2.156:7878/
 Jellyfin http://192.168.2.156:8096/web/index.html
 Developer Dashboard https://chrome.google.com/webstore/devconsole
 Dayforce https://usr54.dayforcehcm.com/MyDayforce/u/NXwCzW2ClEGkdhTuy0P2Vg/Common/
-Request Time Off || WorkDay https://microfocusinternational.sharepoint.com/sites/hr/WSC/Pages/workday-support-center.aspx
 Emoji unicode characters for use on the web https://apps.timwhitlock.info/emoji/tables/unicode
 AA Wiki https://wiki.provo.microfocus.com:8443/pages/viewpage.action?spaceKey=AUTH&title=Advanced+Authentication+Engineering+Home
 kubectl Cheat Sheet - Kubernetes https://kubernetes.io/docs/reference/kubectl/cheatsheet/
@@ -61,3 +60,40 @@ jenkins pipeline utility steps https://www.jenkins.io/doc/pipeline/steps/pipelin
 jenkins dev jenkins https://hq-dev-v-jenkins.secmet.co/
 heroku dashboard https://id.heroku.com/login
 keep password manager https://keepersecurity.com/vault/#
+dk-prod1-phv-apphost-1	10.101.23.10
+dk-prod1-phv-apphost-2	10.101.23.11
+dk-prod1-phv-apphost-3	10.101.23.12
+dk-prod1-phv-apphost-4	10.101.23.13
+dk-prod1-phv-apphost-5	10.101.23.14
+dk-prod2-phv-apphost-1	10.102.23.10
+dk-prod2-phv-apphost-2	10.102.23.11
+dk-prod2-phv-apphost-3	10.102.23.12
+dk-prod2-phv-apphost-4	10.102.23.13
+dk-prod2-phv-apphost-5	10.102.23.14
+hq-dev-p-apphost-1	10.23.0.70
+hq-dev-p-apphost-2	10.23.0.61
+hq-dev-p-apphost-3	10.23.0.60
+hq-dev-phv-apphost-4	10.23.0.41
+hq-dev-phv-apphost-5	10.23.0.40
+hq-dev-phv-apphost-6	10.29.23.47
+hq-dev-phv-apphost-7	10.23.0.22
+hq-devops-phv-apphost-1	10.23.10.3
+hq-devops-phv-apphost-2	10.23.10.4
+hq-devops-phv-apphost-3	10.23.10.5
+hq-devops-phv-apphost-4	10.23.10.6
+hq-devops-phv-apphost-5	10.23.10.8
+hq-devops-phv-apphost-6	10.23.10.9
+hq-devops-phv-apphost-7	10.23.10.10
+hq-devops-phv-apphost-8	10.23.10.11
+hq-operations-phv-apphost-1	10.23.7.30
+hq-prod1-phv-apphost-1	10.100.23.10
+hq-prod1-phv-apphost-2	10.100.23.11
+hq-prod1-phv-apphost-3	10.100.23.12
+hq-prod1-phv-apphost-4	10.100.23.13
+hq-prod1-phv-apphost-5	10.100.23.14
+hq-prod1-phv-tools-1	10.100.23.19
+hq-ref-phv-apphost-1	10.105.23.10
+hq-ref-phv-apphost-2	10.105.23.11
+hq-ref-phv-apphost-3	10.105.23.12
+hq-ref-phv-apphost-4	10.105.23.13
+hq-ref-phv-apphost-5	10.105.23.14
