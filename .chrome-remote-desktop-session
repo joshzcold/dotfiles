@@ -1,0 +1,7 @@
+# You will have to uncomment one of the following lines for CRD to work
+# Remove the # and select ctrl-X to finish.
+# 
+export $(dbus-launch)
+exec xfce4-session
+# exec /usr/bin/openbox-session
+# exec bspwm
