@@ -50,7 +50,9 @@ export PATH=$PATH:$GOPATH/bin
 export HISTFILESIZE=100000
 export HISTSIZE=100000
 export HISTFILE=~/.zsh_history
-
+# Appends every command to the history file once it is executed
+setopt inc_append_history
+# Reloads the history whenever you use it
 setopt share_history
 setopt HIST_FIND_NO_DUPS
 # following should be turned off, if sharing history via setopt SHARE_HISTORY
@@ -61,11 +63,15 @@ bindkey -v
 
 # load completions
 autoload -Uz compinit
+autoload -Uz bashcompinit
 if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
 	compinit;
+  bashcompinit;
 else
 	compinit -C;
+  bashcompinit -C;
 fi;
+
 
 alias ls="ls --color=auto"
 alias ps="procs"
@@ -333,4 +339,4 @@ function _yadm-add(){
 
 function _yadm-checkout(){ _yadm-add }
 
-
+source ~/.bash_completion
