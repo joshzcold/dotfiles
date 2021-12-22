@@ -59,7 +59,6 @@ jenkins build jenkins https://jenkins.secmet.co
 jenkins pipeline utility steps https://www.jenkins.io/doc/pipeline/steps/pipeline-utility-steps/#readjson-read-json-from-files-in-the-workspace
 jenkins dev jenkins https://hq-dev-v-jenkins.secmet.co/
 heroku dashboard https://id.heroku.com/login
-keep password manager https://keepersecurity.com/vault/#
 dk-prod1-phv-apphost-1	10.101.23.10
 dk-prod1-phv-apphost-2	10.101.23.11
 dk-prod1-phv-apphost-3	10.101.23.12
@@ -97,3 +96,5 @@ hq-ref-phv-apphost-2	10.105.23.11
 hq-ref-phv-apphost-3	10.105.23.12
 hq-ref-phv-apphost-4	10.105.23.13
 hq-ref-phv-apphost-5	10.105.23.14
+keeper password manager security metrics https://keepersecurity.com/vault/#
+chrome remote desktop https://remotedesktop.google.com/access
