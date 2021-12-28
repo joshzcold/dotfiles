@@ -22,6 +22,7 @@ zle -N zle-keymap-select
 
 export ZSH=$HOME/.oh-my-zsh
 export EDITOR=nvim
+export VISUAL=nvim
 export NPM_PACKAGES="${HOME}/.npm-packages"
 export VAULT_ADDR="https://vault.secmet.co:8200"
 export VAULT_SKIP_VERIFY=1
