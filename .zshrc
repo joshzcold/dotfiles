@@ -4,18 +4,24 @@ setopt AUTO_NAME_DIRS
 prompt pure
 prompt_newline='%666v'
 PROMPT=" $PROMPT"
+
+# load custom dir colors (ignore 777 permissions for NTFS mounts)
+eval "$(dircolors ~/.dircolors)"
+
+# case insensitive file matching
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 # ZLE hooks for prompt's vi mode status
 function zle-line-init zle-keymap-select {
-# Change the cursor style depending on keymap mode.
-case $KEYMAP {
-  vicmd)
-    printf '\e[0 q' # Box.
-    ;;
+  # Change the cursor style depending on keymap mode.
+  case $KEYMAP {
+    vicmd)
+      printf '\e[0 q' # Box.
+      ;;
 
-  viins|main)
-    printf '\e[6 q' # Vertical bar.
-    ;;
-  }
+    viins|main)
+      printf '\e[6 q' # Vertical bar.
+      ;;
+    }
 }
 zle -N zle-line-init
 zle -N zle-keymap-select
