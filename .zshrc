@@ -40,6 +40,7 @@ export FZF_DEFAULT_COMMAND='rg --files'
 export PYTHONWARNINGS="ignore:Unverified HTTPS request"
 export PYTHONBREAKPOINT="pudb.set_trace"
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+export TERM=xterm
 
 
 # Path updates
@@ -100,7 +101,7 @@ alias k="kubectl"
 alias kp="kubectl get pods"
 alias kw="kubectl get pods -w"
 alias cat="bat -p --pager=never"
-alias ssh="TERM=xterm-color ssh"
+alias ssh="TERM=xterm ssh"
 # cd into first dir
 alias cdf="cd $(ls -d */|head -n 1)" 
 # bind to allow deletion after exiting normal mode vi
@@ -216,7 +217,7 @@ function cgit(){
 
 function fast_ssh(){
   host=$(cat /etc/hosts | fzf | awk '{print $2}'| tr -d '[:space:]')
-  TERM=xterm-color ssh $host </dev/tty
+  TERM=xterm ssh $host </dev/tty
 }
 
 function kre(){
