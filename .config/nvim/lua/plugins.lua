@@ -104,6 +104,7 @@ require("packer").startup({
     use({ "/glepnir/dashboard-nvim", config = get_setup("dashboard") })
     use({ "/Mofiqul/vscode.nvim", config = get_setup("theme") }) -- vscode like theme
     use({ "marko-cerovac/material.nvim", config = get_setup("theme") })
+    use({ "https://github.com/lambdalisue/suda.vim" })
     use({
       "hoob3rt/lualine.nvim",
       config = get_setup("lualine"),

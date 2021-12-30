@@ -9,6 +9,7 @@ settings:
   aliases:
     global:
       bbpull: spawn --userscript clone_pullrequest
+      pass: spawn --userscript qute-bitwarden
       q: close
       qa: quit
       w: session-save
@@ -83,7 +84,7 @@ settings:
     https://outlook.live.com?mailtouri=%25s: true
   spellcheck.languages:
     global:
-    - en-US
+      - en-US
   tabs.favicons.scale:
     global: 1.0
   tabs.position:

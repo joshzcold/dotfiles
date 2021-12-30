@@ -1,7 +1,9 @@
 # install with sudo yay -S --needed - < install-apps
+ansible
 bat
 betterlockscreen
 bitwarden
+bitwarden-cli
 chromium
 cups
 dmenu
@@ -15,6 +17,7 @@ i3lock-color
 jq
 kitty
 kubectl
+linux-headers
 lxappearance
 ncdu
 neovim
@@ -22,12 +25,18 @@ network-manager-applet
 nitrogen
 openssh
 pamac-aur
+parallel
 prettierd
+python-pyperclip
+python-requests
+python-tldextract
 python3
+qt5-webengine-widevine
 qutebrowser
 ripgrep
 rofi
 shfmt
+st
 stylua
 sudo
 tree
