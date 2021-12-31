@@ -30,6 +30,7 @@ prettierd
 python-pyperclip
 python-requests
 python-tldextract
+python-hvac
 python3
 qt5-webengine-widevine
 qutebrowser
