@@ -76,6 +76,7 @@ settings:
     https://voice.google.com: true
     https://web.whatsapp.com: true
     https://www.bennish.net: true
+    https://www.facebook.com: false
     https://www.reddit.com: false
     https://www.youtube.com: false
   content.register_protocol_handler:
@@ -84,7 +85,7 @@ settings:
     https://outlook.live.com?mailtouri=%25s: true
   spellcheck.languages:
     global:
-      - en-US
+    - en-US
   tabs.favicons.scale:
     global: 1.0
   tabs.position:
