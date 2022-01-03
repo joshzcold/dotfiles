@@ -31,7 +31,7 @@ google docs https://docs.google.com/document/u/0/?tgif=d
 mail gmail google mail https://mail.google.com/mail/u/0/#inbox/FMfcgzGljvPVNvSwVfHWTqtGfQVFKLKr
 bitbucket git https://bitbucket.secmet.co/dashboard
 google chat https://mail.google.com/chat/u/0/#chat/welcome
-jira confluence https://securitymetrics.atlassian.net/projects/DEVOPS/summary
+jira confluence https://securitymetrics.atlassian.net/jira/software/c/projects/DV6
 security metrics benefits https://www.employeenavigator.com/employee/Home
 foxpass https://console.foxpass.com/settings/sshkeys/
 Production Docker Swarm Overview https://docs.google.com/document/d/1RNgqHtCJJw9P2ytqzCdGeEQQJ8Ta3FFeJolizFARSYg/edit#
@@ -44,7 +44,7 @@ security metrics hsa https://member.my.healthequity.com/hsa/22698249-010
 microfocus hsa https://smart-choice.wealthcareportal.com/Page/Dashboard
 ansible vault https://vault.secmet.co:8200/ui/vault/secrets
 ansible filters https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html
-confluence https://securitymetrics.atlassian.net/wiki/home
+confluence https://securitymetrics.atlassian.net/wiki/spaces/DEVOPS/overview
 jenkins extended choice reference https://github.com/jenkinsci/extended-choice-parameter-plugin/blob/master/src/main/java/com/cwctravel/hudson/plugins/extended_choice_parameter/ExtendedChoiceParameterDefinition.java
 jenkins job dsl https://jenkinsci.github.io/job-dsl-plugin/
 jenkins env vars https://hq-devops-v-jenkins/env-vars.html/
@@ -58,42 +58,43 @@ jenkins build jenkins https://jenkins.secmet.co
 jenkins pipeline utility steps https://www.jenkins.io/doc/pipeline/steps/pipeline-utility-steps/#readjson-read-json-from-files-in-the-workspace
 jenkins dev jenkins https://hq-dev-v-jenkins.secmet.co/
 heroku dashboard https://id.heroku.com/login
-dk-prod1-phv-apphost-1	10.101.23.10
-dk-prod1-phv-apphost-2	10.101.23.11
-dk-prod1-phv-apphost-3	10.101.23.12
-dk-prod1-phv-apphost-4	10.101.23.13
-dk-prod1-phv-apphost-5	10.101.23.14
-dk-prod2-phv-apphost-1	10.102.23.10
-dk-prod2-phv-apphost-2	10.102.23.11
-dk-prod2-phv-apphost-3	10.102.23.12
-dk-prod2-phv-apphost-4	10.102.23.13
-dk-prod2-phv-apphost-5	10.102.23.14
-hq-dev-p-apphost-1	10.23.0.70
-hq-dev-p-apphost-2	10.23.0.61
-hq-dev-p-apphost-3	10.23.0.60
-hq-dev-phv-apphost-4	10.23.0.41
-hq-dev-phv-apphost-5	10.23.0.40
-hq-dev-phv-apphost-6	10.29.23.47
-hq-dev-phv-apphost-7	10.23.0.22
-hq-devops-phv-apphost-1	10.23.10.3
-hq-devops-phv-apphost-2	10.23.10.4
-hq-devops-phv-apphost-3	10.23.10.5
-hq-devops-phv-apphost-4	10.23.10.6
-hq-devops-phv-apphost-5	10.23.10.8
-hq-devops-phv-apphost-6	10.23.10.9
-hq-devops-phv-apphost-7	10.23.10.10
-hq-devops-phv-apphost-8	10.23.10.11
-hq-operations-phv-apphost-1	10.23.7.30
-hq-prod1-phv-apphost-1	10.100.23.10
-hq-prod1-phv-apphost-2	10.100.23.11
-hq-prod1-phv-apphost-3	10.100.23.12
-hq-prod1-phv-apphost-4	10.100.23.13
-hq-prod1-phv-apphost-5	10.100.23.14
-hq-prod1-phv-tools-1	10.100.23.19
-hq-ref-phv-apphost-1	10.105.23.10
-hq-ref-phv-apphost-2	10.105.23.11
-hq-ref-phv-apphost-3	10.105.23.12
-hq-ref-phv-apphost-4	10.105.23.13
-hq-ref-phv-apphost-5	10.105.23.14
+dk-prod1-phv-apphost-1 10.101.23.10
+dk-prod1-phv-apphost-2 10.101.23.11
+dk-prod1-phv-apphost-3 10.101.23.12
+dk-prod1-phv-apphost-4 10.101.23.13
+dk-prod1-phv-apphost-5 10.101.23.14
+dk-prod2-phv-apphost-1 10.102.23.10
+dk-prod2-phv-apphost-2 10.102.23.11
+dk-prod2-phv-apphost-3 10.102.23.12
+dk-prod2-phv-apphost-4 10.102.23.13
+dk-prod2-phv-apphost-5 10.102.23.14
+hq-dev-p-apphost-1 10.23.0.70
+hq-dev-p-apphost-2 10.23.0.61
+hq-dev-p-apphost-3 10.23.0.60
+hq-dev-phv-apphost-4 10.23.0.41
+hq-dev-phv-apphost-5 10.23.0.40
+hq-dev-phv-apphost-6 10.29.23.47
+hq-dev-phv-apphost-7 10.23.0.22
+hq-devops-phv-apphost-1 10.23.10.3
+hq-devops-phv-apphost-2 10.23.10.4
+hq-devops-phv-apphost-3 10.23.10.5
+hq-devops-phv-apphost-4 10.23.10.6
+hq-devops-phv-apphost-5 10.23.10.8
+hq-devops-phv-apphost-6 10.23.10.9
+hq-devops-phv-apphost-7 10.23.10.10
+hq-devops-phv-apphost-8 10.23.10.11
+hq-operations-phv-apphost-1 10.23.7.30
+hq-prod1-phv-apphost-1 10.100.23.10
+hq-prod1-phv-apphost-2 10.100.23.11
+hq-prod1-phv-apphost-3 10.100.23.12
+hq-prod1-phv-apphost-4 10.100.23.13
+hq-prod1-phv-apphost-5 10.100.23.14
+hq-prod1-phv-tools-1 10.100.23.19
+hq-ref-phv-apphost-1 10.105.23.10
+hq-ref-phv-apphost-2 10.105.23.11
+hq-ref-phv-apphost-3 10.105.23.12
+hq-ref-phv-apphost-4 10.105.23.13
+hq-ref-phv-apphost-5 10.105.23.14
 keeper password manager security metrics https://keepersecurity.com/vault/#
 chrome remote desktop https://remotedesktop.google.com/access
+google calendar https://calendar.google.com/calendar/u/1/r?pli=1
