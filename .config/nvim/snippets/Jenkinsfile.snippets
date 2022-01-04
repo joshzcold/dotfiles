@@ -109,6 +109,7 @@ snippet post "Jenkins file post condition"
 	}
 
 snippet pipeline "Default Declarative Jenkins Pipeline"
+	@Library("jenkins-library") _
 	pipeline {
 		parameters{
 			string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
@@ -117,13 +118,13 @@ snippet pipeline "Default Declarative Jenkins Pipeline"
 				// choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
 				// password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
 		}
-		agent {label 'dops-worker'}
+		agent {label 'devops'}
 		stages {
 			stage('setup') {
 				steps {
 					git branch: 'master',
-							credentialsId: 'github-app-aa',
-							url: 'URL'
+							credentialsId: secrets.GIT_CRED,
+							url: 'ssh://git@bitbucket.secmet.co:7999/in/master.inventory.git'
 				}
 			}
 			stage('${1:execute}') {

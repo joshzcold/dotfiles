@@ -6,12 +6,9 @@ snippet args "argparse snippet string and boolean with defaults"
 	parser.set_defaults(dryrun=False, delete=False)
 
 	args = parser.parse_args()
-endsnippet
 	
 snippet arg_string "argparse string"
 	parser.add_argument('--$1', metavar='$2', type=str, help='$3')
-endsnippet
 
 snippet arg_bool "argparse boolean"
 	parser.add_argument('--$1', metavar='$2', action='store_true',  help='$3')
-endsnippet
