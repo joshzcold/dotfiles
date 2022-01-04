@@ -1,0 +1,17 @@
+
+snippet args "argparse snippet string and boolean with defaults"
+	parser = argparse.ArgumentParser(description='Tag repos in a project')
+	parser.add_argument('--project', metavar='p', type=str, help='bitbucket project/team')
+	parser.add_argument('--dryrun', action='store_true',  help='skip commiting the new tag')
+	parser.set_defaults(dryrun=False, delete=False)
+
+	args = parser.parse_args()
+endsnippet
+	
+snippet arg_string "argparse string"
+	parser.add_argument('--$1', metavar='$2', type=str, help='$3')
+endsnippet
+
+snippet arg_bool "argparse boolean"
+	parser.add_argument('--$1', metavar='$2', action='store_true',  help='$3')
+endsnippet

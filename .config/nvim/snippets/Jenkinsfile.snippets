@@ -1,0 +1,149 @@
+snippet /**/ groovy block comment
+	/*
+	 * $1
+	 */
+
+
+snippet @Library_ "Jenkins library statement" 
+	@Library('${1:jenkins-library}') _
+
+snippet triggercron "Jenkins trigger on cron" 
+	triggers{
+		// daily at 12 pm
+		cron('0 12 * * *')
+	}
+
+snippet optionsstack "Jenkins generic options" 
+	options{
+		// buildDiscarder(logRotator(numToKeepStr: '10')) }
+		// disableConcurrentBuilds()
+		// retry(3) 
+		// skipDefaultCheckout()
+		// skipStagesAfterUnstable()
+		// timeout(time: 1, unit: 'HOURS')
+		// timestamps()
+	}
+
+snippet withCredentials "Jenkins with credentials" 
+	withCredentials([
+			// sshUserPrivateKey(credentialsId: '', keyFileVariable: '', passphraseVariable: '', usernameVariable: ''),
+			// file(credentialsId: '', variable: ''), [$class: 'ZipFileBinding', credentialsId: '', variable: ''],
+			// string(credentialsId: '', variable: ''),
+			// usernamePassword(credentialsId: '', passwordVariable: '', usernameVariable: '')
+	]) {
+		// some block
+	}
+
+snippet dir "jenkins work into directory" 
+	dir("${1:newDir}"{
+
+	}
+
+snippet sh-multiline "multi line shell command in jenkins" 
+	sh"""
+		${1:echo 'Hello World!'}
+	"""
+
+snippet sh-returnStdout "multiline shell that returns std out to variable" 
+	def ${1:myVar} = sh(script: """
+
+	""", returnStdout: true).trim()
+
+snippet currentBuild.description "jenkins change job description"
+	currentBuild.description = $1
+
+snippet currentBuild.displayName "jenkins change job name"
+	currentBuild.displayName = $1
+
+snippet buildJob "jenkins build child job"
+	build job: "${1:folder/job}",
+		parameters: [
+			// string(name: 'parameter', value: ''),
+			// booleanParam(name: 'parameter', value: true),
+			// choice(name: 'parameter', value: ''),
+			// text(name: 'parameter', value: ''),
+		]
+
+snippet git "git clone function"
+	git branch: "${1:master}" url: "${2}",
+		credentialsId: "${3}"
+
+snippet input "Jenkins pause for Input" 
+	input( message: "$1" )
+
+snippet stage "Jenkins Stage Template" 
+	stage('${1:Stage}') {
+		steps {
+			script{
+				${2:Put Executions Here}
+			}
+		}
+	}
+
+snippet choice "Jenkins Choice parameter" 
+	choice(name: '${1}', choices: ['${2:Choice1}', '${3:Choice2}'], description: '${4}')
+
+snippet booleanParam "Jenkins Boolean parameter" 
+	booleanParam(name: '${1}', defaultValue: true, description: '${2}')
+
+snippet string "Jenkins string parameter" 
+	string(name: '${1}', defaultValue: '${2}', description: '${3}')
+
+snippet text "Jenkins text parameter" 
+	text(name: '${1}', defaultValue: '${2}', description: '${3}')
+
+snippet post "Jenkins file post condition" 
+	post {
+		always{
+		}
+		aborted{
+		}
+		failure{
+		}
+		success{
+		}
+		unstable{
+		}
+		cleanup{
+		}
+	}
+
+snippet pipeline "Default Declarative Jenkins Pipeline"
+	pipeline {
+		parameters{
+			string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+				// text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
+				// booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
+				// choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
+				// password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
+		}
+		agent {label 'dops-worker'}
+		stages {
+			stage('setup') {
+				steps {
+					git branch: 'master',
+							credentialsId: 'github-app-aa',
+							url: 'URL'
+				}
+			}
+			stage('${1:execute}') {
+				steps {
+
+				}
+			}
+		}
+		post {
+			aborted {
+
+			}
+			success {
+
+			}
+			failure {
+
+			}
+			unstable{
+
+			}
+		}
+	}

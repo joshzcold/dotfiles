@@ -1,0 +1,10 @@
+snippet debug "Ansible debug print statement"
+	- name: Print Variables
+		ansible.builtin.debug:
+		msg: "${1:variable}: {{ $1 }}"
+endsnippet
+
+snippet var "ansible string with variable"
+	"{{ ${1:var} }}"  
+endsnippet
+	
