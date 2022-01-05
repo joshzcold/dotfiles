@@ -42,9 +42,8 @@ cmp.setup({
     end,
   },
   sources = cmp.config.sources({
-    { name = "nvim_lsp" },
-    -- { name = "ultisnips" }, -- For ultisnips users.
     { name = "luasnip" },
+    { name = "nvim_lsp" },
     {
       name = "buffer",
       options = {
@@ -82,7 +81,7 @@ autocmd FileType Jenkinsfile lua require'cmp'.setup.buffer {
   \             end
   \         }
   \     },
-  \     { name = 'ultisnips' },
+  \     { name = 'luasnip' },
   \     {
   \       name = "rg",
   \       option = {

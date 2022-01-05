@@ -30,8 +30,7 @@ map("t", "<c-n>", "<C-\\><C-n>")
 
 -- don't populate registers on paste
 -- visual select pasted text if in visual mode
-map("x", "p", '"_dp `[v`]')
-map("x", "P", '"_dP `[v`]')
+map("x", "p", '"_d[p `[v`]')
 
 --Switch quickfix with alt
 map("n", "<A-j>", ":cnext<cr>")

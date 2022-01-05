@@ -194,6 +194,10 @@ wk.register({
       [[<cmd>call GitPush()<cr>]],
       "Git Sync",
     },
+    u = {
+      [[<cmd>Git pull<cr>]],
+      "Git Pull",
+    },
     d = {
       [[<cmd>Gdiffsplit!<cr>]],
       "Git Diff Split",
