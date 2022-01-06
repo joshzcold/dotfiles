@@ -98,3 +98,5 @@ hq-ref-phv-apphost-5 10.105.23.14
 keeper password manager security metrics https://keepersecurity.com/vault/#
 chrome remote desktop https://remotedesktop.google.com/access
 google calendar https://calendar.google.com/calendar/u/1/r?pli=1
+dev kibana logs https://hq-dev-v-logs
+prod logs https://dk-prod1-v-logs-proxy.secmet.co
