@@ -101,7 +101,7 @@ require("packer").startup({
     })
     use({ "https://github.com/windwp/nvim-ts-autotag", config = get_setup("nvim-ts-autotag") })
     use({ "norcalli/nvim-colorizer.lua", config = get_setup("colorizer") })
-    use({ "/glepnir/dashboard-nvim", config = get_setup("dashboard") })
+    -- use({ "/glepnir/dashboard-nvim", config = get_setup("dashboard") })
     use({ "/Mofiqul/vscode.nvim", config = get_setup("theme") }) -- vscode like theme
     use({ "marko-cerovac/material.nvim", config = get_setup("theme") })
     use({ "https://github.com/lambdalisue/suda.vim" })
