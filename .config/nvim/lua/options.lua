@@ -4,7 +4,6 @@ opt.termguicolors = true
 
 opt.encoding = "utf-8"
 --Incremental live completion
-opt.inccommand = "nosplit"
 opt.backspace = { "indent", "eol", "start" }
 opt.clipboard = "unnamedplus"
 opt.completeopt = "menu,menuone,noselect"
