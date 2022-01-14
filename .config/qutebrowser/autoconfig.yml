@@ -48,6 +48,8 @@ settings:
     https://www.lowes.com: true
   content.javascript.can_access_clipboard:
     global: true
+  content.javascript.enabled:
+    '*://10.155.0.99/*': true
   content.media.audio_capture:
     https://meet.google.com: true
     https://online-voice-recorder.com: true
@@ -56,6 +58,7 @@ settings:
     https://us04web.zoom.us: true
     https://voice.google.com: true
     https://www.facebook.com: true
+    https://www.onlinemictest.com: true
   content.media.audio_video_capture:
     https://meet.google.com: true
     https://teams.microsoft.com: true
