@@ -78,7 +78,9 @@ local wk = require("which-key")
 
 wk.register({
   [" "] = {
-    '<cmd>lua require"telescope.builtin".find_files({ })<cr>',
+    function()
+      require("telescope.builtin").find_files({})
+    end,
     "Find File",
   },
   f = {
@@ -140,7 +142,11 @@ wk.register({
   ["/"] = {
     name = "search",
     ["/"] = {
-      [[<cmd>lua require('telescope.builtin').live_grep{only_sort_text = true}<CR>]],
+      function()
+        require("telescope.builtin").live_grep({
+          only_sort_text = true,
+        })
+      end,
       "Grep Directory",
     },
     e = {
@@ -207,7 +213,12 @@ wk.register({
       "Git commits",
     },
     b = {
-      [[<cmd>Telescope git_bcommits<cr>]],
+      function()
+        local result = require("telescope.builtin").git_bcommits({
+          prompt_title = "switch to commit on this buffer",
+        })
+        print(result)
+      end,
       "Git commits buffer",
     },
   },
