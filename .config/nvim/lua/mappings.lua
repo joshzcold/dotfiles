@@ -50,8 +50,9 @@ map("n", "Q", "@q") -- no EX mode, execute q macro
 -- keep selection on indenting lines
 map("v", ">", ">gv")
 map("v", "<", "<gv")
-map("v", "f", ":HopChar1<cr>")
-map("n", "f", ":HopChar1<cr>")
+map("x", "F", "<cmd>HopLine<cr>")
+map("x", "f", "<cmd>HopChar1<cr>")
+map("n", "f", "<cmd>HopChar1<cr>")
 
 map("n", "Y", "y$") -- Y yank until the end of line
 map("n", "vv", "vg_") -- vv visual to end of characters
