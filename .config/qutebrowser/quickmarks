@@ -103,3 +103,4 @@ prod logs https://dk-prod1-v-logs-proxy.secmet.co
 dk1 prometheus http://dk-prod1-v-prometheus:9090/alerts
 hq prometheus http://hq-prod1-v-prometheus:9090/alerts
 dk2 prometheus http://dk-prod2-v-prometheus:9090/alerts
+current prod site securitymetrics https://www.securitymetrics.com/api/v2/scheduler/vitals
