@@ -1,0 +1,2 @@
+SSH_ASKPASS=ksshaskpass
+export SSH_ASKPASS
