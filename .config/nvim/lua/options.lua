@@ -12,6 +12,7 @@ opt.hlsearch = false
 opt.swapfile = false
 opt.backup = false
 opt.writebackup = false
+opt.inccommand = "split"
 
 --Make line numbers default
 opt.relativenumber = true
