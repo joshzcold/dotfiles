@@ -259,7 +259,7 @@ bindkey -M vicmd 'V' edit-command-line
 setopt noflowcontrol
 
 bindkey -s '^x' 'fast_ssh^M'
-
+bindkey -s '^v' 'vault-list^M'
 zle -N cgit
 bindkey '^S' cgit
 

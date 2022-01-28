@@ -3,37 +3,59 @@
 # Recursive function that will
 # - List all the secrets in the given $path
 # - Call itself for all path values in the given $path
+
+CACHE_FILE="$HOME/.cache/vault_names"
+
+touch "$CACHE_FILE"
+if ! vault print token >/dev/null; then
+	vault login
+fi
+
 function traverse {
-    local readonly path="$1"
+	local readonly path="$1"
 
-    result=$(vault kv list -format=json $path 2>&1)
+	result=$(vault kv list -format=json $path 2>&1)
 
-    status=$?
-    if [ ! $status -eq 0 ];
-    then
-        if [[ $result =~ "permission denied" ]]; then
-            return
-        fi
-        >&2 echo "$result"
-    fi
+	status=$?
+	if [ ! $status -eq 0 ]; then
+		if [[ $result =~ "permission denied" ]]; then
+			return
+		fi
+		echo >&2 "$result"
+	fi
 
-    for secret in $(echo "$result" | jq -r '.[]'); do
-        if [[ "$secret" == */ ]]; then
-            traverse "$path$secret"
-        else
-            echo "$path$secret"
-        fi
-    done
+	for secret in $(echo "$result" | jq -r '.[]'); do
+		if [[ "$secret" == */ ]]; then
+			traverse "$path$secret" &
+		else
+			if [[ "$path" =~ ^admin* ]]; then
+				path="admin/data/"
+			fi
+			grep -qxF "$path$secret" "${CACHE_FILE}" || echo "$path$secret" >>"${CACHE_FILE}"
+		fi
+	done
 }
 
 # Iterate on all kv engines or start from the path provided by the user
 if [[ "$1" ]]; then
-    # Make sure the path always end with '/'
-    vaults=("${1%"/"}/")
+	# Make sure the path always end with '/'
+	vaults=("${1%"/"}/")
 else
-    vaults=$(vault secrets list -format=json | jq -r 'to_entries[] | select(.value.type =="kv") | .key')
+	vaults=$(vault secrets list -format=json | jq -r 'to_entries[] | select(.value.type =="kv") | .key')
 fi
 
 for vault in $vaults; do
-    traverse $vault
+	traverse $vault &
 done
+
+if [[ -f "${CACHE_FILE}" ]]; then
+	COMMAND="cat $CACHE_FILE"
+	selection=$(eval "$COMMAND" | fzf --bind "change:reload:$COMMAND {q} || true")
+	jq_command='.data | to_entries[] | "\(.key) --->\n \(.value)\n"'
+	json=$(curl --insecure -s -H "X-Vault-Token: $(vault print token)" "https://vault.secmet.co:8200/v1/${selection}")
+	if echo "$json" | jq -e '.data.data' >/dev/null; then
+		echo "$json" | jq -r ".data$jq_command"
+	else
+		echo "$json" | jq -r "$jq_command"
+	fi
+fi
