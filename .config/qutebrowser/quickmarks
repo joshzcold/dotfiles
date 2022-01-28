@@ -53,8 +53,9 @@ jenkins examples https://www.jenkins.io/doc/pipeline/examples/
 jenkins gdsl https://10.29.158.99/job/Theater/pipeline-syntax/gdsl
 jenkins configuration as code docs https://hq-devops-v-jenkins-master.secmet.co/configuration-as-code/reference
 jenkins dk-prod1 jenkins https://dk-prod1-v-jenkins.secmet.co/
-jenkins devops jenkins https://hq-devops-v-jenkins-master.secmet.co
-jenkins build jenkins https://jenkins.secmet.co
+jenkins devops jenkins-devops.secmet.co
+jenkins prod jenkins-prod.secmet.co
+jenkins build https://jenkins.secmet.co
 jenkins pipeline utility steps https://www.jenkins.io/doc/pipeline/steps/pipeline-utility-steps/#readjson-read-json-from-files-in-the-workspace
 jenkins dev jenkins https://hq-dev-v-jenkins.secmet.co/
 heroku dashboard https://id.heroku.com/login
@@ -104,3 +105,4 @@ dk1 prometheus http://dk-prod1-v-prometheus:9090/alerts
 hq prometheus http://hq-prod1-v-prometheus:9090/alerts
 dk2 prometheus http://dk-prod2-v-prometheus:9090/alerts
 current prod site securitymetrics https://www.securitymetrics.com/api/v2/scheduler/vitals
+securitymetrics dental benefits https://www.principal.com/

@@ -16,6 +16,8 @@ end
 
 vim.cmd([[
 au BufRead *.groovy if search('pipeline', 'nw') | set ft=Jenkinsfile | setlocal indentexpr=GetJavascriptIndent()  | endif
+au BufRead *.yml,*.yaml if search('- name:', 'nw') | set ft=yaml.ansible  | endif
+au BufRead *.yml,*.yaml if search('hosts:', 'nw') | set ft=yaml.ansible  | endif
 au BufRead *.groovy  setlocal indentexpr=GetJavascriptIndent()
 ]])
 

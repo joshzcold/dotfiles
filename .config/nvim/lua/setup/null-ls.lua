@@ -24,10 +24,14 @@ local lSsources = {
   }),
   null_ls.builtins.formatting.nginx_beautifier,
   null_ls.builtins.formatting.shfmt,
+  null_ls.builtins.diagnostics.ansiblelint.with({
+    filetypes = { "yaml.ansible" },
+    args = { "-f", "codeclimate", "-q", "--exclude", ".roles", "--nocolor", "$FILENAME" },
+  }),
 }
 require("null-ls").setup({
-  sources = lSsources,
+  sources = lSsources
 })
 -- the duration in there is to stop timeouts on massive files
-vim.cmd("autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync(nil, 7500)")
+-- vim.cmd("autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync(nil, 7500)")
 vim.o.updatetime = 250

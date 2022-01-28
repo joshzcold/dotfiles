@@ -60,7 +60,7 @@ require("packer").startup({
         "nvim-treesitter/nvim-treesitter-textobjects",
       },
     })
-    use({ "neovim/nvim-lspconfig" }) -- Collection of configurations for built-in LSP client
+    use({ "neovim/nvim-lspconfig", config=get_setup("lspconfig") }) -- Collection of configurations for built-in LSP client
     use({ "https://github.com/williamboman/nvim-lsp-installer", config = get_setup("lspconfig") })
     use({ "L3MON4D3/LuaSnip", config = get_setup("luasnip") })
     use({

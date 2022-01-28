@@ -119,6 +119,12 @@ wk.register({
       [[<cmd>call JenkinsLint()<cr>]],
       "Jenkins Lint",
     },
+    f = {
+      function()
+        vim.lsp.buf.formatting_seq_sync(nil, 7500)
+      end,
+      "format lsp"
+    },
     u = {
       [[<cmd>MundoToggle<cr>]],
       "Undo Tree",

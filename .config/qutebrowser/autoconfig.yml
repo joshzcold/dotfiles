@@ -18,6 +18,7 @@ settings:
   bindings.commands:
     global:
       normal:
+        ',m': spawn mpv {url}
         <Ctrl+b>: bbpull
         <Ctrl+i>: tab-focus stack-next
         <Ctrl+o>: tab-focus stack-prev
