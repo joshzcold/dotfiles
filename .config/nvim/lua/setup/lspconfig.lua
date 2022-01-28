@@ -3,56 +3,19 @@ local nvim_lsp = require("lspconfig")
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  print("LSP Attached...")
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   -- Mappings.
-  vim.keymap.set("n", "gD", function()
-    vim.lsp.buf.declaration()
-  end)
-  vim.keymap.set("n", "gd", function()
-    vim.lsp.buf.definition()
-  end)
-  vim.keymap.set("n", "K", function()
-    vim.lsp.buf.hover()
-  end)
-  vim.keymap.set("n", "gi", function()
-    vim.lsp.buf.implementation()
-  end)
-  vim.keymap.set("n", "<leader>lsh", function()
-    vim.lsp.buf.signature_help()
-  end)
-  vim.keymap.set("n", "<leader>lD", function()
-    vim.lsp.buf.type_definition()
-  end)
-  vim.keymap.set("n", "<leader>lr", function()
-    vim.lsp.buf.rename()
-  end)
-  vim.keymap.set("n", "gr", function()
-    vim.lsp.buf.references()
-  end)
-  vim.keymap.set("n", "<leader>e", function()
-    vim.lsp.diagnostic.show_line_diagnostics()
-  end)
-  vim.keymap.set("n", "[d", function()
-    vim.lsp.diagnostic.goto_prev()
-  end)
-  vim.keymap.set("n", "]d", function()
-    vim.lsp.diagnostic.goto_next()
-  end)
-  vim.keymap.set("n", "<leader>lq", function()
-    vim.lsp.diagnostic.set_loclist()
-  end)
-
-  -- Set some keybinds conditional on server capabilities
-  if client.resolved_capabilities.document_formatting then
-    vim.keymap.set("n", "<leader>lf", function()
-      vim.lsp.buf.formatting()
-    end)
-  elseif client.resolved_capabilities.document_range_formatting then
-    vim.keymap.set("n", "<space>lf", function()
-      vim.lsp.buf.range_formatting()
-    end)
-  end
+  vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>")
+  vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>")
+  vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>")
+  vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>")
+  vim.keymap.set("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<cr>")
+  vim.keymap.set("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>")
+  vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>")
+  vim.keymap.set("n", "<leader>e", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>")
+  vim.keymap.set("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>")
+  vim.keymap.set("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>")
+  vim.keymap.set("n", "<leader>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>")
 end
 
 local lsp_installer = require("nvim-lsp-installer")
@@ -63,7 +26,7 @@ local servers = {
   "pyright",
   "groovyls",
   "tailwindcss",
-  -- "ansiblels",
+  "ansiblels",
   "sumneko_lua",
   "tsserver",
 }
