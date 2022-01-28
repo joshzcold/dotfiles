@@ -60,7 +60,7 @@ require("packer").startup({
         "nvim-treesitter/nvim-treesitter-textobjects",
       },
     })
-    use({ "neovim/nvim-lspconfig", config=get_setup("lspconfig") }) -- Collection of configurations for built-in LSP client
+    use({ "neovim/nvim-lspconfig", config = get_setup("lspconfig") }) -- Collection of configurations for built-in LSP client
     use({ "https://github.com/williamboman/nvim-lsp-installer", config = get_setup("lspconfig") })
     use({ "L3MON4D3/LuaSnip", config = get_setup("luasnip") })
     use({
@@ -108,7 +108,16 @@ require("packer").startup({
     use({
       "hoob3rt/lualine.nvim",
       config = get_setup("lualine"),
-      requires = { "kyazdani42/nvim-web-devicons", opt = true },
+      requires = {
+        { "kyazdani42/nvim-web-devicons", opt = true },
+      },
+    })
+    use({
+      "anuvyklack/pretty-fold.nvim",
+      config = function()
+        require("pretty-fold").setup({})
+        require("pretty-fold.preview").setup()
+      end,
     })
     use({ "phaazon/hop.nvim", config = get_setup("hop") })
     use({
@@ -118,6 +127,7 @@ require("packer").startup({
     -- use ({'mhartington/formatter.nvim', config = get_setup("formatter")})
     use("https://github.com/nvim-lua/lsp-status.nvim")
     use("https://github.com/glepnir/lspsaga.nvim")
+    use("arkav/lualine-lsp-progress")
     use({ "https://github.com/jbyuki/venn.nvim", config = get_setup("venn") })
     use({
       "jose-elias-alvarez/null-ls.nvim",

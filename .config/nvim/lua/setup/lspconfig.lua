@@ -12,10 +12,12 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<cr>")
   vim.keymap.set("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>")
   vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>")
-  vim.keymap.set("n", "<leader>e", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>")
+  vim.keymap.set("n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<cr>")
   vim.keymap.set("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>")
   vim.keymap.set("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>")
   vim.keymap.set("n", "<leader>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>")
+  vim.keymap.set("n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<cr>")
+  vim.keymap.set("n", "<leader>=", "<cmd>lua vim.lsp.buf.formatting()<cr>")
 end
 
 local lsp_installer = require("nvim-lsp-installer")
@@ -125,3 +127,5 @@ lsp_installer.on_server_ready(function(server)
 
   server:setup_lsp(opts)
 end)
+
+

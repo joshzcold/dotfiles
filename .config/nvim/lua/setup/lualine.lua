@@ -1,3 +1,13 @@
+-- User Functions
+local function GetRepoName()
+  local handle = io.popen([[basename -s .git $(git config --get remote.origin.url)|| true]])
+  local result = handle:read("*a")
+  if result then
+    return result.gsub(result, "%s+", "")
+  end
+  handle:close()
+end
+
 require("lualine").setup({
   options = {
     icons_enabled = true,
@@ -9,11 +19,17 @@ require("lualine").setup({
   sections = {
     lualine_a = { "mode", "paste" },
     lualine_b = { GetRepoName, "branch", "diff" },
+
     lualine_c = {
-      { "filename", file_status = true, full_path = true },
-      require("lsp-status").status,
+      "filename",
+      "lsp_progress",
     },
-    lualine_x = { "filetype" },
+    lualine_x = {
+      "filetype",
+      function()
+        return require("lsp-status").status()
+      end,
+    },
     lualine_y = {
       {
         "progress",

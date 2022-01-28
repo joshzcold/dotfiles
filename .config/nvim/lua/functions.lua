@@ -1,12 +1,3 @@
--- User Functions
-function GetRepoName()
-  local handle = io.popen([[git config --get remote.origin.url | sed 's/.*\/\([^ ]*\/[^.]*\).*/\1/' || true]])
-  local result = handle:read("*a")
-  if result then
-    return result.gsub(result, "%s+", "")
-  end
-  handle:close()
-end
 
 function _G.Increment()
   local col = vim.api.nvim_win_get_cursor(0)[2]
@@ -16,8 +7,7 @@ end
 
 vim.cmd([[
 au BufRead *.groovy if search('pipeline', 'nw') | set ft=Jenkinsfile | setlocal indentexpr=GetJavascriptIndent()  | endif
-au BufRead *.yml,*.yaml if search('- name:', 'nw') | set ft=yaml.ansible  | endif
-au BufRead *.yml,*.yaml if search('hosts:', 'nw') | set ft=yaml.ansible  | endif
+au BufRead,BufNewFile */playbooks/*.yml set filetype=yaml.ansible
 au BufRead *.groovy  setlocal indentexpr=GetJavascriptIndent()
 ]])
 
