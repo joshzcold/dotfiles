@@ -7,9 +7,7 @@
 CACHE_FILE="$HOME/.cache/vault_names"
 
 touch "$CACHE_FILE"
-if ! vault print token >/dev/null; then
-	vault login
-fi
+[ -z "$(vault print token)" ] && vault login
 
 function traverse {
 	local readonly path="$1"
