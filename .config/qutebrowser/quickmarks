@@ -104,3 +104,9 @@ dk1 prometheus http://dk-prod1-v-prometheus:9090/alerts
 hq prometheus http://hq-prod1-v-prometheus:9090/alerts
 dk2 prometheus http://dk-prod2-v-prometheus:9090/alerts
 current prod site securitymetrics https://www.securitymetrics.com/api/v2/scheduler/vitals
+dk1 docker visualizer https://dk-prod1-v-logs-proxy.secmet.co/visualizer/
+dk2 docker visualizer https://dk-prod2-v-logs-proxy.secmet.co/visualizer/
+hq docker visualizer https://hq-prod1-v-logs-proxy.secmet.co/visualizer/
+dk1 elastic kibana https://dk-prod1-v-logs-proxy.secmet.co/app/home#/
+dk2 elastic kibana https://dk-prod2-v-logs-proxy.secmet.co/app/home#/
+hq elastic kibana https://hq-prod1-v-logs-proxy.secmet.co/app/home#/
