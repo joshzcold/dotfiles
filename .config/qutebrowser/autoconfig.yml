@@ -52,6 +52,7 @@ settings:
   content.javascript.enabled:
     '*://10.155.0.99/*': true
   content.media.audio_capture:
+    https://discord.com: true
     https://meet.google.com: true
     https://online-voice-recorder.com: true
     https://teams.microsoft.com: true
