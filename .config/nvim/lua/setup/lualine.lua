@@ -22,7 +22,6 @@ require("lualine").setup({
 
     lualine_c = {
       "filename",
-      "lsp_progress",
     },
     lualine_x = {
       "filetype",
