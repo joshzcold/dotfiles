@@ -3,6 +3,12 @@ vim.g.vscode_style = "dark"
 vim.cmd([[colorscheme vscode ]])
 
 vim.cmd([[highlight Comment cterm=italic gui=italic]])
+vim.cmd([[
+  hi SpellBad gui=underline guisp=#325905 guibg=NONE guifg=NONE
+  hi SpellCap gui=underline guisp=#000c7a guibg=NONE guifg=NONE
+  hi SpellRare gui=underline guisp=#000c7a guibg=NONE guifg=NONE
+  hi SpellLocal gui=underline guisp=#6c007a guibg=NONE guifg=NONE
+]])
 
 -- highlighting tweaks
 vim.cmd([[

@@ -1,7 +1,6 @@
 local opt = vim.opt -- to set options
 
 opt.termguicolors = true
-
 opt.encoding = "utf-8"
 --Incremental live completion
 opt.backspace = { "indent", "eol", "start" }
@@ -67,6 +66,8 @@ opt.cc = "120"
 opt.mouse = "a"
 opt.guicursor =
 "n-v-c-sm:block-blinkwait50-blinkon50-blinkoff50,i-ci-ve:ver25-Cursor-blinkon100-blinkoff100,r-cr-o:hor20"
+
+opt.spell = true
 
 vim.cmd("au TextYankPost * lua vim.highlight.on_yank {on_visual = true}") -- disabled in visual mode
 

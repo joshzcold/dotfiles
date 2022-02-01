@@ -125,8 +125,15 @@ require("packer").startup({
       "https://github.com/windwp/nvim-autopairs",
       config = get_setup("autopairs"),
     })
-    -- use ({'mhartington/formatter.nvim', config = get_setup("formatter")})
     use("https://github.com/nvim-lua/lsp-status.nvim")
+    use({
+      "https://github.com/inkarkat/vim-SpellCheck",
+      requires = {
+        {
+          "inkarkat/vim-ingo-library",
+        },
+      },
+    })
     use({
       "danymat/neogen",
       config = function()

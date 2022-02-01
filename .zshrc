@@ -40,7 +40,7 @@ export FZF_DEFAULT_COMMAND='rg --files'
 export PYTHONWARNINGS="ignore:Unverified HTTPS request"
 export PYTHONBREAKPOINT="pudb.set_trace"
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
-export TERM=xterm
+export TERM=xterm-kitty
 
 
 # Path updates
