@@ -127,6 +127,13 @@ function ascii(){
   figlet -f $file ${*:-Moo}
 }
 
+function yu(){
+  yadm pull
+  yadm add -u
+  yadm commit -m "update yadm $(date) from $(hostname)"
+  yadm push
+}
+
 function searchGit(){
   cgit
   INITIAL_QUERY=""
