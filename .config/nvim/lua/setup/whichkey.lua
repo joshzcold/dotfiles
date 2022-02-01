@@ -264,7 +264,11 @@ wk.register({
   z = {
     g = {
       [[<cmd> SpellCheck | cdo norm zg <cr>]],
-      "add all spelling mistakes to dictionary"
+      "Add all spelling mistakes to dictionary"
+    },
+    s = {
+      [[<cmd>SpellCheck<cr>]],
+      "Start spell checking"
     }
   }
 }, { prefix = "<leader>" })
