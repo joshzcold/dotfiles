@@ -130,7 +130,7 @@ function ascii(){
 function yu(){
   yadm pull
   yadm add -u
-  yadm commit -m "update yadm $(date) from $(hostname)"
+  yadm commit -m "update dotfiles from $(hostname)"
   yadm push
 }
 
