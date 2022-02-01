@@ -103,7 +103,7 @@ require("packer").startup({
     use({ "norcalli/nvim-colorizer.lua", config = get_setup("colorizer") })
     -- use({ "/glepnir/dashboard-nvim", config = get_setup("dashboard") })
     use({ "Mofiqul/vscode.nvim", config = get_setup("theme") }) -- vscode like theme
-    use({"folke/tokyonight.nvim", config = get_setup("theme")})
+    use({ "folke/tokyonight.nvim", config = get_setup("theme") })
     -- use({ "marko-cerovac/material.nvim", config = get_setup("theme") })
     use({ "https://github.com/lambdalisue/suda.vim" })
     use({
@@ -127,8 +127,21 @@ require("packer").startup({
     })
     -- use ({'mhartington/formatter.nvim', config = get_setup("formatter")})
     use("https://github.com/nvim-lua/lsp-status.nvim")
+    use({
+      "danymat/neogen",
+      config = function()
+        require("neogen").setup({
+          enabled = true,
+        })
+      end,
+    })
     use("https://github.com/glepnir/lspsaga.nvim")
-    use({'j-hui/fidget.nvim', config = function() require('fidget').setup({ window = { winblend = 0 }}) end})
+    use({
+      "j-hui/fidget.nvim",
+      config = function()
+        require("fidget").setup({ window = { winblend = 0 } })
+      end,
+    })
     use({ "https://github.com/jbyuki/venn.nvim", config = get_setup("venn") })
     use({
       "jose-elias-alvarez/null-ls.nvim",

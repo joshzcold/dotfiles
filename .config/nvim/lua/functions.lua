@@ -1,4 +1,5 @@
 
+
 function _G.Increment()
   local col = vim.api.nvim_win_get_cursor(0)[2]
   local result = vim.api.nvim_get_current_line()
