@@ -25,7 +25,6 @@ local lsp_installer = require("nvim-lsp-installer")
 -- auto install list of servers
 local servers = {
   "bashls",
-  "pyright",
   "groovyls",
   "tailwindcss",
   "ansiblels",
