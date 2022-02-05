@@ -212,6 +212,10 @@ wk.register({
       [[<cmd>Telescope git_commits<cr>]],
       "Git commits",
     },
+    y = {
+      [[<cmd>lua require"gitlinker".get_buf_range_url('n')<cr>]],
+      "Create git link"
+    },
     b = {
       function()
         local result = require("telescope.builtin").git_bcommits({

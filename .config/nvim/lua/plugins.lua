@@ -142,6 +142,10 @@ require("packer").startup({
         })
       end,
     })
+    use({
+      "ruifm/gitlinker.nvim",
+      config = get_setup("gitlinker")
+    })
     use("https://github.com/glepnir/lspsaga.nvim")
     use({
       "j-hui/fidget.nvim",
