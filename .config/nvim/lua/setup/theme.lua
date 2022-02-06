@@ -1,26 +1,26 @@
 vim.g.vscode_style = "dark"
+vim.g.vscode_italic_comment = 1
+vim.g.vscode_transparent = 1
 
 vim.cmd([[colorscheme vscode ]])
 
-vim.cmd([[highlight Comment cterm=italic gui=italic]])
-vim.cmd([[
-  hi SpellBad gui=underline guisp=#325905 guibg=NONE guifg=NONE
-  hi SpellCap gui=underline guisp=#000c7a guibg=NONE guifg=NONE
-  hi SpellRare gui=underline guisp=#000c7a guibg=NONE guifg=NONE
-  hi SpellLocal gui=underline guisp=#6c007a guibg=NONE guifg=NONE
-]])
+-- highlighting tweaks fdjsklfds
+vim.api.nvim_set_hl(0, "SpellBad", { sp = "#325905", underline = true })
+vim.api.nvim_set_hl(0, "SpellCap", { sp = "#000c7a", underline = true })
+vim.api.nvim_set_hl(0, "SpellRare", { sp = "#000c7a", underline = true })
+vim.api.nvim_set_hl(0, "SpellLocal", { sp = "#6c007a", underline = true })
 
--- highlighting tweaks
-vim.cmd([[
-hi DiffAdd ctermfg=none guifg=#007504 guibg=none ctermbg=none
-hi DiffChange ctermfg=none guifg=#a37500 guibg=none ctermbg=none
-hi DiffDelete ctermfg=none guifg=#7a0000 guibg=none ctermbg=none
-autocmd vimenter * hi Normal guibg=#202020
-autocmd vimenter * hi SignColumn guibg=NONE ctermbg=NONE
-autocmd vimenter * hi LineNr guibg=NONE ctermbg=NONE
+vim.api.nvim_set_hl(0, "Search", { reverse=true })
 
+vim.api.nvim_set_hl(0, "DiffAdd", { bg = "NONE", fg = "#007504" })
+vim.api.nvim_set_hl(0, "DiffChange", { bg = "NONE", fg = "#a37500" })
+vim.api.nvim_set_hl(0, "DiffDelete", { bg = "NONE", fg = "#7a0000" })
+vim.api.nvim_set_hl(0, "Normal", { bg = "#202020", fg = "NONE" })
+vim.api.nvim_set_hl(0, "SignColumn", { bg = "NONE", fg = "NONE" })
+vim.api.nvim_set_hl(0, "LineNr", { bg = "NONE", fg = "NONE" })
+
+vim.cmd([[
 au BufRead,BufNewFile *.groovy set filetype=Jenkinsfile
-
 autocmd FileType groovy setlocal commentstring=//\ %s
 autocmd FileType Jenkinsfile setlocal commentstring=//\ %s
 ]])

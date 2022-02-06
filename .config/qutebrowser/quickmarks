@@ -112,3 +112,4 @@ hq docker visualizer https://hq-prod1-v-logs-proxy.secmet.co/visualizer/
 dk1 elastic kibana https://dk-prod1-v-logs-proxy.secmet.co/app/home#/
 dk2 elastic kibana https://dk-prod2-v-logs-proxy.secmet.co/app/home#/
 hq elastic kibana https://hq-prod1-v-logs-proxy.secmet.co/app/home#/
+securitymetrics payroll https://payroll.paylogics.com/payday-benefits

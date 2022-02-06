@@ -15,6 +15,7 @@ opt.inccommand = "split"
 
 --Make line numbers default
 opt.relativenumber = true
+opt.hlsearch = true
 
 --Do not save when switching buffers
 opt.hidden = true
