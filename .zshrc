@@ -223,9 +223,20 @@ function cgit(){
   return $ret
 }
 
+# Best freaking function to select multiple ssh hosts
+# and start a kitty term with ssh to each
 function fast_ssh(){
-  host=$(cat /etc/hosts | fzf | awk '{print $2}'| tr -d '[:space:]')
-  TERM=xterm ssh $host </dev/tty
+  hosts=("${(@f)$(cat /etc/hosts | fzf -m | awk '{print $2}')}")
+  pos=$(( ${#hosts[*]} ))
+  last=${hosts[$pos]}
+
+  for host in "${hosts[@]}"; do
+    if [[ $host == $last ]]; then
+      TERM=xterm ssh $host </dev/tty
+    else
+      kitty zsh -c "TERM=xterm ssh $host </dev/tty" &
+    fi
+  done
 }
 
 function kre(){
