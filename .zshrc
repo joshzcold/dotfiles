@@ -194,15 +194,15 @@ function pass(){
 }
 
 function vgit(){
- found_path=$(readlink -f $(sudo find ~/git \
+ found_path=$(readlink -f $(find ~/git \
    -not -path '*/\.*' \
    -not -path '*/\node_modules*' \
    -not -path '*/\target*' \
    -not -path '*/\build*' \
    -not -path '*/\bin*' \
    -not -path '*/\root*' \
-   -type f  -prune | fzf))
- [ ! -z $found_path ] && nvim $found_path
+   -type f  -prune | fzf -m))
+    [ ! -z $found_path ] && nvim $(echo "$found_path" | tr "\n" " ")
 }
 
 function cgit(){
