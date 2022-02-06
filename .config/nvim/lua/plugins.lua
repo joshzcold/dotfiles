@@ -29,6 +29,7 @@ end
 require("packer").startup({
   function(use)
     use("wbthomason/packer.nvim") -- Package manager
+    use({ "folke/which-key.nvim", config = get_setup("whichkey") }) -- which-key mappings in lua/mappings.lua
     use({ "tpope/vim-fugitive", config = get_setup("fugitive") }) -- Git commands in nvim
     use({ "numToStr/Comment.nvim", config = get_setup("comment") }) -- "gc" to comment visual regions/lines
     -- UI to select things (files, grep results, open buffers...)
@@ -79,7 +80,6 @@ require("packer").startup({
     use("https://github.com/onsails/lspkind-nvim")
     use("joshzcold/cmp-jenkinsfile")
 
-    use({ "folke/which-key.nvim", config = get_setup("whichkey") }) -- which-key mappings in lua/mappings.lua
     use("simnalamburt/vim-mundo")
     use("https://github.com/godlygeek/tabular")
 

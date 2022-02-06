@@ -4,20 +4,23 @@ vim.g.vscode_transparent = 1
 
 vim.cmd([[colorscheme vscode ]])
 
+local background = "#202020"
+
 -- highlighting tweaks fdjsklfds
 vim.api.nvim_set_hl(0, "SpellBad", { sp = "#325905", underline = true })
 vim.api.nvim_set_hl(0, "SpellCap", { sp = "#000c7a", underline = true })
 vim.api.nvim_set_hl(0, "SpellRare", { sp = "#000c7a", underline = true })
 vim.api.nvim_set_hl(0, "SpellLocal", { sp = "#6c007a", underline = true })
 
-vim.api.nvim_set_hl(0, "Search", { reverse=true })
+vim.api.nvim_set_hl(0, "Search", { reverse = true })
+vim.api.nvim_set_hl(0, "Cursor", { reverse = true })
 
-vim.api.nvim_set_hl(0, "DiffAdd", { bg = "NONE", fg = "#007504" })
-vim.api.nvim_set_hl(0, "DiffChange", { bg = "NONE", fg = "#a37500" })
-vim.api.nvim_set_hl(0, "DiffDelete", { bg = "NONE", fg = "#7a0000" })
-vim.api.nvim_set_hl(0, "Normal", { bg = "#202020", fg = "NONE" })
-vim.api.nvim_set_hl(0, "SignColumn", { bg = "NONE", fg = "NONE" })
-vim.api.nvim_set_hl(0, "LineNr", { bg = "NONE", fg = "NONE" })
+vim.api.nvim_set_hl(0, "DiffAdd", { fg = "#007504", bg = background })
+vim.api.nvim_set_hl(0, "DiffChange", { fg = "#a37500", bg = background })
+vim.api.nvim_set_hl(0, "DiffDelete", { fg = "#7a0000", bg = background })
+vim.api.nvim_set_hl(0, "Normal", { bg = background })
+vim.api.nvim_set_hl(0, "SignColumn", { bg = background })
+vim.api.nvim_set_hl(0, "LineNr", { bg = background })
 
 vim.cmd([[
 au BufRead,BufNewFile *.groovy set filetype=Jenkinsfile
