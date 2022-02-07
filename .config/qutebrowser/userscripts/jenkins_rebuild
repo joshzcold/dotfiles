@@ -1,0 +1,6 @@
+#!/usr/bin/env python3
+from urllib import parse
+import os
+
+new_path = '/'.join(os.getenv('QUTE_URL').split('/')[:-1]) + '/rebuild'
+os.system(f"echo -n open '{new_path}' >> $QUTE_FIFO")

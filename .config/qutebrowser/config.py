@@ -8,4 +8,5 @@ config.bind('J', 'tab-prev')
 config.bind('K', 'tab-next')
 config.bind('j', 'scroll down')
 config.bind('<f12>', 'devtools')
+config.bind('<Ctrl-j>','spawn --userscript jenkins_rebuild')
 c.auto_save.session = True
