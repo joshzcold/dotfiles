@@ -2,5 +2,15 @@
 from urllib import parse
 import os
 
-new_path = '/'.join(os.getenv('QUTE_URL').split('/')[:-1]) + '/rebuild'
-os.system(f"echo -n open '{new_path}' >> $QUTE_FIFO")
+url_parts = os.getenv('QUTE_URL').split('/')
+
+old_job_num = int(url_parts[-2])
+new_job_num = old_job_num + 1
+
+new_path = '/'.join(os.getenv('QUTE_URL').split('/')[:-2])
+
+os.system(f"echo -n open '{new_path}/{old_job_num}/rebuild' >> $QUTE_FIFO")
+os.system(f"echo -n 'jseval \"document.getElementsByClassName(\"submit-button\")[0].click();\"' >> $QUTE_FIFO")
+os.system(f"echo -n open '{new_path}/{new_job_num}/console' >> $QUTE_FIFO")
+
+
