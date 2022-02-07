@@ -1,16 +1,27 @@
-#!/usr/bin/env python3
-from urllib import parse
-import os
+#!/usr/bin/env node
 
-url_parts = os.getenv('QUTE_URL').split('/')
-
-old_job_num = int(url_parts[-2])
-new_job_num = old_job_num + 1
-
-new_path = '/'.join(os.getenv('QUTE_URL').split('/')[:-2])
-
-os.system(f"echo -n open '{new_path}/{old_job_num}/rebuild' >> $QUTE_FIFO")
-os.system(f"echo -n 'jseval \"document.getElementsByClassName(\"submit-button\")[0].click();\"' >> $QUTE_FIFO")
-os.system(f"echo -n open '{new_path}/{new_job_num}/console' >> $QUTE_FIFO")
+const qutejs = require('qutejs');
+const axios = require('axios');
+const https = require('https');
 
 
+let url_parts = process.env.QUTE_URL.split("/")
+
+
+if(process.env.QUTE_URL.includes("console")){
+  let new_path = url_parts.slice(0, -1).join("/")
+  qutejs.open(`${new_path}/rebuild`)
+}else if(process.env.QUTE_URL.includes("rebuild")){
+  let old_job_num = parseInt(url_parts[url_parts.length -2])
+  let new_path = url_parts.slice(0, -2).join("/")
+  if(process.env.QUTE_URL.includes("parameterized")){
+    old_job_num = parseInt(url_parts[url_parts.length -3])
+    new_path = url_parts.slice(0, -3).join("/")
+  }
+  qutejs.jseval([], function () {
+      document.getElementsByClassName("submit-button")[0].click();
+  });
+}
+else{
+  qutejs.open(`${process.env.QUTE_URL}/lastBuild/console`)
+}
