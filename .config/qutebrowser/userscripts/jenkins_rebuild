@@ -1,12 +1,8 @@
 #!/usr/bin/env node
 
 const qutejs = require('qutejs');
-const axios = require('axios');
-const https = require('https');
-
 
 let url_parts = process.env.QUTE_URL.split("/")
-
 
 if(process.env.QUTE_URL.includes("console")){
   let new_path = url_parts.slice(0, -1).join("/")
