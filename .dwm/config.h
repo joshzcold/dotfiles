@@ -73,6 +73,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "kitty", NULL };
+static const char *termst[]  = { "st", NULL };
 static const char *screenshotcmd[] = {"/home/joshua/.config/usr-scripts/screenshot.sh"};
 static const char *screenrecordcmd[] = {"/home/joshua/.config/usr-scripts/screen_record"};
 static const char *applaunchercmd[] = {"/home/joshua/.config/rofi/launchers/launcher.sh"};
@@ -89,6 +90,7 @@ static Key keys[] = {
   /* modifier                     key        function        argument */
   { MODKEY,                       XK_d,      spawn,          {.v = applaunchercmd } },
   { MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+  { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termst } },
   { MODKEY,                       XK_s,      spawn,          {.v = screenshotcmd } },
   { MODKEY,                       XK_r,      spawn,          {.v = screenrecordcmd } },
   { ControlMask|ShiftMask,        XK_s,      spawn,          {.v = lockcmd } },
