@@ -15,9 +15,9 @@ vim.api.nvim_set_hl(0, "SpellLocal", { sp = "#6c007a", underline = true })
 vim.api.nvim_set_hl(0, "Search", { reverse = true })
 vim.api.nvim_set_hl(0, "Cursor", { reverse = true })
 
-vim.api.nvim_set_hl(0, "DiffAdd", { fg = "#007504", bg = background })
-vim.api.nvim_set_hl(0, "DiffChange", { fg = "#a37500", bg = background })
-vim.api.nvim_set_hl(0, "DiffDelete", { fg = "#7a0000", bg = background })
+vim.api.nvim_set_hl(0, "DiffAdd", { fg = "#38a83f", bg = background })
+vim.api.nvim_set_hl(0, "DiffChange", { fg = "#cfae42", bg = background })
+vim.api.nvim_set_hl(0, "DiffDelete", { fg = "#e33232", bg = background })
 vim.api.nvim_set_hl(0, "Normal", { bg = background })
 vim.api.nvim_set_hl(0, "SignColumn", { bg = background })
 vim.api.nvim_set_hl(0, "LineNr", { bg = background })
@@ -29,7 +29,7 @@ autocmd FileType Jenkinsfile setlocal commentstring=//\ %s
 ]])
 
 vim.cmd([[
-" Output the current syntax group
+" Output the current syntax group when pressing f10
 nnoremap <f10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'  . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"  . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<cr>
   ]])
 
