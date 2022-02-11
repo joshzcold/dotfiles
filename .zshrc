@@ -128,6 +128,7 @@ function ascii(){
 }
 
 function yu(){
+  yadm status
   yadm pull
   yadm add -u
   yadm commit -m "update dotfiles from $(hostname)"
