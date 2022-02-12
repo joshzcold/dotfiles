@@ -29,6 +29,16 @@ end
 require("packer").startup({
   function(use)
     use("wbthomason/packer.nvim") -- Package manager
+    -- neovim dap
+    use({
+        "mfussenegger/nvim-dap",
+        config = get_setup("dap"),
+        requires = {
+          {"Pocco81/DAPInstall.nvim"},
+          {"rcarriga/nvim-dap-ui"},
+          {"theHamsta/nvim-dap-virtual-text"}
+        }
+      })
     use({ "folke/which-key.nvim", config = get_setup("whichkey") }) -- which-key mappings in lua/mappings.lua
     use({ "tpope/vim-fugitive", config = get_setup("fugitive") }) -- Git commands in nvim
     use({ "tpope/vim-repeat" })
