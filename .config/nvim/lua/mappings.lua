@@ -19,7 +19,7 @@ map("n", "<c-j>", "<c-w>j")
 map("n", "<c-h>", "<c-w>h")
 map("n", "<c-k>", "<c-w>k")
 map("n", "<c-l>", "<c-w>l")
-map("n", "<c-l>", "<c-w>l")
+map("n", "<c-n>", "<c-w>w")
 
 -- return to normal window from terminal easily
 map("t", "<c-j>", "<C-\\><C-n><c-w>j")
@@ -69,3 +69,7 @@ map("i", "?", "?<c-g>u")
 -- Quick grep commands
 map("n", "gr", ":grep <cword> *<CR>")
 map("n", "gR", ":grep '\b<cword>\b' *<CR>")
+
+-- Yode
+
+map("v", "<leader>y", ":YodeCreateSeditorFloating<cr>")

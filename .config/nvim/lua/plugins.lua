@@ -31,7 +31,7 @@ require("packer").startup({
     use("wbthomason/packer.nvim") -- Package manager
     use({ "folke/which-key.nvim", config = get_setup("whichkey") }) -- which-key mappings in lua/mappings.lua
     use({ "tpope/vim-fugitive", config = get_setup("fugitive") }) -- Git commands in nvim
-    use({"tpope/vim-repeat"})
+    use({ "tpope/vim-repeat" })
     use({ "numToStr/Comment.nvim", config = get_setup("comment") }) -- "gc" to comment visual regions/lines
     -- UI to select things (files, grep results, open buffers...)
     use({
@@ -42,10 +42,7 @@ require("packer").startup({
         { "nvim-lua/plenary.nvim" },
       },
     })
-    -- use "itchyny/lightline.vim" -- Fancier statusline
-    -- Add indentation guides even on blank lines
-    -- use 'lukas-reineke/indent-blankline.nvim'
-
+    use({ "https://github.com/hoschi/yode-nvim" })
     -- Add git related info in the signs columns and popups
     use({
       "lewis6991/gitsigns.nvim",
@@ -122,8 +119,12 @@ require("packer").startup({
       end,
     })
     use({ "phaazon/hop.nvim", config = get_setup("hop") })
+    -- use({
+    --   "https://github.com/windwp/nvim-autopairs",
+    --   config = get_setup("autopairs"),
+    -- })
     use({
-      "https://github.com/windwp/nvim-autopairs",
+      "https://github.com/ZhiyuanLck/smart-pairs",
       config = get_setup("autopairs"),
     })
     use("https://github.com/nvim-lua/lsp-status.nvim")
@@ -145,7 +146,7 @@ require("packer").startup({
     })
     use({
       "ruifm/gitlinker.nvim",
-      config = get_setup("gitlinker")
+      config = get_setup("gitlinker"),
     })
     use("https://github.com/glepnir/lspsaga.nvim")
     use({

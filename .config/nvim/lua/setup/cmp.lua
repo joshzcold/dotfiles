@@ -21,7 +21,11 @@ cmp.setup({
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     }),
-    ["<CR>"] = cmp.mapping.confirm({}),
+    ["<CR>"] = cmp.mapping(function(fallback)
+      if not cmp.confirm({ select = false }) then
+        require("pairs.enter").type()
+      end
+    end),
     ["<Tab>"] = function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
@@ -51,12 +55,38 @@ cmp.setup({
       end
     end,
   },
+  cmp.setup.filetype("Jenkinsfile", {
+    sources = {
+      {
+        name = "jenkinsfile",
+        option = {
+          jenkins_url = "https://jenkins.secmet.co",
+        },
+      },
+      {
+        name = "buffer",
+        option = {
+          get_bufnrs = function()
+            return vim.api.nvim_list_bufs()
+          end,
+        },
+      },
+      { name = "luasnip" },
+      {
+        name = "rg",
+        option = {
+          debounce = 500,
+          additional_arguments = "--smart-case --max-depth 4",
+        },
+      },
+    },
+  }),
   sources = cmp.config.sources({
     { name = "luasnip" },
     { name = "nvim_lsp" },
     {
       name = "buffer",
-      options = {
+      option = {
         get_bufnrs = function()
           return vim.api.nvim_list_bufs()
         end,
@@ -75,34 +105,14 @@ cmp.setup({
   }),
 })
 
-vim.cmd([[
-autocmd FileType Jenkinsfile lua require'cmp'.setup.buffer {
-  \   sources = {
-  \     { name = 'jenkinsfile',
-  \        option = {
-  \            jenkins_url = "https://jenkins.secmet.co"
-  \        }
-  \     },
-  \     { 
-  \         name = 'buffer',
-  \         options = {
-  \             get_bufnrs = function()
-  \                 return vim.api.nvim_list_bufs()
-  \             end
-  \         }
-  \     },
-  \     { name = 'luasnip' },
-  \     {
-  \       name = "rg",
-  \       option = {
-  \         debounce = 500,
-  \         additional_arguments = "--smart-case --max-depth 4",
-  \       },
-  \     },
-  \   },
-  \ }
-]])
--- If you want insert `(` after select function or method item
-local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 local cmp = require("cmp")
-cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
+local kind = cmp.lsp.CompletionItemKind
+
+-- smart-pairs setup for cmp
+cmp.event:on("confirm_done", function(event)
+  local item = event.entry:get_completion_item()
+  local parensDisabled = item.data and item.data.funcParensDisabled or false
+  if not parensDisabled and (item.kind == kind.Method or item.kind == kind.Function) then
+    require("pairs.bracket").type_left("(")
+  end
+end)

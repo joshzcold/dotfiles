@@ -1,11 +1,16 @@
-require("nvim-autopairs").setup({})
-local npairs = require("nvim-autopairs")
-local Rule = require("nvim-autopairs.rule")
-local cond = require("nvim-autopairs.conds")
-
-require("nvim-autopairs").remove_rule('"')
-require("nvim-autopairs").remove_rule("'")
-require("nvim-autopairs").remove_rule("`")
+require("pairs"):setup({
+      enter = {
+        enable_mapping = false,
+      },
+    })
+-- require("nvim-autopairs").setup({})
+-- local npairs = require("nvim-autopairs")
+-- local Rule = require("nvim-autopairs.rule")
+-- local cond = require("nvim-autopairs.conds")
+--
+-- require("nvim-autopairs").remove_rule('"')
+-- require("nvim-autopairs").remove_rule("'")
+-- require("nvim-autopairs").remove_rule("`")
 
 -- npairs.add_rules({
 -- Rule("'", "'"):with_pair(cond.not_before_regex_check("%S")):with_pair(cond.not_after_regex_check("%S")),
