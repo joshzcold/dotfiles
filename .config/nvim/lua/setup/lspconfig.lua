@@ -17,7 +17,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>")
   vim.keymap.set("n", "<leader>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>")
   vim.keymap.set("n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<cr>")
-  vim.keymap.set("n", "<leader>=", "<cmd>lua vim.lsp.buf.formatting()<cr>")
+  vim.keymap.set("n", "<leader>=", "<cmd>lua vim.lsp.buf.formatting_seq_sync(nil, 7500)<cr>")
 end
 
 local lsp_installer = require("nvim-lsp-installer")
