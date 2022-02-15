@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 server="${BITBUCKETSERVER:-"https://bitbucket.secmet.co"}"
 clone_type="${CLONE_TYPE:-"ssh"}"
+TOKEN=$(cat ~/git/codepaste/BitBucketPat)
 
 PROJECTS="$(curl -s -H "Authorization: Bearer $TOKEN" --request GET "$server/rest/api/1.0/projects?limit=999" | jq --raw-output ".values[].key")"
 
