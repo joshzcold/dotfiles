@@ -129,14 +129,14 @@ require("packer").startup({
       end,
     })
     use({ "phaazon/hop.nvim", config = get_setup("hop") })
-    -- use({
-    --   "https://github.com/windwp/nvim-autopairs",
-    --   config = get_setup("autopairs"),
-    -- })
     use({
-      "https://github.com/ZhiyuanLck/smart-pairs",
+      "https://github.com/windwp/nvim-autopairs",
       config = get_setup("autopairs"),
     })
+    -- use({
+    --   "https://github.com/ZhiyuanLck/smart-pairs",
+    --   config = get_setup("autopairs"),
+    -- })
     use("https://github.com/nvim-lua/lsp-status.nvim")
     use({
       "https://github.com/inkarkat/vim-SpellCheck",
