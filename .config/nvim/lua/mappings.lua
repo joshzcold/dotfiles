@@ -69,6 +69,7 @@ map("i", "?", "?<c-g>u")
 -- Quick grep commands
 map("n", "gr", ":grep <cword> *<CR>")
 map("n", "gR", ":grep '\b<cword>\b' *<CR>")
+map("n", "<esc>",":noh<return><esc>" )
 
 -- Yode
 
