@@ -149,6 +149,20 @@ function searchGit(){
   cd -
 }
 
+function searchGitHistory(){
+  INITIAL_QUERY=""
+  RG_PREFIX="git grep --column --color=always --threads 4"
+  GIT_COMMITS=$(git rev-list --all | tr '\n' ' ')
+  result=$(FZF_DEFAULT_COMMAND="$RG_PREFIX '$INITIAL_QUERY'" \
+    fzf --bind "change:reload:$RG_PREFIX '{q}' ${GIT_COMMITS} | tr -s ' ' || true" \
+    --preview 'echo {} | cut -d ":" -f 1 | xargs -I% git log -n 1 %; echo;echo; echo {} | cut -d ":" -f 4- | sed "s/^ *//g" ' \
+    --preview-window up,20,border-horizontal \
+    --ansi --disabled --query "$INITIAL_QUERY" )
+  result=$(echo "$result" | cut -d ":" -f 4- | sed "s/^ *//g")
+  echo "$result"
+  echo "$result" | xclip -selection c
+}
+
 function grep-all(){
   grep --color=always -z $1 $2
 }
