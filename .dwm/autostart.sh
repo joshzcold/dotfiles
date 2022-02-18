@@ -1,5 +1,5 @@
-nitrogen --restore &
 autorandr -c &
+nitrogen --restore &
 xfsettingsd &
 # hsetroot -solid "#0B5C70" &
 # emacs --daemon &

@@ -51,12 +51,38 @@ cmp.setup({
       end
     end,
   },
+  cmp.setup.filetype("Jenkinsfile", {
+    sources = {
+      {
+        name = "jenkinsfile",
+        option = {
+          jenkins_url = "https://jenkins.secmet.co",
+        },
+      },
+      {
+        name = "buffer",
+        option = {
+          get_bufnrs = function()
+            return vim.api.nvim_list_bufs()
+          end,
+        },
+      },
+      { name = "luasnip" },
+      {
+        name = "rg",
+        option = {
+          debounce = 500,
+          additional_arguments = "--smart-case --max-depth 4",
+        },
+      },
+    },
+  }),
   sources = cmp.config.sources({
     { name = "luasnip" },
     { name = "nvim_lsp" },
     {
       name = "buffer",
-      options = {
+      option = {
         get_bufnrs = function()
           return vim.api.nvim_list_bufs()
         end,
@@ -75,34 +101,6 @@ cmp.setup({
   }),
 })
 
-vim.cmd([[
-autocmd FileType Jenkinsfile lua require'cmp'.setup.buffer {
-  \   sources = {
-  \     { name = 'jenkinsfile',
-  \        option = {
-  \            jenkins_url = "https://jenkins.secmet.co"
-  \        }
-  \     },
-  \     { 
-  \         name = 'buffer',
-  \         options = {
-  \             get_bufnrs = function()
-  \                 return vim.api.nvim_list_bufs()
-  \             end
-  \         }
-  \     },
-  \     { name = 'luasnip' },
-  \     {
-  \       name = "rg",
-  \       option = {
-  \         debounce = 500,
-  \         additional_arguments = "--smart-case --max-depth 4",
-  \       },
-  \     },
-  \   },
-  \ }
-]])
--- If you want insert `(` after select function or method item
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 local cmp = require("cmp")
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
