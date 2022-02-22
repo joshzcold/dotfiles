@@ -1,6 +1,5 @@
-autorandr -c &
-nitrogen --restore &
 xfsettingsd &
+autorandr -c && nitrogen --restore &
 # hsetroot -solid "#0B5C70" &
 # emacs --daemon &
 nm-applet &
