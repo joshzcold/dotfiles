@@ -103,6 +103,8 @@ alias kp="kubectl get pods"
 alias kw="kubectl get pods -w"
 alias cat="bat -p --pager=never"
 alias ssh="TERM=xterm ssh"
+alias ag="ansible-galaxy install -r ansible-requirements.yml -f --ignore-errors"
+
 # cd into first dir
 alias cdf="cd $(ls -d */|head -n 1)" 
 # bind to allow deletion after exiting normal mode vi
