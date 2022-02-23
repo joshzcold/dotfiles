@@ -10,11 +10,9 @@ fi
 
 git_repo="$(basename $(git rev-parse --show-toplevel))"
 if [[ ${git_repo} =~ .*\.role ]]; then
-	pushd ~/git/in/master.inventory
-	require_block=$(grep -A 2 "$git_repo" ansible-requirements.yml)
-	src=$(echo "$require_block" | grep -Po "(?<=src: ).*")
-	version=$(echo "$require_block" | grep -Po "(?<=version: ).*")
-	name=$(echo "$require_block" | grep -Po "(?<=name: ).*")
-	ansible-galaxy install "$src,$version,$name" -f
-	popd
+	cd ~/git/in/master.inventory
+	set -x
+	ur $(echo $git_repo | sed 's/.role//g')
+	{ set +x; } 2>/dev/null
+	cd -
 fi
