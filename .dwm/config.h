@@ -61,18 +61,21 @@ static const Layout layouts[] = {
   { "[]=",      tile },    /* first entry is default */
   { "><>",      NULL },    /* no layout function means floating behavior */
   { "[M]",      monocle },
+  { NULL,       NULL },
 };
 /* key definitions */
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
-{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+{ MODKEY,                       KEY,      comboview,           {.ui = 1 << TAG} }, \
 { MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
+{ MODKEY|ShiftMask,             KEY,      combotag,            {.ui = 1 << TAG} }, \
 { MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "kitty", NULL };
+static const char scratchpadname[] = "scratchpad";
+static const char *scratchpadcmd[] = { "kitty", "-T", scratchpadname, NULL };
 static const char *termst[]  = { "st", NULL };
 static const char *screenshotcmd[] = {"/home/joshua/.config/usr-scripts/screenshot.sh"};
 static const char *screenrecordcmd[] = {"/home/joshua/.config/usr-scripts/screen_record"};
@@ -90,6 +93,7 @@ static Key keys[] = {
   /* modifier                     key        function        argument */
   { MODKEY,                       XK_d,      spawn,          {.v = applaunchercmd } },
   { MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+  { MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
   { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termst } },
   { MODKEY,                       XK_s,      spawn,          {.v = screenshotcmd } },
   { MODKEY,                       XK_r,      spawn,          {.v = screenrecordcmd } },
@@ -132,12 +136,14 @@ static Key keys[] = {
   { MODKEY|ControlMask|ShiftMask,           XK_j,   moveresizeedge, {.v = "b"} },
   { MODKEY|ControlMask|ShiftMask,           XK_h,   moveresizeedge, {.v = "l"} },
   { MODKEY|ControlMask|ShiftMask,           XK_l,  moveresizeedge, {.v = "r"} },
-  { MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-  { MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
+  { MODKEY,                       XK_0,      comboview,           {.ui = ~0 } },
+  { MODKEY|ShiftMask,             XK_0,      combotag,            {.ui = ~0 } },
   { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
   { MODKEY,                       XK_period, focusmon,       {.i = +1 } },
   { MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
   { MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+  { MODKEY|ControlMask,		XK_comma,  cyclelayout,    {.i = -1 } },
+  { MODKEY|ControlMask,           XK_period, cyclelayout,    {.i = +1 } },
   { MODKEY,                       XK_n,      nametag,        {0} },
   TAGKEYS(                        XK_1,                      0)
     TAGKEYS(                        XK_2,                      1)
