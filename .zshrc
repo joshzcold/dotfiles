@@ -90,7 +90,6 @@ alias ls="ls --color=auto"
 alias ps="procs"
 alias sudo="sudo "
 alias vim="nvim"
-alias vimrc="nvim /home/joshua/.config/nvim/init.vim"
 alias zshrc="nvim /home/joshua/.zshrc && source /home/joshua/.zshrc"
 alias make="/usr/bin/make -j 8"
 alias markdown-preview="grip -b "
@@ -208,6 +207,10 @@ function pass(){
     bw list items | jq -r '.[] | [.name, .login.username, .login.password ] | @tsv' | fzf
   fi
 
+}
+
+function git_clean_up_dangling_branches(){
+  git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d
 }
 
 function vgit(){
