@@ -78,3 +78,7 @@ opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
 
 -- remove ~ symbol from gutter
 opt.fillchars:append({ eob = " " })
+-- TODO uncomment folding when neovim and treesitter fix vim folding issues
+-- opt.foldmethod = 'indent'
+-- opt.foldlevelstart = 2
+-- opt.foldexpr = 'nvim_treesitter#foldexpr()'
