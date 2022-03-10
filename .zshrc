@@ -90,7 +90,6 @@ alias ls="ls --color=auto"
 alias ps="procs"
 alias sudo="sudo "
 alias vim="nvim"
-alias vimrc="nvim /home/joshua/.config/nvim/init.vim"
 alias zshrc="nvim /home/joshua/.zshrc && source /home/joshua/.zshrc"
 alias make="/usr/bin/make -j 8"
 alias markdown-preview="grip -b "
@@ -104,6 +103,7 @@ alias kw="kubectl get pods -w"
 alias cat="bat -p --pager=never"
 alias ssh="TERM=xterm ssh"
 alias ag="ansible-galaxy install -r ansible-requirements.yml -f --ignore-errors"
+alias ansible-update-hostsfile="sudo ansible-playbook  playbooks/99-hostsfile.yml -i hosts/base-hosts -i"
 
 # cd into first dir
 alias cdf="cd $(ls -d */|head -n 1)" 
@@ -208,6 +208,10 @@ function pass(){
     bw list items | jq -r '.[] | [.name, .login.username, .login.password ] | @tsv' | fzf
   fi
 
+}
+
+function git_clean_up_dangling_branches(){
+  git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d
 }
 
 function vgit(){

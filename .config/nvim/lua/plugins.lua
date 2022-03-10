@@ -31,19 +31,20 @@ require("packer").startup({
     use("wbthomason/packer.nvim") -- Package manager
     -- neovim dap
     use({
-        "mfussenegger/nvim-dap",
-        config = get_setup("dap"),
-        requires = {
-          {"Pocco81/DAPInstall.nvim"},
-          {"rcarriga/nvim-dap-ui"},
-          {"theHamsta/nvim-dap-virtual-text"}
-        }
-      })
+      "mfussenegger/nvim-dap",
+      config = get_setup("dap"),
+      requires = {
+        { "Pocco81/DAPInstall.nvim" },
+        { "rcarriga/nvim-dap-ui" },
+        { "theHamsta/nvim-dap-virtual-text" },
+      },
+    })
     use({ "folke/which-key.nvim", config = get_setup("whichkey") }) -- which-key mappings in lua/mappings.lua
     use({ "tpope/vim-fugitive", config = get_setup("fugitive") }) -- Git commands in nvim
     use({ "tpope/vim-repeat" })
     use({ "numToStr/Comment.nvim", config = get_setup("comment") }) -- "gc" to comment visual regions/lines
     -- UI to select things (files, grep results, open buffers...)
+    use({ "nvim-lua/plenary.nvim" })
     use({
       "nvim-telescope/telescope.nvim",
       config = get_setup("telescope"),
@@ -52,15 +53,9 @@ require("packer").startup({
         { "nvim-lua/plenary.nvim" },
       },
     })
+    use({ "lewis6991/gitsigns.nvim", config = get_setup("gitsigns"), tag = "release" })
     use({ "https://github.com/hoschi/yode-nvim" })
     -- Add git related info in the signs columns and popups
-    use({
-      "lewis6991/gitsigns.nvim",
-      config = get_setup("gitsigns"),
-      requires = {
-        "nvim-lua/plenary.nvim",
-      },
-    })
     -- Highlight, edit, and navigate code using a fast incremental parsing library
     use({
       "nvim-treesitter/nvim-treesitter",

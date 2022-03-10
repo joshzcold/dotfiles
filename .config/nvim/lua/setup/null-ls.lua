@@ -24,10 +24,10 @@ local lSsources = {
   }),
   null_ls.builtins.formatting.nginx_beautifier,
   null_ls.builtins.formatting.shfmt,
-  null_ls.builtins.diagnostics.ansiblelint.with({
-    filetypes = { "yaml.ansible" },
-    args = { "-f", "codeclimate", "-q", "--exclude", ".roles", "--nocolor", "$FILENAME" },
-  }),
+  -- null_ls.builtins.diagnostics.ansiblelint.with({
+  --   filetypes = { "yaml.ansible" },
+  --   args = { "-f", "codeclimate", "-q", "--exclude", ".roles", "-x", "syntax-check", "--nocolor", "$FILENAME" },
+  -- }),
 }
 require("null-ls").setup({
   sources = lSsources,

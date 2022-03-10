@@ -1,7 +1,7 @@
 config.load_autoconfig()
 c.tabs.new_position.related = "last"
 c.url.searchengines["DEFAULT"] = "https://google.com/search?q={}"
-c.editor.command = ["st", "-e", "nvim", "{}"]
+c.editor.command = ["kitty", "--class=float", "-e", "nvim", "{}"]
 config.bind('<Ctrl-o>', 'tab-focus stack-prev')
 config.bind('<Ctrl-i>', 'tab-focus stack-next')
 config.bind('J', 'tab-prev')

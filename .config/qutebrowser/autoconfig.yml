@@ -47,7 +47,9 @@ settings:
     https://www.google.com: true
     https://www.harborfreight.com: true
     https://www.homedepot.com: true
+    https://www.interstatebatteries.com: true
     https://www.lowes.com: true
+    https://www.oreillyauto.com: true
   content.javascript.can_access_clipboard:
     global: true
   content.javascript.enabled:
