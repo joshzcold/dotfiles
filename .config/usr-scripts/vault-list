@@ -49,7 +49,7 @@ done
 if [[ -f "${CACHE_FILE}" ]]; then
 	COMMAND="cat $CACHE_FILE"
 	selection=$(eval "$COMMAND" | fzf --bind "change:reload:$COMMAND {q} || true")
-	jq_command='.data | to_entries[] | "\(.key) --->\n \(.value)\n"'
+	jq_command='.data | to_entries[] | "\(.key) --->\n\(.value)\n"'
 	json=$(curl --insecure -s -H "X-Vault-Token: $(vault print token)" "https://vault.secmet.co:8200/v1/${selection}")
 	if echo "$json" | jq -e '.data.data' >/dev/null; then
 		echo "$json" | jq -r ".data$jq_command"
