@@ -1,18 +1,21 @@
-
-
 function _G.Increment()
   local col = vim.api.nvim_win_get_cursor(0)[2]
   local result = vim.api.nvim_get_current_line()
   print(result)
 end
 
+-- set Jenkinsfile filetype on word 'pipeline' in groovy file types
 vim.cmd([[
-au BufRead *.groovy if search('pipeline', 'nw') | set ft=Jenkinsfile | setlocal indentexpr=GetJavascriptIndent()  | endif
-au BufRead,BufNewFile */playbooks/*.yml set filetype=yaml.ansible
-au BufRead *.groovy  setlocal indentexpr=GetJavascriptIndent()
+  au BufRead *.groovy if search('pipeline', 'nw') | set ft=Jenkinsfile | setlocal indentexpr=GetJavascriptIndent()  | endif
+  au BufRead,BufNewFile */playbooks/*.yml set filetype=yaml.ansible
+  au BufRead *.groovy  setlocal indentexpr=GetJavascriptIndent()
 ]])
 
-vim.cmd([[autocmd Filetype yaml.* set makeprg=ansible-lint\ -p\ --nocolor\ -x\ role-name]])
+-- set yaml to yaml.ansible when hosts,tasks,roles is present
+vim.cmd([[
+  au BufRead *.yaml,*.yml if search('hosts:\|tasks:\|roles:', 'nw') | set ft=yaml.ansible | endif
+  autocmd Filetype yaml.* set makeprg=ansible-lint\ -p\ --nocolor\ -x\ role-name
+]])
 
 vim.cmd([[
 function! GitPush()
@@ -32,7 +35,6 @@ function! JenkinsLint()
       echo result
 endfunction
 ]])
-
 
 vim.cmd(
   [[ autocmd BufReadPost * if @% !~# '\.git[\/\\]COMMIT_EDITMSG$' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]]
