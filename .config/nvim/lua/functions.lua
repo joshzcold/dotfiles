@@ -8,7 +8,7 @@ vim.cmd([[
 -- set yaml to yaml.ansible when hosts,tasks,roles is present
 vim.cmd([[
   au BufRead *.yaml,*.yml if search('tasks:\|- name:', 'nw') | set ft=yaml.ansible | endif
-  autocmd Filetype yaml.* set makeprg=ansible-lint\ -p\ --nocolor\ -x\ role-name
+  autocmd Filetype yaml.* set makeprg=ansible-lint\ -p\ --nocolor
 ]])
 
 vim.cmd([[
