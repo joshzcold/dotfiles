@@ -154,6 +154,10 @@ wk.register({
       "Explorer",
     },
   },
+  m = {
+    [[<cmd>make<cr>]],
+    "Make program"
+  },
   s = {
     name = "subsitute",
     u = {
