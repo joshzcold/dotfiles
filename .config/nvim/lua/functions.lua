@@ -3,7 +3,7 @@ vim.cmd([[
   au BufRead *.groovy if search('pipeline', 'nw') | set ft=Jenkinsfile | setlocal indentexpr=GetJavascriptIndent()  | endif
   au BufRead,BufNewFile */playbooks/*.yml set filetype=yaml.ansible
   au BufRead *.groovy  setlocal indentexpr=GetJavascriptIndent()
-  autocmd Filetype Jenkinsfile set makeprg=JenkinsLint()
+  autocmd Filetype Jenkinsfile set makeprg=jenkins-lint\ %
 ]])
 
 -- set yaml to yaml.ansible when hosts,tasks,roles is present
