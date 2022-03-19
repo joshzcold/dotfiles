@@ -82,3 +82,4 @@ opt.fillchars:append({ eob = " " })
 -- opt.foldmethod = 'indent'
 -- opt.foldlevelstart = 2
 -- opt.foldexpr = 'nvim_treesitter#foldexpr()'
+opt.laststatus = 3
