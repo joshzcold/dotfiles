@@ -91,20 +91,23 @@ local server_opts = {
     }
   end,
   ["ansiblels"] = function(opts)
-    opts.ansible = {
+    opts.settings = {
+      ansible = {
         ansible = {
           path = "ansible",
         },
         ansibleLint = {
-          enabled = false,
+          enabled = true,
           path = "ansible-lint",
+          arguments = "-x fqcn-builtins,role-name"
         },
         executionEnvironment = {
           enabled = false,
         },
         python = {
           interpreterPath = "python",
-        }
+        },
+      },
     }
   end,
 }
@@ -113,16 +116,18 @@ local server_opts = {
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 function dump(o)
-   if type(o) == 'table' then
-      local s = '{ '
-      for k,v in pairs(o) do
-         if type(k) ~= 'number' then k = '"'..k..'"' end
-         s = s .. '['..k..'] = ' .. dump(v) .. ','
+  if type(o) == "table" then
+    local s = "{ "
+    for k, v in pairs(o) do
+      if type(k) ~= "number" then
+        k = '"' .. k .. '"'
       end
-      return s .. '} '
-   else
-      return tostring(o)
-   end
+      s = s .. "[" .. k .. "] = " .. dump(v) .. ","
+    end
+    return s .. "} "
+  else
+    return tostring(o)
+  end
 end
 
 lsp_installer.on_server_ready(function(server)
@@ -136,8 +141,5 @@ lsp_installer.on_server_ready(function(server)
     server_opts[server.name](opts)
   end
 
-  dump(opts)
   server:setup_lsp(opts)
 end)
-
-
