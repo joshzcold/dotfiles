@@ -24,7 +24,7 @@ require("nvim-tree").setup({
         -- { key = "H", cb = tree_cb("toggle_dotfiles") },
         -- { key = "R", cb = tree_cb("refresh") },
         -- { key = "a", cb = tree_cb("create") },
-        -- { key = "df", cb = tree_cb("remove") },
+        { key = "df", cb = tree_cb("remove") },
         -- { key = "dd", cb = tree_cb("cut") },
         -- { key = "r", cb = tree_cb("rename") },
         -- { key = "<C-r>", cb = tree_cb("full_rename") },
