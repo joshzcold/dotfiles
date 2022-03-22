@@ -141,6 +141,18 @@ wk.register({
         end,
         "Add new comment",
       },
+      m = {
+        function()
+          local Terminal = require("toggleterm.terminal").Terminal
+          local jira = Terminal:new({ cmd = "jira-move-issue", hidden = true, direction = "float" })
+
+          function _jira_toggle()
+            jira:toggle()
+          end
+          vim.cmd([[:lua _jira_toggle()]])
+        end,
+        "Move issue",
+      }
     },
     u = {
       [[<cmd>MundoToggle<cr>]],
