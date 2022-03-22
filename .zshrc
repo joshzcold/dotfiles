@@ -33,7 +33,7 @@ export NPM_PACKAGES="${HOME}/.npm-packages"
 export VAULT_ADDR="https://vault.secmet.co:8200"
 export VAULT_SKIP_VERIFY=1
 export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
-export GOPATH=$HOME/.go/
+export GOPATH=$HOME/.go
 export KUBE_EDITOR=nvim
 export SUDO_ASKPASS=/usr/bin/ksshaskpass
 export FZF_DEFAULT_COMMAND='rg --files'
@@ -41,6 +41,8 @@ export PYTHONWARNINGS="ignore:Unverified HTTPS request"
 export PYTHONBREAKPOINT="pudb.set_trace"
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 export TERM=xterm-kitty
+export JIRA_API_TOKEN=$(cat ~/git/codepaste/JiraToken)
+export JIRA_AUTH_TYPE="bearer"
 
 
 # Path updates

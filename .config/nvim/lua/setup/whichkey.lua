@@ -116,8 +116,19 @@ wk.register({
       "Indent File",
     },
     j = {
-      [[<cmd>call JenkinsLint()<cr>]],
-      "Jenkins Lint",
+      name = "Jira Actions",
+      n = {
+        function()
+          local Terminal = require("toggleterm.terminal").Terminal
+          local jira = Terminal:new({ cmd = "jira issue create", hidden = true, direction = "float" })
+
+          function _jira_toggle()
+            jira:toggle()
+          end
+          vim.cmd([[:lua _jira_toggle()]])
+        end,
+        "New issue",
+      },
     },
     u = {
       [[<cmd>MundoToggle<cr>]],
@@ -156,7 +167,7 @@ wk.register({
   },
   m = {
     [[<cmd>make<cr>]],
-    "Make program"
+    "Make program",
   },
   s = {
     name = "subsitute",

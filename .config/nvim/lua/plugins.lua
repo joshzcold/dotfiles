@@ -40,7 +40,7 @@ require("packer").startup({
       },
     })
     use({ "folke/which-key.nvim", config = get_setup("whichkey") }) -- which-key mappings in lua/mappings.lua
-    use({"monaqa/dial.nvim"})
+    use({ "monaqa/dial.nvim" })
     use({ "tpope/vim-fugitive", config = get_setup("fugitive") }) -- Git commands in nvim
     use({ "tpope/vim-repeat" })
     use({ "numToStr/Comment.nvim", config = get_setup("comment") }) -- "gc" to comment visual regions/lines
@@ -94,7 +94,7 @@ require("packer").startup({
     use("neo4j-contrib/cypher-vim-syntax")
 
     use("https://github.com/Pocco81/TrueZen.nvim")
-    use("https://github.com/akinsho/nvim-toggleterm.lua")
+    use({ "https://github.com/akinsho/nvim-toggleterm.lua", config = get_setup("toggle-term") })
 
     use({
       "kyazdani42/nvim-tree.lua",
