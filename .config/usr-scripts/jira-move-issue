@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+set -eu
+
+selected_issue="$(jira sprint list --current --plain --no-headers --columns "STATUS,ASSIGNEE,SUMMARY" -s~Done | fzf)"
+
+jira issue move "$(echo $selected_issue | awk '{print $1}')"
