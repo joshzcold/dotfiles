@@ -1,3 +1,17 @@
+function toggle_term(cmd)
+  -- body
+    local Terminal = require("toggleterm.terminal").Terminal
+    local jira = Terminal:new({ cmd = cmd,
+      -- "jira-move-issue",
+    hidden = true, direction = "float" })
+
+    function _jira_toggle()
+      jira:toggle()
+    end
+    vim.cmd([[:lua _jira_toggle()]])
+    vim.api.nvim_buf_set_keymap(0, "t", "<c-j>", "<down>", { silent = true })
+    vim.api.nvim_buf_set_keymap(0, "t", "<c-k>", "<up>", { silent = true })
+end
 require("which-key").setup({
   plugins = {
     marks = true, -- shows a list of your marks on ' and `
@@ -119,49 +133,25 @@ wk.register({
       name = "Jira Actions",
       n = {
         function()
-          local Terminal = require("toggleterm.terminal").Terminal
-          local jira = Terminal:new({ cmd = "jira issue create", hidden = true, direction = "float" })
-
-          function _jira_toggle()
-            jira:toggle()
-          end
-          vim.cmd([[:lua _jira_toggle()]])
+          toggle_term("jira issue create")
         end,
         "New issue",
       },
       c = {
         function()
-          local Terminal = require("toggleterm.terminal").Terminal
-          local jira = Terminal:new({ cmd = "jira-add-comment", hidden = true, direction = "float" })
-
-          function _jira_toggle()
-            jira:toggle()
-          end
-          vim.cmd([[:lua _jira_toggle()]])
+          toggle_term("jira-add-comment")
         end,
         "Add new comment",
       },
       m = {
         function()
-          local Terminal = require("toggleterm.terminal").Terminal
-          local jira = Terminal:new({ cmd = "jira-move-issue", hidden = true, direction = "float" })
-
-          function _jira_toggle()
-            jira:toggle()
-          end
-          vim.cmd([[:lua _jira_toggle()]])
+          toggle_term("jira-move-issue")
         end,
         "Move issue",
       },
       v = {
         function()
-          local Terminal = require("toggleterm.terminal").Terminal
-          local jira = Terminal:new({ cmd = "jira-view-issue", hidden = true, direction = "float" })
-
-          function _jira_toggle()
-            jira:toggle()
-          end
-          vim.cmd([[:lua _jira_toggle()]])
+          toggle_term("jira-view-issue")
         end,
         "View Issue",
       }
