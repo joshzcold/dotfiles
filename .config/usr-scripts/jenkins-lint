@@ -2,5 +2,5 @@
 set -o pipefail
 
 jenkins_crumb=$( curl -s 'https://hq-devops-v-jenkins-master.secmet.co/crumbIssuer/api/json' | jq -r '.crumb')
-curl -k -L -X POST -H "$jenkins_crumb" -F "jenkinsfile=<$1" \
+curl -s -k -L -X POST -H "$jenkins_crumb" -F "jenkinsfile=<$1" \
 	"https://hq-devops-v-jenkins-master.secmet.co/pipeline-model-converter/validate"
