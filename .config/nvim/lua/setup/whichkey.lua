@@ -152,6 +152,18 @@ wk.register({
           vim.cmd([[:lua _jira_toggle()]])
         end,
         "Move issue",
+      },
+      v = {
+        function()
+          local Terminal = require("toggleterm.terminal").Terminal
+          local jira = Terminal:new({ cmd = "jira-view-issue", hidden = true, direction = "float" })
+
+          function _jira_toggle()
+            jira:toggle()
+          end
+          vim.cmd([[:lua _jira_toggle()]])
+        end,
+        "View Issue",
       }
     },
     u = {
