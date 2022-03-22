@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 set -eu
-sudo yay -S --needed - < ~/.config/install-apps
+yay -S --needed - < ~/.config/install-apps
