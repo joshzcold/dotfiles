@@ -1,4 +1,3 @@
-# install with sudo yay -S --needed - < install-apps
 ansible
 bat
 betterlockscreen
@@ -20,7 +19,7 @@ kubectl
 linux-headers
 lxappearance
 ncdu
-neovim
+neovim-nightly-bin
 network-manager-applet
 nitrogen
 openssh
