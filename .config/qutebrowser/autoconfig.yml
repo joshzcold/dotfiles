@@ -91,6 +91,7 @@ settings:
     https://calendar.google.com?cid=%25s: true
     https://mail.google.com?extsrc=mailto&url=%25s: true
     https://outlook.live.com?mailtouri=%25s: true
+    https://voice.google.com?a=nc,%25s: true
   spellcheck.languages:
     global:
     - en-US
