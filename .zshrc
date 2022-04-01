@@ -257,7 +257,7 @@ function fast_ssh(){
     if [[ $host == $last ]]; then
       TERM=xterm ssh $host </dev/tty
     else
-      kitty zsh -c "TERM=xterm ssh $host </dev/tty" &
+      kitty --detach zsh -c "TERM=xterm ssh $host </dev/tty" &
     fi
   done
 }
