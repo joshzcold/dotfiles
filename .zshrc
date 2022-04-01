@@ -104,7 +104,7 @@ alias kp="kubectl get pods"
 alias kw="kubectl get pods -w"
 alias cat="bat -p --pager=never"
 alias ssh="TERM=xterm ssh"
-alias ag="ansible-galaxy install -r ansible-requirements.yml -f"
+alias ag="./ur || ansible-galaxy install -r ansible-requirements.yml -f"
 alias ansible-update-hostsfile="sudo ansible-playbook  playbooks/99-hostsfile.yml -i hosts/base-hosts -i"
 
 # cd into first dir
@@ -229,9 +229,9 @@ function vgit(){
 }
 
 function cgit(){
-  local cmd="${FZF_ALT_C_COMMAND:-"fd --search-path $HOME/git --glob '*.git' --no-ignore-vcs --hidden --prune --exec dirname {} "}"
+  local cmd="${FZF_ALT_C_COMMAND:-"fd --search-path $HOME/git --glob '*.git' --no-ignore-vcs --hidden --prune --exec dirname {}"}"
   setopt localoptions pipefail no_aliases 2> /dev/null
-  local dir="$(eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --tiebreak=begin --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS" $(__fzfcmd) +m)"
+  local dir="$(eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --preview='cd {}; git symbolic-ref -q --short HEAD || git describe --tags --exact-match' --reverse --tiebreak=begin --preview-window up,1,border-horizontal --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS" $(__fzfcmd) +m)"
   if [[ -z "$dir" ]]; then
     zle redisplay
     return 0
