@@ -105,7 +105,7 @@ alias kw="kubectl get pods -w"
 alias cat="bat -p --pager=never"
 alias ssh="TERM=xterm ssh"
 alias ag="./ur || ansible-galaxy install -r ansible-requirements.yml -f"
-alias ansible-update-hostsfile="sudo ansible-playbook  playbooks/99-hostsfile.yml -i hosts/base-hosts -i"
+alias ansible-update-hostsfile="sudo ansible-playbook  playbooks/hostsfile.yml -i hosts/base-hosts -i"
 
 # cd into first dir
 alias cdf="cd $(ls -d */|head -n 1)" 
