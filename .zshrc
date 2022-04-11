@@ -88,6 +88,7 @@ else
 fi;
 
 
+alias genpass="openssl rand -base64 32"
 alias ls="ls --color=auto"
 alias ps="procs"
 alias sudo="sudo "
