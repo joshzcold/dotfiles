@@ -241,6 +241,10 @@ wk.register({
       [[<cmd>call GitPush()<cr>]],
       "Git Sync",
     },
+    r = {
+      [[<cmd>call GitPushWithReview()<cr>]],
+      "Git Sync with review",
+    },
     u = {
       [[<cmd>Git pull<cr>]],
       "Git Pull",

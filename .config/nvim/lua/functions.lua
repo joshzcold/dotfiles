@@ -13,11 +13,17 @@ vim.cmd([[
 ]])
 
 vim.cmd([[
-function! GitPush()
+function! GitPushWithReview()
       execute("Gwrite")
       let message = input("commit message: ")
       execute("Git commit -m '".message."' ")
       execute("Git pushg")
+endfunction
+function! GitPush()
+      execute("Gwrite")
+      let message = input("commit message: ")
+      execute("Git commit -m '".message."' ")
+      execute("Git push")
 endfunction
 
 function! JenkinsLint()
