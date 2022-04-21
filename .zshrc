@@ -247,6 +247,14 @@ function cgit(){
   return $ret
 }
 
+function git_branch(){
+  selected_line="$(git branch -r | fzf --bind 'ctrl-b:reload(git fetch origin; git branch -r)' | awk '{print $1}')"
+  if [ ! -z "$selected_line" ];then
+    git checkout -q "$selected_line"
+    git switch "$(echo ${selected_line//origin\/})"
+  fi
+}
+
 # Best freaking function to select multiple ssh hosts
 # and start a kitty term with ssh to each
 function fast_ssh(){
@@ -310,6 +318,9 @@ bindkey '^f' vgit
 
 zle -N cgit
 bindkey '^a' cgit
+
+zle -N git_branch
+bindkey '^b' git_branch
 
 zle -N kconf
 bindkey '^k' kconf
