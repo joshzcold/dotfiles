@@ -128,3 +128,4 @@ google chat bot message api format https://developers.google.com/chat/api/guides
 devops prometheus https://hq-devops-v-prometheus.secmet.co/alerts
 ref prometheus https://hq-ref-v-prometheus.secmet.co/alerts
 dev prometheus http://hq-dev-v-prometheus.secmet.co:9090/alerts
+devops kanban board jira https://securitymetrics.atlassian.net/jira/software/c/projects/DV6/boards/292
