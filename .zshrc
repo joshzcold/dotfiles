@@ -252,6 +252,10 @@ function git_branch(){
   if [ ! -z "$selected_line" ];then
     git checkout -q "$selected_line"
     git switch "$(echo ${selected_line//origin\/})"
+    zle push-line
+    zle accept-line
+    zle reset-prompt
+    return 0
   fi
 }
 
