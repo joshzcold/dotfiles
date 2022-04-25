@@ -248,16 +248,17 @@ function cgit(){
 }
 
 function git_branch(){
-  selected_line="$(git branch -r | fzf --bind 'ctrl-b:reload(git fetch origin; git branch -r)' | awk '{print $1}')"
+  selected_line="$(git branch -r -q | fzf -0 --bind 'ctrl-b:reload(git fetch origin; git branch -r)' | awk '{print $1}')"
+
   if [ ! -z "$selected_line" ];then
     git checkout -q "$selected_line"
     git switch "$(echo ${selected_line//origin\/})"
     git pull
-    zle push-line
-    zle accept-line
-    zle reset-prompt
-    return 0
   fi
+  zle push-line
+  zle accept-line
+  zle reset-prompt
+  return 0
 }
 
 # Best freaking function to select multiple ssh hosts
