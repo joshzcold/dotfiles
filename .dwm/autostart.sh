@@ -4,7 +4,8 @@ autorandr -c && nitrogen --restore &
 # emacs --daemon &
 unclutter -idle 1 -jitter 2 -root &
 nm-applet &
-dunst &
+# dunst &
+/usr/lib/xfce4/notifyd/xfce4-notifyd &
 pamac-tray &
 picom &
 # keynav &

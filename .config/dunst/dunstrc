@@ -1,7 +1,6 @@
 [global]
 monitor = 0
 follow = mouse
-geometry = "280x50-10+44"
 indicate_hidden = yes
 shrink = no
 separator_height = 4
@@ -21,7 +20,7 @@ word_wrap = yes
 ignore_newline = no
 stack_duplicates = false
 hide_duplicate_count = yes
-show_indicators = no
+show_indicators = yes
 icon_position = left
 max_icon_size = 48
 sticky_history = yes
@@ -30,12 +29,9 @@ browser = x-www-browser -new-tab
 always_run_script = true
 title = Dunst
 class = Dunst
-
-[shortcuts]
-close = ctrl+shift+space
-close_all = ctrl+shift+space
-history = ctrl+grave
-context = ctrl+shift+period
+mouse_left_click = close_current
+mouse_middle_click = context
+mouse_right_click = close_all
 
 [urgency_low]
 timeout = 3
@@ -54,3 +50,5 @@ timeout = 0
 background = "#212B30"
 foreground = "#EC407A"
 frame_color = "#EC407A"
+
+
