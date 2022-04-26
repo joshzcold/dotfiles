@@ -39,7 +39,6 @@ require("packer").startup({
         { "theHamsta/nvim-dap-virtual-text" },
       },
     })
-    use({"miversen33/netman.nvim"})
     use({ "folke/which-key.nvim", config = get_setup("whichkey") }) -- which-key mappings in lua/mappings.lua
     use({ "monaqa/dial.nvim" })
     use({ "tpope/vim-fugitive", config = get_setup("fugitive") }) -- Git commands in nvim
@@ -178,5 +177,3 @@ require("packer").startup({
     },
   },
 })
-
-require("netman")
