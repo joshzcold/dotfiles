@@ -39,6 +39,7 @@ require("packer").startup({
         { "theHamsta/nvim-dap-virtual-text" },
       },
     })
+    use({"miversen33/netman.nvim"})
     use({ "folke/which-key.nvim", config = get_setup("whichkey") }) -- which-key mappings in lua/mappings.lua
     use({ "monaqa/dial.nvim" })
     use({ "tpope/vim-fugitive", config = get_setup("fugitive") }) -- Git commands in nvim
@@ -94,7 +95,7 @@ require("packer").startup({
     use("neo4j-contrib/cypher-vim-syntax")
 
     use("https://github.com/Pocco81/TrueZen.nvim")
-    use({ "https://github.com/akinsho/nvim-toggleterm.lua", config = get_setup("toggle-term") })
+    use({ "https://github.com/akinsho/nvim-toggleterm.lua", branch = "main" })
 
     use({
       "kyazdani42/nvim-tree.lua",
@@ -177,3 +178,5 @@ require("packer").startup({
     },
   },
 })
+
+require("netman")

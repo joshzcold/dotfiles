@@ -3,7 +3,6 @@ require("nvim-tree").setup({
   disable_netrw = true,
   update_cwd = true,
   view = {
-    auto_resize = true,
     width = 50,
     mappings = {
       list = {
