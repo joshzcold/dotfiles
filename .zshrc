@@ -122,6 +122,11 @@ function kubectl() {
     command kubectl "$@"
 }
 
+function pacman-update-mirrors(){
+  sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
+  sudo reflector --latest 20 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+}
+
 function cdg(){ cd $(git rev-parse --show-toplevel) }
 
 function ascii(){
