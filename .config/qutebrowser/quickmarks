@@ -108,7 +108,7 @@ dev kibana logs https://hq-dev-v-logs
 prod logs https://dk-prod1-v-logs-proxy.secmet.co
 dk1 prometheus http://dk-prod1-v-prometheus.secmet.co:9090/alerts
 hq prometheus http://hq-prod1-v-prometheus.secmet.co:9090/alerts
-dk2 prometheus http://dk-prod2-v-prometheus.secmet.co:9090/alerts
+dk2 prometheus https://dk-prod2-v-prometheus.secmet.co/alerts
 current prod site securitymetrics https://www.securitymetrics.com/api/v2/scheduler/vitals
 securitymetrics dental benefits https://www.principal.com/
 dk1 docker visualizer https://dk-prod1-v-logs-proxy.secmet.co/visualizer/
