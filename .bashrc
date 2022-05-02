@@ -141,3 +141,17 @@ ex ()
 bind 'set show-all-if-ambiguous on'
 bind 'TAB:menu-complete'
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+function fastssh(){
+  fzf_output="$(cat /etc/hosts | fzf -m | awk '{print $2}')"
+  readarray -t <<<$fzf_output
+  pos=${#MAPFILE[*]}
+  last=${MAPFILE[-1]}
+
+  for host in "${MAPFILE[@]}"; do
+    if [[ $host == $last ]]; then
+      TERM=xterm ssh $host </dev/tty
+    else
+      kitty --detach bash -c "TERM=xterm ssh $host </dev/tty" &
+    fi
+  done
+}
