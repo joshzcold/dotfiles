@@ -117,13 +117,6 @@ require("packer").startup({
         { "kyazdani42/nvim-web-devicons", opt = true },
       },
     })
-    use({
-      "anuvyklack/pretty-fold.nvim",
-      config = function()
-        require("pretty-fold").setup({})
-        require("pretty-fold.preview").setup()
-      end,
-    })
     use({ "phaazon/hop.nvim", config = get_setup("hop") })
     use({
       "https://github.com/windwp/nvim-autopairs",
