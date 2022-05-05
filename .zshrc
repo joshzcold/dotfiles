@@ -266,7 +266,13 @@ function git_branch(){
 }
 
 function prometheus_unhealthy_targets(){
-  curl -s "$1/api/v1/targets" | jq -r '.data.activeTargets[] | select(.health == "down") | .labels.instance'
+  if [ "$1" = "-j" ];then
+    prom_ip="$(dig +short $(echo "$2" | cut -d '/' -f3 | cut -d ':' -f1 ))"
+    curl -k -s "$2/api/v1/targets" | jq --arg prom_ip "${prom_ip}" -r '.data.activeTargets[] | select(.health == "down") | [$prom_ip, "=>", .labels.instance, .labels.job] | @tsv'
+  else
+    prom_ip="$(dig +short $(echo "$1" | cut -d '/' -f3 | cut -d ':' -f1 ))"
+    curl -k -s "$1/api/v1/targets" | jq --arg prom_ip "${prom_ip}" -r '.data.activeTargets[] | select(.health == "down") | [$prom_ip, "=>", .labels.instance] | @tsv'
+  fi
 }
 
 # Best freaking function to select multiple ssh hosts

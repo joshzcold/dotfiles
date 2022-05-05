@@ -1,1 +1,1 @@
-git config --get remote.origin.url
+git config --get remote.origin.url | tee /dev/stderr | printf %s "$(< /dev/stdin)"  | xclip -selection clipboard
