@@ -275,6 +275,10 @@ function prometheus_unhealthy_targets(){
   fi
 }
 
+function prometheus_firing_alerts(){
+  curl -s "$1/api/v1/alerts" | jq -r '.data.alerts[] | select(.state == "firing") | .labels | [.hostname, .instance] | @tsv'
+}
+
 # Best freaking function to select multiple ssh hosts
 # and start a kitty term with ssh to each
 function fast_ssh(){
