@@ -1,9 +1,12 @@
 [user]
 	email = joshua.cold@securitymetrics.com
 	name = Joshua Cold
+	signingkey = 49285B39D09B7C5486613E85DCD06942FDA195EF
 [alias]
 	pushg = !git_push.sh
 [push]
 	default = current
 [pull]
 	rebase = false
+[commit]
+	gpgsign = true

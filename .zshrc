@@ -9,7 +9,8 @@ PROMPT=" $PROMPT"
 eval "$(dircolors ~/.dircolors)"
 
 # case insensitive file matching
-zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
 # ZLE hooks for prompt's vi mode status
 function zle-line-init zle-keymap-select {
   # Change the cursor style depending on keymap mode.
@@ -144,20 +145,6 @@ function yu(){
   yadm push
 }
 
-function searchGit(){
-  cgit
-  INITIAL_QUERY=""
-  RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
-  result=$(FZF_DEFAULT_COMMAND="$RG_PREFIX '$INITIAL_QUERY'" \
-    fzf --bind "change:reload:$RG_PREFIX {q} || true" \
-    --ansi --disabled --query "$INITIAL_QUERY" \
-    --height=50% --layout=reverse)
-  result=$(echo "$result" | cut -d ":" -f 4- |sed 's/^ *//g' )
-  echo "$result"
-  echo "$result" | xclip -selection c
-  cd -
-}
-
 function searchGitHistory(){
   INITIAL_QUERY=""
   RG_PREFIX="git grep --column --color=always --threads 4"
@@ -174,29 +161,6 @@ function searchGitHistory(){
 
 function grep-all(){
   grep --color=always -z $1 $2
-}
-
-
-function kold(){
-  kubectl get $1 -o go-template --template '{{range .items}}{{.metadata.name}} {{.metadata.creationTimestamp}}{{"\n"}}{{end}}' | awk '$2 <= "'$(date -d '2 days ago' -Ins --utc | sed 's/+0000/Z/')'" { print $1 }'
-}
-
-function kpdel(){
-  read -k1 "?Deleting $* is that okay? [y/n]?" confirm
-  if [ "$confirm" = "y" ];then
-    objects=( namespace pod svc ingresses.networking.k8s.io configmap pvc pv )
-    for ob in "${objects[@]}"
-    do
-      content=$(kubectl get $ob --all-namespaces)
-      for var in "$@"
-      do
-        if echo "$content" | grep $var >/dev/null; then
-          echo "delete $ob $var"
-          kubectl delete $ob $var &
-        fi
-      done
-    done
-  fi
 }
 
 function notes(){
@@ -293,10 +257,6 @@ function fast_ssh(){
       kitty --detach zsh -c "TERM=xterm ssh $host </dev/tty" &
     fi
   done
-}
-
-function kre(){
-  kubectl delete -f $1 && kubectl apply -f $1
 }
 
 function start_nvm(){
@@ -419,13 +379,17 @@ function hide_completion_indicator {
 compprefuncs+=(display_completion_indicator)
 comppostfuncs+=(hide_completion_indicator)
 
+# fixing yadm completion before the devs fix it
 function _yadm-add(){
+  local -a yadm_options yadm_path
   yadm_path="$(yadm rev-parse --show-toplevel)"
-  yadm_options=$(yadm status --porcelain=v1 |
-    awk -v yadm_path=${yadm_path} '{printf "%s/\"%s\"\\:\"%s\" ",  yadm_path, $2, $1 }' )
-  _alternative \
-    "args:custom arg:(($yadm_options))" \
-    'files:filename:_files'
+  yadm_options=($(yadm status --porcelain=v1 |
+    awk -v yadm_path=${yadm_path} '{printf "%s/%s:%s\n",  yadm_path, $2, $1}' ))
+  local expl
+  local line=( $yadm_options[1,CURRENT-1] )
+
+  _describe 'command' yadm_options -F line
+  _files
 }
 
 function _yadm-checkout(){ _yadm-add }
