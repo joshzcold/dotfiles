@@ -1,5 +1,8 @@
 -- LSP settings
-local nvim_lsp = require("lspconfig")
+
+-- make nvim-cmp aware of extra capabilities coming from lsp
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -22,124 +25,62 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<leader>=", "<cmd>lua vim.lsp.buf.formatting_seq_sync(nil, 7500)<cr>")
 end
 
-local lsp_installer = require("nvim-lsp-installer")
+require("nvim-lsp-installer").setup{}
+local lspconfig = require("lspconfig")
 
--- auto install list of servers
-local servers = {
-  "bashls",
-  "groovyls",
-  "tailwindcss",
-  "ansiblels",
-  "sumneko_lua",
-  "tsserver",
-}
-
-for _, name in pairs(servers) do
-  local server_is_found, server = lsp_installer.get_server(name)
-  if server_is_found and not server:is_installed() then
-    print("Installing " .. name)
-    server:install()
-  end
-end
---
-
-local server_opts = {
-  -- Provide settings that should only apply to the "eslintls" server
-  ["groovyls"] = function(opts)
-    opts.filetypes = { "groovy", "Jenkinsfile" }
-  end,
-  ["sumneko_lua"] = function(opts)
-    local library = {}
-
-    local path = {} -- vim.split(package.path, ";")
-
-    -- this is the ONLY correct way to setup your path
-    table.insert(path, "lua/?.lua")
-    table.insert(path, "lua/?/init.lua")
-
-    local function add(lib)
-      for _, p in pairs(vim.fn.expand(lib, false, true)) do
-        q = vim.loop.fs_realpath(p)
-        library[q] = true
-      end
-    end
-
-    -- add runtime
-    add("$VIMRUNTIME")
-
-    -- add plugins
-    -- if you're not using packer, then you might need to change the paths below
-    add("/home/joshua/.local/share/nvim/site/pack/packer/opt/")
-    add("/home/joshua/.local/share/nvim/site/pack/packer/start/")
-    opts.settings = {
-      Lua = {
-        runtime = {
-          version = "LuaJIT",
-          path = path,
-        },
-        completion = { callSnippet = "Both" },
-        diagnostics = {
-          globals = { "vim" },
-        },
-        workspace = {
-          library = library,
-          maxPreload = 2000,
-          preloadFileSize = 50000,
-        },
-        telemetry = { enable = false },
+lspconfig.sumneko_lua.setup{
+  settings = {
+    Lua = {
+      runtime = {
+        version = "LuaJIT",
+        -- path = path,
       },
+      completion = { callSnippet = "Both" },
+      diagnostics = {
+        globals = { "vim" },
+      },
+      telemetry = { enable = false },
     }
-  end,
-  ["ansiblels"] = function(opts)
-    opts.settings = {
+  },
+  on_attach = on_attach,
+  capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+}
+lspconfig.bashls.setup{
+  on_attach = on_attach,
+}
+lspconfig.tailwindcss.setup{
+  on_attach = on_attach,
+}
+lspconfig.ansiblels.setup{
+  settings = {
+    ansible = {
       ansible = {
-        ansible = {
-          path = "ansible",
-        },
-        ansibleLint = {
-          enabled = true,
-          path = "ansible-lint",
-          arguments = "-x fqcn-builtins,role-name"
-        },
-        executionEnvironment = {
-          enabled = false,
-        },
-        python = {
-          interpreterPath = "python",
-        },
+        path = "ansible",
       },
-    }
-  end,
+      ansibleLint = {
+        enabled = true,
+        path = "ansible-lint",
+        arguments = "-x fqcn-builtins,role-name"
+      },
+      executionEnvironment = {
+        enabled = false,
+      },
+      python = {
+        interpreterPath = "python",
+      },
+    },
+  },
+  on_attach = on_attach,
+  capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 }
 
--- make nvim-cmp aware of extra capabilities coming from lsp
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
-function dump(o)
-  if type(o) == "table" then
-    local s = "{ "
-    for k, v in pairs(o) do
-      if type(k) ~= "number" then
-        k = '"' .. k .. '"'
-      end
-      s = s .. "[" .. k .. "] = " .. dump(v) .. ","
-    end
-    return s .. "} "
-  else
-    return tostring(o)
-  end
-end
+lspconfig.groovyls.setup{
+  filetypes = { "groovy", "Jenkinsfile" },
+  on_attach = on_attach,
+  capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+}
+lspconfig.tsserver.setup{
+  on_attach = on_attach,
+}
 
-lsp_installer.on_server_ready(function(server)
-  local opts = {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
 
-  if server_opts[server.name] then
-    -- Enhance the default opts with the server-specific ones
-    server_opts[server.name](opts)
-  end
-
-  server:setup_lsp(opts)
-end)
