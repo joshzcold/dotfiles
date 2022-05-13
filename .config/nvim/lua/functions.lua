@@ -12,6 +12,20 @@ vim.cmd([[
   autocmd Filetype yaml.* set makeprg=ansible-lint\ -p\ --nocolor\ -x\ role-name,package-latest,fqcn-builtins
 ]])
 
+
+function BitBucketReview()
+  local Job = require'plenary.job'
+
+  Job:new({
+    command = 'open_review.sh',
+    env = { ['a'] = 'b' },
+    on_exit = function(j, return_val)
+      print(return_val)
+      print(j:result())
+    end,
+  }):sync() -- or start()
+end
+
 vim.cmd([[
 function! GitPushWithReview()
       execute("Gwrite")
