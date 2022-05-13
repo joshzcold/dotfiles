@@ -243,7 +243,7 @@ wk.register({
     },
     P = {
       [[<cmd>!open_review.sh<cr>]],
-      "Open review",
+      "Open review On Bitbucket",
     },
     r = {
       [[<cmd>call GitPushWithReview()<cr>]],
