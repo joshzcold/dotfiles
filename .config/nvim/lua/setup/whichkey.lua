@@ -265,7 +265,7 @@ wk.register({
       [[<cmd>lua require"gitlinker".get_buf_range_url('n')<cr>]],
       "Create git link",
     },
-    b = {
+    B = {
       function()
         local result = require("telescope.builtin").git_bcommits({
           prompt_title = "switch to commit on this buffer",
@@ -274,6 +274,12 @@ wk.register({
       end,
       "Git commits buffer",
     },
+    b = {
+      function()
+        require("telescope.builtin").git_branches({})
+      end,
+      "Switch git branch",
+    }
   },
   y = {
     f = {
