@@ -74,8 +74,13 @@ lspconfig.ansiblels.setup{
   capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 }
 
+
+local util = require 'lspconfig.util'
 lspconfig.groovyls.setup{
   filetypes = { "groovy", "Jenkinsfile" },
+  root_dir = function(fname)
+    return util.root_pattern 'src'(fname) or util.find_git_ancestor(fname)
+  end,
   on_attach = on_attach,
   capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 }
@@ -83,4 +88,4 @@ lspconfig.tsserver.setup{
   on_attach = on_attach,
 }
 
-
+-- vim.lsp.set_log_level("debug")

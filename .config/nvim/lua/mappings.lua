@@ -40,6 +40,9 @@ map("n", "<A-k>", ":cprev<cr>")
 map("n", "<S-A-j>", ":bnext<cr>")
 map("n", "<S-A-k>", ":bprev<cr>")
 
+-- quickly switch git branches with ctrl-b
+map("n", "<c-b>", ":lua require('telescope.builtin').git_branches({})<cr>")
+
 -- H and L move to start and end of the line
 map("n", "H", "^")
 map("n", "L", "$")
