@@ -15,7 +15,7 @@ res=$(curl --fail -k -L -H "Authorization: Bearer ${token}" \
   "${host}/rest/api/1.0/projects/${project}/repos/${repo}/pull-requests/${pull_num}")
 echo "$res" | jq '.'
 
-title=$(echo "$res" | jq -r '.title')
+title=$(echo "$res" | jq -r '.title' | sed 's/[[:blank:]]/_/g' )
 href=$(echo "$res" | jq -r '.links.self[0].href')
 src=$(echo "$res" | jq -r '.fromRef.repository.links.clone[] | select(.name == "ssh") | .href')
 branch=$(echo "$res" | jq -r '.fromRef.displayId')
