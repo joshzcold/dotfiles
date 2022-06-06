@@ -94,7 +94,9 @@ require("packer").startup({
     use("neo4j-contrib/cypher-vim-syntax")
 
     use("https://github.com/Pocco81/TrueZen.nvim")
-    use({ "https://github.com/akinsho/nvim-toggleterm.lua", branch = "main" })
+    use {"akinsho/toggleterm.nvim", tag = 'v1.*', config = function()
+      require("toggleterm").setup()
+    end}
 
     use({
       "kyazdani42/nvim-tree.lua",
