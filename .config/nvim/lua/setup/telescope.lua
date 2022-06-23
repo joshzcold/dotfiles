@@ -30,7 +30,7 @@ require("telescope").setup({
     },
     find_files = {
       previewer = false,
-      find_command = {"rg", "--ignore", "-L", "--hidden", "--files"},
+      find_command = {"rg", "--ignore", "-L", "--hidden", "--files", "--glob", "!.git"},
       mappings = {
         i = {
           ["<cr>"] = custom_actions.fzf_multi_select,
