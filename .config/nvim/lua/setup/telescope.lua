@@ -19,6 +19,10 @@ end
 require("telescope").setup({
   pickers = {
     live_grep = {
+      additional_args = function ()
+       return {"-L"}
+      end,
+      disable_coordinates = true,
       mappings = {
         i = {
           ["<cr>"] = custom_actions.fzf_multi_select,
