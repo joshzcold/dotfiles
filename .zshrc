@@ -34,6 +34,7 @@ export NPM_PACKAGES="${HOME}/.npm-packages"
 export VAULT_ADDR="https://vault.secmet.co:8200"
 export VAULT_SKIP_VERIFY=1
 export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
+export MANPAGER="/usr/bin/less -r -X -is"
 export GOPATH=$HOME/.go
 export KUBE_EDITOR=nvim
 export SUDO_ASKPASS=/usr/bin/ksshaskpass
