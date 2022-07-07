@@ -2,7 +2,7 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-selection=$(rofi -i -width 1000 -dmenu "$@" -q < ~/.config/usr-scripts/rofi_snippets.txt)
+selection=$(rofi -i -width 1000 -theme sidebar -dmenu "$@" -q < ~/.config/usr-scripts/rofi_snippets.txt)
 
 if [[ -n "$selection" ]]; then
 	echo -n "$selection" | xclip -selection clipboard
