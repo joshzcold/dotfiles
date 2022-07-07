@@ -1,0 +1,5 @@
+sudo ss -tulpn | grep LISTEN
+openssl x509 -text -noout -in certificate.crt
+source /usr/share/bash-completion/completions/systemctl; _systemctl_restart(){ comps=$( __get_restartable_units --system "${COMP_WORDS[1]}" ); compopt -o filenames; COMPREPLY=( $(compgen -o filenames -W '$comps') ); return 0; }; sc(){ echo "restart $1"; sudo systemctl restart $1; sleep 3; sudo systemctl status $1 ; }; complete -F _systemctl_restart sc
+journalctl -S -1h -u X
+sudo -iu postgres psql -h 127.0.0.1 -c "select * from pg_stat_replication"
