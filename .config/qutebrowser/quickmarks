@@ -106,9 +106,14 @@ chrome remote desktop https://remotedesktop.google.com/access
 google calendar https://calendar.google.com/calendar/u/1/r?pli=1
 dev kibana logs https://hq-dev-v-logs
 prod logs https://dk-prod1-v-logs-proxy.secmet.co
-dk1 prometheus http://dk-prod1-v-prometheus.secmet.co:9090/alerts
-hq prometheus http://hq-prod1-v-prometheus.secmet.co:9090/alerts
+dk1 prometheus https://dk-prod1-v-prometheus.secmet.co/alerts
+hq prometheus https://hq-prod1-v-prometheus.secmet.co/alerts
 dk2 prometheus https://dk-prod2-v-prometheus.secmet.co/alerts
+
+dk1 alertmanager http://dk-prod1-v-prometheus.secmet.co:9093
+hq alertmanager http://hq-prod1-v-prometheus.secmet.co:9093
+dk2 alertmanager http://dk-prod2-v-prometheus.secmet.co:9093
+
 current prod site securitymetrics https://www.securitymetrics.com/api/v2/scheduler/vitals
 securitymetrics dental benefits https://www.principal.com/
 dk1 docker visualizer https://dk-prod1-v-logs-proxy.secmet.co/visualizer/
