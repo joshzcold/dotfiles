@@ -109,11 +109,9 @@ prod logs https://dk-prod1-v-logs-proxy.secmet.co
 dk1 prometheus https://dk-prod1-v-prometheus.secmet.co/alerts
 hq prometheus https://hq-prod1-v-prometheus.secmet.co/alerts
 dk2 prometheus https://dk-prod2-v-prometheus.secmet.co/alerts
-
 dk1 alertmanager http://dk-prod1-v-prometheus.secmet.co:9093
 hq alertmanager http://hq-prod1-v-prometheus.secmet.co:9093
 dk2 alertmanager http://dk-prod2-v-prometheus.secmet.co:9093
-
 current prod site securitymetrics https://www.securitymetrics.com/api/v2/scheduler/vitals
 securitymetrics dental benefits https://www.principal.com/
 dk1 docker visualizer https://dk-prod1-v-logs-proxy.secmet.co/visualizer/
@@ -142,3 +140,4 @@ dk2 site https://dk-prod2-v-edgenginx-1.secmet.co/
 What we have been doing devops https://docs.google.com/document/d/1ZD9ro9FK1Z9l0nWCNM0wOCSw-YdnQ3qXnayE8GBCRV8/edit
 AWS Security Metrics Signin https://securitymetrics.signin.aws.amazon.com/console
 imperva WAF Security Metrics https://my.imperva.com/admin/login
+smart draw diagrams https://cloud.smartdraw.com
