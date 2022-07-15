@@ -74,6 +74,9 @@ lspconfig.ansiblels.setup{
   capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 }
 
+lspconfig.pyright.setup{
+  on_attach = on_attach,
+}
 
 local util = require 'lspconfig.util'
 lspconfig.groovyls.setup{
