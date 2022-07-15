@@ -39,7 +39,12 @@ export GOPATH=$HOME/.go
 export KUBE_EDITOR=nvim
 export SUDO_ASKPASS=/usr/bin/ksshaskpass
 export FZF_DEFAULT_COMMAND='rg --files'
+
+# Python
 export PYTHONWARNINGS="ignore:Unverified HTTPS request"
+export WORKON_HOME=~/.virtualenvs
+source /usr/bin/virtualenvwrapper.sh
+
 export PYTHONBREAKPOINT="pudb.set_trace"
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 export TERM=xterm-kitty
