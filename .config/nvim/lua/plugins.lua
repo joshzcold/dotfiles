@@ -151,6 +151,7 @@ require("packer").startup({
       config = get_setup("gitlinker"),
     })
     use("https://github.com/glepnir/lspsaga.nvim")
+    use("folke/trouble.nvim")
     use({
       "j-hui/fidget.nvim",
       config = function()

@@ -237,6 +237,10 @@ wk.register({
       [[<cmd>Git<cr>]],
       "Git",
     },
+    z = {
+      [[<cmd>Gitsigns reset_hunk<cr>]],
+      "Undo git hunk at point"
+    },
     p = {
       [[<cmd>call GitPush()<cr>]],
       "Git Sync",

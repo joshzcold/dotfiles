@@ -24,6 +24,8 @@ local lSsources = {
   }),
   null_ls.builtins.formatting.nginx_beautifier,
   null_ls.builtins.formatting.shfmt,
+  null_ls.builtins.formatting.flake8,
+  null_ls.builtins.formatting.black,
 }
 require("null-ls").setup({
   sources = lSsources,
