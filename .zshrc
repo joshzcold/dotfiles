@@ -43,7 +43,7 @@ export FZF_DEFAULT_COMMAND='rg --files'
 # Python
 export PYTHONWARNINGS="ignore:Unverified HTTPS request"
 export WORKON_HOME=~/.virtualenvs
-source /usr/bin/virtualenvwrapper.sh
+source /usr/bin/virtualenvwrapper_lazy.sh
 
 export PYTHONBREAKPOINT="pudb.set_trace"
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
@@ -113,6 +113,9 @@ alias cat="bat -p --pager=never"
 alias ssh="TERM=xterm ssh"
 alias ag="./ur || ansible-galaxy install -r ansible-requirements.yml -f"
 alias ansible-update-hostsfile="sudo ansible-playbook  playbooks/hostsfile.yml"
+alias mk="mkvirtualenv"
+alias wk="workon"
+alias dk="deactivate"
 
 # cd into first dir
 alias cdf="cd $(ls -d */|head -n 1)" 
