@@ -300,12 +300,6 @@ static Client *swallowingclient(Window w);
 static Client *termforwin(const Client *c);
 static pid_t winpid(Window w);
 
-
-static void keyrelease(XEvent *e);
-static void combotag(const Arg *arg);
-static void comboview(const Arg *arg);
-
-
 /* variables */
 static Systray *systray =  NULL;
 static const char broken[] = "broken";
@@ -318,7 +312,6 @@ static int (*xerrorxlib)(Display *, XErrorEvent *);
 static unsigned int numlockmask = 0;
 static void (*handler[LASTEvent]) (XEvent *) = {
 	[ButtonPress] = buttonpress,
-	[ButtonRelease] = keyrelease,
 	[ClientMessage] = clientmessage,
 	[ConfigureRequest] = configurerequest,
 	[ConfigureNotify] = configurenotify,
@@ -326,7 +319,6 @@ static void (*handler[LASTEvent]) (XEvent *) = {
 	/* [EnterNotify] = enternotify, */
 	[Expose] = expose,
 	[FocusIn] = focusin,
-	[KeyRelease] = keyrelease,
 	[KeyPress] = keypress,
 	[MappingNotify] = mappingnotify,
 	[MapRequest] = maprequest,
@@ -362,43 +354,6 @@ static unsigned int scratchtag = 1 << LENGTH(tags);
 
 /* compile-time check if all tags fit into an unsigned int bit array. */
 struct NumTags { char limitexceeded[LENGTH(tags) > 31 ? -1 : 1]; };
-
-/* function implementations */
-static int combo = 0;
-
-void
-keyrelease(XEvent *e) {
-	combo = 0;
-}
-
-void
-combotag(const Arg *arg) {
-	if(selmon->sel && arg->ui & TAGMASK) {
-		if (combo) {
-			selmon->sel->tags |= arg->ui & TAGMASK;
-		} else {
-			combo = 1;
-			selmon->sel->tags = arg->ui & TAGMASK;
-		}
-		focus(NULL);
-		arrange(selmon);
-	}
-}
-
-void
-comboview(const Arg *arg) {
-	unsigned newtags = arg->ui & TAGMASK;
-	if (combo) {
-		selmon->tagset[selmon->seltags] |= newtags;
-	} else {
-		selmon->seltags ^= 1;	/*toggle tagset*/
-		combo = 1;
-		if (newtags)
-			selmon->tagset[selmon->seltags] = newtags;
-	}
-	focus(NULL);
-	arrange(selmon);
-}
 
 void
 applyrules(Client *c)
@@ -930,6 +885,8 @@ createmon(void)
 	m->lt[1] = &layouts[1 % LENGTH(layouts)];
 	strncpy(m->ltsymbol, layouts[0].symbol, sizeof m->ltsymbol);
 	m->pertag = ecalloc(1, sizeof(Pertag));
+	if (!(m->pertag = (Pertag *)calloc(1, sizeof(Pertag))))
+		die("fatal: could not malloc() %u bytes\n", sizeof(Pertag));
 	m->pertag->curtag = m->pertag->prevtag = 1;
 
 	for (i = 0; i <= LENGTH(tags); i++) {
@@ -1981,10 +1938,13 @@ setgaps(const Arg *arg)
 void
 setlayout(const Arg *arg)
 {
-	if (!arg || !arg->v || arg->v != selmon->lt[selmon->sellt])
-		selmon->sellt = selmon->pertag->sellts[selmon->pertag->curtag] ^= 1;
+	if (!arg || !arg->v || arg->v != selmon->lt[selmon->sellt]) {
+		selmon->pertag->sellts[selmon->pertag->curtag] ^= 1;
+		selmon->sellt = selmon->pertag->sellts[selmon->pertag->curtag];
+	}
 	if (arg && arg->v)
-		selmon->lt[selmon->sellt] = selmon->pertag->ltidxs[selmon->pertag->curtag][selmon->sellt] = (Layout *)arg->v;
+		selmon->pertag->ltidxs[selmon->pertag->curtag][selmon->sellt] = (Layout *)arg->v;
+	selmon->lt[selmon->sellt] = selmon->pertag->ltidxs[selmon->pertag->curtag][selmon->sellt];
 	strncpy(selmon->ltsymbol, selmon->lt[selmon->sellt]->symbol, sizeof selmon->ltsymbol);
 	if (selmon->sel)
 		arrange(selmon);
@@ -2018,10 +1978,10 @@ setmfact(const Arg *arg)
 	if (!arg || !selmon->lt[selmon->sellt]->arrange)
 		return;
 	f = arg->f < 1.0 ? arg->f + selmon->mfact : arg->f - 1.0;
-	if (f < 0.1 || f > 0.9)
+	if (f < 0.05 || f > 0.95)
 		return;
-  selmon->mfact = selmon->pertag->mfacts[selmon->pertag->curtag] = f;	
-  arrange(selmon);
+	selmon->mfact = selmon->pertag->mfacts[selmon->pertag->curtag] = f;
+	arrange(selmon);
 }
 
 void
@@ -2216,7 +2176,8 @@ tile(Monitor *m)
 void
 togglebar(const Arg *arg)
 {
-	selmon->showbar = selmon->pertag->showbars[selmon->pertag->curtag] = !selmon->showbar;updatebarpos(selmon);
+	selmon->showbar = selmon->pertag->showbars[selmon->pertag->curtag] = !selmon->showbar;
+	updatebarpos(selmon);
 	resizebarwin(selmon);
 	if (showsystray) {
 		XWindowChanges wc;
@@ -2299,13 +2260,15 @@ toggletag(const Arg *arg)
 void
 toggleview(const Arg *arg)
 {
-	unsigned int newtagset = selmon->tagset[selmon->seltags] ^ (arg->ui & TAGMASK);
+	unsigned int newtagset = selmon->tagset[selmon->seltags] ^ (arg->ui & TAGMASK);;
 	int i;
+
 
 	if (newtagset) {
 		selmon->tagset[selmon->seltags] = newtagset;
 
-		if (newtagset == ~0) {
+		if (newtagset == ~0) 
+		{
 			selmon->pertag->prevtag = selmon->pertag->curtag;
 			selmon->pertag->curtag = 0;
 		}
@@ -2323,10 +2286,8 @@ toggleview(const Arg *arg)
 		selmon->sellt = selmon->pertag->sellts[selmon->pertag->curtag];
 		selmon->lt[selmon->sellt] = selmon->pertag->ltidxs[selmon->pertag->curtag][selmon->sellt];
 		selmon->lt[selmon->sellt^1] = selmon->pertag->ltidxs[selmon->pertag->curtag][selmon->sellt^1];
-
 		if (selmon->showbar != selmon->pertag->showbars[selmon->pertag->curtag])
 			togglebar(NULL);
-
 		focus(NULL);
 		arrange(selmon);
 	}
@@ -2763,22 +2724,20 @@ updatewmhints(Client *c)
 }
 
 void
-view(const Arg *arg)
+pertagview(const Arg *arg)
 {
+
 	int i;
 	unsigned int tmptag;
-
-	if ((arg->ui & TAGMASK) == selmon->tagset[selmon->seltags])
-		return;
-	selmon->seltags ^= 1; /* toggle sel tagset */
 	if (arg->ui & TAGMASK) {
-		selmon->tagset[selmon->seltags] = arg->ui & TAGMASK;
 		selmon->pertag->prevtag = selmon->pertag->curtag;
-
-		if (arg->ui == ~0)
+		selmon->tagset[selmon->seltags] = arg->ui & TAGMASK;
+		if (arg->ui == ~0){
 			selmon->pertag->curtag = 0;
+		}
 		else {
 			for (i = 0; !(arg->ui & 1 << i); i++) ;
+
 			selmon->pertag->curtag = i + 1;
 		}
 	} else {
@@ -2786,16 +2745,22 @@ view(const Arg *arg)
 		selmon->pertag->prevtag = selmon->pertag->curtag;
 		selmon->pertag->curtag = tmptag;
 	}
-
 	selmon->nmaster = selmon->pertag->nmasters[selmon->pertag->curtag];
 	selmon->mfact = selmon->pertag->mfacts[selmon->pertag->curtag];
 	selmon->sellt = selmon->pertag->sellts[selmon->pertag->curtag];
 	selmon->lt[selmon->sellt] = selmon->pertag->ltidxs[selmon->pertag->curtag][selmon->sellt];
 	selmon->lt[selmon->sellt^1] = selmon->pertag->ltidxs[selmon->pertag->curtag][selmon->sellt^1];
+}
 
-	if (selmon->showbar != selmon->pertag->showbars[selmon->pertag->curtag])
-		togglebar(NULL);
-
+void
+view(const Arg *arg)
+{
+	if ((arg->ui & TAGMASK) == selmon->tagset[selmon->seltags])
+	{
+		return;
+	}
+	selmon->seltags ^= 1; /* toggle sel tagset */
+	pertagview(arg);
 	focus(NULL);
 	arrange(selmon);
 }
