@@ -54,6 +54,8 @@ require("packer").startup({
         { "nvim-lua/plenary.nvim" },
       },
     })
+
+    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
     use({ "lewis6991/gitsigns.nvim", config = get_setup("gitsigns"), tag = "release" })
     use({ "https://github.com/hoschi/yode-nvim" })
     -- Add git related info in the signs columns and popups
@@ -66,6 +68,11 @@ require("packer").startup({
       },
     })
     use({ "neovim/nvim-lspconfig", config = get_setup("lspconfig") }) -- Collection of configurations for built-in LSP client
+
+    use {'nvim-telescope/telescope-ui-select.nvim' }
+    use({"kosayoda/nvim-lightbulb", config = function ()
+      require('nvim-lightbulb').setup({autocmd = {enabled = true}})
+    end})
     use({ "https://github.com/williamboman/nvim-lsp-installer", config = get_setup("lspconfig") })
     use({ "L3MON4D3/LuaSnip", config = get_setup("luasnip") })
     use({
@@ -81,7 +88,6 @@ require("packer").startup({
         { "https://github.com/joshzcold/cmp-rg" },
       },
     })
-    use("seanbreckenridge/yadm-git.vim")
     use { "beauwilliams/focus.nvim", config = function() require("focus").setup() end }
     use("https://github.com/onsails/lspkind-nvim")
     use("joshzcold/cmp-jenkinsfile")
@@ -152,7 +158,6 @@ require("packer").startup({
       "ruifm/gitlinker.nvim",
       config = get_setup("gitlinker"),
     })
-    use("https://github.com/glepnir/lspsaga.nvim")
     use("folke/trouble.nvim")
     use({
       "j-hui/fidget.nvim",

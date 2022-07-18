@@ -17,10 +17,19 @@ function custom_actions.fzf_multi_select(prompt_bufnr)
   end
 end
 require("telescope").setup({
+  extensions = {
+    fzf = {
+      fuzzy = true, -- false will only do exact matching
+      override_generic_sorter = true, -- override the generic sorter
+      override_file_sorter = true, -- override the file sorter
+      case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+      -- the default case_mode is "smart_case"
+    },
+  },
   pickers = {
     live_grep = {
-      additional_args = function ()
-       return {"-L"}
+      additional_args = function()
+        return { "-L" }
       end,
       disable_coordinates = true,
       mappings = {
@@ -34,7 +43,7 @@ require("telescope").setup({
     },
     find_files = {
       previewer = false,
-      find_command = {"rg", "--ignore", "-L", "--hidden", "--files", "--glob", "!.git"},
+      find_command = { "rg", "--ignore", "-L", "--hidden", "--files", "--glob", "!.git" },
       mappings = {
         i = {
           ["<cr>"] = custom_actions.fzf_multi_select,
@@ -65,3 +74,6 @@ require("telescope").setup({
     },
   },
 })
+
+require("telescope").load_extension("ui-select")
+require("telescope").load_extension("fzf")
