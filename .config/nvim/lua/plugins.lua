@@ -81,6 +81,8 @@ require("packer").startup({
         { "https://github.com/joshzcold/cmp-rg" },
       },
     })
+    use("seanbreckenridge/yadm-git.vim")
+    use { "beauwilliams/focus.nvim", config = function() require("focus").setup() end }
     use("https://github.com/onsails/lspkind-nvim")
     use("joshzcold/cmp-jenkinsfile")
 

@@ -27,7 +27,6 @@ opt.mouse = "a"
 opt.breakindent = true
 
 --Save undo history
-opt.undofile = true
 
 --Case insensitive searching UNLESS /C or capital in search
 opt.ignorecase = true
@@ -39,6 +38,7 @@ opt.signcolumn = "yes"
 
 opt.autoread = true
 opt.diffopt = "vertical"
+opt.undofile = true
 opt.undodir = "/home/joshua/.config/nvim/undodir"
 opt.scrolloff = 5
 
