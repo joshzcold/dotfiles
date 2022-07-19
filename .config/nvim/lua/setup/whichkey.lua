@@ -180,7 +180,7 @@ wk.register({
     name = "search",
     ["/"] = {
       function()
-        require("telescope.builtin").live_grep({
+        require("telescope.builtin").grep_string({
           only_sort_text = true,
         })
       end,

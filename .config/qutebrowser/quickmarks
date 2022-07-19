@@ -141,3 +141,5 @@ What we have been doing devops https://docs.google.com/document/d/1ZD9ro9FK1Z9l0
 AWS Security Metrics Signin https://securitymetrics.signin.aws.amazon.com/console
 imperva WAF Security Metrics https://my.imperva.com/admin/login
 smart draw diagrams https://cloud.smartdraw.com
+productions postgres-13 vitals https://www.securitymetrics.com/api/v3/pci/healthcheck/vitals
+production postgres-11 vitals https://www.securitymetrics.com/smapi/healthcheck/vitals
