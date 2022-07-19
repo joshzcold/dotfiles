@@ -178,9 +178,17 @@ wk.register({
   },
   ["/"] = {
     name = "search",
-    ["/"] = {
+    ["?"] = {
       function()
         require("telescope.builtin").grep_string({
+          only_sort_text = true,
+        })
+      end,
+      "Grep Directory",
+    },
+    ["/"] = {
+      function()
+        require("telescope.builtin").live_grep({
           only_sort_text = true,
         })
       end,

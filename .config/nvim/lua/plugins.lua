@@ -55,7 +55,10 @@ require("packer").startup({
       },
     })
 
-    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+    use({
+      "nvim-telescope/telescope-fzf-native.nvim",
+      run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+    })
     use({ "lewis6991/gitsigns.nvim", config = get_setup("gitsigns"), tag = "release" })
     use({ "https://github.com/hoschi/yode-nvim" })
     -- Add git related info in the signs columns and popups
@@ -69,10 +72,13 @@ require("packer").startup({
     })
     use({ "neovim/nvim-lspconfig", config = get_setup("lspconfig") }) -- Collection of configurations for built-in LSP client
 
-    use {'nvim-telescope/telescope-ui-select.nvim' }
-    use({"kosayoda/nvim-lightbulb", config = function ()
-      require('nvim-lightbulb').setup({autocmd = {enabled = true}})
-    end})
+    use({ "nvim-telescope/telescope-ui-select.nvim" })
+    use({
+      "kosayoda/nvim-lightbulb",
+      config = function()
+        require("nvim-lightbulb").setup({ autocmd = { enabled = true } })
+      end,
+    })
     use({ "https://github.com/williamboman/nvim-lsp-installer", config = get_setup("lspconfig") })
     use({ "L3MON4D3/LuaSnip", config = get_setup("luasnip") })
     use({
@@ -88,7 +94,12 @@ require("packer").startup({
         { "https://github.com/joshzcold/cmp-rg" },
       },
     })
-    use { "beauwilliams/focus.nvim", config = function() require("focus").setup() end }
+    use({
+      "beauwilliams/focus.nvim",
+      config = function()
+        require("focus").setup({ excluded_filetypes = { "toggleterm", "fugitive" } })
+      end,
+    })
     use("https://github.com/onsails/lspkind-nvim")
     use("joshzcold/cmp-jenkinsfile")
 
@@ -102,9 +113,13 @@ require("packer").startup({
     use("neo4j-contrib/cypher-vim-syntax")
 
     use("https://github.com/Pocco81/TrueZen.nvim")
-    use {"akinsho/toggleterm.nvim", tag = 'v1.*', config = function()
-      require("toggleterm").setup()
-    end}
+    use({
+      "akinsho/toggleterm.nvim",
+      tag = "v1.*",
+      config = function()
+        require("toggleterm").setup()
+      end,
+    })
 
     use({
       "kyazdani42/nvim-tree.lua",
@@ -116,7 +131,7 @@ require("packer").startup({
     use({ "https://github.com/windwp/nvim-ts-autotag", config = get_setup("nvim-ts-autotag") })
     use({ "norcalli/nvim-colorizer.lua", config = get_setup("colorizer") })
     -- use({ "/glepnir/dashboard-nvim", config = get_setup("dashboard") })
-    use({"projekt0n/github-nvim-theme", config = get_setup("theme")})
+    use({ "projekt0n/github-nvim-theme", config = get_setup("theme") })
     use({ "Mofiqul/vscode.nvim", config = get_setup("theme") }) -- vscode like theme
     use({ "folke/tokyonight.nvim", config = get_setup("theme") })
     -- use({ "marko-cerovac/material.nvim", config = get_setup("theme") })
