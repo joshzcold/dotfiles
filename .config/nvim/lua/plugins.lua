@@ -94,12 +94,7 @@ require("packer").startup({
         { "https://github.com/joshzcold/cmp-rg" },
       },
     })
-    use({
-      "beauwilliams/focus.nvim",
-      config = function()
-        require("focus").setup({ excluded_filetypes = { "toggleterm", "fugitive" } })
-      end,
-    })
+    use("https://github.com/AndrewRadev/linediff.vim")
     use("https://github.com/onsails/lspkind-nvim")
     use("joshzcold/cmp-jenkinsfile")
 

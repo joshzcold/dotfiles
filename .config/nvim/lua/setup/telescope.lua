@@ -27,7 +27,7 @@ require("telescope").setup({
     },
   },
   pickers = {
-    grep_string = {
+    live_grep = {
       additional_args = function()
         return { "-L" }
       end,
