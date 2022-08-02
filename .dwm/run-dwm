@@ -32,7 +32,7 @@ wifi(){
 }
 
 while true; do
-  xsetroot -name "$(battery)$(wifi)$(vpn) $(date +"%m-%d %r")"
+  xsetroot -name "$(vpn) $(date +"%m-%d %r")"
    sleep 5    # Update time every 5 seconds
 done &
 

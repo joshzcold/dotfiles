@@ -58,3 +58,5 @@ go
 rofimoji
 python-virtualenvwrapper
 python-pynvim
+kmonad-bin
+xorg-xsetroot
