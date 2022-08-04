@@ -249,6 +249,10 @@ wk.register({
       [[<cmd>Gitsigns reset_hunk<cr>]],
       "Undo git hunk at point"
     },
+    n = {
+      [[<cmd>Gitsigns next_hunk<cr>]],
+      "Move to next git hunk"
+    },
     x = {
       [[<cmd>Gitsigns reset_hunk<cr>]],
       "Undo git hunk at point"
