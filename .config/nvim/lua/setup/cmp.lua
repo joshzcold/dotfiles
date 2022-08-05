@@ -68,13 +68,6 @@ cmp.setup({
         },
       },
       { name = "luasnip" },
-      {
-        name = "rg",
-        option = {
-          debounce = 500,
-          additional_arguments = "--smart-case --max-depth 4",
-        },
-      },
     },
   }),
   sources = cmp.config.sources({
