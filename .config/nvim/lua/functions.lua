@@ -41,7 +41,7 @@ function! GitPush()
 endfunction
 
 function! JenkinsLint()
-      let jenkins_url = "https://10.29.158.99"
+      let jenkins_url = "https://hq-devops-v-jenkins-master.secmet.co"
       let crumb_command = "curl -s -k \"".jenkins_url.'/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)"'
       let jenkins_crumb = system(crumb_command)
       let validate_command = "curl -k -X POST -H ".jenkins_crumb." -F \"jenkinsfile=<".expand('%:p')."\" ".jenkins_url."/pipeline-model-converter/validate"
