@@ -349,6 +349,10 @@ wk.register({
       [[<cmd>SpellCheck<cr>]],
       "Start spell checking",
     },
+    a = {
+      [[<cmd>TZAtaraxis<cr>]],
+      "Zen mode"
+    }
   },
   d = {
     name = "Debug",
