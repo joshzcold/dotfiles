@@ -160,6 +160,12 @@ require("packer").startup({
         { "kyazdani42/nvim-web-devicons" },
       },
     })
+    use({ "kyazdani42/nvim-web-devicons", config = function ()
+      require'nvim-web-devicons'.setup {
+        override = { };
+        default = true;
+      }
+    end })
     use({ "https://github.com/windwp/nvim-ts-autotag", config = get_setup("nvim-ts-autotag") })
     use({ "norcalli/nvim-colorizer.lua", config = get_setup("colorizer") })
     -- use({ "/glepnir/dashboard-nvim", config = get_setup("dashboard") })
