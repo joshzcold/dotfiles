@@ -78,4 +78,4 @@ lightdm-webkit2-greeter
 postgresql
 docker-compose
 nerd-fonts-complete
-net-tools
+inetutils
