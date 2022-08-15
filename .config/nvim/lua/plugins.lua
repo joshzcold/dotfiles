@@ -107,6 +107,9 @@ require("packer").startup({
     use("iamcco/markdown-preview.nvim")
     use("neo4j-contrib/cypher-vim-syntax")
 
+    -- follow symlinks when opening them
+    use { 'aymericbeaumet/vim-symlink', requires = { 'moll/vim-bbye' } }
+
     use({
       "Pocco81/true-zen.nvim",
       requires = {
