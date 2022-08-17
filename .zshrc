@@ -118,7 +118,7 @@ alias wk="workon"
 alias dk="deactivate"
 
 # cd into first dir
-alias cdf="cd $(ls -d */|head -n 1)" 
+alias cdf="cd "$(ls -d */|head -n 1)""
 # bind to allow deletion after exiting normal mode vi
 bindkey "^?" backward-delete-char
 # Updates editor information when the keymap changes.
