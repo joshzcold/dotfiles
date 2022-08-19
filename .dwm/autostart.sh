@@ -1,5 +1,6 @@
 xfsettingsd &
-autorandr -c default && nitrogen --restore &
+autorandr -c default
+nitrogen --restore
 # hsetroot -solid "#0B5C70" &
 # emacs --daemon &
 unclutter -idle 1 -jitter 2 -root &

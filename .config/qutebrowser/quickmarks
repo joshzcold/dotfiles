@@ -53,8 +53,8 @@ jenkins examples https://www.jenkins.io/doc/pipeline/examples/
 jenkins gdsl https://10.29.158.99/job/Theater/pipeline-syntax/gdsl
 jenkins configuration as code docs https://hq-devops-v-jenkins-master.secmet.co/configuration-as-code/reference
 jenkins dk-prod1 jenkins https://dk-prod1-v-jenkins.secmet.co/
-jenkins devops jenkins-devops.secmet.co
-jenkins prod jenkins-prod.secmet.co
+jenkins devops https://jenkins-devops.secmet.co
+jenkins prod https://jenkins-prod.secmet.co
 jenkins build https://jenkins.secmet.co
 jenkins pipeline utility steps https://www.jenkins.io/doc/pipeline/steps/pipeline-utility-steps/#readjson-read-json-from-files-in-the-workspace
 jenkins dev jenkins https://hq-dev-v-jenkins.secmet.co/
