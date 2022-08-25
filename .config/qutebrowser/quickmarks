@@ -47,11 +47,11 @@ ansible filters https://docs.ansible.com/ansible/latest/user_guide/playbooks_fil
 confluence https://securitymetrics.atlassian.net/wiki/spaces/DEVOPS/overview
 jenkins extended choice reference https://github.com/jenkinsci/extended-choice-parameter-plugin/blob/master/src/main/java/com/cwctravel/hudson/plugins/extended_choice_parameter/ExtendedChoiceParameterDefinition.java
 jenkins job dsl https://jenkinsci.github.io/job-dsl-plugin/
-jenkins env vars https://jenkins-devops.secmet.co/env-vars.html/
+jenkins env vars https://hq-devops-v-jenkins/env-vars.html/
 jenkins pipeline synatax https://www.jenkins.io/doc/book/pipeline/syntax/
 jenkins examples https://www.jenkins.io/doc/pipeline/examples/
 jenkins gdsl https://10.29.158.99/job/Theater/pipeline-syntax/gdsl
-jenkins configuration as code docs https://jenkins-devops.secmet.co/configuration-as-code/reference
+jenkins configuration as code docs https://hq-devops-v-jenkins-master.secmet.co/configuration-as-code/reference
 jenkins dk-prod1 jenkins https://dk-prod1-v-jenkins.secmet.co/
 jenkins devops https://jenkins-devops.secmet.co
 jenkins prod https://jenkins-prod.secmet.co
@@ -145,3 +145,4 @@ productions postgres-13 vitals https://www.securitymetrics.com/api/v3/pci/health
 production postgres-11 vitals https://www.securitymetrics.com/smapi/healthcheck/vitals
 registry binary repo nexus https://registry.secmet.co/
 elastic vue dashboard https://app.elasticvue.com/setup
+vision prod prometheus http://10.100.62.18:9090/alerts
