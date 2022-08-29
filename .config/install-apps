@@ -89,3 +89,5 @@ vault
 zsh-pure-prompt
 perimeter81
 steam
+xorg-server-xephyr
+lightdm-webkit-theme-aether
