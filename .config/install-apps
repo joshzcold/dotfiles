@@ -91,3 +91,6 @@ perimeter81
 steam
 xorg-server-xephyr
 lightdm-webkit-theme-aether
+python-psutil
+virt-manager
+python-jmespath
