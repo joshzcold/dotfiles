@@ -77,8 +77,14 @@ then
   { set +x; } 2> /dev/null 
 fi
 
-user_prompt "Setup kmonad"
+user_prompt "Clone code-paste to ~/git"
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+  mkdir -p ~/git
+  git clone git@github.com:joshzcold/codepaste.git
+fi
 
+user_prompt "Setup kmonad"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   set -x
@@ -114,5 +120,13 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
   set -x
   yadm remote set-url origin git@github.com:joshzcold/dotfiles.git
+  { set +x; } 2> /dev/null 
+fi
+
+user_prompt "Clone all securitymetrics repos"
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+  set -x
+  bash ~/.config/usr-scripts/clone_all_bb.sh
   { set +x; } 2> /dev/null 
 fi
