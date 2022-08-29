@@ -2,7 +2,11 @@
 set -x
 
 read -p "Install git"
-sudo pacman -S --needed git base-devel
+sudo pacman -S --needed git base-devel yadm
+
+read -p "use yadm and get dotfiles"
+yadm clone https://github.com/joshzcold/dotfiles.git
+yadm checkout .
 
 read -p "Setup dwm"
 cd ~/.dwm
@@ -47,4 +51,5 @@ sudo nvim /usr/share/applications/perimeter81.desktop
 read -p "Install neovim plugins"
 nvim -c PackerSync
 
-
+read -p "Change yadm remote to ssh"
+yadm remote set-url origin git@github.com:joshzcold/dotfiles.git
