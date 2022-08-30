@@ -95,3 +95,6 @@ python-psutil
 virt-manager
 python-jmespath
 dconf-editor
+stylua-bin
+unzip
+npm

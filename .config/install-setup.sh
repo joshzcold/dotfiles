@@ -130,3 +130,14 @@ then
   bash ~/.config/usr-scripts/clone_all_bb.sh
   { set +x; } 2> /dev/null 
 fi
+
+user_prompt "Install nodejs dependencies"
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+  npm config set prefix "${HOME}/.npm-packages"
+  # user specific packages
+  # npm install qutejs
+  # global
+  sudo npm install qutejs
+fi
+
