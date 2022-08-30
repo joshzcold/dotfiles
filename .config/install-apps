@@ -94,3 +94,4 @@ lightdm-webkit-theme-aether
 python-psutil
 virt-manager
 python-jmespath
+dconf-editor
