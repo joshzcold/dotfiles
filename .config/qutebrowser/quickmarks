@@ -146,3 +146,4 @@ production postgres-11 vitals https://www.securitymetrics.com/smapi/healthcheck/
 registry binary repo nexus https://registry.secmet.co/
 elastic vue dashboard https://app.elasticvue.com/setup
 vision prod prometheus http://10.100.62.18:9090/alerts
+patched fonts arch https://aur.archlinux.org/packages?K=nerd-fonts&SB=p
