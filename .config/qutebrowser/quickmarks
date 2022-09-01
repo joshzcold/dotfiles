@@ -147,3 +147,4 @@ registry binary repo nexus https://registry.secmet.co/
 elastic vue dashboard https://app.elasticvue.com/setup
 vision prod prometheus http://10.100.62.18:9090/alerts
 patched fonts arch https://aur.archlinux.org/packages?K=nerd-fonts&SB=p
+system naming convention securitymetrics https://docs.google.com/document/d/1rc8zgwL3r-wmfgyymYC0_7MNucSvLSp62RJbAIIe-WE/edit
