@@ -5,3 +5,4 @@ journalctl -S -1h -u X
 sudo -iu postgres psql -h 127.0.0.1 -c "select * from pg_stat_replication"
 sudo systemd-resolve --flush-caches
 sudo dmesg | grep "oom-kill" | grep -oP "(?<=cpuset=)\w+(?=,)" | xargs -I% bash -c "docker inspect % | jq '.[].Name'"
+curl -XGET http://localhost:9200/_cat/shards | grep UNASSIGNED | awk {'print $1'} | xargs -i curl -XDELETE "http://localhost:9200/{}"

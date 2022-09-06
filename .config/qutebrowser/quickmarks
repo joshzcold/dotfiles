@@ -147,3 +147,4 @@ registry binary repo nexus https://registry.secmet.co/
 elastic vue dashboard https://app.elasticvue.com/setup
 vision prod prometheus https://hq-prodvis-v-prometheus-1.secmet.co/alerts
 patched fonts arch https://aur.archlinux.org/packages?K=nerd-fonts&SB=p
+bamboohr securitymetrics https://securitymetrics.bamboohr.com/home/
