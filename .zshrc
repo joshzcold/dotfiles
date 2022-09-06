@@ -266,6 +266,8 @@ function fast_ssh(){
   last=${hosts[$pos]}
 
   for host in "${hosts[@]}"; do
+    # add to history
+    print -s "ssh $host"
     if [[ $host == $last ]]; then
       TERM=xterm ssh $host </dev/tty
     else
