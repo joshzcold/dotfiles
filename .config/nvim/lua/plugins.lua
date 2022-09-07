@@ -42,6 +42,7 @@ require("packer").startup({
     use({ "folke/which-key.nvim", config = get_setup("whichkey") }) -- which-key mappings in lua/mappings.lua
     use({ "monaqa/dial.nvim" })
     use({ "tpope/vim-fugitive", config = get_setup("fugitive") }) -- Git commands in nvim
+    use({ "sindrets/diffview.nvim", requires = 'nvim-lua/plenary.nvim' })
     use({ "tpope/vim-repeat" })
     use({ "numToStr/Comment.nvim", config = get_setup("comment") }) -- "gc" to comment visual regions/lines
     -- UI to select things (files, grep results, open buffers...)
@@ -108,7 +109,7 @@ require("packer").startup({
     use("neo4j-contrib/cypher-vim-syntax")
 
     -- follow symlinks when opening them
-    use { 'aymericbeaumet/vim-symlink', requires = { 'moll/vim-bbye' } }
+    use({ "aymericbeaumet/vim-symlink", requires = { "moll/vim-bbye" } })
 
     use({
       "Pocco81/true-zen.nvim",
@@ -163,12 +164,15 @@ require("packer").startup({
         { "kyazdani42/nvim-web-devicons" },
       },
     })
-    use({ "kyazdani42/nvim-web-devicons", config = function ()
-      require'nvim-web-devicons'.setup {
-        override = { };
-        default = true;
-      }
-    end })
+    use({
+      "kyazdani42/nvim-web-devicons",
+      config = function()
+        require("nvim-web-devicons").setup({
+          override = {},
+          default = true,
+        })
+      end,
+    })
     use({ "https://github.com/windwp/nvim-ts-autotag", config = get_setup("nvim-ts-autotag") })
     use({ "norcalli/nvim-colorizer.lua", config = get_setup("colorizer") })
     -- use({ "/glepnir/dashboard-nvim", config = get_setup("dashboard") })

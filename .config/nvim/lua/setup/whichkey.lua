@@ -274,8 +274,16 @@ wk.register({
       "Git Pull",
     },
     d = {
-      [[<cmd>Gdiffsplit!<cr>]],
+      [[<cmd>DiffviewOpen<cr>]],
       "Git Diff Split",
+    },
+    m = {
+      [[<cmd>DiffviewOpen master<cr>]],
+      "Git Diff Split master",
+    },
+    k = {
+      [[<cmd>DiffviewClose<cr>]],
+      "Git diff close"
     },
     c = {
       [[<cmd>Telescope git_commits<cr>]],
