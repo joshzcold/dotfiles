@@ -2,10 +2,10 @@
 local function GetRepoName()
   local handle = io.popen([[basename -s .git $(git config --get remote.origin.url) 2>/dev/null|| true]])
   local result = handle:read("*a")
+  handle:close()
   if result then
     return result.gsub(result, "%s+", "")
   end
-  handle:close()
 end
 
 require("lualine").setup({
