@@ -149,3 +149,4 @@ vision prod prometheus https://hq-prodvis-v-prometheus-1.secmet.co/alerts
 patched fonts arch https://aur.archlinux.org/packages?K=nerd-fonts&SB=p
 bamboohr securitymetrics https://securitymetrics.bamboohr.com/home/
 network cheatsheet sercuritymetrics IT https://docs.google.com/spreadsheets/d/1SzYBwvaWsUGu3ec8gP2OqnaeMALlr01pzRILasY6ZgY/edit#gid=0
+scan prod prometheus https://hq-prodscan-v-prometheus.secmet.co/alerts
