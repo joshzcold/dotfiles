@@ -140,7 +140,7 @@ function pacman-update-mirrors(){
 function cdg(){ cd $(git rev-parse --show-toplevel) }
 
 function ascii(){
-  file=$(ls /usr/share/figlet/fonts | 
+  file=$(ls /usr/share/figlet/fonts |
     fzf --preview "figlet -f {} ${1:-Moo}" )
   clear
   figlet -f $file ${*:-Moo}
@@ -276,6 +276,20 @@ function fast_ssh(){
   done
 }
 
+function fast_ssh_broadcast(){
+  hosts=("${(@f)$(cat /etc/hosts | fzf -m | awk '{print $2}')}")
+  pos=$(( ${#hosts[*]} ))
+  last=${hosts[$pos]}
+
+  kitty @ goto-layout grid
+  for host in "${hosts[@]}"; do
+    kitty @ new-window
+    kitty @ send_text ssh $host
+  done
+  kitty @ focus-window -m id:1
+  kitty +kitten broadcast
+}
+
 function start_nvm(){
   if [ -d "/usr/share/nvm" ]; then
     [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
@@ -305,7 +319,7 @@ bindkey '^[[Z' reverse-menu-complete
 
 # user bindings
 autoload edit-command-line; zle -N edit-command-line
-bindkey -M vicmd 'V' edit-command-line 
+bindkey -M vicmd 'V' edit-command-line
 
 setopt noflowcontrol
 
