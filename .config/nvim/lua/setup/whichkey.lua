@@ -326,6 +326,10 @@ wk.register({
       [[<cmd>let @+ = expand("%:p:h")<cr>]],
       "Yank directory name",
     },
+    g = {
+      [[<cmd>let @+ = trim(system("git branch --show-current 2>/dev/null"))<cr>]],
+      "Yank git branch"
+    }
   },
   t = {
     t = { [[<cmd>ToggleTerm size=10 direction=horizontal<cr>]], "Term Below" },
