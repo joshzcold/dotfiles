@@ -83,4 +83,5 @@ opt.fillchars:append({ eob = " " })
 -- opt.foldlevelstart = 2
 -- opt.foldexpr = 'nvim_treesitter#foldexpr()'
 opt.laststatus = 3
-opt.mmp=5000
+opt.mmp = 5000
+opt.cmdheight = 0

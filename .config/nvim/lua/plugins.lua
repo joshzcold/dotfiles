@@ -60,7 +60,7 @@ require("packer").startup({
       "nvim-telescope/telescope-fzf-native.nvim",
       run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
     })
-    use({ "lewis6991/gitsigns.nvim", config = get_setup("gitsigns"), tag = "release" })
+    use({ "lewis6991/gitsigns.nvim", config = get_setup("gitsigns")})
     use({ "https://github.com/hoschi/yode-nvim" })
     -- Add git related info in the signs columns and popups
     -- Highlight, edit, and navigate code using a fast incremental parsing library
@@ -151,7 +151,7 @@ require("packer").startup({
 
     use({
       "akinsho/toggleterm.nvim",
-      tag = "v1.*",
+      tag = "*",
       config = function()
         require("toggleterm").setup()
       end,
