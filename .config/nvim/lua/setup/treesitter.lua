@@ -18,7 +18,7 @@ require("nvim-treesitter.configs").setup({
       "perl",
       "make",
       "php",
-      " rasi",
+      "rasi",
       "http",
       "json",
       "css",
@@ -30,8 +30,15 @@ require("nvim-treesitter.configs").setup({
       "markdown_inline",
     },
   highlight = {
-    enable = true, -- false will disable the whole extension
-    additional_vim_regex_highlighting = true
+    enable = true,
+    additional_vim_regex_highlighting = {
+      "groovy",
+      "Jenkinsfile",
+      "yaml"
+    },
+    disable = {
+      "yaml"
+    }
   },
   incremental_selection = {
     enable = true,
