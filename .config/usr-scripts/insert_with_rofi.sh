@@ -19,6 +19,8 @@ if [[ -n "$selection" ]]; then
 		halfs[1]=$(eval echo "${halfs[1]}")
 		selection="$(echo "${halfs[@]}" | sed 's/ / /g')"
 		echo -n "$selection" | xclip -selection clipboard
+	else
+		echo -n "$selection" | xclip -selection clipboard
 	fi
 	sleep 0.1
 	xdotool key ctrl+shift+v >/dev/null
