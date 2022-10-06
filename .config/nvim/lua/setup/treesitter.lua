@@ -31,6 +31,7 @@ require("nvim-treesitter.configs").setup({
     },
   highlight = {
     enable = true,
+    -- additional_vim_regex_highlighting = true,
     additional_vim_regex_highlighting = {
       "groovy",
       "Jenkinsfile",
@@ -38,7 +39,7 @@ require("nvim-treesitter.configs").setup({
     },
     disable = {
       "yaml"
-    }
+    },
   },
   incremental_selection = {
     enable = true,
@@ -86,3 +87,5 @@ require("nvim-treesitter.configs").setup({
     },
   },
 })
+vim.g.did_load_filetypes = false
+vim.g.do_filetype_lua = 1
