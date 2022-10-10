@@ -329,6 +329,10 @@ wk.register({
     g = {
       [[<cmd>let @+ = trim(system("git branch --show-current 2>/dev/null"))<cr>]],
       "Yank git branch"
+    },
+    j = {
+      [[<cmd>let @+=luaeval('require"jsonpath".get()')<cr>]],
+      "Yank json path"
     }
   },
   t = {
