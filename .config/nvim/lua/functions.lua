@@ -12,6 +12,9 @@ vim.cmd([[
   autocmd Filetype yaml.* set makeprg=ansible-lint\ -p\ --nocolor\ -x\ role-name,package-latest,fqcn-builtins
 ]])
 
+vim.cmd([[
+  au BufRead *.json setlocal winbar=%{luaeval('require\"jsonpath\".get()')}
+]])
 
 function BitBucketReview()
   local Job = require'plenary.job'

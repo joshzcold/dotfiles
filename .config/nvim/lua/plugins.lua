@@ -71,6 +71,7 @@ require("packer").startup({
         "nvim-treesitter/nvim-treesitter-textobjects",
       },
     })
+    use({"https://github.com/phelipetls/jsonpath.nvim"})
     use({ "neovim/nvim-lspconfig", config = get_setup("lspconfig") }) -- Collection of configurations for built-in LSP client
 
     use({ "nvim-telescope/telescope-ui-select.nvim" })
