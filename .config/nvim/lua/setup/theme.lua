@@ -2,10 +2,14 @@ vim.g.vscode_style = "dark"
 vim.g.vscode_italic_comment = 1
 vim.g.vscode_transparent = 1
 
--- vim.cmd([[colorscheme github_* ]])
 require("github-theme").setup({
-    theme_style = 'dark_default'
-  })
+  theme_style = "dark_default",
+  overrides = function (c)
+    -- fix the look of yaml in this color scheme
+    vim.api.nvim_create_autocmd("FileType", { pattern = { "yaml", "yaml.ansible" }, command = "hi TSField guifg=#3fb950" })
+    return{ }
+  end
+})
 
 -- highlighting tweaks
 vim.api.nvim_set_hl(0, "SpellBad", { sp = "#325905", underline = true })

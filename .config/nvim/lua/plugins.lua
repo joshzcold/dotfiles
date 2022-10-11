@@ -42,7 +42,7 @@ require("packer").startup({
     use({ "folke/which-key.nvim", config = get_setup("whichkey") }) -- which-key mappings in lua/mappings.lua
     use({ "monaqa/dial.nvim" })
     use({ "tpope/vim-fugitive", config = get_setup("fugitive") }) -- Git commands in nvim
-    use({ "sindrets/diffview.nvim", requires = 'nvim-lua/plenary.nvim' })
+    use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
     use({ "tpope/vim-repeat" })
     use({ "numToStr/Comment.nvim", config = get_setup("comment") }) -- "gc" to comment visual regions/lines
     -- UI to select things (files, grep results, open buffers...)
@@ -60,7 +60,7 @@ require("packer").startup({
       "nvim-telescope/telescope-fzf-native.nvim",
       run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
     })
-    use({ "lewis6991/gitsigns.nvim", config = get_setup("gitsigns")})
+    use({ "lewis6991/gitsigns.nvim", config = get_setup("gitsigns") })
     use({ "https://github.com/hoschi/yode-nvim" })
     -- Add git related info in the signs columns and popups
     -- Highlight, edit, and navigate code using a fast incremental parsing library
@@ -69,9 +69,10 @@ require("packer").startup({
       config = get_setup("treesitter"),
       requires = {
         "nvim-treesitter/nvim-treesitter-textobjects",
+        "nvim-treesitter/playground",
       },
     })
-    use({"https://github.com/phelipetls/jsonpath.nvim"})
+    use({ "https://github.com/phelipetls/jsonpath.nvim" })
     use({ "neovim/nvim-lspconfig", config = get_setup("lspconfig") }) -- Collection of configurations for built-in LSP client
 
     use({ "nvim-telescope/telescope-ui-select.nvim" })
@@ -178,6 +179,11 @@ require("packer").startup({
     use({ "norcalli/nvim-colorizer.lua", config = get_setup("colorizer") })
     -- use({ "/glepnir/dashboard-nvim", config = get_setup("dashboard") })
     use({ "projekt0n/github-nvim-theme", config = get_setup("theme") })
+    use({
+      "catppuccin/nvim",
+      as = "catppuccin",
+      config = get_setup("theme"),
+    })
     use({ "Mofiqul/vscode.nvim", config = get_setup("theme") }) -- vscode like theme
     use({ "folke/tokyonight.nvim", config = get_setup("theme") })
     -- use({ "marko-cerovac/material.nvim", config = get_setup("theme") })
