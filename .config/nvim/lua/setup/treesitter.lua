@@ -16,6 +16,8 @@ require("nvim-treesitter.configs").setup({
       "vim",
       "ruby",
       "perl",
+      "comment",
+      "query",
       "make",
       "php",
       "rasi",
