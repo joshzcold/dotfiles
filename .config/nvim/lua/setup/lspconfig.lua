@@ -2,7 +2,7 @@
 
 -- make nvim-cmp aware of extra capabilities coming from lsp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -45,7 +45,7 @@ lspconfig.sumneko_lua.setup({
     },
   },
   on_attach = on_attach,
-  capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities),
+  capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities),
 })
 lspconfig.bashls.setup({
   on_attach = on_attach,
@@ -73,7 +73,7 @@ lspconfig.ansiblels.setup({
     },
   },
   on_attach = on_attach,
-  capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities),
+  capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities),
 })
 
 lspconfig.pyright.setup({
@@ -87,7 +87,7 @@ lspconfig.groovyls.setup({
     return util.root_pattern("src")(fname) or util.find_git_ancestor(fname)
   end,
   on_attach = on_attach,
-  capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities),
+  capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities),
 })
 lspconfig.tsserver.setup({
   on_attach = on_attach,
