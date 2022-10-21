@@ -9,3 +9,4 @@ curl -XGET http://localhost:9200/_cat/shards | grep UNASSIGNED | awk {'print $1'
 sudo timedatectl set-ntp false && sudo timedatectl set-time %EVAL"'$(date "+%Y-%m-%d %H:%M:%S")'"%EVAL && sudo timedatectl set-ntp true
 setlocal ts=2 sts=2 sw=2 expandtab
 s/regex/\=setreg('A', submatch(1), 'V')/n
+watch -n 1 "docker stack services e2e --format '{{.Name}} {{.Replicas}}' | column -t -s ' '"
