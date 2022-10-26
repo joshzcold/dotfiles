@@ -22,7 +22,13 @@ local lSsources = {
   null_ls.builtins.formatting.autopep8.with({
     args = { "--max-line-length", "200", "-" },
   }),
-  null_ls.builtins.formatting.nginx_beautifier,
+  null_ls.builtins.formatting.nginx_beautifier.with({
+      args = {"-s", "4", "-i", "-o", "$FILENAME" },
+      filetypes = {
+        "nginx",
+        "conf"
+      }
+    }),
   null_ls.builtins.formatting.shfmt,
 }
 require("null-ls").setup({

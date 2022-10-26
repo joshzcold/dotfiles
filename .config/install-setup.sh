@@ -136,8 +136,8 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
   npm config set prefix "${HOME}/.npm-packages"
   # user specific packages
-  # npm install qutejs
+  npm install -g qutejs
   # global
-  sudo npm install qutejs
+  sudo npm install -g qutejs
 fi
 

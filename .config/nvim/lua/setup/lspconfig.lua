@@ -23,12 +23,13 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<cr>")
   vim.keymap.set("n", "<leader>ld", "<cmd>lua vim.diagnostic.disable()<cr>")
   vim.keymap.set("n", "<leader>le", "<cmd>lua vim.diagnostic.enable()<cr>")
-  vim.keymap.set("n", "<leader>=", "<cmd>lua vim.lsp.buf.formatting_seq_sync(nil, 7500)<cr>")
 end
+vim.keymap.set("n", "<leader>=", "<cmd>lua vim.lsp.buf.format({ timeout_ms = 2000 })<cr>")
 
 require("nvim-lsp-installer").setup({})
 require("nvim-lightbulb").setup({ autocmd = { enabled = true } })
 local lspconfig = require("lspconfig")
+
 
 lspconfig.sumneko_lua.setup({
   settings = {
