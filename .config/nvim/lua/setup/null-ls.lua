@@ -20,7 +20,7 @@ local lSsources = {
     args = { "--indent-width", "2", "--indent-type", "Spaces", "-" },
   }),
   null_ls.builtins.formatting.autopep8.with({
-    args = { "--max-line-length", "200", "-" },
+    args = { "--max-line-length", "120", "-" },
   }),
   null_ls.builtins.formatting.nginx_beautifier.with({
       args = {"-s", "4", "-i", "-o", "$FILENAME" },
