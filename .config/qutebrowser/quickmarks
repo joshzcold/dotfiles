@@ -145,7 +145,7 @@ productions postgres-13 vitals https://www.securitymetrics.com/api/v3/pci/health
 production postgres-11 vitals https://www.securitymetrics.com/smapi/healthcheck/vitals
 registry binary repo nexus https://registry.secmet.co/
 elastic vue dashboard https://app.elasticvue.com/setup
-vision prod prometheus https://hq-prodvis-v-prometheus-1.secmet.co/alerts
+vision prod prometheus https://hq-prodvis-v-prometheus.secmet.co/alerts
 patched fonts arch https://aur.archlinux.org/packages?K=nerd-fonts&SB=p
 bamboohr securitymetrics https://securitymetrics.bamboohr.com/home/
 network cheatsheet sercuritymetrics IT https://docs.google.com/spreadsheets/d/1SzYBwvaWsUGu3ec8gP2OqnaeMALlr01pzRILasY6ZgY/edit#gid=0

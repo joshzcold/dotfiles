@@ -103,3 +103,5 @@ nmap
 qt5-webengine-widevine
 ansible-lint
 sipcalc
+ffcast
+imagemagick
