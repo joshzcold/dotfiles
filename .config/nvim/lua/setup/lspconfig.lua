@@ -83,7 +83,7 @@ lspconfig.pyright.setup({
 
 local util = require("lspconfig.util")
 lspconfig.groovyls.setup({
-  filetypes = { "groovy", "Jenkinsfile" },
+  filetypes = { "groovy" },
   root_dir = function(fname)
     return util.root_pattern("src")(fname) or util.find_git_ancestor(fname)
   end,
