@@ -11,7 +11,9 @@ vim.cmd([[
   au BufRead *.yaml,*.yml if search('tasks:\|- name:', 'nw') | set ft=yaml.ansible | endif
   au BufRead *.conf,*.conf.* if search('http {\|server {', 'nw') | set ft=nginx | endif
   autocmd Filetype yaml.* set makeprg=ansible-lint\ -p\ --nocolor\ -x\ role-name,package-latest,fqcn-builtins
+  autocmd Filetype python set makeprg=pylama\ --format\ pylint
 ]])
+
 
 vim.cmd([[
   au BufRead *.json setlocal winbar=%{luaeval('require\"jsonpath\".get()')}
