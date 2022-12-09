@@ -115,6 +115,7 @@ alias ansible-update-hostsfile="sudo ansible-playbook  playbooks/hostsfile.yml"
 alias mk="mkvirtualenv"
 alias wk="workon"
 alias dk="deactivate"
+alias flow="./flow"
 
 # cd into first dir
 alias cdf="cd "$(ls -d */|head -n 1)""
