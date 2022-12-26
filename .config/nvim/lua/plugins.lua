@@ -107,7 +107,14 @@ require("packer").startup({
     use("honza/vim-snippets") -- lots of pre-made snippets
     use("tpope/vim-surround") -- Vim actions to surround word with quotes
     use("sheerun/vim-polyglot")
-    use("iamcco/markdown-preview.nvim")
+    use({
+      "iamcco/markdown-preview.nvim",
+      run = "cd app && npm install",
+      setup = function()
+        vim.g.mkdp_filetypes = { "markdown" }
+      end,
+      ft = { "markdown" },
+    })
     use("neo4j-contrib/cypher-vim-syntax")
 
     -- follow symlinks when opening them
