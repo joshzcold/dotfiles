@@ -1,8 +1,7 @@
 return {
   {
     "akinsho/toggleterm.nvim",
-    tag = "*",
-
+    -- tag = "*",
     init = function()
       vim.keymap.set("n", "<leader>tt", function()
         vim.cmd([[:ToggleTerm size=10 direction=horizontal]])

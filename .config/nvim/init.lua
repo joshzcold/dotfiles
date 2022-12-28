@@ -1,7 +1,6 @@
 require("functions")
 require("options")
 require("mappings")
-require("theme")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -17,4 +16,5 @@ end
 vim.opt.runtimepath:prepend(lazypath)
 
 require("lazy").setup("plugins")
+require("theme")
 require("term")
