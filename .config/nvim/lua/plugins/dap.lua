@@ -1,14 +1,22 @@
 return {
   {
     "mfussenegger/nvim-dap",
-    lazy = true,
-    -- TODO get dap-ui toggle command to initialize the config
-    -- cmd = {""},
     dependencies = {
-      { "rcarriga/nvim-dap-ui" },
+      {
+        "rcarriga/nvim-dap-ui",
+        config = function()
+          require("dapui").setup()
+        end,
+      },
+      {
+        "mfussenegger/nvim-dap-python",
+        config = function()
+          require("dap-python").setup()
+        end
+      },
       { "theHamsta/nvim-dap-virtual-text" },
     },
-    config = function()
+    init = function()
       vim.keymap.set("n", "<leader>dac", function()
         require("dap").continue()
       end, { desc = "Continue" })
@@ -67,8 +75,22 @@ return {
       end, { desc = "Create" })
 
       vim.keymap.set("n", "<leader>dbi", function()
-          require('dap').toggle()
+        require("dap").toggle()
       end, { desc = "Scopes" })
+    end,
+    config = function()
+      local dap = require("dap")
+      local dapui = require("dapui")
+
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open({})
+      end
+      dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close({})
+      end
+      dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close({})
+      end
     end,
   },
 }

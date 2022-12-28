@@ -9,17 +9,24 @@ end
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
---Remap space as leader key
+-- Remap space as leader key
 map("", "<Space>", "<Nop>")
---Remap for dealing with word wrap
+-- Remap for dealing with word wrap
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
---Switch windows easier
+-- Switch windows easier
 map("n", "<c-j>", "<c-w>j")
 map("n", "<c-h>", "<c-w>h")
 map("n", "<c-k>", "<c-w>k")
 map("n", "<c-l>", "<c-w>l")
 map("n", "<c-n>", "<c-w>w")
+
+-- Resize windows better
+-- map("n", "-", [[:exe "resize " . (winheight(0) * 2/3)<cr>]], { silent = true, desc = "Decrease window size" })
+-- map("n", "+", [[:exe "resize " . (winheight(0) * 3/2)<cr>]], { silent = true, desc = "Increase window size" })
+-- Switch between tabs
+map("n", "<c-t>", ":tabnext<cr>", { silent = true, desc = "Tab next" })
+map("n", "<c-y>", ":tabprevious<cr>", { silent = true, desc = "Tab prev" })
 
 -- return to normal window from terminal easily
 map("t", "<c-j>", "<C-\\><C-n><c-w>j")

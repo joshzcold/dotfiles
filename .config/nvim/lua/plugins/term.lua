@@ -4,8 +4,8 @@ return {
     -- tag = "*",
     init = function()
       vim.keymap.set("n", "<leader>tt", function()
-        vim.cmd([[:ToggleTerm size=10 direction=horizontal]])
-      end, { desc = "Term Below" })
+        vim.cmd([[:ToggleTerm size=10 direction=tab]])
+      end, { desc = "Term Tab" })
 
       vim.keymap.set("n", "<leader>tl", function()
         local width = vim.fn.winwidth(0)
@@ -25,7 +25,7 @@ return {
 
       vim.keymap.set("n", "<leader>tk", function()
         vim.cmd([[:ToggleTerm direction=float]])
-      end, { desc = "Term Below" })
+      end, { desc = "Term Float" })
 
       -- misc keymappings jira
       vim.keymap.set("n", "<leader>jjn", function()
@@ -47,7 +47,9 @@ return {
       end, { desc = "Open Lazy Git" })
     end,
     config = function()
-      require("toggleterm").setup()
+      require("toggleterm").setup({
+        start_in_insert = false
+      })
       vim.cmd([[
                 au TermOpen * setlocal nospell
             ]])

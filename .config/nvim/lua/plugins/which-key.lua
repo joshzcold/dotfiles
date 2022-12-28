@@ -101,6 +101,9 @@ return {
       },
       d = {
         name = "Debug",
+        a = {
+          name = "Control"
+        },
         s = {
           name = "Step",
         },
