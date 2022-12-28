@@ -111,7 +111,7 @@ user_prompt "Install neovim plugins"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   set -x
-  nvim -c PackerSync
+  nvim --headless "+Lazy! sync" +qa
   { set +x; } 2> /dev/null 
 fi
 
