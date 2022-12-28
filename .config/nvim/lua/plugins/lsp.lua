@@ -33,85 +33,73 @@ return {
         vim.keymap.set("n", "<leader>ld", "<cmd>lua vim.diagnostic.disable()<cr>", { desc = "lsp diagnostic disable" })
         vim.keymap.set("n", "<leader>le", "<cmd>lua vim.diagnostic.enable()<cr>", { desc = "lsp diagnostic enable" })
         vim.keymap.set(
-            "n",
-            "<leader>=",
-            "<cmd>lua vim.lsp.buf.format({ timeout_ms = 2000 })<cr>",
-            { desc = "LSP Format" }
+          "n",
+          "<leader>=",
+          "<cmd>lua vim.lsp.buf.format({ timeout_ms = 2000 })<cr>",
+          { desc = "LSP Format" }
         )
       end
 
-      require("nvim-lsp-installer").setup({})
       require("nvim-lightbulb").setup({ autocmd = { enabled = true } })
       local lspconfig = require("lspconfig")
 
-      lspconfig.sumneko_lua.setup({
-        settings = {
-          Lua = {
-            runtime = {
-              version = "LuaJIT",
-              -- path = path,
-            },
-            completion = { callSnippet = "Both" },
-            diagnostics = {
-              globals = { "vim" },
-            },
-            telemetry = { enable = false },
-          },
+      require("mason").setup()
+      require("mason-lspconfig").setup({
+
+        ensure_installed = {
+          "sumneko_lua",
+          "bashls",
+          "groovyls",
+          "pyright",
+          "ansiblels",
+          "yamlls",
+          "jsonls",
+          "tailwindcss",
+          "nginx-language-server",
+          "tsserver",
         },
-        on_attach = on_attach,
-        capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities),
-      })
-      lspconfig.bashls.setup({
-        on_attach = on_attach,
-      })
-      lspconfig.tailwindcss.setup({
-        on_attach = on_attach,
-      })
-      lspconfig.ansiblels.setup({
-        settings = {
-          ansible = {
-            ansible = {
-              path = "ansible",
-            },
-            ansibleLint = {
-              enabled = true,
-              path = "ansible-lint",
-              arguments = "-x fqcn,role-name",
-            },
-            executionEnvironment = {
-              enabled = false,
-            },
-            python = {
-              interpreterPath = "python",
-            },
-          },
-        },
-        on_attach = on_attach,
-        capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities),
+        automatic_installation = true,
       })
 
-      lspconfig.pyright.setup({
-        on_attach = on_attach,
-      })
-
-      local util = require("lspconfig.util")
-      lspconfig.groovyls.setup({
-        filetypes = { "groovy" },
-        root_dir = function(fname)
-          return util.root_pattern("src")(fname) or util.find_git_ancestor(fname)
+      require("mason-lspconfig").setup_handlers({
+        -- The first entry (without a key) will be the default handler
+        -- and will be called for each installed server that doesn't have
+        -- a dedicated handler.
+        function(server_name) -- default handler (optional)
+          require("lspconfig")[server_name].setup({
+            on_attach = on_attach,
+            capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities),
+          })
         end,
-        on_attach = on_attach,
-        capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities),
+        -- Next, you can provide a dedicated handler for specific servers.
+        -- For example, a handler override for the `rust_analyzer`:
+        ["sumneko_lua"] = function()
+          lspconfig.sumneko_lua.setup({
+            settings = {
+              Lua = {
+                runtime = {
+                  version = "LuaJIT",
+                },
+                completion = { callSnippet = "Both" },
+                diagnostics = {
+                  globals = { "vim" },
+                },
+                telemetry = { enable = false },
+              },
+            },
+            on_attach = on_attach,
+            capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities),
+          })
+        end,
       })
-      lspconfig.tsserver.setup({
-        on_attach = on_attach,
-      })
-
-      -- vim.lsp.set_log_level("debug")
     end,
-  }, -- Collection of configurations for built-in LSP client
-  { "williamboman/nvim-lsp-installer" },
-
+  },
+  {
+    "williamboman/mason.nvim",
+    dependencies = {
+      { "williamboman/mason-lspconfig.nvim" },
+    },
+  },
   {
     "kosayoda/nvim-lightbulb",
     config = function()

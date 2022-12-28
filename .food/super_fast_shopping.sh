@@ -6,7 +6,7 @@ grocery_store="${store:-smiths}"
 shopping_list="$1"
 
 while read -r p; do
-  [[ "$p" =~ ^#.* ]] && continue
+	[[ "$p" =~ ^#.* ]] && continue
 	if [[ -n "$p" ]]; then
 		case $grocery_store in
 		smiths)
