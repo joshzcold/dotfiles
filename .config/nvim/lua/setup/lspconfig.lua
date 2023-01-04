@@ -63,7 +63,7 @@ lspconfig.ansiblels.setup({
       ansibleLint = {
         enabled = true,
         path = "ansible-lint",
-        arguments = "-x fqcn,role-name",
+        arguments = "-x fqcn-builtins,role-name",
       },
       executionEnvironment = {
         enabled = false,
