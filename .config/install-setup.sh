@@ -111,7 +111,7 @@ user_prompt "Install neovim plugins"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   set -x
-  nvim -c PackerSync
+  nvim --headless "+Lazy! sync" +qa
   { set +x; } 2> /dev/null 
 fi
 
@@ -144,7 +144,7 @@ fi
 user_prompt "Setup printing"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  pacman -S cups avahi
+  pacman -S cups avahi nss-mdns
   echo "Put this in your /etc/nsswitch.conf"
   echo "hosts: mymachines mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns"
   user_prompt ""

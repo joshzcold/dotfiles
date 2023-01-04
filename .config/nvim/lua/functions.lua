@@ -61,18 +61,3 @@ vim.cmd(
   [[ autocmd BufReadPost * if @% !~# '\.git[\/\\]COMMIT_EDITMSG$' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]]
 )
 
-vim.cmd([[
-  au TermOpen * setlocal nospell
-]])
-
--- NOTE autocmd EXAMPLE
--- vim.api.nvim_create_autocmd("Filetype", {
---   pattern = { "toggleterm" },
---   callback = function()
---     vim.schedule(function()
---       print("triggered")
---       vim.api.nvim_buf_set_keymap(0, "t", "<c-j>", "<down>", { silent = true })
---       vim.api.nvim_buf_set_keymap(0, "t", "<c-k>", "<up>", { silent = true })
---     end)
---   end,
--- })
