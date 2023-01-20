@@ -48,7 +48,8 @@ return {
     end,
     config = function()
       require("toggleterm").setup({
-        start_in_insert = false
+        start_in_insert = false,
+        auto_scroll = false,
       })
       vim.cmd([[
                 au TermOpen * setlocal nospell

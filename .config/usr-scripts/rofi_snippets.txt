@@ -13,3 +13,6 @@ watch -n 1 docker stack services --format 'table{{.Name}}\\t{{.Replicas}}' stagi
 curl -u 'prometheus:Mzc3ZDczNzA5ODA4MjMwODYxN2U1ZmNh' -k
 Mzc3ZDczNzA5ODA4MjMwODYxN2U1ZmNh
 docker service update --update-order start-first --force --detach=false []
+sudo -u postgres pcp_node_info -h 127.0.0.1 -w -v -U $(sudo cat /home/postgres/.pcppass | cut -d ":" -f3 )
+sudo -u postgres pcp_attach_node -h 127.0.0.1 -w -v -U $(sudo cat /home/postgres/.pcppass | cut -d ":" -f3 ) -n
+sudo -u postgres pcp_recovery_node -h 127.0.0.1 -w -v -U $(sudo cat /home/postgres/.pcppass | cut -d ":" -f3 ) -n
