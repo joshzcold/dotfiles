@@ -5,7 +5,7 @@ return {
     cmd = { "Git" },
     init = function()
       vim.keymap.set("n", "<leader>gg", function()
-        vim.cmd([[:Git<cr>]])
+        vim.cmd([[:Git]])
       end, { desc = "Git" })
     end,
     config = function()
@@ -20,15 +20,15 @@ return {
     cmd = { "DiffviewOpen" },
     init = function()
       vim.keymap.set("n", "<leader>gd", function()
-        vim.cmd([[:DiffviewOpen<cr>]])
+        vim.cmd([[:DiffviewOpen]])
       end, { desc = "Git diff" })
 
       vim.keymap.set("n", "<leader>gm", function()
-        vim.cmd([[:DiffviewOpen master<cr>]])
+        vim.cmd([[:DiffviewOpen master]])
       end, { desc = "Git diff (master)" })
 
       vim.keymap.set("n", "<leader>gk", function()
-        vim.cmd([[:DiffviewClose<cr>]])
+        vim.cmd([[:DiffviewClose]])
       end, { desc = "Git diff close" })
     end,
   },
@@ -37,11 +37,11 @@ return {
     "lewis6991/gitsigns.nvim",
     init = function()
       vim.keymap.set("n", "<leader>gx", function()
-        vim.cmd([[:Gitsigns reset_hunk<cr>]])
+        vim.cmd([[:Gitsigns reset_hunk]])
       end, { desc = "Undo git hunk at point" })
 
       vim.keymap.set("n", "<leader>gn", function()
-        vim.cmd([[:Gitsigns next_hunk<cr>]])
+        vim.cmd([[:Gitsigns next_hunk]])
       end, { desc = "Move to next git hunk" })
     end,
     config = function()
