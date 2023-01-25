@@ -36,13 +36,13 @@ return {
       })
     end, { desc = "Find File" })
 
-    vim.keymap.set("n", "<leader>//", function()
+    vim.keymap.set("n", "<leader>/?", function()
       require("telescope.builtin").grep_string({
         only_sort_text = true,
       })
     end, { desc = "Grep Directory" })
 
-    vim.keymap.set("n", "<leader>/?", function()
+    vim.keymap.set("n", "<leader>//", function()
       require("telescope.builtin").live_grep({
         only_sort_text = true,
       })

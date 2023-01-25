@@ -8,10 +8,10 @@ return {
     },
     init = function()
       vim.keymap.set("n", "<leader>ff", function()
-        vim.cmd([[:HopWord<cr>]])
+        vim.cmd([[:HopWord]])
       end, { desc = "Hop To Word" })
       vim.keymap.set("n", "<leader>fl", function()
-        vim.cmd([[:HopLine<cr>]])
+        vim.cmd([[:HopLine]])
       end, { desc = "Hop To Line" })
     end,
     config = function()
