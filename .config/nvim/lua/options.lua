@@ -72,7 +72,9 @@ opt.guicursor =
 
 opt.spell = true
 
-vim.cmd("au TextYankPost * lua vim.highlight.on_yank {on_visual = true}") -- disabled in visual mode
+vim.api.nvim_create_autocmd('TextYankPost', {
+  callback = function() vim.highlight.on_yank() end
+})
 
 -- grep programs
 opt.grepprg = "rg --vimgrep --no-heading"
