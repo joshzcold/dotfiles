@@ -90,6 +90,25 @@ return {
             capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities),
           })
         end,
+        ["ansiblels"] = function()
+          lspconfig.ansiblels.setup({
+            settings = {
+              ansible = {
+                ansible = {
+                  useFullyQualifiedCollectionNames = false
+                },
+                validation = {
+                  lint = {
+                    enabled = true,
+                    arguments = '-x role-name,package-latest,fqcn-builtins'
+                  }
+                }
+              }
+            },
+            on_attach = on_attach,
+            capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities),
+          })
+        end,
       })
     end,
     dependencies = {
