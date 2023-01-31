@@ -3,13 +3,8 @@ return {
     {
         "windwp/nvim-autopairs",
         config = function()
-            -- require("pairs"):setup({
-            --       enter = {
-            --         enable_mapping = false,
-            --       },
-            --     })
             require("nvim-autopairs").setup({
-                ignored_next_char = "[%w%.]",
+                ignored_next_char = "[%w%.%(%[%{%<%\"%']",
                 fast_wrap = {
                     map = "<C-p>",
                     chars = { "{", "[", "(", '"', "'", "`" },
@@ -21,40 +16,6 @@ return {
                     highlight = "Search",
                     highlight_grey = "Comment",
                 },
-            })
-            local npairs = require("nvim-autopairs")
-            local Rule = require("nvim-autopairs.rule")
-            local cond = require("nvim-autopairs.conds")
-
-            npairs.add_rules({
-                Rule(" ", " "):with_pair(function(opts)
-                    local pair = opts.line:sub(opts.col - 1, opts.col)
-                    return vim.tbl_contains({ "()", "[]", "{}" }, pair)
-                end),
-                Rule("( ", " )")
-                    :with_pair(function()
-                        return false
-                    end)
-                    :with_move(function(opts)
-                        return opts.prev_char:match(".%)") ~= nil
-                    end)
-                    :use_key(")"),
-                Rule("{ ", " }")
-                    :with_pair(function()
-                        return false
-                    end)
-                    :with_move(function(opts)
-                        return opts.prev_char:match(".%}") ~= nil
-                    end)
-                    :use_key("}"),
-                Rule("[ ", " ]")
-                    :with_pair(function()
-                        return false
-                    end)
-                    :with_move(function(opts)
-                        return opts.prev_char:match(".%]") ~= nil
-                    end)
-                    :use_key("]"),
             })
         end,
     },
