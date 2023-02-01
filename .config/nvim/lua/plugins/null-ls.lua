@@ -34,6 +34,9 @@ return {
           },
         }),
         null_ls.builtins.formatting.shfmt,
+        null_ls.builtins.diagnostics.pylama.with({
+          args = { "--from-stdin", "$FILENAME", "-f", "json", "--max-line-length", "120" },
+        }),
       }
       require("null-ls").setup({
         sources = lSsources,
