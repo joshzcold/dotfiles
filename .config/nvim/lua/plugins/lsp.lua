@@ -8,6 +8,10 @@ return {
       -- make nvim-cmp aware of extra capabilities coming from lsp
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+      capabilities.textDocument.foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true
+      }
       -- Use an on_attach function to only map the following keys
       -- after the language server attaches to the current buffer
       local on_attach = function(client, bufnr)
@@ -67,7 +71,7 @@ return {
         function(server_name) -- default handler (optional)
           require("lspconfig")[server_name].setup({
             on_attach = on_attach,
-            capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities),
+            capabilities = capabilities
           })
         end,
         -- Next, you can provide a dedicated handler for specific servers.
