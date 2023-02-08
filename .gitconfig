@@ -10,3 +10,5 @@
 	rebase = false
 ; [commit]
 ; 	gpgsign = true
+[diff]
+	ignoreSubmodules = dirty
