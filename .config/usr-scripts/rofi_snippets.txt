@@ -2,7 +2,8 @@ sudo ss -tulpn | grep LISTEN
 openssl x509 -text -noout -in certificate.crt
 source /usr/share/bash-completion/completions/systemctl; _systemctl_restart(){ comps=$( __get_restartable_units --system "${COMP_WORDS[1]}" ); compopt -o filenames; COMPREPLY=( $(compgen -o filenames -W '$comps') ); return 0; }; sc(){ echo "restart $1"; sudo systemctl restart $1; sleep 3; sudo systemctl status $1 ; }; complete -F _systemctl_restart sc
 journalctl -S -1h -u X
-sudo -iu postgres psql -h 127.0.0.1 -c "select * from pg_stat_replication"
+sudo -iu postgres psql -h 127.0.0.1 -c "select * from pg_stat_replication" # see if this is the current leader
+sudo -iu postgres psql -h 127.0.0.1 -c "select * from pg_stat_wal_receiver" # see if this is a replica
 sudo systemd-resolve --flush-caches
 sudo dmesg | grep "oom-kill" | grep -oP "(?<=cpuset=)\w+(?=,)" | xargs -I% bash -c "docker inspect % | jq '.[].Name'"
 curl -XGET http://localhost:9200/_cat/shards | grep UNASSIGNED | awk {'print $1'} | xargs -i curl -XDELETE "http://localhost:9200/{}"
