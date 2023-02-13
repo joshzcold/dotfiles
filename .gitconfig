@@ -11,4 +11,4 @@
 ; [commit]
 ; 	gpgsign = true
 [diff]
-	ignoreSubmodules = dirty
+	ignoreSubmodules = all

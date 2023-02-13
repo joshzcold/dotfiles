@@ -38,7 +38,7 @@ return {
     },
 
     -- follow symlinks when opening them
-    { "aymericbeaumet/vim-symlink", dependencies = { "moll/vim-bbye" } },
+    -- { "aymericbeaumet/vim-symlink", dependencies = { "moll/vim-bbye" } },
 
 
     -- detects color codes in text and colors them in buffer
