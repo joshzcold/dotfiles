@@ -248,7 +248,10 @@ function new_jira_branch(){
   echo -n "Branch suffix ?: "
   read "branch_summary?"
 
-  git checkout -b "${key}_${branch_summary}" origin/master
+  branch="${key}_${branch_summary}"
+  git checkout -b  "${branch}" origin/master
+  git branch --set-upstream-to="origin/${branch}" "${branch}" 2>/dev/null
+
 }
 
 function prometheus_unhealthy_targets(){
