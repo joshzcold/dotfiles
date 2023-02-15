@@ -207,7 +207,7 @@ function vgit(){
 }
 
 function cgit(){
-  local cmd="${FZF_ALT_C_COMMAND:-"fd --search-path $HOME/git --glob '*.git' --no-ignore-vcs --hidden --prune --exec dirname {}"}"
+  local cmd=${FZF_ALT_C_COMMAND:-"fd --search-path $HOME/git --glob '*.git' --no-ignore-vcs --hidden --prune --exec dirname {}"}
   setopt localoptions pipefail no_aliases 2> /dev/null
   local dir="$(eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --preview='cd {}; git symbolic-ref -q --short HEAD || git describe --tags --exact-match' --reverse --preview-window up,1,border-horizontal $FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS" $(__fzfcmd) +m)"
   if [[ -z "$dir" ]]; then
@@ -236,6 +236,19 @@ function git_branch(){
   zle accept-line
   zle reset-prompt
   return 0
+}
+
+function new_jira_branch(){
+  selected_line="$(jira issue list --plain --columns 'KEY,STATUS,TYPE,SUMMARY,ASSIGNEE' -a 'joshua.cold@securitymetrics.com' -s 'In Progress' --no-headers | fzf)"
+  [ -z "$selected_line" ] && return
+  key="$(echo "${selected_line}" | awk '{print $1}')"
+  git fetch origin &>/dev/null
+
+  echo
+  echo -n "Branch suffix ?: "
+  read "branch_summary?"
+
+  git checkout -b "${key}_${branch_summary}" origin/master
 }
 
 function prometheus_unhealthy_targets(){
@@ -284,7 +297,7 @@ function fast_ssh_broadcast(){
   kitty @ goto-layout grid
   for host in "${hosts[@]}"; do
     kitty @ new-window
-    kitty @ send_text ssh $host
+    kitty @ send-text ssh $host
   done
   kitty @ focus-window -m id:1
   kitty +kitten broadcast
@@ -326,6 +339,7 @@ setopt noflowcontrol
 bindkey -s '^x' 'fast_ssh^M'
 bindkey -s '^z' 'fast_ssh_broadcast^M'
 bindkey -s '^v' 'vault-list^M'
+bindkey -s '^j' 'new_jira_branch^M'
 zle -N cgit
 bindkey '^S' cgit
 
