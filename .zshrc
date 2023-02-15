@@ -250,8 +250,8 @@ function new_jira_branch(){
 
   branch="${key}_${branch_summary}"
   git checkout -b  "${branch}" origin/master
+  git push
   git branch --set-upstream-to="origin/${branch}" "${branch}" 2>/dev/null
-
 }
 
 function prometheus_unhealthy_targets(){
