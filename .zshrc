@@ -237,22 +237,52 @@ function git_branch(){
   zle reset-prompt
   return 0
 }
-
 function new_jira_branch(){
-  selected_line="$(jira issue list --plain --columns 'KEY,STATUS,TYPE,SUMMARY,ASSIGNEE' -a 'joshua.cold@securitymetrics.com' -s 'In Progress' --no-headers | fzf)"
+  selected_line="$(jira issue list --plain --columns 'KEY,STATUS,TYPE,SUMMARY,ASSIGNEE' -a "$(jira me)" -s 'In Progress' --no-headers | fzf)"
   [ -z "$selected_line" ] && return
   key="$(echo "${selected_line}" | awk '{print $1}')"
+
+  # Get a default value for the suffix
+  default_suffix="$(echo "${selected_line}" | tr -s '\t' | awk -F '\t' '{print $4}')" # Start with the summary
+  default_suffix="$(echo "${default_suffix}" | tr '[:upper:]' '[:lower:]')" # To lowercase
+  default_suffix="$(echo "${default_suffix}" | tr '[:punct:]' '_' | tr ' ' '_')" # Replace special characters with underscores
+  default_suffix="$(echo "${default_suffix}" | tr -s '_')" # Remove duplicate underscores
+  default_suffix="$(echo "${default_suffix}" | cut -c 1-40)" # Shorten to 40 characters
+  default_suffix="$(echo "${default_suffix}" | sed -e 's/_$//')" # Remove trailing underscores
+
   git fetch origin &>/dev/null
 
+  suffix_prompt="Branch suffix? (${default_suffix}): "
   echo
-  echo -n "Branch suffix ?: "
-  read "branch_summary?"
-
+  echo -n "${suffix_prompt}"
+  read "branch_summary?" #<-- would need a change for bash
+  [ -z "${branch_summary}" ] && branch_summary="${default_suffix}"
   branch="${key}_${branch_summary}"
-  git checkout -b  "${branch}" origin/master
-  git push
+
+  if git rev-parse --verify "${branch}" &>/dev/null; then
+    echo "Branch ${branch} already exists"
+    return 1
+  fi
+
+  git checkout -b "${branch}" origin/master
   git branch --set-upstream-to="origin/${branch}" "${branch}" 2>/dev/null
 }
+
+# function new_jira_branch(){
+#   selected_line="$(jira issue list --plain --columns 'KEY,STATUS,TYPE,SUMMARY,ASSIGNEE' -a 'joshua.cold@securitymetrics.com' -s 'In Progress' --no-headers | fzf)"
+#   [ -z "$selected_line" ] && return
+#   key="$(echo "${selected_line}" | awk '{print $1}')"
+#   git fetch origin &>/dev/null
+#
+#   echo
+#   echo -n "Branch suffix ?: "
+#   read "branch_summary?"
+#
+#   branch="${key}_${branch_summary}"
+#   git checkout -b  "${branch}" origin/master
+#   git push
+#   git branch --set-upstream-to="origin/${branch}" "${branch}" 2>/dev/null
+# }
 
 function prometheus_unhealthy_targets(){
   if [ "$1" = "-j" ];then
