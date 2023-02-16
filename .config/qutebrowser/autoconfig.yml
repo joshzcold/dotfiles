@@ -104,6 +104,15 @@ settings:
     https://mail.google.com?extsrc=mailto&url=%25s: true
     https://outlook.live.com?mailtouri=%25s: true
     https://voice.google.com?a=nc,%25s: true
+  editor.command:
+    global:
+    - kitty
+    - --class=float
+    - -e
+    - nvim
+    - -u
+    - NONE
+    - '{}'
   spellcheck.languages:
     global:
     - en-US
