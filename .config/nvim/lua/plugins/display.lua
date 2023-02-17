@@ -26,6 +26,9 @@ return {
     config = function()
       require("noice").setup({
         -- add any options here
+        cmdline = {
+          view = "cmdline"
+        },
         lsp = {
           -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
           override = {
