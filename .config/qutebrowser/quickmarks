@@ -6,10 +6,17 @@ Android Messa https://messages.android.com/
 Gas Bill Payment https://www.dominionenergy.com/
 Electric Bill Pay https://www.rockymountainpower.net/index.html
 Wireless Router Archer C1200 http://192.168.0.1/webpages/index.html
-NZBGet http://192.168.0.156:6789/
-Sonarr http://192.168.0.156:8989/
-Movies - Radarr http://192.168.0.156:7878/
-Jellyfin http://192.168.0.156:8096/web/index.html
+
+Sabnzbd http://192.168.0.153:8080/
+Sonarr http://192.168.0.153:8989/
+Movies - Radarr http://192.168.0.153:7878/
+Jellyfin http://192.168.0.153:8096/web/index.html
+
+Sabnzbd http://joshua-home-server:8080/
+Sonarr http://joshua-home-server:8989/
+Movies - Radarr http://joshua-home-server:7878/
+Jellyfin http://joshua-home-server:8096/web/index.html
+
 Google Developer Dashboard https://chrome.google.com/webstore/devconsole
 Dayforce https://usr54.dayforcehcm.com/MyDayforce/u/NXwCzW2ClEGkdhTuy0P2Vg/Common/
 Emoji unicode characters for use on the web https://apps.timwhitlock.info/emoji/tables/unicode
