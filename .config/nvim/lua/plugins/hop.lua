@@ -4,6 +4,7 @@ return {
     lazy = true,
     cmd = {
       "HopWord",
+      "HopChar1",
       "HopLine",
     },
     init = function()
