@@ -27,7 +27,7 @@ return {
       require("noice").setup({
         -- add any options here
         cmdline = {
-          view = "cmdline"
+          view = "cmdline",
         },
         lsp = {
           -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
@@ -37,11 +37,15 @@ return {
             ["cmp.entry.get_documentation"] = true,
           },
         },
+        messages = {
+          enabled = true,
+          view = "mini",
+        },
         -- you can enable a preset for easier configuration
         presets = {
           bottom_search = true, -- use a classic bottom cmdline for search
           command_palette = true, -- position the cmdline and popupmenu together
-          long_message_to_split = true, -- long messages will be sent to a split
+          long_message_to_split = false, -- long messages will be sent to a split
           inc_rename = false, -- enables an input dialog for inc-rename.nvim
           lsp_doc_border = true, -- add a border to hover docs and signature help
         },
