@@ -1,0 +1,47 @@
+board:
+  id: 234
+  name: DV6 Sprint Board
+  type: scrum
+epic:
+  name: customfield_10004
+  link: ""
+installation: Local
+issue:
+  types:
+  - id: "10001"
+    name: Story
+    handle: Story
+    subtask: false
+  - id: "10004"
+    name: Bug
+    handle: Bug
+    subtask: false
+  - id: "10723"
+    name: Spike
+    handle: Spike
+    subtask: false
+  - id: "10000"
+    name: Epic
+    handle: Epic
+    subtask: false
+  - id: "10003"
+    name: Sub-task
+    handle: Sub-task
+    subtask: true
+  - id: "10808"
+    name: Initiative
+    handle: Initiative
+    subtask: false
+  - id: "10809"
+    name: Annual Objective
+    handle: Annual Objective
+    subtask: false
+  - id: "10748"
+    name: Change
+    handle: Change
+    subtask: false
+login: joshua.cold@securitymetrics.com
+project:
+  key: DV6
+  type: classic
+server: https://securitymetrics.atlassian.net
