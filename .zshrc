@@ -191,7 +191,15 @@ function pass(){
 }
 
 function git_clean_up_dangling_branches(){
-  git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d
+  git branch --merged | grep -Pv "^(\*|\+|master)" | xargs git branch -D || true
+}
+
+function git_clean_up_non_remote_branches(){
+  git branch --format "%(refname:short) %(upstream)" | \
+    awk '{if (!$2) print $1;}' | \
+    grep -Pv "^(\*|\+|master)" | \
+    rev | cut -d '/' -f1 | rev | \
+    xargs git branch -D || true
 }
 
 function vgit(){
@@ -252,11 +260,11 @@ function new_jira_branch(){
 
   git fetch origin &>/dev/null
 
-  suffix_prompt="Branch suffix? (${default_suffix}): "
+  branch_summary="${default_suffix}"
+  suffix_prompt="Branch suffix?: "
   echo
   echo -n "${suffix_prompt}"
-  read "branch_summary?" #<-- would need a change for bash
-  [ -z "${branch_summary}" ] && branch_summary="${default_suffix}"
+  vared branch_summary
   branch="${key}_${branch_summary}"
 
   if git rev-parse --verify "${branch}" &>/dev/null; then
@@ -264,25 +272,8 @@ function new_jira_branch(){
     return 1
   fi
 
-  git checkout -b "${branch}" origin/master
-  git branch --set-upstream-to="origin/${branch}" "${branch}" 2>/dev/null
+  git checkout --no-track -b "${branch}" origin/master
 }
-
-# function new_jira_branch(){
-#   selected_line="$(jira issue list --plain --columns 'KEY,STATUS,TYPE,SUMMARY,ASSIGNEE' -a 'joshua.cold@securitymetrics.com' -s 'In Progress' --no-headers | fzf)"
-#   [ -z "$selected_line" ] && return
-#   key="$(echo "${selected_line}" | awk '{print $1}')"
-#   git fetch origin &>/dev/null
-#
-#   echo
-#   echo -n "Branch suffix ?: "
-#   read "branch_summary?"
-#
-#   branch="${key}_${branch_summary}"
-#   git checkout -b  "${branch}" origin/master
-#   git push
-#   git branch --set-upstream-to="origin/${branch}" "${branch}" 2>/dev/null
-# }
 
 function prometheus_unhealthy_targets(){
   if [ "$1" = "-j" ];then
