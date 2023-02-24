@@ -54,7 +54,7 @@ ansible filters https://docs.ansible.com/ansible/latest/user_guide/playbooks_fil
 confluence https://securitymetrics.atlassian.net/wiki/spaces/DEVOPS/overview
 jenkins extended choice reference https://github.com/jenkinsci/extended-choice-parameter-plugin/blob/master/src/main/java/com/cwctravel/hudson/plugins/extended_choice_parameter/ExtendedChoiceParameterDefinition.java
 jenkins job dsl https://jenkinsci.github.io/job-dsl-plugin/
-jenkins env vars https://hq-devops-v-jenkins/env-vars.html/
+jenkins env vars https://jenkins.secmet.co/env-vars.html/
 jenkins pipeline synatax https://www.jenkins.io/doc/book/pipeline/syntax/
 jenkins examples https://www.jenkins.io/doc/pipeline/examples/
 jenkins gdsl https://10.29.158.99/job/Theater/pipeline-syntax/gdsl

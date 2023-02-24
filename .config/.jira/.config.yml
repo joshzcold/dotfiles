@@ -1,47 +1,138 @@
 board:
-  id: 234
-  name: DV6 Sprint Board
-  type: scrum
+    id: 292
+    name: DV6 - Kanban
+    type: kanban
 epic:
-  name: customfield_10004
-  link: ""
+    name: customfield_10004
+    link: ""
 installation: Local
 issue:
-  types:
-  - id: "10001"
-    name: Story
-    handle: Story
-    subtask: false
-  - id: "10004"
-    name: Bug
-    handle: Bug
-    subtask: false
-  - id: "10723"
-    name: Spike
-    handle: Spike
-    subtask: false
-  - id: "10000"
-    name: Epic
-    handle: Epic
-    subtask: false
-  - id: "10003"
-    name: Sub-task
-    handle: Sub-task
-    subtask: true
-  - id: "10808"
-    name: Initiative
-    handle: Initiative
-    subtask: false
-  - id: "10809"
-    name: Annual Objective
-    handle: Annual Objective
-    subtask: false
-  - id: "10748"
-    name: Change
-    handle: Change
-    subtask: false
+    fields:
+        custom:
+            - name: Test Plan
+              key: customfield_12575
+              schema:
+                datatype: string
+            - name: Product Owner
+              key: customfield_12400
+              schema:
+                datatype: user
+            - name: Assigned Developer
+              key: customfield_12411
+              schema:
+                datatype: user
+            - name: Story Points
+              key: customfield_10008
+              schema:
+                datatype: number
+            - name: Assumptions
+              key: customfield_10610
+              schema:
+                datatype: string
+            - name: Reports Category
+              key: customfield_12572
+              schema:
+                datatype: option
+            - name: Customer Type Impacted
+              key: customfield_12446
+              schema:
+                datatype: array
+                items: option
+            - name: Acceptance Criteria
+              key: customfield_10204
+              schema:
+                datatype: string
+            - name: Epic Link
+              key: customfield_10002
+              schema:
+                datatype: any
+            - name: Maintenance
+              key: customfield_12573
+              schema:
+                datatype: option
+            - name: Work Type
+              key: customfield_12574
+              schema:
+                datatype: option
+            - name: Release Notes
+              key: customfield_12430
+              schema:
+                datatype: string
+            - name: Assigned QA
+              key: customfield_12413
+              schema:
+                datatype: user
+            - name: Story point estimate
+              key: customfield_12421
+              schema:
+                datatype: number
+            - name: Bug Type
+              key: customfield_12570
+              schema:
+                datatype: option
+            - name: Severity of Impact
+              key: customfield_12448
+              schema:
+                datatype: option
+            - name: Likelihood of Impact
+              key: customfield_12447
+              schema:
+                datatype: option
+            - name: Target start
+              key: customfield_12537
+              schema:
+                datatype: date
+            - name: Epic Name
+              key: customfield_10004
+              schema:
+                datatype: string
+            - name: Target end
+              key: customfield_12538
+              schema:
+                datatype: date
+            - name: Epic Type
+              key: customfield_12449
+              schema:
+                datatype: option
+            - name: Parent Link
+              key: customfield_11100
+              schema:
+                datatype: any
+            - name: Person Month Estimate
+              key: customfield_12580
+              schema:
+                datatype: number
+    types:
+        - id: "10001"
+          name: Story
+          handle: Story
+          subtask: false
+        - id: "10004"
+          name: Bug
+          handle: Bug
+          subtask: false
+        - id: "10723"
+          name: Spike
+          handle: Spike
+          subtask: false
+        - id: "10003"
+          name: Sub-task
+          handle: Sub-task
+          subtask: true
+        - id: "10000"
+          name: Epic
+          handle: Epic
+          subtask: false
+        - id: "10808"
+          name: Initiative
+          handle: Initiative
+          subtask: false
+        - id: "10809"
+          name: Annual Objective
+          handle: Annual Objective
+          subtask: false
 login: joshua.cold@securitymetrics.com
 project:
-  key: DV6
-  type: classic
+    key: DV6
+    type: classic
 server: https://securitymetrics.atlassian.net

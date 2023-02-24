@@ -48,7 +48,7 @@ export PYTHONBREAKPOINT="pudb.set_trace"
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 export TERM=xterm-kitty
 export JIRA_API_TOKEN=$(cat ~/git/codepaste/JiraToken)
-export JIRA_AUTH_TYPE="bearer"
+export JIRA_AUTH_TYPE="password"
 
 
 # Path updates
