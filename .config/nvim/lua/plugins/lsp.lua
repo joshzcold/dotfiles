@@ -12,6 +12,13 @@ return {
         dynamicRegistration = false,
         lineFoldingOnly = true
       }
+
+      vim.keymap.set(
+        "n",
+        "<leader>=",
+        "<cmd>lua vim.lsp.buf.format({ timeout_ms = 2000 })<cr>",
+        { desc = "LSP Format" }
+      )
       -- Use an on_attach function to only map the following keys
       -- after the language server attaches to the current buffer
       local on_attach = function(client, bufnr)
@@ -36,12 +43,6 @@ return {
         )
         vim.keymap.set("n", "<leader>ld", "<cmd>lua vim.diagnostic.disable()<cr>", { desc = "lsp diagnostic disable" })
         vim.keymap.set("n", "<leader>le", "<cmd>lua vim.diagnostic.enable()<cr>", { desc = "lsp diagnostic enable" })
-        vim.keymap.set(
-          "n",
-          "<leader>=",
-          "<cmd>lua vim.lsp.buf.format({ timeout_ms = 2000 })<cr>",
-          { desc = "LSP Format" }
-        )
       end
 
       require("nvim-lightbulb").setup({ autocmd = { enabled = true } })

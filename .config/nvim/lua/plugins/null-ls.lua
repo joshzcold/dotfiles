@@ -34,13 +34,16 @@ return {
           },
         }),
         null_ls.builtins.formatting.shfmt,
-        null_ls.builtins.formatting.npm_groovy_lint,
+        null_ls.builtins.formatting.npm_groovy_lint.with({
+          args = { "--format", "--failon", "none", "-" },
+        }),
         null_ls.builtins.diagnostics.pylama.with({
           args = { "--from-stdin", "$FILENAME", "-f", "json", "--max-line-length", "120" },
         }),
       }
       require("null-ls").setup({
         sources = lSsources,
+        debug = true,
       })
       -- the duration in there is to stop timeouts on massive files
       -- vim.cmd("autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync(nil, 7500)")
