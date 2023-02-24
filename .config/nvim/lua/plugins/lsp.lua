@@ -10,7 +10,7 @@ return {
       capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
       capabilities.textDocument.foldingRange = {
         dynamicRegistration = false,
-        lineFoldingOnly = true
+        lineFoldingOnly = true,
       }
 
       vim.keymap.set(
@@ -18,6 +18,24 @@ return {
         "<leader>=",
         "<cmd>lua vim.lsp.buf.format({ timeout_ms = 2000 })<cr>",
         { desc = "LSP Format" }
+      )
+
+      vim.g.diagnostics_active = true
+      function _G.toggle_diagnostics()
+        if vim.g.diagnostics_active then
+          vim.g.diagnostics_active = false
+          vim.diagnostic.disable()
+        else
+          vim.g.diagnostics_active = true
+          vim.diagnostic.enable()
+        end
+      end
+
+      vim.api.nvim_set_keymap(
+        "n",
+        "<leader>tt",
+        ":call v:lua.toggle_diagnostics()<CR>",
+        { desc = "toggle_diagnostics" }
       )
       -- Use an on_attach function to only map the following keys
       -- after the language server attaches to the current buffer
@@ -72,13 +90,13 @@ return {
         function(server_name) -- default handler (optional)
           require("lspconfig")[server_name].setup({
             on_attach = on_attach,
-            capabilities = capabilities
+            capabilities = capabilities,
           })
         end,
         -- Next, you can provide a dedicated handler for specific servers.
         -- For example, a handler override for the `rust_analyzer`:
-        ["sumneko_lua"] = function()
-          lspconfig.sumneko_lua.setup({
+        ["lua-language-server"] = function()
+          lspconfig['lua-language-server'].setup({
             settings = {
               Lua = {
                 runtime = {
@@ -100,15 +118,15 @@ return {
             settings = {
               ansible = {
                 ansible = {
-                  useFullyQualifiedCollectionNames = false
+                  useFullyQualifiedCollectionNames = false,
                 },
                 validation = {
                   lint = {
                     enabled = true,
-                    arguments = '-x role-name,package-latest,fqcn-builtins'
-                  }
-                }
-              }
+                    arguments = "-x role-name,package-latest,fqcn-builtins",
+                  },
+                },
+              },
             },
             on_attach = on_attach,
             capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities),
