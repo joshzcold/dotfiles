@@ -33,7 +33,7 @@ return {
 
       vim.api.nvim_set_keymap(
         "n",
-        "<leader>tt",
+        "<leader>lt",
         ":call v:lua.toggle_diagnostics()<CR>",
         { desc = "toggle_diagnostics" }
       )
