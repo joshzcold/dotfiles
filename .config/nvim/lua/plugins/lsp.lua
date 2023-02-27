@@ -70,7 +70,7 @@ return {
       require("mason-lspconfig").setup({
 
         ensure_installed = {
-          -- "lua-language-server",
+          "lua-language-server",
           "bashls",
           "groovyls",
           "pyright",
@@ -95,8 +95,8 @@ return {
         end,
         -- Next, you can provide a dedicated handler for specific servers.
         -- For example, a handler override for the `rust_analyzer`:
-        ["lua-language-server"] = function()
-          lspconfig['lua-language-server'].setup({
+        ["lua_ls"] = function()
+          lspconfig['lua_ls'].setup({
             settings = {
               Lua = {
                 runtime = {
