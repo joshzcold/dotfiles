@@ -81,6 +81,9 @@ return {
         on_attach = M.on_attach,
         sync_root_with_cwd = true,
         respect_buf_cwd = true,
+        view = {
+          width = "30%"
+        }
       })
     end,
   },
