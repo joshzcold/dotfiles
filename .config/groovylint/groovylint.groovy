@@ -410,7 +410,7 @@ ruleset {
     UnnecessaryElseStatement
     UnnecessaryFinalOnPrivateMethod
     UnnecessaryFloatInstantiation
-    UnnecessaryGString
+    // UnnecessaryGString
     // UnnecessaryGetter
     UnnecessaryIfStatement
     UnnecessaryInstanceOfCheck

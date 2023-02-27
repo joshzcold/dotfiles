@@ -78,7 +78,9 @@ return {
       end
 
       require("nvim-tree").setup({
-        on_attach = M.on_attach
+        on_attach = M.on_attach,
+        sync_root_with_cwd = true,
+        respect_buf_cwd = true,
       })
     end,
   },
