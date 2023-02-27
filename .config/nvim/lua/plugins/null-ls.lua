@@ -38,7 +38,7 @@ return {
           args = { "--format", "--failon", "none", "-" },
         }),
         null_ls.builtins.diagnostics.npm_groovy_lint.with({
-          args = { "-o", "json", "-" },
+          args = { "-o", "json", "--rulesets", os.getenv("HOME") .. "/.config/groovylint/groovylint.groovy",  "-" },
         }),
         null_ls.builtins.diagnostics.pylama.with({
           args = { "--from-stdin", "$FILENAME", "-f", "json", "--max-line-length", "120" },
