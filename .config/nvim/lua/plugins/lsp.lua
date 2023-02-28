@@ -68,7 +68,6 @@ return {
 
       require("mason").setup()
       require("mason-lspconfig").setup({
-
         ensure_installed = {
           "lua_ls",
           "bashls",
@@ -83,6 +82,8 @@ return {
         automatic_installation = true,
       })
 
+      require("neodev").setup({})
+
       require("mason-lspconfig").setup_handlers({
         -- The first entry (without a key) will be the default handler
         -- and will be called for each installed server that doesn't have
@@ -94,25 +95,6 @@ return {
           })
         end,
         -- Next, you can provide a dedicated handler for specific servers.
-        -- For example, a handler override for the `rust_analyzer`:
-        ["lua_ls"] = function()
-          lspconfig['lua_ls'].setup({
-            settings = {
-              Lua = {
-                runtime = {
-                  version = "LuaJIT",
-                },
-                completion = { callSnippet = "Both" },
-                diagnostics = {
-                  globals = { "vim" },
-                },
-                telemetry = { enable = false },
-              },
-            },
-            on_attach = on_attach,
-            capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities),
-          })
-        end,
         ["ansiblels"] = function()
           lspconfig.ansiblels.setup({
             settings = {
@@ -137,6 +119,7 @@ return {
     dependencies = {
       { "williamboman/mason.nvim" },
       { "williamboman/mason-lspconfig.nvim" },
+      { "folke/neodev.nvim" },
     },
   },
   {
