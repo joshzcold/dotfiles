@@ -142,7 +142,12 @@ return {
   {
     "j-hui/fidget.nvim",
     config = function()
-      require("fidget").setup({ window = { winblend = 0 } })
+      require("fidget").setup({
+        window = { winblend = 0 },
+        align = {
+          bottom = false,
+        },
+      })
     end,
   },
 }
