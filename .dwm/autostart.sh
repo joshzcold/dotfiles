@@ -13,4 +13,5 @@ picom &
 blueman-applet &
 volctl &
 /home/joshua/.config/usr-scripts/check-on-dotfiles &
+/home/joshua/.config/usr-scripts/check_bb_reviews.sh &
 kdeconnect-indicator &
