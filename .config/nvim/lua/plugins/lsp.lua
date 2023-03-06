@@ -16,7 +16,7 @@ return {
       vim.keymap.set(
         "n",
         "<leader>=",
-        "<cmd>lua vim.lsp.buf.format({ timeout_ms = 2000 })<cr>",
+        "<cmd>lua vim.lsp.buf.format({ timeout_ms = 7000 })<cr>",
         { desc = "LSP Format" }
       )
 
