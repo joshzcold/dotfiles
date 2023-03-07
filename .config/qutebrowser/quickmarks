@@ -157,4 +157,4 @@ prodtools prometheus https://hq-prodtools-v-prometheus.secmet.co/alerts
 myservicemac mortage bill pay https://loansphereservicingdigital.bkiconnect.com/myservicemac/#/dashboard
 ref alertmanager https://hq-ref1-v-prometheus.secmet.co:9095/#/alerts
 traefik hq-ref1 https://traefik.hq-ref1-v-cluster-1.secmet.co:5000/dashboard/#/
-dental benefits securitymetrics https://production.deltadental.auth0.com/login?state=hKFo2SBISWVOTjZsSFd6T3FiVS1fT2pxRDRHbGdxOVVmWmpmQaFupWxvZ2luo3RpZNkgajMzeUdfaG5TN0hKVXBOSmN5ZlJrbUlWaVI2Z0JRcF-jY2lk2SBOYjJ1QlJvQW1UOXl0REZLRGxyOGwwQkJobU9xRnE1RQ&client=Nb2uBRoAmT9ytDFKDlr8l0BBhmOqFq5E&protocol=oauth2&redirect_uri=https%3A%2F%2Fidentity.deltadental.com%2Foidc-callback&scope=openid%20profile%20email&response_type=code
+dotfiles github https://github.com/joshzcold/dotfiles
