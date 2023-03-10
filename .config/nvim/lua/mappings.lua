@@ -121,7 +121,7 @@ map("n", "<leader>bx", ":%bd|e#<cr>", { desc = "Delete All Other Buffers" })
 
 -- git g
 
-map("n", "<leader>gp", ":call GitPush()<cr>", { desc = "Git Sync" })
+map("n", "<leader>gp", ":GitPush<cr>", { desc = "Git Sync" })
 map("n", "<leader>gP", ":!open_review.sh<cr>", { desc = "Open Pull Request" })
-map("n", "<leader>gr", ":call GitPushWithReview()<cr>", { desc = "Git Sync with review" })
+map("n", "<leader>gr", ":GitPushWithReview<cr>", { desc = "Git Sync with review" })
 map("n", "<leader>gu", ":Git pull<cr>", { desc = "Git pull" })

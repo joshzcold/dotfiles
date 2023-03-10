@@ -35,10 +35,17 @@ return {
         }),
         null_ls.builtins.formatting.shfmt,
         null_ls.builtins.formatting.npm_groovy_lint.with({
-          args = { "--format", "--failon", "none", "-" },
+          args = {
+            "--format",
+            "--failon",
+            "none",
+            "--config",
+            os.getenv("HOME") .. "/.config/groovylint/groovylint.json",
+            "-",
+          },
         }),
         null_ls.builtins.diagnostics.npm_groovy_lint.with({
-          args = { "-o", "json", "--rulesets", os.getenv("HOME") .. "/.config/groovylint/groovylint.groovy",  "-" },
+          args = { "-o", "json", "--config", os.getenv("HOME") .. "/.config/groovylint/groovylint.json", "-" },
         }),
         null_ls.builtins.diagnostics.pylama.with({
           args = { "--from-stdin", "$FILENAME", "-f", "json", "--max-line-length", "120" },
