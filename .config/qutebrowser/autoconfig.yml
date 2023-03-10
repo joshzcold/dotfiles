@@ -64,6 +64,8 @@ settings:
       {qt_key}/{qt_version} {upstream_browser_key}/{upstream_browser_version} Safari/{webkit_version}
   content.javascript.can_access_clipboard:
     global: true
+  content.javascript.can_open_tabs_automatically:
+    global: true
   content.javascript.enabled:
     '*://10.155.0.99/*': true
   content.media.audio_capture:
