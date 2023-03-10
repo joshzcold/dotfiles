@@ -12,6 +12,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   callback = function()
     map("n", "<leader>lab", "Iansible.builtin.")
     vim.opt_local.makeprg = "ansible-lint -p --nocolor -x role-name,package-latest,fqcn-builtins --exclude .roles"
+    vim.opt_local.keywordprg = "ansible-doc"
   end,
 })
 -- set yaml.ansible file type based on search match
