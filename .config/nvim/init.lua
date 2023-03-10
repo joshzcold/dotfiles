@@ -1,4 +1,5 @@
 require("functions")
+require("autocmd")
 require("options")
 require("mappings")
 
