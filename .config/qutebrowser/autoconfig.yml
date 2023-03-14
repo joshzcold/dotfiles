@@ -51,6 +51,7 @@ settings:
     https://www.webrtc-experiment.com: true
   content.geolocation:
     https://outlook.office.com: true
+    https://portal.superiorvision.com: true
     https://www.dominos.com: true
     https://www.google.com: true
     https://www.grubhub.com: false

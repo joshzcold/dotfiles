@@ -25,7 +25,7 @@ vim.api.nvim_create_autocmd({ "BufRead" }, {
   end,
 })
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = { "*/playbooks/*.yml" },
+  pattern = { "*/playbooks/*.yml", "*/tasks/*.yml" },
   callback = function()
     vim.opt_local.ft = "yaml.ansible"
   end,
