@@ -36,6 +36,16 @@ return {
             ["vim.lsp.util.stylize_markdown"] = true,
             ["cmp.entry.get_documentation"] = true,
           },
+          routes = {
+            {
+              view = "cmdline",
+              filter = {
+                any = {
+                  { event = "msg_show", kind = "confirm_sub" },
+                },
+              },
+            },
+          },
         },
         messages = {
           enabled = true,

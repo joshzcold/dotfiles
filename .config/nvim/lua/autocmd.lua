@@ -11,6 +11,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "yaml.ansible" },
   callback = function()
     map("n", "<leader>lab", "Iansible.builtin.")
+    map("v", "<leader>la{", [[:s/{{\(\w\+\)}}/{{ \1 }}/gc<cr>]], {desc = "reformat put in space in ansible variable templates"})
     vim.opt_local.makeprg = "ansible-lint -p --nocolor -x role-name,package-latest,fqcn-builtins --exclude .roles"
     vim.opt_local.keywordprg = "ansible-doc"
   end,
