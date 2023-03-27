@@ -6,3 +6,9 @@ snippet debug "Ansible debug print statement"
 snippet var "ansible string with variable"
 	"{{ ${1:var} }}"  
 	
+snippet import_role "Import role ansible task block"
+	- name: Ansible role $1 setup
+		import_role:
+			name: $1
+		tags:
+			- $1

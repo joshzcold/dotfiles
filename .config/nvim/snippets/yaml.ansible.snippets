@@ -1,0 +1,6 @@
+snippet import_role "Import role ansible task block"
+	- name: Ansible role $1 setup
+		import_role:
+			name: $1
+		tags:
+			- $1

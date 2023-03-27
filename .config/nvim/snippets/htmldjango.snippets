@@ -1,5 +1,14 @@
 snippet if "jinja if statement"
-	{% if $1 is defined%}
-	$2 = {{ $1 }}
-	{% endif %}
+	{%+ if $1 is defined -%}
+		$3
+	{%+ endif -%}
+
+snippet ifin "jinja ifin statement"
+	{%+ if '$1' in $2 -%}
+		$3
+	{%+ endif -%}
 	
+snippet forin "jinja for in statement"
+	{%+ for $1 in $2 -%}
+		$3
+	{% endfor %}
