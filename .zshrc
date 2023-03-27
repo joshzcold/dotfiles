@@ -4,6 +4,8 @@ setopt AUTO_NAME_DIRS
 prompt pure
 prompt_newline='%666v'
 PROMPT=" $PROMPT"
+[ ! -d ~/.fzf-tab/ ] && git clone https://github.com/Aloxaf/fzf-tab ~/.fzf-tab
+source ~/.fzf-tab/fzf-tab.plugin.zsh
 
 # load custom dir colors (ignore 777 permissions for NTFS mounts)
 eval "$(dircolors ~/.dircolors)"
