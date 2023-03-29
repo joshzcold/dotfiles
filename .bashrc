@@ -155,3 +155,5 @@ function fastssh(){
     fi
   done
 }
+
+complete -C /usr/bin/vault vault

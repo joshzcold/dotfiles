@@ -157,6 +157,16 @@ function yu(){
   yadm push
 }
 
+function vault-token(){
+  if timeout 5s vault login -method oidc role="admin" >/dev/null 2>&1; then
+    token=$(cat ~/.vault-token)
+    xdotool type "$token"
+    ( qutebrowser :tab-close > /dev/null 2>&1 & )
+  else
+    echo "ERROR"
+  fi
+}
+
 function searchGitHistory(){
   INITIAL_QUERY=""
   RG_PREFIX="git grep --column --color=always --threads 4"
@@ -365,8 +375,10 @@ setopt noflowcontrol
 
 bindkey -s '^x' 'fast_ssh^M'
 bindkey -s '^z' 'fast_ssh_broadcast^M'
-bindkey -s '^v' 'vault-list^M'
 bindkey -s '^j' 'new_jira_branch^M'
+
+zle -N vault-token
+bindkey '^v' vault-token
 zle -N cgit
 bindkey '^S' cgit
 
@@ -467,3 +479,6 @@ function _yadm-add(){
 function _yadm-checkout(){ 
     _yadm-add 
 }
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/vault vault
