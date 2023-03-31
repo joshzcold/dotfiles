@@ -119,6 +119,7 @@ alias mk="mkvirtualenv"
 alias wk="workon"
 alias dk="deactivate"
 alias flow="./flow"
+alias p81dns="sudo systemd-resolve --interface=p81 --set-dns 10.1.1.2 --set-dns 10.29.10.2 --set-dns 10.29.10.3 --set-domain secmet.co"
 
 # cd into first dir
 alias cdf="cd "$(ls -d */|head -n 1)""
