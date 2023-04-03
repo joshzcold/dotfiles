@@ -19,7 +19,6 @@ kubectl
 linux-headers
 lxappearance
 ncdu
-neovim-nightly-bin
 network-manager-applet
 nitrogen
 openssh
@@ -42,9 +41,8 @@ sudo
 tree
 wget
 yadm
-yay
+yay-bin
 zsh
-zsh-pure-prompt-git
 nvm
 up
 ksshaskpass
@@ -73,12 +71,9 @@ noto-fonts
 noto-fonts-emoji
 noto-fonts-extra
 betterlockscreen
-lightdm-webkit-theme-litarvan
-lightdm-webkit2-greeter
 postgresql
 docker-compose
 inetutils
-nerd-fonts-source-code-pro
 bind
 python-pip
 bash-language-server
@@ -89,7 +84,6 @@ zsh-pure-prompt
 perimeter81
 steam
 xorg-server-xephyr
-lightdm-webkit-theme-aether
 python-psutil
 virt-manager
 python-jmespath
@@ -97,7 +91,6 @@ dconf-editor
 stylua-bin
 unzip
 npm
-nerd-fonts-source-code-pro
 prettierd
 nmap
 qt5-webengine-widevine
