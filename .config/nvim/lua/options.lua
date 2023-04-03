@@ -48,7 +48,7 @@ opt.splitbelow = true
 opt.splitright = true
 
 opt.smartindent = false
-opt.autoindent = true
+opt.autoindent = false
 opt.cindent = false
 opt.indentexpr = ""
 
