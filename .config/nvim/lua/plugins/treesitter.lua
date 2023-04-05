@@ -61,7 +61,7 @@ return {
             },
         },
         indent = {
-            enable = false,
+            enable = true,
         },
         textobjects = {
             select = {
