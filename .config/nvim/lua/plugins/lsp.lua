@@ -74,7 +74,7 @@ return {
         ensure_installed = {
           "lua_ls",
           "bashls",
-          "groovy-language-server",
+          "groovyls",
           "pyright",
           "ansiblels",
           "yamlls",
