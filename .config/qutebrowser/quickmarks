@@ -104,8 +104,6 @@ hq-ref-phv-tools-1 10.105.23.19
 keeper password manager security metrics https://keepersecurity.com/vault/#
 chrome remote desktop https://remotedesktop.google.com/access
 google calendar https://calendar.google.com/calendar/u/1/r?pli=1
-dev kibana logs https://hq-dev-v-logs
-prod logs https://dk-prod1-v-logs-proxy.secmet.co
 dk1 prometheus https://dk-prod1-v-prometheus.secmet.co/alerts
 hq prometheus https://hq-prod1-v-prometheus.secmet.co/alerts
 dk2 prometheus https://dk-prod2-v-prometheus.secmet.co/alerts
@@ -114,12 +112,6 @@ hq alertmanager http://hq-prod1-v-prometheus.secmet.co:9093
 dk2 alertmanager http://dk-prod2-v-prometheus.secmet.co:9093
 current prod site securitymetrics https://www.securitymetrics.com/api/v2/scheduler/vitals
 securitymetrics dental benefits https://www.principal.com/
-dk1 docker visualizer https://dk-prod1-v-logs-proxy.secmet.co/visualizer/
-dk2 docker visualizer https://dk-prod2-v-logs-proxy.secmet.co/visualizer/
-hq docker visualizer https://hq-prod1-v-logs-proxy.secmet.co/visualizer/
-dk1 elastic kibana https://dk-prod1-v-logs-proxy.secmet.co/app/home#/
-dk2 elastic kibana https://dk-prod2-v-logs-proxy.secmet.co/app/home#/
-hq elastic kibana https://hq-prod1-v-logs-proxy.secmet.co/app/home#/
 securitymetrics payroll https://payroll.paylogics.com/payday-benefits
 snipe-it https://securitymetrics.snipe-it.io/account/view-assets
 cups printers http://localhost:631/
@@ -159,4 +151,15 @@ ref alertmanager https://hq-ref1-v-prometheus.secmet.co:9095/#/alerts
 traefik hq-ref1 https://traefik.hq-ref1-v-cluster-1.secmet.co:5000/dashboard/#/
 dotfiles github https://github.com/joshzcold/dotfiles
 hqref2 prometheus https://hq-ref2-v-prometheus.secmet.co/alerts
-production logs scan https://hq-prodscan-v-elastic-1.secmet.co/app/home#/
+logs hq-dev https://hq-dev-v-logs
+logs hq-devops https://hq-devops-v-elastic-1.secmet.co/app/home#/
+logs hq-ref2 https://hq-ref2-v-elastic-1.secmet.co/app/home#/
+logs hq-ref1 https://hq-ref1-v-elastic-1.secmet.co/app/home#/
+logs scan https://hq-prodscan-v-elastic-1.secmet.co/app/home#/
+logs vision https://hq-prodvis-v-elastic-1.secmet.co/app/home#/
+logs dk-prod1 https://dk-prod1-v-elastic-1.secmet.co/app/home#/
+logs dk-prod2 https://dk-prod2-v-elastic-1.secmet.co/app/home#/
+logs hq-prod1 https://hq-prod1-v-elastic-1.secmet.co/app/home#/
+dk1 docker visualizer https://dk-prod1-v-logs-proxy.secmet.co/visualizer/
+dk2 docker visualizer https://dk-prod2-v-logs-proxy.secmet.co/visualizer/
+hq docker visualizer https://hq-prod1-v-logs-proxy.secmet.co/visualizer/
