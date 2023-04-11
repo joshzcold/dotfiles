@@ -41,6 +41,13 @@ export GOPATH=$HOME/.go
 export KUBE_EDITOR=nvim
 export SUDO_ASKPASS=/usr/bin/ksshaskpass
 export FZF_DEFAULT_COMMAND='rg --files'
+export ANDROID_SDK_ROOT='/opt/android-sdk'
+export ANDROID_HOME='/opt/android-sdk'
+export CHROME_EXECUTABLE=chromium
+export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools/
+export PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin/
+export PATH=$PATH:$ANDROID_ROOT/emulator
+export PATH=$PATH:$ANDROID_SDK_ROOT/tools/
 
 # Python
 export PYTHONWARNINGS="ignore:Unverified HTTPS request"
@@ -63,6 +70,8 @@ export PATH=$PATH:$HOME/apps/bin
 export PATH=$PATH:$HOME.cargo/bin
 export PATH=$PATH:./node_modules/.bin
 export PATH=$PATH:$NPM_PACKAGES/bin
+export PATH=$PATH:/opt/flutter/bin
+export PATH=$PATH:/opt/android-sdk/tools/bin
 export PATH=$PATH:$HOME/.config/usr-scripts
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$HOME/.local/bin
