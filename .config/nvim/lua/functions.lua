@@ -1,5 +1,6 @@
 local function git_write_with_input()
       vim.cmd.Gwrite()
+      vim.api.nvim_command(":!git add % ")
       local message = vim.fn.input("Commit message: ")
       vim.api.nvim_command(":!git commit -m " .. "'" .. message .. "'")
       return message
