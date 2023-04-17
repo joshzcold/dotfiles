@@ -163,3 +163,4 @@ logs hq-prod1 https://hq-prod1-v-elastic-1.secmet.co/app/home#/
 dk1 docker visualizer https://dk-prod1-v-logs-proxy.secmet.co/visualizer/
 dk2 docker visualizer https://dk-prod2-v-logs-proxy.secmet.co/visualizer/
 hq docker visualizer https://hq-prod1-v-logs-proxy.secmet.co/visualizer/
+SecurityMetrics IT certificate server https://hq-operations-v-cert-1.secmet.co/login/?next=/
