@@ -114,7 +114,18 @@ return {
               },
             },
             on_attach = on_attach,
-            capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities),
+            capabilities = capabilities,
+          })
+        end,
+        ["yamlls"] = function()
+          lspconfig.yamlls.setup({
+            settings = {
+              yaml = {
+                keyOrdering = false,
+              },
+            },
+            on_attach = on_attach,
+            capabilities = capabilities,
           })
         end,
       })
