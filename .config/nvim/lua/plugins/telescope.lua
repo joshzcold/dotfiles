@@ -42,6 +42,10 @@ return {
       })
     end, { desc = "Grep Directory" })
 
+    vim.keymap.set("n", "<leader>/q", function()
+      require("telescope.builtin").resume()
+    end, { desc = "Telescope last search" })
+
     vim.keymap.set("n", "<leader>//", function()
       require("telescope.builtin").live_grep({
         only_sort_text = true,
