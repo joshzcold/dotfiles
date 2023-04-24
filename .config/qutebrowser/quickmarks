@@ -121,7 +121,8 @@ grafana https://grafana.secmet.co/?orgId=1
 Devops jira board https://securitymetrics.atlassian.net/jira/software/c/projects/DV6/boards/292
 google chat bot message api format https://developers.google.com/chat/api/guides/message-formats
 devops prometheus https://hq-devops-v-prometheus.secmet.co/alerts
-ref prometheus https://hq-ref-v-prometheus.secmet.co/alerts
+hq-ref1 prometheus https://hq-ref1-v-prometheus.secmet.co/alerts
+hq-ref2 prometheus https://hq-ref2-v-prometheus-1.secmet.co/alerts
 dev prometheus http://hq-dev-v-prometheus.secmet.co:9090/alerts
 devops kanban board jira https://securitymetrics.atlassian.net/jira/software/c/projects/DV6/boards/292
 devops tools prometheus https://hq-prod-v-prometheus.secmet.co/alerts
@@ -164,3 +165,4 @@ dk1 docker visualizer https://dk-prod1-v-logs-proxy.secmet.co/visualizer/
 dk2 docker visualizer https://dk-prod2-v-logs-proxy.secmet.co/visualizer/
 hq docker visualizer https://hq-prod1-v-logs-proxy.secmet.co/visualizer/
 SecurityMetrics IT certificate server https://hq-operations-v-cert-1.secmet.co/login/?next=/
+groovy lint rule index https://codenarc.org/codenarc-rule-index.html
