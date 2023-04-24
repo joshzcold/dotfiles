@@ -60,6 +60,8 @@ export TERM=xterm-kitty
 export JIRA_API_TOKEN=$(cat ~/git/codepaste/JiraToken)
 export JIRA_AUTH_TYPE="password"
 
+# let `time` command output in simple seconds
+export TIMEFORMAT=%R
 
 # Path updates
 export PATH=$PATH:/bin/
