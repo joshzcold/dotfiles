@@ -15,7 +15,7 @@ if(process.env.QUTE_URL.includes("console")){
     new_path = url_parts.slice(0, -3).join("/")
   }
   qutejs.jseval([], function () {
-      document.getElementsByClassName("submit-button")[0].click();
+      document.getElementsByName("Submit")[0].click();
   });
 }
 else{
