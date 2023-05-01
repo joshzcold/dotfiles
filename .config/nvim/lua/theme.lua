@@ -1,5 +1,5 @@
 vim.cmd([[
-  colorscheme github_dark_default
+  colorscheme github_dark_high_contrast
 ]])
 -- highlighting tweaks
 vim.api.nvim_set_hl(0, "SpellBad", { sp = "#325905", underline = true })
