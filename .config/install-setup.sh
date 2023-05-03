@@ -144,7 +144,7 @@ fi
 user_prompt "Setup printing"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  pacman -S cups avahi nss-mdns
+  sudo pacman -S cups avahi nss-mdns
   echo "Put this in your /etc/nsswitch.conf"
   echo "hosts: mymachines mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns"
   user_prompt ""

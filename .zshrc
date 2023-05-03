@@ -161,6 +161,18 @@ function ascii(){
   figlet -f $file ${*:-Moo}
 }
 
+git_hard_reset(){
+  answer=""
+  command=( "git" "reset" "--hard" "origin/$(git rev-parse --abbrev-ref HEAD)" )
+
+  echo -n "Executing '${command}' are you sure? [y/N]"
+  vared answer
+  if [ "$answer" = "y" ]; then
+    git fetch origin
+    "${command[@]}"
+  fi
+}
+
 function yu(){
   yadm status
   yadm pull
@@ -271,6 +283,7 @@ function git_branch(){
   return 0
 }
 function new_jira_branch(){
+  ( git fetch origin &>/dev/null & )
   selected_line="$(jira issue list --plain --columns 'KEY,STATUS,TYPE,SUMMARY,ASSIGNEE' -a "$(jira me)" -s 'In Progress' --no-headers | fzf)"
   [ -z "$selected_line" ] && return
   key="$(echo "${selected_line}" | awk '{print $1}')"
@@ -282,8 +295,6 @@ function new_jira_branch(){
   default_suffix="$(echo "${default_suffix}" | tr -s '_')" # Remove duplicate underscores
   default_suffix="$(echo "${default_suffix}" | cut -c 1-40)" # Shorten to 40 characters
   default_suffix="$(echo "${default_suffix}" | sed -e 's/_$//')" # Remove trailing underscores
-
-  git fetch origin &>/dev/null
 
   branch_summary="${default_suffix}"
   suffix_prompt="Branch suffix?: "
