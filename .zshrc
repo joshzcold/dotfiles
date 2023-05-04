@@ -138,6 +138,16 @@ alias cdf="cd "$(ls -d */|head -n 1)""
 bindkey "^?" backward-delete-char
 # Updates editor information when the keymap changes.
 
+function toggle_lights(){
+  if [ -n "$CURRENT_KITTY_THEME" ]; then
+    kitty +kitten themes --reload-in=all Github Dark
+    export CURRENT_KITTY_THEME=
+  else
+    kitty +kitten themes --reload-in=all Github
+    export CURRENT_KITTY_THEME=ON
+  fi
+}
+
 # lazy load kubectl completion
 function kubectl() {
     if ! type __start_kubectl >/dev/null 2>&1; then
@@ -399,6 +409,9 @@ setopt noflowcontrol
 bindkey -s '^x' 'fast_ssh^M'
 bindkey -s '^z' 'fast_ssh_broadcast^M'
 bindkey -s '^j' 'new_jira_branch^M'
+
+zle -N toggle_lights
+bindkey '^t' toggle_lights
 
 zle -N vault-token
 bindkey '^v' vault-token
