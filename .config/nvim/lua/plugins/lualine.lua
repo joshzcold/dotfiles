@@ -30,12 +30,27 @@ return {
 
           lualine_c = {
             "filename",
+
+            {
+              function ()
+                local message = require("noice").api.status.message.get()
+                return message:sub(1, 120)
+              end,
+              cond = require("noice").api.status.message.has,
+              color = { fg = "6b6b6b" },
+              timeout = 3000
+            },
           },
           lualine_x = {
             "filetype",
             function()
               return require("lsp-status").status()
             end,
+            {
+              require("noice").api.status.mode.get,
+              cond = require("noice").api.status.mode.has,
+              color = { fg = "ff9e64" },
+            },
           },
           lualine_y = {
             {

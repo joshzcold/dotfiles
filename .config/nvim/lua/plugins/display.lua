@@ -45,6 +45,10 @@ return {
                 },
               },
             },
+            {
+              view = "notify",
+              filter = { event = "msg_showmode" },
+            },
           },
         },
         messages = {

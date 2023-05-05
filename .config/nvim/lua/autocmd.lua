@@ -82,3 +82,4 @@ vim.api.nvim_create_autocmd({ "BufRead" }, {
     vim.opt_local.winbar = "%{luaeval('require\"jsonpath\".get()')}"
   end,
 })
+
