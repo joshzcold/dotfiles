@@ -123,7 +123,7 @@ google chat bot message api format https://developers.google.com/chat/api/guides
 devops prometheus https://hq-devops-v-prometheus.secmet.co/alerts
 hq-ref1 prometheus https://hq-ref1-v-prometheus.secmet.co/alerts
 hq-ref2 prometheus https://hq-ref2-v-prometheus-1.secmet.co/alerts
-dev prometheus http://hq-dev-v-prometheus.secmet.co:9090/alerts
+dev prometheus https://hq-dev-v-prometheus-1.secmet.co/alerts?search=
 devops kanban board jira https://securitymetrics.atlassian.net/jira/software/c/projects/DV6/boards/292
 devops tools prometheus https://hq-prod-v-prometheus.secmet.co/alerts
 notification test browser https://www.bennish.net/web-notifications.html

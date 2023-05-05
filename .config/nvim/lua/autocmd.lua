@@ -22,14 +22,14 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 -- set yaml.ansible file type based on search match
-vim.api.nvim_create_autocmd({ "BufRead" }, {
-  pattern = { "*.yaml", "*.yml" },
-  callback = function()
-    if vim.fn.search([[tasks:\|- name:]], "nw") > 0 then
-      vim.opt_local.ft = "yaml.ansible"
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd({ "BufRead" }, {
+--   pattern = { "*.yaml", "*.yml" },
+--   callback = function()
+--     if vim.fn.search([[\stasks:\|- name:]], "nw") > 0 then
+--       vim.opt_local.ft = "yaml.ansible"
+--     end
+--   end,
+-- })
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = { "*/playbooks/*.yml", "*/tasks/*.yml" },
   callback = function()
