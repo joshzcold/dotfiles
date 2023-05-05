@@ -30,15 +30,14 @@ return {
 
           lualine_c = {
             "filename",
-
+            -- Get the last noice message into the bar
             {
-              function ()
+              function()
                 local message = require("noice").api.status.message.get()
                 return message:sub(1, 120)
               end,
               cond = require("noice").api.status.message.has,
               color = { fg = "6b6b6b" },
-              timeout = 3000
             },
           },
           lualine_x = {
