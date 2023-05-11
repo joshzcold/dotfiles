@@ -4,6 +4,7 @@ return {
     config = function()
       -- Here is the formatting config
       local null_ls = require("null-ls")
+      local git_cmd = vim.fn.system("git rev-parse --show-toplevel > /dev/null; echo -n $?")
       local lSsources = {
         null_ls.builtins.formatting.prettierd.with({
           filetypes = {
@@ -34,23 +35,37 @@ return {
           },
         }),
         null_ls.builtins.formatting.shfmt,
-        null_ls.builtins.formatting.npm_groovy_lint.with({
-          args = {
-            "--format",
-            "--failon",
-            "none",
-            "--config",
-            os.getenv("HOME") .. "/.config/groovylint/groovylint.json",
-            "-",
-          },
-        }),
-        null_ls.builtins.diagnostics.npm_groovy_lint.with({
-          -- args = { "-o", "json", "--config", os.getenv("HOME") .. "/.config/groovylint/groovylint.json", "-" },
-        }),
         null_ls.builtins.diagnostics.pylama.with({
           args = { "--from-stdin", "$FILENAME", "-f", "json", "--max-line-length", "120" },
         }),
       }
+
+      if git_cmd ~= "0" then
+        -- null ls sources only if you aren't in a git repo
+        table.insert(
+          lSsources,
+          null_ls.builtins.diagnostics.npm_groovy_lint.with({
+            args = { "-o", "json", "--config", os.getenv("HOME") .. "/.config/groovylint/groovylint.json", "-" },
+          })
+        )
+        table.insert(
+          lSsources,
+          null_ls.builtins.formatting.npm_groovy_lint.with({
+            args = {
+              "--format",
+              "--failon",
+              "none",
+              "--config",
+              os.getenv("HOME") .. "/.config/groovylint/groovylint.json",
+              "-",
+            },
+          })
+        )
+      else
+        -- your in a git directory
+        table.insert(lSsources, null_ls.builtins.diagnostics.npm_groovy_lint)
+        table.insert(lSsources, null_ls.builtins.formatting.npm_groovy_lint)
+      end
       require("null-ls").setup({
         sources = lSsources,
         debug = true,
