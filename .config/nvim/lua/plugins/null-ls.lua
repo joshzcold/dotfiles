@@ -64,7 +64,14 @@ return {
       else
         -- your in a git directory
         table.insert(lSsources, null_ls.builtins.diagnostics.npm_groovy_lint)
-        table.insert(lSsources, null_ls.builtins.formatting.npm_groovy_lint)
+        table.insert(lSsources, null_ls.builtins.formatting.npm_groovy_lint.with({
+          args ={
+            "--format",
+            "--failon",
+            "none",
+            "-"
+          }
+        }))
       end
       require("null-ls").setup({
         sources = lSsources,
