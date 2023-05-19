@@ -229,6 +229,11 @@ function kconf(){
   export KUBECONFIG=$found_config
 }
 
+function k_switch_namespace(){
+  namespace=$(k get ns --no-headers | awk '{print $1}' | fzf)
+  kubectl config set-context --current --namespace="${namespace}"
+}
+
 function pass(){
   if bw login; then
   else
@@ -429,6 +434,9 @@ bindkey '^b' git_branch
 
 zle -N kconf
 bindkey '^k' kconf
+
+zle -N k_switch_namespace
+bindkey '^n' k_switch_namespace
 zstyle ':completion:*' menu select
 
 # allow copy and pasting to xclip in vi-mode
