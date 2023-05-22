@@ -10,7 +10,7 @@ end
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "yaml.ansible" },
   callback = function()
-    map("n", "<leader>lab", "Iansible.builtin.")
+    map("n", "<leader>lab", "Iansible.builtin.<esc>")
     map(
       "v",
       "<leader>la{",
