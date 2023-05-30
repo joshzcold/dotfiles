@@ -347,6 +347,10 @@ function prometheus_firing_alerts(){
   curl -s "$1/api/v1/alerts" | jq -r '.data.alerts[] | select(.state == "firing") | .labels | [.hostname, .instance] | @tsv'
 }
 
+
+function print_hosts(){
+  cat /etc/hosts | fzf -m
+}
 # Best freaking function to select multiple ssh hosts
 # and start a kitty term with ssh to each
 function fast_ssh(){
@@ -376,6 +380,9 @@ function fast_ssh_broadcast(){
     kitty @ send-text ssh $host
   done
   kitty @ focus-window -m id:1
+  if [[ ${#hosts[@]} = 2 ]]; then
+    kitty @ resize-window -m id:1 -i -50
+  fi
   kitty +kitten broadcast
 }
 
