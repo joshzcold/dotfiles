@@ -54,8 +54,8 @@ map("n", "<c-b>", ":lua require('telescope.builtin').git_branches({})<cr>")
 map("n", "H", "^")
 map("n", "L", "$")
 
-map("v", "H", "^")
-map("v", "L", "$")
+map("x", "H", "^")
+map("x", "L", "$")
 
 -- map("n", "<bs>", "<c-^>`”zz") -- switch between buffers with delete
 map("n", "<bs>", "<c-^>") -- switch between buffers with delete

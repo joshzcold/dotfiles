@@ -36,7 +36,7 @@ opt.smartcase = true
 --Decrease update time
 opt.updatetime = 250
 opt.signcolumn = "yes"
-opt.timeoutlen = 0
+opt.timeoutlen = 300
 
 opt.autoread = true
 opt.diffopt = "vertical"
