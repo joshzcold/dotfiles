@@ -231,8 +231,10 @@ function kconf(){
 
 function k_switch_namespace(){
   namespace=$(k get ns --no-headers | awk '{print $1}' | fzf)
-  kubectl config set-context --current --namespace="${namespace}"
-  zle reset-prompt
+  if [ -n "${namespace}" ]; then
+    kubectl config set-context --current --namespace="${namespace}"
+    zle reset-prompt
+  fi
 }
 
 function pass(){
