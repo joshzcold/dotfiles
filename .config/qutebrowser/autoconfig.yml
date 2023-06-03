@@ -31,8 +31,6 @@ settings:
         gk: tab-move +
         gu: edit-url
         j: scroll down
-  colors.webpage.bg:
-    global: black
   colors.webpage.darkmode.algorithm:
     global: lightness-cielab
   colors.webpage.darkmode.enabled:
