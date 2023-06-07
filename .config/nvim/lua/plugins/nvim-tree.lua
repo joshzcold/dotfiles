@@ -4,11 +4,11 @@ return {
     dependencies = {
       { "kyazdani42/nvim-web-devicons" },
     },
-    init = function()
-      vim.keymap.set("n", "<leader>/e", function()
-        vim.cmd([[:NvimTreeToggle]])
-      end, { desc = "Open nvim-tree" })
-    end,
+    -- init = function()
+    --   vim.keymap.set("n", "<leader>/e", function()
+    --     vim.cmd([[:NvimTreeToggle]])
+    --   end, { desc = "Open nvim-tree" })
+    -- end,
     config = function()
       -- local tree_cb = require("nvim-tree.config").nvim_tree_callback
       --

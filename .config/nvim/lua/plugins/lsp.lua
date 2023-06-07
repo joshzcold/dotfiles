@@ -2,6 +2,13 @@ return {
 
   {
     "neovim/nvim-lspconfig",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      { "williamboman/mason.nvim" },
+      { "williamboman/mason-lspconfig.nvim" },
+      { "folke/neodev.nvim" },
+    },
+    ---@class PluginLspOpts
     config = function()
       -- LSP settings
 
@@ -130,11 +137,6 @@ return {
         end,
       })
     end,
-    dependencies = {
-      { "williamboman/mason.nvim" },
-      { "williamboman/mason-lspconfig.nvim" },
-      { "folke/neodev.nvim" },
-    },
   },
   {
     "kosayoda/nvim-lightbulb",
