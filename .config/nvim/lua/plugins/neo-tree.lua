@@ -2,15 +2,70 @@ return {
   "nvim-neo-tree/neo-tree.nvim",
   init = function()
     vim.keymap.set("n", "<leader>/e", function()
-      vim.cmd([[:NeoTreeShowToggle]])
+      vim.cmd([[:NeoTreeFocusToggle]])
     end, { desc = "Open nvim-tree" })
   end,
   dependencies = {
     "nvim-lua/plenary.nvim",
     "MunifTanjim/nui.nvim",
+    { "nvim-tree/nvim-web-devicons" },
   },
   config = function()
     require("neo-tree").setup({
+      renderers = {
+        directory = {
+          { "indent" },
+          { "icon" },
+          { "current_filter" },
+          {
+            "container",
+            content = {
+              { "name",        zindex = 10 },
+              {
+                "symlink_target",
+                zindex = 10,
+                highlight = "NeoTreeSymbolicLinkTarget",
+              },
+              { "clipboard",   zindex = 10 },
+              { "diagnostics", errors_only = true, zindex = 20,     align = "right",          hide_when_expanded = true },
+              { "git_status",  zindex = 20,        align = "right", hide_when_expanded = true },
+            },
+          },
+        },
+        file = {
+          { "indent" },
+          { "icon" },
+          {
+            "container",
+            content = {
+              {
+                "name",
+                zindex = 10,
+              },
+              {
+                "symlink_target",
+                zindex = 10,
+                highlight = "NeoTreeSymbolicLinkTarget",
+              },
+              { "clipboard",   zindex = 10 },
+              { "bufnr",       zindex = 10 },
+              { "modified",    zindex = 20, align = "right" },
+              { "diagnostics", zindex = 20, align = "right" },
+              { "git_status",  zindex = 20, align = "right" },
+            },
+          },
+        },
+        message = {
+          { "indent", with_markers = false },
+          { "name",   highlight = "NeoTreeMessage" },
+        },
+        terminal = {
+          { "indent" },
+          { "icon" },
+          { "name" },
+          { "bufnr" },
+        },
+      },
       default_component_configs = {
         icon = {
           folder_empty = "󰜌",
@@ -74,6 +129,7 @@ return {
           -- ["S"] = "split_with_window_picker",
           -- ["s"] = "vsplit_with_window_picker",
           ["t"] = "open_tabnew",
+          ["/"] = "",
           -- ["<cr>"] = "open_drop",
           -- ["t"] = "open_tab_drop",
           ["w"] = "open_with_window_picker",
