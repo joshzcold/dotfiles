@@ -37,6 +37,14 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   end,
 })
 
+-- cloud init user-data is a yaml file
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { "user-data", "meta-data" },
+  callback = function()
+    vim.opt_local.ft = "yaml"
+  end,
+})
+
 -- set nginx conf type base on search match
 vim.api.nvim_create_autocmd({ "BufRead" }, {
   pattern = { "*.conf", "*.conf.*" },

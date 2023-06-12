@@ -18,3 +18,6 @@ docker service update --update-order start-first --force --detach=false []
 sudo -u postgres pcp_node_info -h 127.0.0.1 -w -v -U $(sudo cat /home/postgres/.pcppass | cut -d ":" -f3 )
 sudo -u postgres pcp_attach_node -h 127.0.0.1 -w -v -U $(sudo cat /home/postgres/.pcppass | cut -d ":" -f3 ) -n
 sudo -u postgres pcp_recovery_node -h 127.0.0.1 -w -v -U $(sudo cat /home/postgres/.pcppass | cut -d ":" -f3 ) -n
+redis-cli -p 26379 -c SENTINEL replicas mymaster | grep "name" -A 1
+redis-cli role
+redis-cli -p 26379 -c SENTINEL master mymaster | grep "ip" -A 1
