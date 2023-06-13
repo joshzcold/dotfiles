@@ -77,6 +77,7 @@ export PATH=$PATH:/opt/android-sdk/tools/bin
 export PATH=$PATH:$HOME/.config/usr-scripts
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$HOME/.local/bin
+export PATH=$PATH:$HOME/dotnet/tools
 
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000000
@@ -395,6 +396,7 @@ function start_nvm(){
     source /usr/share/nvm/bash_completion
     source /usr/share/nvm/install-nvm-exec
   fi
+
 }
 
 function geb() {

@@ -63,6 +63,7 @@
         "/home/joshua/.local/share/nvim/lazy/plenary.nvim/lua",
         "/home/joshua/.local/share/nvim/lazy/cmp-path/lua",
         "/home/joshua/.config/nvim/lua",
+        "${3rd}/luv/library",
         "${3rd}/luv/library"
     ]
 }

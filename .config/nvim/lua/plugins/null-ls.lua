@@ -45,12 +45,18 @@ return {
         table.insert(
           lSsources,
           null_ls.builtins.diagnostics.npm_groovy_lint.with({
+            env = {
+              PATH = "/home/joshua/.nvm/versions/node/v12.22.12/bin"
+            },
             args = { "-o", "json", "--config", os.getenv("HOME") .. "/.config/groovylint/groovylint.json", "-" },
           })
         )
         table.insert(
           lSsources,
           null_ls.builtins.formatting.npm_groovy_lint.with({
+            env = {
+              PATH = "/home/joshua/.nvm/versions/node/v12.22.12/bin"
+            },
             args = {
               "--format",
               "--failon",
@@ -63,15 +69,28 @@ return {
         )
       else
         -- your in a git directory
-        table.insert(lSsources, null_ls.builtins.diagnostics.npm_groovy_lint)
-        table.insert(lSsources, null_ls.builtins.formatting.npm_groovy_lint.with({
-          args ={
-            "--format",
-            "--failon",
-            "none",
-            "-"
-          }
-        }))
+        table.insert(
+          lSsources,
+          null_ls.builtins.diagnostics.npm_groovy_lint.with({
+            env = {
+              PATH = "/home/joshua/.nvm/versions/node/v12.22.12/bin"
+            },
+          })
+        )
+        table.insert(
+          lSsources,
+          null_ls.builtins.formatting.npm_groovy_lint.with({
+            env = {
+              PATH = "/home/joshua/.nvm/versions/node/v12.22.12/bin"
+            },
+            args = {
+              "--format",
+              "--failon",
+              "none",
+              "-",
+            },
+          })
+        )
       end
       require("null-ls").setup({
         sources = lSsources,
