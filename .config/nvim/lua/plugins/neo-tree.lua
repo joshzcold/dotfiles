@@ -1,10 +1,10 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
-  init = function()
-    vim.keymap.set("n", "<leader>/e", function()
-      vim.cmd([[:NeoTreeFocusToggle]])
-    end, { desc = "Open nvim-tree" })
-  end,
+  -- init = function()
+    -- vim.keymap.set("n", "<leader>/e", function()
+    --   vim.cmd([[:NeoTreeFocusToggle]])
+    -- end, { desc = "Open nvim-tree" })
+  -- end,
   dependencies = {
     "nvim-lua/plenary.nvim",
     "MunifTanjim/nui.nvim",

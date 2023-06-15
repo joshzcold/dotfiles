@@ -4,7 +4,7 @@ return {
     config = function()
       -- Here is the formatting config
       local null_ls = require("null-ls")
-      local git_cmd = vim.fn.system("git rev-parse --show-toplevel > /dev/null; echo -n $?")
+      local git_cmd = vim.fn.system("git rev-parse --show-toplevel | tr -d '\n'")
       local lSsources = {
         null_ls.builtins.formatting.prettierd.with({
           filetypes = {
@@ -40,7 +40,7 @@ return {
         }),
       }
 
-      if git_cmd ~= "0" then
+      if vim.fn.filereadable(git_cmd .. "/.groovylintrc.json") ~= 1 then
         -- null ls sources only if you aren't in a git repo
         table.insert(
           lSsources,
