@@ -168,3 +168,4 @@ SecurityMetrics IT certificate server https://hq-operations-v-cert-1.secmet.co/l
 groovy lint rule index https://codenarc.org/codenarc-rule-index.html
 reddit upvoted https://www.reddit.com/user/thiswhiteman/upvoted/
 devvis prometheus https://hq-devvis-v-prometheus.secmet.co/alerts?search=
+bump master.inventory https://jenkins.secmet.co/job/bump-master-in/build?delay=0sec
