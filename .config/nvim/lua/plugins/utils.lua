@@ -40,9 +40,13 @@ return {
     -- follow symlinks when opening them
     -- { "aymericbeaumet/vim-symlink", dependencies = { "moll/vim-bbye" } },
 
-
     -- detects color codes in text and colors them in buffer
-    { "norcalli/nvim-colorizer.lua" },
+    {
+        "norcalli/nvim-colorizer.lua",
+        config = function()
+            require("colorizer").setup()
+        end,
+    },
     -- allows sudo password prompt inside vim
     { "lambdalisue/suda.vim", cmd = { "SudaWrite" } },
 }
