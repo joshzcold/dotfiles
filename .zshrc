@@ -59,6 +59,7 @@ export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 export TERM=xterm-kitty
 export JIRA_API_TOKEN=$(cat ~/git/codepaste/JiraToken)
 export JIRA_AUTH_TYPE="password"
+export CR_PAT=$(cat ~/git/codepaste/GitHubContainerRegistryToken)
 
 # let `time` command output in simple seconds
 export TIMEFORMAT=%R
@@ -351,7 +352,7 @@ function prometheus_firing_alerts(){
 }
 
 
-function print_hosts(){
+function hosts(){
   cat /etc/hosts | fzf -m
 }
 # Best freaking function to select multiple ssh hosts
