@@ -41,7 +41,7 @@ return {
         --   mode = function(str)
         --     return "\\<" .. str
         --   end,
-        mode = "fuzzy",
+        mode = "exact",
         -- behave like `incsearch`
         incremental = false,
         filetype_exclude = { "notify", "noice" },

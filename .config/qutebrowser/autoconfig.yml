@@ -48,6 +48,7 @@ settings:
     https://teams.microsoft.com: true
     https://www.webrtc-experiment.com: true
   content.geolocation:
+    https://myhealthplusforms.intermountainhealthcare.org: true
     https://outlook.office.com: true
     https://portal.superiorvision.com: true
     https://www.dominos.com: true
