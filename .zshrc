@@ -226,7 +226,7 @@ function notes(){
 }
 
 function kconf(){
-  found_config=$(readlink -f $(find $HOME/.kube/  -type f -name "*.yaml" | fzf))
+  found_config=$(readlink -f $(find $HOME/.kube/  -type f -name "*.y*ml" -o -name "config" | fzf))
   export KUBECONFIG=$found_config
 }
 
