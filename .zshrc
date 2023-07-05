@@ -227,8 +227,10 @@ function notes(){
 }
 
 function klog(){
-  deployments=$(k get deployments.apps -o custom-columns=:metadata.name | sed '/^$/d' | fzf -m)
-  kubetail "${deployments}"
+  deployment=("$(k get deployments.apps -o custom-columns=:metadata.name | sed '/^$/d' | fzf)")
+  if [ -n "$deployment" ];then
+    kubectl logs deployments/${deployment} -f
+  fi
 }
 
 function kconf(){
