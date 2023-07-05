@@ -226,6 +226,11 @@ function notes(){
     fzf --preview "cat {}" ))
 }
 
+function klog(){
+  deployments=$(k get deployments.apps -o custom-columns=:metadata.name | sed '/^$/d' | fzf -m)
+  kubetail "${deployments}"
+}
+
 function kconf(){
   found_config=$(readlink -f $(find $HOME/.kube/  -type f -name "*.yaml" | fzf))
   export KUBECONFIG=$found_config
@@ -447,6 +452,9 @@ bindkey '^b' git_branch
 
 zle -N kconf
 bindkey '^k' kconf
+
+zle -N klog
+bindkey '^l' klog
 
 zle -N k_switch_namespace
 bindkey '^n' k_switch_namespace
