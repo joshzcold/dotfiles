@@ -49,7 +49,7 @@ return {
     },
     keys = {
       {
-        "s",
+        "<leader>f",
         mode = { "n", "x", "o" },
         function()
           -- default options: exact mode, multi window, all directions, with a backdrop
@@ -57,7 +57,7 @@ return {
         end,
       },
       {
-        "S",
+        "<leader>F",
         mode = { "o", "x" },
         function()
           require("flash").treesitter()
