@@ -19,50 +19,50 @@ return {
   --     require("hop").setup()
   --   end,
   -- },
-  {
-    "folke/flash.nvim",
-    event = "VeryLazy",
-    ---@type Flash.Config
-    opts = {
-      search = {
-        -- search/jump in all windows
-        multi_window = true,
-        -- search direction
-        forward = true,
-        -- when `false`, find only matches in the given direction
-        wrap = true,
-        ---@type Flash.Pattern.Mode
-        -- Each mode will take ignorecase and smartcase into account.
-        -- * exact: exact match
-        -- * search: regular search
-        -- * fuzzy: fuzzy search
-        -- * fun(str): custom function that returns a pattern
-        --   For example, to only match at the beginning of a word:
-        --   mode = function(str)
-        --     return "\\<" .. str
-        --   end,
-        mode = "exact",
-        -- behave like `incsearch`
-        incremental = false,
-        filetype_exclude = { "notify", "noice" },
-      },
-    },
-    keys = {
-      {
-        "<leader>f",
-        mode = { "n", "x", "o" },
-        function()
-          -- default options: exact mode, multi window, all directions, with a backdrop
-          require("flash").jump()
-        end,
-      },
-      {
-        "<leader>F",
-        mode = { "o", "x" },
-        function()
-          require("flash").treesitter()
-        end,
-      },
-    },
-  },
+  -- {
+  --   "folke/flash.nvim",
+  --   event = "VeryLazy",
+  --   ---@type Flash.Config
+  --   opts = {
+  --     search = {
+  --       -- search/jump in all windows
+  --       multi_window = true,
+  --       -- search direction
+  --       forward = true,
+  --       -- when `false`, find only matches in the given direction
+  --       wrap = true,
+  --       ---@type Flash.Pattern.Mode
+  --       -- Each mode will take ignorecase and smartcase into account.
+  --       -- * exact: exact match
+  --       -- * search: regular search
+  --       -- * fuzzy: fuzzy search
+  --       -- * fun(str): custom function that returns a pattern
+  --       --   For example, to only match at the beginning of a word:
+  --       --   mode = function(str)
+  --       --     return "\\<" .. str
+  --       --   end,
+  --       mode = "exact",
+  --       -- behave like `incsearch`
+  --       incremental = false,
+  --       filetype_exclude = { "notify", "noice" },
+  --     },
+  --   },
+  --   keys = {
+  --     {
+  --       "<leader>f",
+  --       mode = { "n", "x", "o" },
+  --       function()
+  --         -- default options: exact mode, multi window, all directions, with a backdrop
+  --         require("flash").jump()
+  --       end,
+  --     },
+  --     {
+  --       "<leader>F",
+  --       mode = { "o", "x" },
+  --       function()
+  --         require("flash").treesitter()
+  --       end,
+  --     },
+  --   },
+  -- },
 }

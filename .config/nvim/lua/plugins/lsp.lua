@@ -2,6 +2,9 @@ return {
 
   {
     "neovim/nvim-lspconfig",
+    opts = {
+      inlay_hints = { enabled = true },
+    },
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       { "williamboman/mason.nvim" },
@@ -73,7 +76,6 @@ return {
         vim.keymap.set("n", "<leader>le", "<cmd>lua vim.diagnostic.enable()<cr>", { desc = "lsp diagnostic enable" })
       end
 
-      require("nvim-lightbulb").setup({ autocmd = { enabled = true } })
       local lspconfig = require("lspconfig")
 
       require("mason").setup()
@@ -135,13 +137,12 @@ return {
             capabilities = capabilities,
           })
         end,
+        ["lua_ls"] = function()
+          lspconfig.lua_ls.setup({
+            settings = { Lua = { hint = { enable = true } } },
+          })
+        end,
       })
-    end,
-  },
-  {
-    "kosayoda/nvim-lightbulb",
-    config = function()
-      require("nvim-lightbulb").setup({ autocmd = { enabled = true } })
     end,
   },
   "onsails/lspkind-nvim",
