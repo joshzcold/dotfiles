@@ -15,3 +15,5 @@
 	ignoreSubmodules = all
 [safe]
 	directory = /opt/flutter
+[credential]
+	helper = store
