@@ -22,3 +22,4 @@ redis-cli -p 26379 -c SENTINEL replicas mymaster | grep "name" -A 1
 redis-cli role
 redis-cli -p 26379 -c SENTINEL master mymaster | grep "ip" -A 1
 kubectl delete pod `kubectl get pods | awk '$3 == "CrashLoopBackOff" {print $1}'`
+kubectl get events --sort-by='.metadata.creationTimestamp' -A
