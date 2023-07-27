@@ -59,6 +59,7 @@ export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 export TERM=xterm-kitty
 export JIRA_API_TOKEN=$(cat ~/git/codepaste/JiraToken)
 export JIRA_AUTH_TYPE="password"
+export BW_CLIENTSECRET=$(cat ~/git/codepaste/BitwardenClientSecret)
 export CR_PAT=$(cat ~/git/codepaste/GitHubContainerRegistryToken)
 
 # let `time` command output in simple seconds
