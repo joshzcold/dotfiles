@@ -92,10 +92,10 @@ return {
           })
         )
       end
-      require("null-ls").setup({
-        sources = lSsources,
-        debug = true,
-      })
+      -- require("null-ls").setup({
+      --   sources = lSsources,
+      --   debug = true,
+      -- })
       -- the duration in there is to stop timeouts on massive files
       -- vim.cmd("autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync(nil, 7500)")
       vim.o.updatetime = 250

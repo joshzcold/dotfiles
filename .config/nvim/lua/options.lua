@@ -58,6 +58,10 @@ opt.shiftround = true
 opt.scrolloff = 4
 opt.shiftwidth = 4
 opt.list = true
+vim.opt.listchars = {
+  tab = '· ',
+  trail = '·'
+}
 opt.linebreak = true
 opt.joinspaces = false
 opt.incsearch = true
