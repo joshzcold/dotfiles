@@ -1,7 +1,7 @@
 snippet debug "Ansible debug print statement"
 	- name: Print Variables
 		ansible.builtin.debug:
-		msg: "${1:variable}: {{ $1 }}"
+			msg: "${1:variable}: {{ $1 }}"
 
 snippet var "ansible string with variable"
 	"{{ ${1:var} }}"  
