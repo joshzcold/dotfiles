@@ -177,3 +177,4 @@ AEM Management Target https://experience.adobe.com/#/@securitymetrics/target/act
 AEM Management Analytics https://experience.adobe.com/#/@securitymetrics/so:securi6/analytics/spa/index.html?path=launch&defaultLandingPage=true%23/workspace
 AEM Management Customer https://experience.adobe.com/#/@securitymetrics/home
 Securitymetrics server room HQ diagram https://docs.google.com/spreadsheets/d/1A8uuNrDXSK0XiCGTF_AXScVKs9KxvuBvgNad05CsPmw/edit#gid=1221234709
+securitymetrics jenkins current mono-repo master builds https://jenkins.secmet.co/blue/organizations/jenkins/Development%2Fsm/activity?branch=master
