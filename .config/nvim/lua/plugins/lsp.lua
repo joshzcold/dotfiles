@@ -107,7 +107,7 @@ return {
 					"lua_ls",
 					"bashls",
 					"groovyls",
-					"pyright",
+					"pylsp",
 					"ansiblels",
 					"yamlls",
 					"jsonls",
