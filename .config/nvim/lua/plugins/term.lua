@@ -48,7 +48,7 @@ return {
     end,
     config = function()
       require("toggleterm").setup({
-        start_in_insert = false,
+        start_in_insert = true,
         auto_scroll = false,
       })
       vim.cmd([[
