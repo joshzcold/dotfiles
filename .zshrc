@@ -141,6 +141,23 @@ alias cdf="cd "$(ls -d */|head -n 1)""
 bindkey "^?" backward-delete-char
 # Updates editor information when the keymap changes.
 
+function diff_remote_files(){
+  remote_file=""
+  hosts=("${(@f)$(cat /etc/hosts | fzf -m | awk '{print $2}')}")
+  file_prompt="Remote file?: "
+  echo
+  echo -n "${file_prompt}"
+  vared remote_file
+  vim_c_cmd=""
+  remote_file_procs=""
+  for host in "${hosts[@]}"; do
+    remote_file_procs+="<(ssh ${host} \"sudo cat ${remote_file}\") "
+    vim_c_cmd+="file ${host}-${remote_file} | wincmd l | "
+  done
+
+  eval "vimdiff ${remote_file_procs} -c '${vim_c_cmd}' -c 'colorscheme elflord' -c TOhtml"
+}
+
 function toggle_lights(){
   if [ -n "$CURRENT_KITTY_THEME" ]; then
     kitty +kitten themes --reload-in=all Github Dark
