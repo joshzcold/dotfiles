@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -ex
+TMPFILE=$(mktemp)
+kitty --class=float -e bash -c "cat ~/.config/qutebrowser/quickmarks | fzf -m > ${TMPFILE}"
+
+trap 'rm ${TMPFILE}' EXIT
+
+mapfile -t marks <<< "$(cat "${TMPFILE}")"
+
+for m in "${marks[@]}"; do
+  mark_name="$(echo "$m" | rev | awk -F' ' '{$1=""; print$0}' | rev)"
+  echo "quickmark-load -t $mark_name" >>"$QUTE_FIFO"
+done
+exit 0
