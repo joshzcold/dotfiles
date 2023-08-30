@@ -11,4 +11,5 @@ config.bind('<f12>', 'devtools')
 config.bind('<Ctrl-Shift-c>', 'yank selection')
 config.bind('<Ctrl-j>','spawn --userscript jenkins_rebuild')
 config.bind('<Ctrl-g>','spawn --userscript go_to_gravity')
+config.bind('<Ctrl-Shift-b>', 'spawn --userscript multi_quickmark')
 c.auto_save.session = True
