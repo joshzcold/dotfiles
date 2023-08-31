@@ -7,11 +7,11 @@ return {
 				vim.cmd([[:ToggleTerm size=10 direction=tab]])
 			end, { desc = "Term Tab" })
 
-			-- vim.keymap.set("n", "<leader>tl", function()
-			--   local width = vim.fn.winwidth(0)
-			--   local set_width = width / 3
-			--   vim.cmd(":ToggleTerm size=" .. set_width .. " direction=vertical")
-			-- end, { desc = "Term Right" })
+			vim.keymap.set("n", "<leader>tl", function()
+			  local width = vim.fn.winwidth(0)
+			  local set_width = width / 3
+			  vim.cmd(":ToggleTerm size=" .. set_width .. " direction=vertical")
+			end, { desc = "Term Right" })
 
 			vim.keymap.set("n", "<leader>th", function()
 				local width = vim.fn.winwidth(0)
@@ -19,9 +19,9 @@ return {
 				vim.cmd(":ToggleTerm size=" .. set_width .. " direction=vertical")
 			end, { desc = "Term Left" })
 
-			-- vim.keymap.set("n", "<leader>tj", function()
-			-- 	vim.cmd([[:ToggleTerm size=10 direction=horizontal]])
-			-- end, { desc = "Term Below" })
+			vim.keymap.set("n", "<leader>tj", function()
+				vim.cmd([[:ToggleTerm size=10 direction=horizontal]])
+			end, { desc = "Term Below" })
 
 			vim.keymap.set("n", "<leader>tk", function()
 				vim.cmd([[:ToggleTerm direction=float]])
