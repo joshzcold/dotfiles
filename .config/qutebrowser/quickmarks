@@ -178,3 +178,4 @@ AEM Management Analytics https://experience.adobe.com/#/@securitymetrics/so:secu
 AEM Management Customer https://experience.adobe.com/#/@securitymetrics/home
 Securitymetrics server room HQ diagram https://docs.google.com/spreadsheets/d/1A8uuNrDXSK0XiCGTF_AXScVKs9KxvuBvgNad05CsPmw/edit#gid=1221234709
 securitymetrics jenkins current mono-repo master builds https://jenkins.secmet.co/blue/organizations/jenkins/Development%2Fsm/activity?branch=master
+securitymetrics tenable.sc prod https://10.22.1.102/
