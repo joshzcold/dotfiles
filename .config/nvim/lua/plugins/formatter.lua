@@ -1,11 +1,26 @@
+
 return {
 	{
 		"mhartington/formatter.nvim",
 		config = function()
+			local function groovy_format()
+				return {
+					exe = "/home/joshua/.nvm/versions/node/v16.20.0/bin/npm-groovy-lint",
+					args = {
+						"--serverhost http://127.0.0.1",
+						"--format",
+						"--javaexecutable /usr/lib/jvm/java-11-openjdk/bin/java",
+						"--failon",
+						"none",
+						"-",
+					},
+					stdin = true,
+				}
+			end
 			vim.keymap.set("n", "<leader>=", "<cmd>Format<cr>", { desc = "LSP Format" })
 			require("formatter").setup({
 				logging = true,
-				log_level = vim.log.levels.WARN,
+				log_level = vim.log.levels.DEBUG,
 				filetype = {
 					lua = {
 						require("formatter.filetypes.lua").stylua,
@@ -17,6 +32,12 @@ return {
 					},
 					javascript = {
 						require("formatter.filetypes.javascript").prettierd,
+					},
+					Jenkinsfile = {
+						groovy_format
+					},
+					groovy = {
+						groovy_format
 					},
 					javascriptreact = {
 						require("formatter.filetypes.javascriptreact").prettierd,

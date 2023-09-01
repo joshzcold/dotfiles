@@ -162,7 +162,14 @@ return {
 				end,
 				["lua_ls"] = function()
 					lspconfig.lua_ls.setup({
-						settings = { Lua = { hint = { enable = true } } },
+						settings = {
+							Lua = {
+								hint = { enable = true },
+								workspace = {
+									checkThirdParty = false,
+								},
+							},
+						},
 					})
 				end,
 			})

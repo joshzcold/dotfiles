@@ -85,12 +85,12 @@ hq-devops-phv-apphost-6 10.23.10.9
 hq-devops-phv-apphost-7 10.23.10.10
 hq-devops-phv-apphost-8 10.23.10.11
 hq-operations-phv-apphost-1 10.23.7.30
-hq-prod1-phv-apphost-1 10.100.23.10
-hq-prod1-phv-apphost-2 10.100.23.11
-hq-prod1-phv-apphost-3 10.100.23.12
-hq-prod1-phv-apphost-4 10.100.23.13
-hq-prod1-phv-apphost-5 10.100.23.14
-hq-prod1-phv-tools-1 10.100.23.19
+hq-prod3-phv-apphost-1 10.100.23.10
+hq-prod3-phv-apphost-2 10.100.23.11
+hq-prod3-phv-apphost-3 10.100.23.12
+hq-prod3-phv-apphost-4 10.100.23.13
+hq-prod3-phv-apphost-5 10.100.23.14
+hq-prod3-phv-tools-1 10.100.23.19
 hq-ref-phv-apphost-1 10.105.23.10
 hq-ref-phv-apphost-2 10.105.23.11
 hq-ref-phv-apphost-3 10.105.23.12
@@ -105,10 +105,10 @@ keeper password manager security metrics https://keepersecurity.com/vault/#
 chrome remote desktop https://remotedesktop.google.com/access
 google calendar https://calendar.google.com/calendar/u/1/r?pli=1
 dk1 prometheus https://dk-prod1-v-prometheus.secmet.co/alerts
-hq prometheus https://hq-prod1-v-prometheus.secmet.co/alerts
+hq prometheus https://hq-prod3-v-prometheus.secmet.co/alerts
 dk2 prometheus https://dk-prod2-v-prometheus.secmet.co/alerts
 dk1 alertmanager http://dk-prod1-v-prometheus.secmet.co:9093
-hq alertmanager http://hq-prod1-v-prometheus.secmet.co:9093
+hq alertmanager http://hq-prod3-v-prometheus.secmet.co:9093
 dk2 alertmanager http://dk-prod2-v-prometheus.secmet.co:9093
 current prod site securitymetrics https://www.securitymetrics.com/api/v2/scheduler/vitals
 securitymetrics dental benefits https://www.principal.com/
@@ -128,7 +128,7 @@ devops kanban board jira https://securitymetrics.atlassian.net/jira/software/c/p
 devops tools prometheus https://hq-prod-v-prometheus.secmet.co/alerts
 notification test browser https://www.bennish.net/web-notifications.html
 dk1 site https://dk-prod1-v-edgenginx-1.secmet.co/
-hq site https://hq-prod1-v-edgenginx-1.secmet.co/
+hq site https://hq-prod3-v-edgenginx-1.secmet.co/
 dk2 site https://dk-prod2-v-edgenginx-1.secmet.co/
 What we have been doing devops https://docs.google.com/document/d/1ZD9ro9FK1Z9l0nWCNM0wOCSw-YdnQ3qXnayE8GBCRV8/edit
 AWS Security Metrics Signin https://securitymetrics.signin.aws.amazon.com/console
@@ -160,10 +160,10 @@ logs scan https://hq-prodscan-v-elastic-1.secmet.co/app/home#/
 logs vision https://hq-prodvis-v-elastic-1.secmet.co/app/home#/
 logs dk-prod1 https://dk-prod1-v-elastic-1.secmet.co/app/home#/
 logs dk-prod2 https://dk-prod2-v-elastic-1.secmet.co/app/home#/
-logs hq-prod1 https://hq-prod1-v-elastic-1.secmet.co/app/home#/
+logs hq-prod3 https://hq-prod1-v-elastic-1.secmet.co/app/home#/
 dk1 docker visualizer https://dk-prod1-v-logs-proxy.secmet.co/visualizer/
 dk2 docker visualizer https://dk-prod2-v-logs-proxy.secmet.co/visualizer/
-hq docker visualizer https://hq-prod1-v-logs-proxy.secmet.co/visualizer/
+hq docker visualizer https://hq-prod3-v-logs-proxy.secmet.co/visualizer/
 SecurityMetrics IT certificate server https://hq-operations-v-cert-1.secmet.co/login/?next=/
 groovy lint rule index https://codenarc.org/codenarc-rule-index.html
 reddit upvoted https://www.reddit.com/user/thiswhiteman/upvoted/
@@ -178,4 +178,5 @@ AEM Management Analytics https://experience.adobe.com/#/@securitymetrics/so:secu
 AEM Management Customer https://experience.adobe.com/#/@securitymetrics/home
 Securitymetrics server room HQ diagram https://docs.google.com/spreadsheets/d/1A8uuNrDXSK0XiCGTF_AXScVKs9KxvuBvgNad05CsPmw/edit#gid=1221234709
 securitymetrics jenkins current mono-repo master builds https://jenkins.secmet.co/blue/organizations/jenkins/Development%2Fsm/activity?branch=master
-securitymetrics tenable.sc prod https://10.22.1.102/
+Jenkins jobdsl build docs https://jenkins.secmet.co/plugin/job-dsl/api-viewer/index.html#
+SecurityMetrics Tenable.sc https://10.22.1.102/

@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+
+const qutejs = require("qutejs");
+let url = new URL(process.env.QUTE_URL)
+if (process.env.QUTE_URL.includes("portal")) {
+  qutejs.open(`${url.host}/sm/gravity`);
+} else if (process.env.QUTE_URL.includes("gravity")) {
+  qutejs.open(`${url.host}/portal/app/ngsm/partner/ALL/dashboard`);
+}

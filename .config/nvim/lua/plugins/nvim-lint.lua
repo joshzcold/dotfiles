@@ -9,7 +9,7 @@ function SetupGroovy()
 	groovy_lint.args = groovy_lint_args
 	groovy_lint.stdin = true
 	groovy_lint.env = {
-		["PATH"] = "/home/joshua/.nvm/versions/node/v12.22.12/bin",
+		["PATH"] = "/home/joshua/.nvm/versions/node/v16.20.0/bin",
 	}
 	groovy_lint.ignore_exitcode = true
 	groovy_lint.append_fname = false
