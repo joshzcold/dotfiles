@@ -116,16 +116,6 @@ return {
 				},
 			},
 			defaults = {
-
-				sorting_strategy = "ascending",
-				layout_config = {
-					horizontal = {
-						prompt_position = "top",
-					},
-					vertical = {
-						prompt_position = "top",
-					},
-				},
 				mappings = {
 					i = {
 						-- close on escape
