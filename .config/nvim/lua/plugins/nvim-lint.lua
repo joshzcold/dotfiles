@@ -25,6 +25,7 @@ return {
 				Jenkinsfile = { "npm-groovy-lint" },
 				groovy = { "npm-groovy-lint" },
 				python = { "ruff", "pylint", "pydocstyle" },
+				sh = { "shellcheck" },
 			}
 			vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter", "TextChangedI", "InsertLeave" }, {
 				callback = function()
