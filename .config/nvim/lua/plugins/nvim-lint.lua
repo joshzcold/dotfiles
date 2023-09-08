@@ -24,7 +24,7 @@ return {
 			require("lint").linters_by_ft = {
 				Jenkinsfile = { "npm-groovy-lint" },
 				groovy = { "npm-groovy-lint" },
-				python = { "ruff" },
+				python = { "ruff", "pylint" },
 			}
 			vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter", "TextChangedI", "InsertLeave" }, {
 				callback = function()

@@ -1,4 +1,3 @@
-
 return {
 	{
 		"mhartington/formatter.nvim",
@@ -29,15 +28,18 @@ return {
 						require("formatter.filetypes.python").autopep8({
 							args = { "--max-line-length", "120", "-" },
 						}),
+						require("formatter.filetypes.python").black({
+							args = { "--line-length", "120", "-" },
+						}),
 					},
 					javascript = {
 						require("formatter.filetypes.javascript").prettierd,
 					},
 					Jenkinsfile = {
-						groovy_format
+						groovy_format,
 					},
 					groovy = {
-						groovy_format
+						groovy_format,
 					},
 					javascriptreact = {
 						require("formatter.filetypes.javascriptreact").prettierd,
