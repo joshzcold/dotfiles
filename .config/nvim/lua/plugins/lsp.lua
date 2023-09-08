@@ -135,7 +135,7 @@ return {
 						settings = {
 							ansible = {
 								ansible = {
-									useFullyQualifiedCollectionNames = false,
+									useFullyQualifiedCollectionNames = true,
 								},
 								validation = {
 									lint = {
