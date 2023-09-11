@@ -182,3 +182,5 @@ Jenkins jobdsl build docs https://jenkins.secmet.co/plugin/job-dsl/api-viewer/in
 SecurityMetrics Tenable.sc https://10.22.1.102/
 m https://grafana.secmet.co/d/saTOKN87k/site-summary?orgId=1&refresh=10s&from=now-5m&to=now&viewPanel=35
 devscan prometheus https://hq-devscan-v-prometheus-1.secmet.co/alerts?search=
+clone hero aggregations https://docs.google.com/spreadsheets/u/1/d/13B823ukxdVMocowo1s5XnT3tzciOfruhUVePENKc01o/htmlview#
+clone hero search https://chorus.fightthe.pw/
