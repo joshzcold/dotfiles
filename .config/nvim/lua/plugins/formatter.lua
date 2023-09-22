@@ -16,6 +16,16 @@ return {
 					stdin = true,
 				}
 			end
+            local function nginx_format()
+                return {
+                    exe = "nginxbeautifier",
+                    args = {
+                        "--space 4",
+                        "--blank-lines",
+                    },
+                    stdin = false
+                }
+            end
 			vim.keymap.set("n", "<leader>=", "<cmd>Format<cr>", { desc = "LSP Format" })
 			require("formatter").setup({
 				logging = true,
@@ -40,6 +50,9 @@ return {
 					},
 					groovy = {
 						groovy_format,
+					},
+					nginx = {
+						nginx_format,
 					},
 					javascriptreact = {
 						require("formatter.filetypes.javascriptreact").prettierd,
