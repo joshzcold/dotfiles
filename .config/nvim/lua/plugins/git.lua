@@ -7,6 +7,10 @@ return {
 			vim.keymap.set("n", "<leader>gg", function()
 				vim.cmd([[:Git]])
 			end, { desc = "Git" })
+			vim.keymap.set("n", "<leader>gR", function()
+				vim.cmd([[:Git fetch origin]])
+				vim.cmd([[:Git rebase -i origin/master]])
+			end, { desc = "Git rebase with origin/master" })
 		end,
 		config = function()
 			--Use q to quit from fugituve
@@ -30,6 +34,7 @@ return {
 			vim.keymap.set("n", "<leader>gk", function()
 				vim.cmd([[:DiffviewClose]])
 			end, { desc = "Git diff close" })
+
 		end,
 	},
 	-- Add git related info in the signs columns and popups

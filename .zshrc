@@ -316,7 +316,7 @@ function cgit(){
 }
 
 function git_branch(){
-  selected_line="$(git branch -r -q | sort -n -r -t'-' -k2 | fzf --no-sort -0 --bind 'ctrl-b:reload(git fetch origin; git branch -r)' | awk '{print $1}')"
+  selected_line="$(git branch -r -q | fzf  -0 --bind 'ctrl-b:reload(git fetch origin; git branch -r)' | awk '{print $1}')"
 
   if [ ! -z "$selected_line" ];then
     git checkout -q "$selected_line"
