@@ -552,19 +552,5 @@ comppostfuncs+=(hide_completion_indicator)
 
 source ~/.bash_completion
 
-function _yadm-add(){
-  local -a yadm_options yadm_path
-  yadm_path="$(yadm rev-parse --show-toplevel)"
-  yadm_options=($(yadm status --porcelain=v1 |
-    awk -v yadm_path=${yadm_path} '{printf "%s/%s:%s\n",  yadm_path, $2, $1}' ))
-
-  _describe 'command' yadm_options
-  _files
-}
-
-function _yadm-checkout(){ 
-    _yadm-add 
-}
-
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/vault vault
