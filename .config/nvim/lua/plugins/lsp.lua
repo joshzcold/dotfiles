@@ -15,6 +15,28 @@ return {
 		config = function()
 			-- LSP settings
 
+			local border = {
+				{ "┌", "FloatBorder" },
+				{ "─", "FloatBorder" },
+				{ "┐", "FloatBorder" },
+				{ "│", "FloatBorder" },
+				{ "┘", "FloatBorder" },
+				{ "─", "FloatBorder" },
+				{ "└", "FloatBorder" },
+				{ "│", "FloatBorder" },
+			}
+			-- Add the border on hover and on signature help popup window
+			local handlers = {
+				["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+				["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+			}
+			-- Add border to the diagnostic popup window
+			vim.diagnostic.config({
+				virtual_text = {
+					prefix = "■ ", -- Could be '●', '▎', 'x', '■', , 
+				},
+				float = { border = border },
+			})
 			-- make nvim-cmp aware of extra capabilities coming from lsp
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
@@ -127,6 +149,7 @@ return {
 					require("lspconfig")[server_name].setup({
 						on_attach = on_attach,
 						capabilities = capabilities,
+						handlers = handlers
 					})
 				end,
 				-- Next, you can provide a dedicated handler for specific servers.
