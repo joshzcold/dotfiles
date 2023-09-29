@@ -1,6 +1,6 @@
 [Added Associations]
 image/png=viewnior.desktop;
-image/jpeg=gimp.desktop;chromium.desktop;viewnior.desktop;
+image/jpeg=viewnior.desktop;gimp.desktop;chromium.desktop;
 image/gif=viewnior.desktop;
 image/svg+xml=viewnior.desktop;
 text/x-csrc=geany.desktop;
