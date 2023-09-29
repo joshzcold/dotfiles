@@ -99,6 +99,13 @@ map(
 
 map("n", "<leader>yj", [[:let @+=luaeval('require"jsonpath".get()')<cr>]], { desc = "Yank json path" }) -- .path.to.json.object
 
+map(
+  "n",
+  "<leader>yR",
+  [[:let @a='' | %s/regex/\=setreg('A', submatch(0) . "\n")/n ]],
+  { desc = "Yank regex capture group" }
+)                                                                                                       -- main|dev|master
+
 -- substitute s
 map("n", "<leader>su", ":%!uniq<cr>", { desc = "Delete duplicate lines" })
 map("n", "<leader>s1", [[:g/^\_$\n\_^$/d<cr>]], { desc = "Clear >1 blank lines" })
