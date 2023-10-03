@@ -52,6 +52,14 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	end,
 })
 
+-- Put in the jira tag in to the commit automatically
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	pattern = { "gitcommit" },
+	callback = function()
+		vim.cmd([[:InsertJiraTag]])
+	end,
+})
+
 -- set nginx conf type base on search match
 vim.api.nvim_create_autocmd({ "BufRead" }, {
 	pattern = { "*.conf", "*.conf.*" },
@@ -72,7 +80,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 
 -- git
 vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "fugitive" },
+	pattern = { "commitmsg" },
 	callback = function()
 		map("n", "<leader>a", "<cmd>AnsibleRequirementsBumpGitCommit<cr>", { desc = "Ansible insert new role bumps" })
 	end,

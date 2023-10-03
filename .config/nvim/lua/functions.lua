@@ -47,3 +47,26 @@ vim.api.nvim_create_user_command("AnsibleRequirementsBumpGitCommit", function()
             end,
       }):sync()
 end, {})
+
+vim.api.nvim_create_user_command("InsertJiraTag", function()
+      local Job = require("plenary.job")
+      Job:new({
+            command = "git",
+            args = { "rev-parse", "--abbrev-ref", "HEAD" },
+            on_exit = function(j, return_val)
+                  local last_version = nil
+                  local result_list = {}
+                  local jira_tag_pattern = "(%a%w%d%-%d+)"
+                  vim.schedule(function()
+                        local buf_text = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+                        local _, _, branch_tag = string.find(j:result()[1], jira_tag_pattern)
+                        local _, _, already_in = string.find(buf_text[1], jira_tag_pattern)
+                        if branch_tag and not already_in then
+                              local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+                              vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, {branch_tag})
+                        end
+                  end)
+            end,
+      }):sync()
+
+end, {})
