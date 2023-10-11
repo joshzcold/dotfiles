@@ -442,6 +442,9 @@ bindkey '^[[Z' reverse-menu-complete
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 
+# enable calling of commands for completion
+zstyle ':completion::complete:*:*:targets' call-command true
+
 # . ~/.bash_completion
 
 
