@@ -93,6 +93,7 @@ settings:
   content.notifications.enabled:
     https://calendar.google.com: true
     https://chat.gooogle.com: true
+    https://drive.google.com: true
     https://mail.google.com: true
     https://meet.google.com: true
     https://messages.google.com: true

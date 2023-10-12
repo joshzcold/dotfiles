@@ -51,7 +51,7 @@ return {
 		end,
 		config = function()
 			require("gitsigns").setup({
-				attach_to_untracked = false,
+				-- attach_to_untracked = false,
 				yadm = {
 					enable = true,
 				},
