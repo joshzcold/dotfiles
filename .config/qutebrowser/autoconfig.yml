@@ -66,8 +66,6 @@ settings:
       Chrome/116.0.0.0 Safari/537.36
   content.javascript.can_open_tabs_automatically:
     global: true
-  content.javascript.clipboard:
-    global: access
   content.javascript.enabled:
     '*://10.155.0.99/*': true
   content.media.audio_capture:
