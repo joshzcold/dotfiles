@@ -52,7 +52,9 @@ export PATH=$PATH:$ANDROID_SDK_ROOT/tools/
 # Python
 export PYTHONWARNINGS="ignore:Unverified HTTPS request"
 export WORKON_HOME=~/.virtualenvs
-source /usr/bin/virtualenvwrapper_lazy.sh
+
+[ -f "/usr/bin/virtualenvwrapper_lazy.sh" ] &&  source /usr/bin/virtualenvwrapper_lazy.sh
+[ -f "/usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh" ] &&  source /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh
 
 export PYTHONBREAKPOINT="pudb.set_trace"
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
