@@ -25,7 +25,6 @@ return {
             "ruby",
             "perl",
             -- "comment",
-            "help",
             "query",
             "make",
             "php",

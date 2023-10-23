@@ -55,6 +55,7 @@ export WORKON_HOME=~/.virtualenvs
 
 [ -f "/usr/bin/virtualenvwrapper_lazy.sh" ] &&  source /usr/bin/virtualenvwrapper_lazy.sh
 [ -f "/usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh" ] &&  source /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh
+[ -f " ~/.nix-profile/etc/profile.d/hm-session-vars.sh" ] && souce ~/.nix-profile/etc/profile.d/hm-session-vars.sh
 
 export PYTHONBREAKPOINT="pudb.set_trace"
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
@@ -424,15 +425,21 @@ function fast_ssh_broadcast(){
   kitty +kitten broadcast
 }
 
-function start_nvm(){
-  if [ -d "/usr/share/nvm" ]; then
-    [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
-    source /usr/share/nvm/nvm.sh --no-use
-    source /usr/share/nvm/bash_completion
-    source /usr/share/nvm/install-nvm-exec
+function nvm() {
+  if [ -z "$NVM_DIR" ]  ; then
+    if [ -d "/usr/share/nvm" ]; then
+      [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
+      source /usr/share/nvm/nvm.sh --no-use
+      source /usr/share/nvm/bash_completion
+      source /usr/share/nvm/install-nvm-exec
+    elif [ -d "$HOME/.nvm/" ]; then
+      export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+    fi
   fi
-
+  command nvm "$@"
 }
+
 
 function geb() {
     git grep -E -n $1 | while IFS=: read i j k; do git blame -L $j,$j $i | cat; done
@@ -446,8 +453,7 @@ function sk(){
 #reverse menu on shift-tab
 bindkey '^[[Z' reverse-menu-complete
 
-[ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
-[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # enable calling of commands for completion
 zstyle ':completion::complete:*:*:targets' call-command true
@@ -565,3 +571,6 @@ source ~/.bash_completion
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/vault vault
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

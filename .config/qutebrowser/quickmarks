@@ -184,3 +184,4 @@ m https://grafana.secmet.co/d/saTOKN87k/site-summary?orgId=1&refresh=10s&from=no
 devscan prometheus https://hq-devscan-v-prometheus-1.secmet.co/alerts?search=
 clone hero aggregations https://docs.google.com/spreadsheets/u/1/d/13B823ukxdVMocowo1s5XnT3tzciOfruhUVePENKc01o/htmlview#
 clone hero search https://chorus.fightthe.pw/
+nix packages https://search.nixos.org/packages

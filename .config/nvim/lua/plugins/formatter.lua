@@ -4,7 +4,7 @@ return {
 		config = function()
 			local function groovy_format()
 				return {
-					exe = "/home/joshua/.nvm/versions/node/v16.20.0/bin/npm-groovy-lint",
+					exe = "/home/joshua/.nvm/versions/node/v16.20.2/bin/npm-groovy-lint",
 					args = {
 						"--serverhost http://127.0.0.1",
 						"--format",
