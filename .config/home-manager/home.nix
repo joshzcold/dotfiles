@@ -27,7 +27,24 @@ in
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     pkgs.rofi
+    pkgs.yadm
+    pkgs.autorandr
+    pkgs.dmenu
+    pkgs.ffcast
+    pkgs.helm
+    pkgs.jira-cli-go
+    pkgs.kitty
+    pkgs.kubectl
+    pkgs.neovim
+    pkgs.nitrogen
+    pkgs.picom
+    # TODO put qutebrowser to specific version
     # pkgs.qutebrowser
+    pkgs.rofimoji
+    pkgs.shellcheck
+    pkgs.sshpass
+    pkgs.tldr
+    pkgs.vault
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
