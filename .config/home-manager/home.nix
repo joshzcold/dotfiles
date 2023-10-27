@@ -31,7 +31,7 @@ in
     pkgs.autorandr
     pkgs.dmenu
     pkgs.ffcast
-    pkgs.helm
+    pkgs.kubernetes-helm
     pkgs.jira-cli-go
     pkgs.kitty
     pkgs.kubectl
@@ -48,6 +48,11 @@ in
     pkgs.maim
     pkgs.ansible
     pkgs.xdotool
+    pkgs.ruff
+    pkgs.pylint
+    pkgs.python310Packages.autopep8
+    pkgs.python310Packages.pydocstyle
+
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
