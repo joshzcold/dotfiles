@@ -97,10 +97,10 @@ in
     LOCALES_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
   };
 
-  home.pointerCursor = {
-    package = pkgs.vanilla-dmz;
-    name = "Vanilla-DMZ";
-    size = 88;
+  xsession.pointerCursor = {
+    name = "Adwaita";
+    package = pkgs.gnome.adwaita-icon-theme;
+    size = 32;
   };
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
