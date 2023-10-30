@@ -25,3 +25,4 @@ kubectl delete pod `kubectl get pods | awk '$3 == "CrashLoopBackOff" {print $1}'
 kubectl get events --sort-by='.metadata.creationTimestamp' -A
 kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found
 kubectl get namespace "EDIT" -o json | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" | kubectl replace --raw /api/v1/namespaces/EDIT/finalize -f -
+k run -ti --rm busybox --image=busybox -- sh

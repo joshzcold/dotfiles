@@ -100,8 +100,16 @@ vim.api.nvim_create_autocmd({ "BufRead" }, {
 
 -- json
 vim.api.nvim_create_autocmd({ "BufRead" }, {
-	pattern = { "*.json", "*.jsonc" },
+	pattern = { "*.json", "*.jsonc"},
 	callback = function()
-		vim.opt_local.winbar = "%{luaeval('require\"jsonpath\".get()')}"
+  	vim.opt_local.winbar = "%{%v:lua.require'jsonpath'.get()%}"
+	end,
+})
+
+-- yaml
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	pattern = { "yaml" },
+	callback = function()
+  	vim.opt_local.winbar = "%{%v:lua.require'yaml_nvim'.get()%}"
 	end,
 })

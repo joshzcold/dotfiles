@@ -21,6 +21,11 @@ return {
         lazy = true,
         ft = "json",
     },
+    {
+        "joshzcold/yaml.nvim",
+        lazy = true,
+        ft = "yaml"
+    },
     -- Get a diff view on an visual selection
     { "AndrewRadev/linediff.vim" },
     -- table format text on a regex
