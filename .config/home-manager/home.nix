@@ -52,6 +52,8 @@ in
     pkgs.pylint
     pkgs.python310Packages.autopep8
     pkgs.python310Packages.pydocstyle
+    pkgs.calc
+    pkgs.chromium
 
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
@@ -97,10 +99,13 @@ in
     LOCALES_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
   };
 
-  xsession.pointerCursor = {
+  home.pointerCursor = {
     name = "Adwaita";
     package = pkgs.gnome.adwaita-icon-theme;
-    size = 32;
+    size = 24;
+    x11 = {
+      enable = true;
+    };
   };
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
