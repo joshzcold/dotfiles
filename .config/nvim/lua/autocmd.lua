@@ -110,6 +110,6 @@ vim.api.nvim_create_autocmd({ "BufRead" }, {
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	pattern = { "yaml", "yaml.ansible"  },
 	callback = function()
-  	vim.opt_local.winbar = "%{%v:lua.require'yaml_nvim'.get_yaml_key_and_value()%}"
+  	vim.opt_local.winbar = "%{%v:lua.require'yaml_nvim'.get_yaml_key()%}"
 	end,
 })

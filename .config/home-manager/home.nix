@@ -55,7 +55,6 @@ in
     pkgs.calc
     pkgs.chromium
     pkgs.stylua
-    pkgs.nodePackages.prettier_d_slim
     pkgs.shfmt
 
 

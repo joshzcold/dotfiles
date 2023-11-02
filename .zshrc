@@ -453,8 +453,6 @@ function sk(){
 #reverse menu on shift-tab
 bindkey '^[[Z' reverse-menu-complete
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # enable calling of commands for completion
 zstyle ':completion::complete:*:*:targets' call-command true
 

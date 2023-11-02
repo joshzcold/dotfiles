@@ -60,12 +60,16 @@ return {
 					typescript = {
 						require("formatter.filetypes.typescript").prettierd,
 					},
+					yaml = {
+						require("formatter.filetypes.yaml").prettierd,
+					},
 					markdown = {
 						require("formatter.filetypes.markdown").prettierd,
 					},
 					json = {
 						require("formatter.filetypes.json").jq,
 					},
+
 					sh = {
 						require("formatter.filetypes.sh").shfmt,
 					},
