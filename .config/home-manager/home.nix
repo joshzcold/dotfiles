@@ -54,6 +54,9 @@ in
     pkgs.python310Packages.pydocstyle
     pkgs.calc
     pkgs.chromium
+    pkgs.stylua
+    pkgs.nodePackages.prettier_d_slim
+    pkgs.shfmt
 
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
