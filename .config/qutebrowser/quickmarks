@@ -152,7 +152,7 @@ ref alertmanager https://hq-ref1-v-prometheus.secmet.co:9095/#/alerts
 traefik hq-ref1 https://traefik.hq-ref1-v-cluster-1.secmet.co:5000/dashboard/#/
 dotfiles github https://github.com/joshzcold/dotfiles
 hqref2 prometheus https://hq-ref2-v-prometheus.secmet.co/alerts
-logs hq-dev https://hq-dev-v-logs
+logs hq-dev https://hq-dev-v-elastic-1.secmet.co/app/home#/
 logs hq-devops https://hq-devops-v-elastic-1.secmet.co/app/home#/
 logs hq-ref2 https://hq-ref2-v-elastic-1.secmet.co/app/home#/
 logs hq-ref1 https://hq-ref1-v-elastic-1.secmet.co/app/home#/
