@@ -35,7 +35,7 @@ in
     pkgs.jira-cli-go
     pkgs.kitty
     pkgs.kubectl
-    pkgs.neovim
+    # pkgs.neovim
     pkgs.nitrogen
     pkgs.picom
     # TODO put qutebrowser to specific version
