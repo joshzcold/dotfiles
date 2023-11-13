@@ -1,7 +1,7 @@
-fpath+=$HOME/.zsh/pure
+# fpath+=$HOME/.zsh/pure
 autoload -U promptinit; promptinit
 setopt AUTO_NAME_DIRS
-prompt pure
+# prompt pure
 prompt_newline='%666v'
 PROMPT=" $PROMPT"
 # [ ! -d ~/.fzf-tab/ ] && git clone https://github.com/Aloxaf/fzf-tab ~/.fzf-tab
@@ -173,7 +173,6 @@ function toggle_lights(){
   fi
 }
 
-# lazy load kubectl completion
 function kubectl() {
     if ! type __start_kubectl >/dev/null 2>&1; then
         source <(command kubectl completion zsh)
@@ -259,6 +258,7 @@ function klog(){
 function kconf(){
   found_config=$(readlink -f $(find $HOME/.kube/  -type f -name "*.y*ml" -o -name "config" | fzf))
   export KUBECONFIG=$found_config
+  zle reset-prompt
 }
 
 function k_switch_namespace(){
@@ -572,3 +572,4 @@ complete -o nospace -C /usr/bin/vault vault
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+eval "$(starship init zsh)"

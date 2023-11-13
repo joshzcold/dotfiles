@@ -56,6 +56,8 @@ in
     pkgs.chromium
     pkgs.stylua
     pkgs.shfmt
+    pkgs.starship
+
 
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
