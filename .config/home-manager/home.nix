@@ -57,8 +57,11 @@ in
     pkgs.stylua
     pkgs.shfmt
     pkgs.starship
-
-
+    pkgs.hyperfine
+    pkgs.kubetail
+    pkgs.lxappearance
+    pkgs.up
+    pkgs.virt-manager
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
