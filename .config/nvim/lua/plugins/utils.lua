@@ -31,17 +31,6 @@ return {
     -- table format text on a regex
     { "godlygeek/tabular" },
 
-    -- open a web browser with interactive preview of markdown file
-    {
-        "iamcco/markdown-preview.nvim",
-        build = "cd app && npm install",
-        ft = "markdown",
-        config = function()
-            vim.g.mkdp_filetypes = { "markdown" }
-        end,
-        cmd = { "MarkdownPreview" },
-    },
-
     -- follow symlinks when opening them
     -- { "aymericbeaumet/vim-symlink", dependencies = { "moll/vim-bbye" } },
 
