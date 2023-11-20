@@ -12,8 +12,8 @@ vim.g.maplocalleader = " "
 -- Remap space as leader key
 map("", "<Space>", "<Nop>")
 -- Remap for dealing with word wrap
-map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+map("n", "k", [[:MoveWithJumpList k<CR>]], { silent = true, noremap=true })
+map("n", "j", [[:MoveWithJumpList j<CR>]], { silent = true, noremap=true })
 -- Switch windows easier
 map("n", "<c-j>", "<c-w>j")
 map("n", "<c-h>", "<c-w>h")
