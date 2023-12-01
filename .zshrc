@@ -59,7 +59,12 @@ export WORKON_HOME=~/.virtualenvs
 
 export PYTHONBREAKPOINT="pudb.set_trace"
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
-export TERM=xterm-kitty
+# Set TERM based on if in ssh connection
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+  export TERM=xterm
+else
+  export TERM=xterm-kitty
+fi
 export JIRA_API_TOKEN=$(cat ~/git/codepaste/JiraToken)
 export JIRA_AUTH_TYPE="password"
 # export BW_CLIENTSECRET=$(cat ~/git/codepaste/BitwardenClientSecret)
