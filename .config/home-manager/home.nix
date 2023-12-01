@@ -58,7 +58,7 @@ in
     pkgs.shfmt
     pkgs.starship
     pkgs.hyperfine
-    pkgs.kubetail
+    # pkgs.kubetail
     pkgs.lxappearance
     pkgs.up
     pkgs.virt-manager

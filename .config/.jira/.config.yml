@@ -63,7 +63,7 @@ issue:
               schema:
                 datatype: user
             - name: Story point estimate
-              key: customfield_12421
+              key: customfield_12610
               schema:
                 datatype: number
             - name: Bug Type
