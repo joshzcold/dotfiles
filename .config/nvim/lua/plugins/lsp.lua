@@ -157,6 +157,14 @@ return {
             },
           }
         end,
+        ['pylsp'] = function()
+          lspconfig.pylsp.setup {
+            plugins = {
+              pyflakes = { enabled = false },
+              pylint = { enabled = false },
+            },
+          }
+        end,
       }
     end,
   },
