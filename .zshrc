@@ -81,6 +81,7 @@ export PATH=$PATH:$HOME/apps/node_modules/bin
 export PATH=$PATH:$HOME/.gem/ruby/3.0.0/bin
 export PATH=$PATH:$HOME/apps/bin
 export PATH=$PATH:$HOME.cargo/bin
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export PATH=$PATH:./node_modules/.bin
 export PATH=$PATH:$NPM_PACKAGES/bin
 export PATH=$PATH:/opt/flutter/bin
