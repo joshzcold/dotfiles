@@ -59,4 +59,8 @@ return {
       require('kitty-scrollback').setup()
     end,
   },
+  -- vim script plugin for keeping case while subsituting :%S/KEEPCASE/keepcase/g
+  {
+    "tpope/vim-abolish"
+  }
 }
