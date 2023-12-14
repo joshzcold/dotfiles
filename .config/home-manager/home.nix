@@ -44,7 +44,7 @@ in
     pkgs.shellcheck
     pkgs.sshpass
     pkgs.tldr
-    # pkgs.vault
+    pkgs.vault
     pkgs.maim
     pkgs.ansible
     pkgs.xdotool
@@ -58,10 +58,11 @@ in
     pkgs.shfmt
     pkgs.starship
     pkgs.hyperfine
-    # pkgs.kubetail
+    pkgs.kubetail
     pkgs.lxappearance
     pkgs.up
     pkgs.virt-manager
+    pkgs.awscli2
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
