@@ -86,6 +86,9 @@ return {
       },
       v = {
         name = "Vim",
+        p = {
+          name = "Profile vim"
+        }
       },
       s = {
         name = "Substitute",
