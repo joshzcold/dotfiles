@@ -25,7 +25,7 @@ return {
         groovy = { 'npm-groovy-lint' },
         python = {
           'ruff',
-          -- 'pylint',
+          'pylint',
           'pydocstyle',
         },
         sh = { 'shellcheck' },
