@@ -455,6 +455,11 @@ function sk(){
   screenkey -p fixed -g $(slop -n -f '%g') --opacity 0.2 -s small --compr-cnt 10 &
 }
 
+function totp(){
+  code=$(oathtool -b --totp $(cat ~/git/codepaste/JumpcloudSSO))
+  notify-send "$code"
+  echo "$code" | xclip -selection clipboard
+}
 
 #reverse menu on shift-tab
 bindkey '^[[Z' reverse-menu-complete
@@ -477,6 +482,9 @@ bindkey -s '^j' 'new_jira_branch^M'
 
 zle -N toggle_lights
 bindkey '^t' toggle_lights
+
+zle -N totp
+bindkey '^y' totp
 
 zle -N vault-token
 bindkey '^v' vault-token
