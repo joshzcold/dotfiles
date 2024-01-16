@@ -97,7 +97,7 @@ static const char *snippetlaunchercmd[] = {
     "/home/joshua/.config/usr-scripts/insert_with_rofi.sh"};
 static const char *emojilaunchercmd[] = {"rofimoji",    "--action", "copy",
                                          "--skin-tone", "neutral",  NULL};
-static const char *totpcmd[] = {"/usr/local/bin/totp"};
+static const char *totpcmd[] = {"/home/joshua/.config/usr-scripts/totp"};
 static const char *sleepcmd[] = {"systemctl", "suspend", NULL};
 static const char *lockcmd[] = {"betterlockscreen", "--lock", "blur", NULL};
 static const char *brightness_up[] = {"light", "-A", "10", NULL};
