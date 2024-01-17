@@ -1,6 +1,7 @@
 return {
 	{
 		"mhartington/formatter.nvim",
+		enabled = false,
 		config = function()
 			local function groovy_format()
 				return {

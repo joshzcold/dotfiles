@@ -18,6 +18,7 @@ end
 return {
   {
     'mfussenegger/nvim-lint',
+    enabled = false,
     config = function()
       SetupGroovy()
       require('lint').linters_by_ft = {
