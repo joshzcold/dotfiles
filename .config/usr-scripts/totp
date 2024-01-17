@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+if ! command -v oathtool; then
+  notify-send "Please install oathtool to use this script"
+fi
+code="$(oathtool -b --totp "$(cat ~/git/codepaste/JumpcloudSSO)")"
+notify-send "$code"
+echo "$code" | xclip -selection clipboard
