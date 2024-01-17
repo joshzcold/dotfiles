@@ -116,6 +116,7 @@ map("n", "<leader>sw", [[:%s/\s\+$//e<cr>]], { desc = "Clear all blank lines" })
 -- make m
 map("n", "<leader>mm", ":make<cr>", { desc = "Make" })
 map("n", "<leader>m,", "f,li<CR><Esc>lq", { desc = "(macro) split comma to newline" })
+map("n", "<leader>m\\", [[Wi\<CR><Esc>l]], { desc = "(macro) split shell by \\" })
 
 -- vim v
 map("n", "<leader>vr", ":source $MYVIMRC", { desc = "Source Config" })

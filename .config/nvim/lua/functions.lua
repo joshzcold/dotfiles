@@ -61,6 +61,7 @@ vim.api.nvim_create_user_command('AnsibleRequirementsBumpGitCommit', function()
       vim.schedule(function()
         local row, col = unpack(vim.api.nvim_win_get_cursor(0))
         vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, result_list)
+        vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, {" bump ansible roles: "})
       end)
     end,
   }):sync()
