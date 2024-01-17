@@ -182,20 +182,12 @@ return {
   },
   {
     'j-hui/fidget.nvim',
-    tag = 'legacy',
-    config = function()
-      require('fidget').setup {
-        window = { winblend = 0 },
-        align = {
-          bottom = false,
-        },
-      }
-    end,
+    opts = {}
   },
   {
     'ray-x/lsp_signature.nvim',
     event = 'VeryLazy',
-    enable = false,
+    enabled = true,
     opts = {},
     config = function(_, opts)
       require('lsp_signature').setup(opts)
@@ -203,6 +195,7 @@ return {
   },
   {
     'RaafatTurki/corn.nvim',
+    enabled = true,
     event = 'VeryLazy',
     opts = {
       on_toggle = function(is_hidden)
