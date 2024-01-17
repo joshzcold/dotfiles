@@ -60,6 +60,9 @@ return {
 					typescript = {
 						require("formatter.filetypes.typescript").prettierd,
 					},
+					html = {
+						require("formatter.filetypes.html").prettierd,
+					},
 					yaml = {
 						require("formatter.filetypes.yaml").prettierd,
 					},
