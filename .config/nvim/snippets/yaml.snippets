@@ -677,3 +677,7 @@ snippet secc "SecurityContext" !b
 	securityContext:
 		runAsUser: ${1:1000}
 		runAsGroup: ${2:$1}
+
+snippet commwhil "Command with while loop" !b
+	command: [ "/bin/sh", "-c", "--" ]
+	args: [ "while true; do sleep 30; done;" ]
