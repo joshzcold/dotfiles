@@ -188,3 +188,4 @@ nix packages https://search.nixos.org/packages
 jumpcloud securitymetrics https://console.jumpcloud.com/login
 kubernetes api docs https://kubernetes.io/docs/reference/kubernetes-api/
 Securitymetrics Digital Ocean https://cloud.digitalocean.com/kubernetes/clusters?i=26882c
+neovim none-ls builtins https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md

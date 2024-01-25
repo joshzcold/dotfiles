@@ -51,6 +51,7 @@ in
     pkgs.ruff
     pkgs.pylint
     pkgs.python310Packages.autopep8
+    pkgs.python310Packages.isort
     pkgs.python310Packages.pydocstyle
     pkgs.calc
     pkgs.chromium

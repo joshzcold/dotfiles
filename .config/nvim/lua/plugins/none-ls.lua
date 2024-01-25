@@ -35,9 +35,10 @@ return {
 			null_ls.builtins.formatting.shfmt,
 			-- python
 			null_ls.builtins.diagnostics.ruff,
-			null_ls.builtins.diagnostics.pylint,
+			-- null_ls.builtins.diagnostics.pylint,
 			null_ls.builtins.formatting.black,
 			null_ls.builtins.formatting.isort,
+			null_ls.builtins.formatting.trim_whitespace,
 		}
 		if vim.fn.filereadable(git_cmd .. "/.groovylintrc.json") ~= 1 then
 			-- null ls sources only if you aren't in a git repo
@@ -50,8 +51,8 @@ return {
 					args = { "-o", "json", "--config", os.getenv("HOME") .. "/.config/groovylint/groovylint.json", "-" },
 					filetypes = {
 						"Jenkinsfile",
-						"groovy"
-					}
+						"groovy",
+					},
 				})
 			)
 			table.insert(
@@ -70,8 +71,8 @@ return {
 					},
 					filetypes = {
 						"Jenkinsfile",
-						"groovy"
-					}
+						"groovy",
+					},
 				})
 			)
 		else
@@ -84,8 +85,8 @@ return {
 					},
 					filetypes = {
 						"Jenkinsfile",
-						"groovy"
-					}
+						"groovy",
+					},
 				})
 			)
 			table.insert(
@@ -102,15 +103,14 @@ return {
 					},
 					filetypes = {
 						"Jenkinsfile",
-						"groovy"
-					}
+						"groovy",
+					},
 				})
 			)
 
 			null_ls.setup({
-				sources = lSsources
+				sources = lSsources,
 			})
-
 		end
 		vim.o.updatetime = 250
 	end,
