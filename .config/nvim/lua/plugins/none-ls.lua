@@ -7,19 +7,7 @@ return {
 		local git_cmd = vim.fn.system("git rev-parse --show-toplevel | tr -d '\n'")
 		local lSsources = {
 			null_ls.builtins.formatting.prettierd.with({
-				filetypes = {
-					"javascript",
-					"typescript",
-					"css",
-					"scss",
-					"html",
-					"json",
-					"yaml",
-					"markdown",
-					"graphql",
-					"md",
-					"txt",
-				},
+				-- extra_filetypes = { "yaml.ansible" }
 			}),
 			null_ls.builtins.formatting.stylua.with({
 				args = { "--indent-width", "2", "--indent-type", "Spaces", "-" },
@@ -108,10 +96,11 @@ return {
 				})
 			)
 
-			null_ls.setup({
-				sources = lSsources,
-			})
+			print(lSsources)
 		end
+		null_ls.setup({
+			sources = lSsources,
+		})
 		vim.o.updatetime = 250
 	end,
 }
