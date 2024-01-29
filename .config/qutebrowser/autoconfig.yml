@@ -45,6 +45,9 @@ settings:
     global: dark
   content.blocking.enabled:
     global: false
+  content.blocking.whitelist:
+    global:
+    - grafana.secmet.co
   content.desktop_capture:
     https://meet.google.com: true
     https://teams.microsoft.com: true
@@ -67,6 +70,8 @@ settings:
   content.headers.user_agent:
     global: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
       Gecko) Chrome/119.0.0.0 Safari/537.36
+  content.javascript.can_access_clipboard:
+    global: true
   content.javascript.can_open_tabs_automatically:
     global: true
   content.javascript.enabled:
