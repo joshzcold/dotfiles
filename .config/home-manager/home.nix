@@ -117,7 +117,4 @@ in
   };
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-  programs.qutebrowser.package = pkgs.qutebrowser.overrideAttrs (_: rec {
-    package = "2.5.4" ;
-  });
 }
