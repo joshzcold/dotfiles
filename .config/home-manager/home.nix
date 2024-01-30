@@ -38,7 +38,6 @@ in
     # pkgs.neovim
     pkgs.nitrogen
     pkgs.picom
-    # TODO put qutebrowser to specific version
     pkgs.qutebrowser
     pkgs.rofimoji
     pkgs.shellcheck
