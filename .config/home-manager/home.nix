@@ -48,6 +48,7 @@ in
     pkgs.ansible
     pkgs.xdotool
     pkgs.ruff
+    pkgs.redis
     pkgs.pylint
     pkgs.python310Packages.autopep8
     pkgs.python310Packages.isort
