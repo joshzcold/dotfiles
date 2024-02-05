@@ -105,6 +105,12 @@ map(
 	[[:let @a='' | %s/regex/\=setreg('A', submatch(0) . "\n")/n<c-f> ]],
 	{ desc = "Yank regex capture group" }
 )
+map(
+	"x",
+	"<leader>yR",
+	[[:let @a='' | '<,'>s/regex/\=setreg('A', submatch(0) . "\n")/n<c-f> ]],
+	{ desc = "Yank regex capture group" }
+)
 
 -- substitute s
 map("n", "<leader>su", ":%!uniq<cr>", { desc = "Delete duplicate lines" })

@@ -6,7 +6,7 @@ return {
     },
     init = function()
       vim.keymap.set("n", "<leader>/e", function()
-        vim.cmd([[:NvimTreeToggle]])
+        vim.cmd([[:NvimTreeFindFileToggle]])
       end, { desc = "Open nvim-tree" })
     end,
     config = function()
