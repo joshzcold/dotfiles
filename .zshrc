@@ -261,7 +261,7 @@ function klog(){
 }
 
 function kconf(){
-  found_config=$(readlink -f $(find $HOME/.kube/  -type f -name "*.y*ml" -o -name "config" | fzf))
+  found_config=$(readlink -f $(ls ~/.kube/*.y*ml | fzf))
   export KUBECONFIG=$found_config
   zle reset-prompt
 }
