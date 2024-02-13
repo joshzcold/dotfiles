@@ -260,6 +260,22 @@ function klog(){
   fi
 }
 
+function ssha(){
+  eval "$(ssh-agent)"
+  keys=("${(@f)$( grep -lr "PRIVATE" ~/.ssh | sort -u | fzf -m )}")
+  for k in "${keys[@]}"; do
+    ssh-add "$k"
+  done
+  if [ -f "ansible.cfg" ]; then
+    deactivate
+    workon ansible
+    if [ -d "playbooks/" ];then
+      playbook="$( ls playbooks/  | fzf -m )"
+      ./ur "$playbook"
+    fi
+  fi
+}
+
 function kconf(){
   found_config=$(readlink -f $(ls ~/.kube/*.y*ml | fzf))
   export KUBECONFIG=$found_config
