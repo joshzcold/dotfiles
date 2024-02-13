@@ -84,8 +84,8 @@ snippet buildJob "jenkins build child job"
 		]
 
 snippet git "git clone function"
-	git branch: "${1:master}" url: "${2}",
-		credentialsId: "${3}"
+	git branch: "${1:master}", url: "${2:ssh://git@bitbucket.secmet.co:7999/in/master-inventory.git}",
+		credentialsId: "${3:secrets.GIT_CRED}"
 
 snippet input "Jenkins pause for Input" 
 	input( message: "$1" )
@@ -161,9 +161,105 @@ snippet pipeline "Default Declarative Jenkins Pipeline"
 			}
 			failure {
 
-			}
-			unstable{
+snippet pipeline-sm "Default Declarative Jenkins Pipeline Security Metrics"
+	@Library("jenkins-library") _ // codenarc-disable-line
+	import org.sm.Swarm
+	import org.sm.Notify
+	// import org.sm.Authorization
+	// import org.sm.Prod
 
+	Swarm s = new Swarm()
+	node('built-in') {
+		s.createSwarmParameters(
+			[
+				environment: [:],
+				stack: [:],
+				tag: [:]
+			],
+			[
+				string(name: "name", defaultValue: "", description: "Name the stack differently from its default value."),
+				booleanParam(name: "bool", defaultValue: true, description: ""),
+				choice(
+					name: "choice",
+					choices: ["12", "24", "72", "2"],
+					description: ''
+				),
+			]
+		)
+	}
+
+	String agentLabel = env.stack != null ?  swarm.hosts[env.environment].node_labels : 'built-in'
+	// Authorization author = new Authorization()
+	// List chain = author.authChain(author.authDeployProd)
+	pipeline {
+		// parameters{
+			  // string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+				// text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
+				// booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
+				// choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
+				// password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
+		// }
+		agent { label "\${agentLabel}" }
+		options {
+			ansiColor('xterm')
+			authorizationMatrix(chain)
+			buildDiscarder(logRotator(numToKeepStr: '50'))
+		}
+		stages {
+			stage('setup') {
+				steps {
+          // Prod p = new Prod()
+          // p.checkProdCurrentSite(env.environment, env.stack, true)
+					git branch: 'master',
+							credentialsId: secrets.GIT_CRED,
+							url: 'ssh://git@bitbucket.secmet.co:7999/---.git'
+				}
+			}
+			stage('${1:execute}') {
+				steps {
+
+				}
+			}
+		}
+		post {
+			always {
+				script {
+					println("ALWAYS")
+				}
+			}
+			aborted {
+				script {
+					println("ABORTED")
+				}
+			}
+			success {
+				script {
+					println("SUCCESS")
+				}
+			}
+			failure {
+				script {
+					if (env.notify.toBoolean()) {
+						Notify n = new Notify()
+						n.setupVenv()
+						String users = n.findUserIDs(consts.DEVOPS_TEAM, consts.CHAT_SPACE_DEVOPS_BUILD)
+						env.message = "\${users} MY MESSAGE"
+						n.sendMessage([text: env.message], consts.CHAT_SPACE_DEVOPS_BUILD)
+					}
+				}
+			}
+			unstable {
+				script {
+					if (env.notify.toBoolean()) {
+						Notify n = new Notify()
+						n.setupVenv()
+						String users = n.findUserIDs(consts.DEVOPS_TEAM, consts.CHAT_SPACE_DEVOPS_BUILD)
+						env.message = "<strong>MY MESSAGE</strong>"
+						Map message_map = n.sendMessageWithHTMLTemplate(env.message)
+						message_map.text = "\${users}"
+						n.sendMessage(message_map, consts.CHAT_SPACE_DEVOPS_BUILD)
+					}
+				}
 			}
 		}
 	}
