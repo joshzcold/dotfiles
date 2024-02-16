@@ -56,6 +56,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 			[[:s/{{\(\w\+\)}}/{{ \1 }}/gc<cr>]],
 			{ desc = "reformat put in space in ansible variable templates" }
 		)
+		map("n", "<leader>laf", "<cmd>AnsibleLintFix<cr>", { desc = "Ansible Lint Fix" })
 		vim.opt_local.makeprg = "ansible-lint -p --nocolor -x role-name,package-latest,fqcn-builtins --exclude .roles"
 		vim.opt_local.keywordprg = "ansible-doc"
 	end,
