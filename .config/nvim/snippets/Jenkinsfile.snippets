@@ -188,7 +188,7 @@ snippet pipeline-sm "Default Declarative Jenkins Pipeline Security Metrics"
 		)
 	}
 
-	String agentLabel = env.stack != null ?  swarm.hosts[env.environment].node_labels : 'built-in'
+	String agentLabel = swarm.hosts[env.environment].node_labels
 	// Authorization author = new Authorization()
 	// List chain = author.authChain(author.authDeployProd)
 	pipeline {

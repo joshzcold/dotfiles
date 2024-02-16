@@ -271,7 +271,7 @@ function ssha(){
     workon ansible
     if [ -d "playbooks/" ];then
       playbook="$( ls playbooks/  | fzf -m )"
-      ./ur "$playbook"
+      ./ur "playbooks/$playbook"
     fi
   fi
 }
