@@ -66,7 +66,7 @@ vim.api.nvim_create_user_command("AnsibleLintFix", function()
                   vim.cmd("wa")
                   Job:new({
                     command = "ansible-lint",
-                    args = { "--nocolor", "-x", "role-name", "--fix", fix },
+                    args = { "--nocolor", "-x", "role-name", "--fix", fix, vim.api.nvim_buf_get_name(0)  },
                     stdin = function()
                       local content = vim.api.nvim_buf_get_lines(0, 0, vim.api.nvim_buf_line_count(0), false)
                       return table.concat(content, "\n")
