@@ -103,6 +103,7 @@ return {
           "groovyls",
           -- 'pylsp',
           "jedi_language_server",
+          "ruff_lsp",
           "ansiblels",
           "yamlls",
           "jsonls",
