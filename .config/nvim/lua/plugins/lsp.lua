@@ -101,7 +101,6 @@ return {
           "lua_ls",
           "bashls",
           "groovyls",
-          -- 'pylsp',
           "jedi_language_server",
           "ruff_lsp",
           "ansiblels",
