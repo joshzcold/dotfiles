@@ -39,7 +39,7 @@ return {
       })
       -- make nvim-cmp aware of extra capabilities coming from lsp
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+      -- capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
       capabilities.textDocument.foldingRange = {
         dynamicRegistration = false,
         lineFoldingOnly = true,
@@ -101,8 +101,8 @@ return {
           "lua_ls",
           "bashls",
           "groovyls",
-          -- 'pylsp',
           "jedi_language_server",
+          "ruff_lsp",
           "ansiblels",
           "yamlls",
           "jsonls",
