@@ -38,6 +38,7 @@ export VAULT_ADDR="https://vault.secmet.co:8200"
 export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 export MANPAGER="/usr/bin/less -r -X -is"
 export GOPATH=$HOME/.go
+export GOROOT=/usr/local/go
 export KUBE_EDITOR=nvim
 export SUDO_ASKPASS=/usr/bin/ksshaskpass
 export FZF_DEFAULT_COMMAND='rg --files'
@@ -87,6 +88,7 @@ export PATH=$PATH:/opt/flutter/bin
 export PATH=$PATH:/opt/android-sdk/tools/bin
 export PATH=$PATH:$HOME/.config/usr-scripts
 export PATH=$PATH:$GOPATH/bin
+export PATH=$GOROOT/bin:$PATH
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/dotnet/tools
 
