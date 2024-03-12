@@ -166,6 +166,8 @@ return {
                 },
               },
             },
+            on_attach = on_attach,
+            capabilities = capabilities,
           })
         end,
         ["pylsp"] = function()
@@ -174,6 +176,8 @@ return {
               pyflakes = { enabled = false },
               pylint = { enabled = false },
             },
+            on_attach = on_attach,
+            capabilities = capabilities,
           })
         end,
       })
