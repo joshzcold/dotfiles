@@ -30,9 +30,6 @@ return {
 			table.insert(
 				lSsources,
 				null_ls.builtins.diagnostics.npm_groovy_lint.with({
-					env = {
-						PATH = "/home/joshua/.nvm/versions/node/v16.20.2/bin",
-					},
 					args = { "-o", "json", "--config", os.getenv("HOME") .. "/.config/groovylint/groovylint.json", "-" },
 					filetypes = {
 						"Jenkinsfile",
@@ -43,9 +40,6 @@ return {
 			table.insert(
 				lSsources,
 				null_ls.builtins.formatting.npm_groovy_lint.with({
-					env = {
-						PATH = "/home/joshua/.nvm/versions/node/v16.20.2/bin",
-					},
 					args = {
 						"--format",
 						"--failon",
@@ -65,9 +59,6 @@ return {
 			table.insert(
 				lSsources,
 				null_ls.builtins.diagnostics.npm_groovy_lint.with({
-					env = {
-						PATH = "/home/joshua/.nvm/versions/node/v16.20.2/bin",
-					},
 					filetypes = {
 						"Jenkinsfile",
 						"groovy",
@@ -77,9 +68,6 @@ return {
 			table.insert(
 				lSsources,
 				null_ls.builtins.formatting.npm_groovy_lint.with({
-					env = {
-						PATH = "/home/joshua/.nvm/versions/node/v16.20.2/bin",
-					},
 					args = {
 						"--format",
 						"--failon",

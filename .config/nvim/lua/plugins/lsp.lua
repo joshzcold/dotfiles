@@ -9,6 +9,7 @@ return {
     dependencies = {
       { "williamboman/mason.nvim" },
       { "williamboman/mason-lspconfig.nvim" },
+      { "WhoIsSethDaniel/mason-tool-installer.nvim" },
       { "folke/neodev.nvim" },
     },
     ---@class PluginLspOpts
@@ -110,6 +111,22 @@ return {
           "tsserver",
         },
         automatic_installation = true,
+      })
+      require("mason-tool-installer").setup({
+
+        -- a list of all tools you want to ensure are installed upon start
+        ensure_installed = {
+          "stylua",
+          "shellcheck",
+          "shfmt",
+          "ruff",
+          "autopep8",
+          "black",
+          "isort",
+          "pydocstyle",
+          "npm-groovy-lint",
+          "ansible-lint"
+        },
       })
 
       require("neodev").setup({})

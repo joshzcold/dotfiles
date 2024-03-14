@@ -47,16 +47,9 @@ in
     pkgs.maim
     pkgs.ansible
     pkgs.xdotool
-    pkgs.ruff
     pkgs.redis
-    pkgs.pylint
-    pkgs.python310Packages.autopep8
-    pkgs.python310Packages.isort
-    pkgs.python310Packages.pydocstyle
     pkgs.calc
     pkgs.chromium
-    pkgs.stylua
-    pkgs.shfmt
     pkgs.starship
     pkgs.hyperfine
     pkgs.kubetail
