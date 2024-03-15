@@ -29,3 +29,4 @@ kubectl get namespace "EDIT" -o json | tr -d "\n" | sed "s/\"finalizers\": \[[^]
 kubectl run -ti --rm alpine-tools --image=alpine -- sh
 kubectl get pods -o jsonpath="{.items[*].spec['initContainers', 'containers'][*].image}" | tr -s '[[:space:]]' '\n' | sort | uniq -c
 watch "kubectl get pods -o jsonpath=\"{.items[*].spec['initContainers', 'containers'][*].image}\" | tr -s '[[:space:]]' '\n' | sort | uniq -c"
+kubectl get <OBJ> --no-headers --output go-template='{{ range $key, $value := . }} {{ $key }} {{ end }}'
