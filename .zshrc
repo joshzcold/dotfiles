@@ -284,6 +284,14 @@ function kconf(){
   zle reset-prompt
 }
 
+function ksample(){
+  crd=$(kubectl get crd --no-headers | awk '{print $1}' | fzf)
+  if [ -z $crd ]; then
+    return
+  fi
+  cty generate -c <(kubectl get crd "$crd" -o yaml) -s | vim -c 'set filetype=yaml' -
+}
+
 function k_switch_namespace(){
   namespace=$(k get ns --no-headers | awk '{print $1}' | fzf)
   if [ -n "${namespace}" ]; then
