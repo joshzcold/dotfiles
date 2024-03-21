@@ -1,6 +1,9 @@
 snippet set+x "silent set +x"
 	{ set +x; } 2>/dev/null
 
+snippet required_var "Set required variable in sh"
+	: "${${1}?"${1} is a required variable"}"}
+
 snippet colors "A bunch of colors for shell scripting [regular]"
 	# Reset
 	Color_Off='\033[0m'       # Text Reset

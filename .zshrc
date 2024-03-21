@@ -188,6 +188,13 @@ function kubectl() {
     command kubectl "$@"
 }
 
+function helm() {
+    if ! type __start_helm >/dev/null 2>&1; then
+        source <(command helm completion zsh)
+    fi
+
+    command helm "$@"
+}
 function pacman-update-mirrors(){
   sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
   sudo reflector --latest 20 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
@@ -285,6 +292,9 @@ function kconf(){
 }
 
 function ksample(){
+  if [ -z "$KUBECONFIG" ]; then
+    export KUBECONFIG=~/.kube/devops.yml
+  fi
   crd=$(kubectl get crd --no-headers | awk '{print $1}' | fzf)
   if [ -z $crd ]; then
     return
