@@ -4,6 +4,7 @@
 	; signingkey = 49285B39D09B7C5486613E85DCD06942FDA195EF
 [alias]
 	pushg = !git_push.sh
+	set-upstream = !git branch --set-upstream-to=origin/$(git symbolic-ref --short HEAD)
 [push]
 	default = current
 	autoSetupRemote = true
