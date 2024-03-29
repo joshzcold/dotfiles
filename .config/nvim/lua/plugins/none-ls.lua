@@ -1,5 +1,6 @@
 return {
 	"nvimtools/none-ls.nvim",
+	enabled = false,
 	config = function()
 		vim.keymap.set("n", "<leader>=", "<cmd>lua vim.lsp.buf.format({async=true})<cr>", { desc = "LSP Format" })
 		-- Here is the formatting config
