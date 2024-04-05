@@ -116,6 +116,9 @@ return {
 				},
 			},
 			defaults = {
+				preview = {
+					treesitter = false
+				},
 				mappings = {
 					i = {
 						-- close on escape

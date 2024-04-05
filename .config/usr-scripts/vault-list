@@ -10,7 +10,7 @@ touch "$CACHE_FILE"
 [ -z "$(vault print token)" ] && vault login
 
 function traverse {
-	local readonly path="$1"
+	local path="$1"
 
 	result=$(vault kv list -format=json $path 2>&1)
 
@@ -49,11 +49,12 @@ done
 if [[ -f "${CACHE_FILE}" ]]; then
 	COMMAND="cat $CACHE_FILE"
 	selection=$(eval "$COMMAND" | fzf --bind "change:reload:$COMMAND {q} || true")
-	jq_command='.data | to_entries[] | "\(.key) --->\n\(.value)\n"'
+	echo "$selection"
+	jq_command='.data | to_entries[] | "\($SECRET_PATH):\(.key) --->\n\(.value)\n"'
 	json=$(curl --insecure -s -H "X-Vault-Token: $(vault print token)" "https://vault.secmet.co:8200/v1/${selection}")
 	if echo "$json" | jq -e '.data.data' >/dev/null; then
-		echo "$json" | jq -r ".data$jq_command"
+		echo "$json" | jq --arg SECRET_PATH "$selection" -r ".data$jq_command"
 	else
-		echo "$json" | jq -r "$jq_command"
+		echo "$json" | jq --arg SECRET_PATH "$selection" -r "$jq_command"
 	fi
 fi
