@@ -19,7 +19,7 @@ touch "$CACHE_FILE"
 function traverse {
 	local path="$1"
 
-	result=$(vault kv list -format=json $path 2>&1)
+	result=$(vault kv list -format=json "$path" 2>&1)
 
 	status=$?
 	if [ ! $status -eq 0 ]; then
@@ -50,7 +50,7 @@ else
 fi
 
 for vault in $vaults; do
-	traverse $vault &
+	traverse "$vault" &
 done
 
 function max4 {
@@ -78,9 +78,43 @@ if [ -n "$SEARCH" ]; then
 		max4
 		do_search &
 	done <"$CACHE_FILE"
-	wait -n
+	wait
+	clear
 	less "$secrets"
 	rm -f "$secrets"
+elif [ -n "$REVERSE_SEARCH" ]; then
+	wait -n
+	function do_search() {
+		SEPERATOR="[][]"
+		jq_command=".data | to_entries[] | \"\(.value)$SEPERATOR\""
+		json=$(curl --insecure -s -H "X-Vault-Token: $(vault print token)" "https://vault.secmet.co:8200/v1/${p}")
+		echo -e "${Green}Getting ${p}${Color_Off}"
+
+		if echo "$json" | jq -e '.data.data' >/dev/null; then
+			pattern=$(echo "$json" | jq --arg SECRET_PATH "$p" -r ".data$jq_command")
+		else
+			pattern=$(echo "$json" | jq --arg SECRET_PATH "$p" -r "$jq_command")
+		fi
+
+		IFS="$SEPERATOR"
+		for i in ${pattern}
+		do
+				# call your procedure/other scripts here below
+				if [ -n "$i" ]; then
+					if [ "$p" = "admin/data/ImpervaAPI" ]; then
+						set -x
+					fi
+					i=$(echo "$i" | sed '/^[[:space:]]*$/d'  | awk '{printf "%s\\n", $0}' | sed -z 's/\\n$//')
+					rg -o -F -f <(echo "$i") -- . | tee -a ~/report.txt
+					{ set +x; } 2>/dev/null
+				fi
+		done
+	}
+	while read -r p; do
+		max4
+		do_search
+	done <"$CACHE_FILE"
+	wait
 else
 	if [[ -f "${CACHE_FILE}" ]]; then
 		COMMAND="cat $CACHE_FILE"
