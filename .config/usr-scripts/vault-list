@@ -5,6 +5,19 @@
 # - Call itself for all path values in the given $path
 
 CACHE_FILE="$HOME/.cache/vault_names"
+# Reset
+Color_Off='\033[0m' # Text Reset
+
+# Regular Colors
+Black='\033[0;30m'  # Black
+Red='\033[0;31m'    # Red
+Green='\033[0;32m'  # Green
+Yellow='\033[0;33m' # Yellow
+Blue='\033[0;34m'   # Blue
+Purple='\033[0;35m' # Purple
+Cyan='\033[0;36m'   # Cyan
+White='\033[0;37m'  # White
+PS4="${Yellow}>>>${Color_Off} "
 
 touch "$CACHE_FILE"
 [ -z "$(vault print token)" ] && vault login
@@ -46,15 +59,44 @@ for vault in $vaults; do
 	traverse $vault &
 done
 
-if [[ -f "${CACHE_FILE}" ]]; then
-	COMMAND="cat $CACHE_FILE"
-	selection=$(eval "$COMMAND" | fzf --bind "change:reload:$COMMAND {q} || true")
-	echo "$selection"
-	jq_command='.data | to_entries[] | "\($SECRET_PATH):\(.key) --->\n\(.value)\n"'
-	json=$(curl --insecure -s -H "X-Vault-Token: $(vault print token)" "https://vault.secmet.co:8200/v1/${selection}")
-	if echo "$json" | jq -e '.data.data' >/dev/null; then
-		echo "$json" | jq --arg SECRET_PATH "$selection" -r ".data$jq_command"
-	else
-		echo "$json" | jq --arg SECRET_PATH "$selection" -r "$jq_command"
+function max4 {
+	while [ "$(jobs | wc -l)" -ge 4 ]; do
+		true
+	done
+}
+
+if [ -n "$SEARCH" ]; then
+	wait -n
+	secrets=$(mktemp)
+	trap 'rm -f $secrets' EXIT SIGINT TERM
+
+	function do_search() {
+		jq_command='.data | to_entries[] | "\($SECRET_PATH):\(.key) --->\n\(.value)\n"'
+		json=$(curl --insecure -s -H "X-Vault-Token: $(vault print token)" "https://vault.secmet.co:8200/v1/${p}")
+		echo -e "${Green}Getting ${p}${Color_Off}"
+		if echo "$json" | jq -e '.data.data' >/dev/null; then
+			echo "$json" | jq --arg SECRET_PATH "$p" -r ".data$jq_command" >> "$secrets"
+		else
+			echo "$json" | jq --arg SECRET_PATH "$p" -r "$jq_command" >> "$secrets"
+		fi
+	}
+	while read -r p; do
+		max4
+		do_search &
+	done <"$CACHE_FILE"
+	wait -n
+	less "$secrets"
+	rm -f "$secrets"
+else
+	if [[ -f "${CACHE_FILE}" ]]; then
+		COMMAND="cat $CACHE_FILE"
+		selection=$(eval "$COMMAND" | fzf --bind "change:reload:$COMMAND {q} || true")
+		jq_command='.data | to_entries[] | "\($SECRET_PATH):\(.key) --->\n\(.value)\n"'
+		json=$(curl --insecure -s -H "X-Vault-Token: $(vault print token)" "https://vault.secmet.co:8200/v1/${selection}")
+		if echo "$json" | jq -e '.data.data' >/dev/null; then
+			echo "$json" | jq --arg SECRET_PATH "$selection" -r ".data$jq_command"
+		else
+			echo "$json" | jq --arg SECRET_PATH "$selection" -r "$jq_command"
+		fi
 	fi
 fi
