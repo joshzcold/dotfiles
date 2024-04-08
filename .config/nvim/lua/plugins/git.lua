@@ -28,7 +28,8 @@ return {
 			end, { desc = "Git diff" })
 
 			vim.keymap.set("n", "<leader>gm", function()
-				vim.cmd([[:DiffviewOpen master]])
+				vim.cmd([[!git fetch origin]])
+				vim.cmd([[:DiffviewOpen origin/master]])
 			end, { desc = "Git diff (master)" })
 
 			vim.keymap.set("n", "<leader>gk", function()
