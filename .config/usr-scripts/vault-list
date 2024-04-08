@@ -100,13 +100,11 @@ elif [ -n "$REVERSE_SEARCH" ]; then
 		for i in ${pattern}
 		do
 				# call your procedure/other scripts here below
-				if [ -n "$i" ]; then
-					if [ "$p" = "admin/data/ImpervaAPI" ]; then
-						set -x
-					fi
-					i=$(echo "$i" | sed '/^[[:space:]]*$/d'  | awk '{printf "%s\\n", $0}' | sed -z 's/\\n$//')
-					rg -o -F -f <(echo "$i") -- . | tee -a ~/report.txt
-					{ set +x; } 2>/dev/null
+				pattern=$(echo "$i" | sed '/^[[:space:]]*$/d'  | awk '{printf "%s\\n", $0}' | sed -z 's/\\n$//')
+				if [[ -n "${pattern// /}" ]] && [ ! "$pattern" = "null" ] && [ -n "$pattern" ] && [ ! "$pattern" = " " ]; then
+					# echo "rg -o -F -f <(echo '$pattern') -- ." | tee -a ~/report.txt
+					echo "------------------- ${p} -------------------" | tee -a ~/report.txt
+					rg -o -F -f <(echo "$pattern") -- . | tee -a ~/report.txt
 				fi
 		done
 	}
