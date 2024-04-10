@@ -20,7 +20,7 @@ return {
         venvs_path = vim.fn.expand("~/.virtualenvs"),
         -- Something to do after setting an environment, for example call vim.cmd.LspRestart
         post_set_venv = function()
-          vim.cmd([[:LspRestart]])
+          vim.cmd([[:e]])
         end,
       })
     end,

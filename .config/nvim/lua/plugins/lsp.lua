@@ -103,7 +103,6 @@ return {
           "bashls",
           "groovyls",
           "jedi_language_server",
-          "ruff_lsp",
           "ansiblels",
           "yamlls",
           "jsonls",
