@@ -42,6 +42,11 @@ return {
 			})
 		end, { desc = "Grep Directory" })
 
+		vim.keymap.set("n", "<leader>/f", function()
+			require("telescope.builtin").treesitter()
+			vim.cmd[[:norm zt]]
+		end, { desc = "Treesitter" })
+
 		vim.keymap.set("n", "<leader>/q", function()
 			require("telescope.builtin").resume()
 		end, { desc = "Telescope last search" })

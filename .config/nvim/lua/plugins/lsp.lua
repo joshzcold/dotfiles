@@ -237,6 +237,9 @@ return {
       require("neogen").setup({
         enabled = true,
       })
+      vim.keymap.set({ "n" }, "<Leader>lw", function()
+        vim.cmd[[:Neogen]]
+      end, { silent = true, noremap = true, desc = "Neogen Generate language docstring." })
     end,
   },
   {
