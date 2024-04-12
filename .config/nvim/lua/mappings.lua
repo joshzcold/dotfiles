@@ -59,15 +59,15 @@ map("x", "L", "$")
 
 -- map("n", "<bs>", "<c-^>`”zz") -- switch between buffers with delete
 map("n", "<bs>", "<c-^>") -- switch between buffers with delete
-map("n", "Q", "@q") -- no EX mode, execute q macro
+map("n", "Q", "@q")       -- no EX mode, execute q macro
 
 -- keep selection on indenting lines
 map("v", ">", ">gv")
 map("v", "<", "<gv")
 
-map("n", "Y", "y$") -- Y yank until the end of line
+map("n", "Y", "y$")   -- Y yank until the end of line
 map("n", "vv", "vg_") -- vv visual to end of characters
-map("n", "$", "g_") -- don't copy white space when using $
+map("n", "$", "g_")   -- don't copy white space when using $
 
 -- keep centered while jumping around in search/J
 map("n", "n", "nzzzv")
@@ -85,17 +85,17 @@ map("n", "<esc>", ":noh<return><esc>")
 -- leader mappings --
 map("n", "<leader>", "", { desc = "" })
 -- Helpful yanking y
-map("n", "<leader>yy", [[:let @+ = expand("%")<cr>]], { desc = "Yank relative path" }) -- lua/mappings.lua
-map("n", "<leader>yf", [[:let @+ = expand("%:t")<cr>]], { desc = "Yank filename" }) -- mappings.lua
-map("n", "<leader>yF", [[:let @+ = expand("%:p")<cr>]], { desc = "Yank file full path" }) -- /home/joshua/.config/nvim/lua/mappings.lua
+map("n", "<leader>yy", [[:let @+ = expand("%")<cr>]], { desc = "Yank relative path" })             -- lua/mappings.lua
+map("n", "<leader>yf", [[:let @+ = expand("%:t")<cr>]], { desc = "Yank filename" })                -- mappings.lua
+map("n", "<leader>yF", [[:let @+ = expand("%:p")<cr>]], { desc = "Yank file full path" })          -- /home/joshua/.config/nvim/lua/mappings.lua
 map("n", "<leader>yd", [[:let @+ = expand("%:h")<cr>]], { desc = "Yank directory relative path" }) -- lua
-map("n", "<leader>yD", [[:let @+ = expand("%:p:h")<cr>]], { desc = "Yank directory full path" }) -- /home/joshua/.config/nvim/lua
+map("n", "<leader>yD", [[:let @+ = expand("%:p:h")<cr>]], { desc = "Yank directory full path" })   -- /home/joshua/.config/nvim/lua
 map(
 	"n",
 	"<leader>yg",
 	[[:let @+ = trim(system("git branch --show-current 2>/dev/null"))<cr>]],
 	{ desc = "Yank git branch" }
-) -- main|dev|master
+)                                                                                                       -- main|dev|master
 
 map("n", "<leader>yj", [[:let @+=luaeval('require"jsonpath".get()')<cr>]], { desc = "Yank json path" }) -- .path.to.json.object
 
@@ -123,6 +123,12 @@ map("n", "<leader>sw", [[:%s/\s\+$//e<cr>]], { desc = "Clear all blank lines" })
 map("n", "<leader>mm", ":make<cr>", { desc = "Make" })
 map("n", "<leader>m,", "f,li<CR><Esc>lq", { desc = "(macro) split comma to newline" })
 map("n", "<leader>m\\", [[Wi\<CR><Esc>l]], { desc = "(macro) split shell by \\" })
+map(
+	"n",
+	"<leader>mf",
+	[[/format<CR>f(lv/,\|)<CR>lhd0/{\d}<CR>lvp<Esc>0]],
+	{ desc = "(macro) convert python format string to fstring partially" }
+)
 
 -- vim v
 map("n", "<leader>vr", ":source $MYVIMRC", { desc = "Source Config" })
