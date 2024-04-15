@@ -5,6 +5,20 @@ opt.encoding = "utf-8"
 --Incremental live completion
 opt.backspace = { "indent", "eol", "start" }
 opt.clipboard = "unnamedplus"
+-- Set the clipboard to osc52 if in ssh connection
+if os.getenv("SSH_CONNECTION") then
+	vim.g.clipboard = {
+		name = "OSC 52",
+		copy = {
+			["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+			["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+		},
+		paste = {
+			["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+			["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+		},
+	}
+end
 opt.completeopt = "menu,menuone,noselect"
 --Set highlight on search
 opt.hlsearch = false
