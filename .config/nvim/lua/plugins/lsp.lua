@@ -102,7 +102,7 @@ return {
           "lua_ls",
           "bashls",
           "groovyls",
-          "jedi_language_server",
+          -- "jedi_language_server",
           "ansiblels",
           "yamlls",
           "jsonls",
