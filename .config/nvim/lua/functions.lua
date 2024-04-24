@@ -17,6 +17,8 @@ vim.api.nvim_create_user_command("GitPush", function()
   require("notify")("Pushed --> " .. message)
 end, {})
 
+
+-- supports moving on line wraps and appending to jump list when move is prepended by number
 vim.api.nvim_create_user_command("MoveWithJumpList", function(opts)
   print(vim.inspect(opts.args))
   local count = tonumber(vim.v.count)
@@ -26,11 +28,9 @@ vim.api.nvim_create_user_command("MoveWithJumpList", function(opts)
   else
     if count > 0 then
       vim.cmd(":norm m'")
-      for i = 1, count, 1 do
-        vim.cmd([[:norm ]] .. opts.args)
-      end
+      vim.cmd([[:norm! ]] .. count .. opts.args)
     else
-      vim.cmd([[:norm ]] .. opts.args)
+      vim.cmd([[:norm! ]] .. opts.args)
     end
   end
 end, { nargs = 1, count = 1 })

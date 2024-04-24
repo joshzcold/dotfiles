@@ -92,6 +92,20 @@ return {
         )
         vim.keymap.set("n", "<leader>ld", "<cmd>lua vim.diagnostic.disable()<cr>", { desc = "lsp diagnostic disable" })
         vim.keymap.set("n", "<leader>le", "<cmd>lua vim.diagnostic.enable()<cr>", { desc = "lsp diagnostic enable" })
+        vim.keymap.set("n", "<leader>=", function()
+          vim.lsp.buf.format({
+            async = true,
+          })
+        end, { desc = "LSP Format" })
+        vim.keymap.set("x", "<leader>=", function()
+          vim.lsp.buf.format({
+            async = true,
+            range = {
+              vim.inspect(vim.api.nvim_buf_get_mark(0, "<")),
+              vim.inspect(vim.api.nvim_buf_get_mark(0, ">")),
+            },
+          })
+        end, { desc = "LSP Format" })
       end
 
       local lspconfig = require("lspconfig")
@@ -108,6 +122,7 @@ return {
           "jsonls",
           "tailwindcss",
           "tsserver",
+          "basedpyright"
         },
         automatic_installation = true,
       })
@@ -124,7 +139,7 @@ return {
           "isort",
           "pydocstyle",
           "npm-groovy-lint",
-          "ansible-lint"
+          "ansible-lint",
         },
       })
 
@@ -238,7 +253,7 @@ return {
         enabled = true,
       })
       vim.keymap.set({ "n" }, "<Leader>lw", function()
-        vim.cmd[[:Neogen]]
+        vim.cmd([[:Neogen]])
       end, { silent = true, noremap = true, desc = "Neogen Generate language docstring." })
     end,
   },

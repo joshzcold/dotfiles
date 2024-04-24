@@ -1,7 +1,6 @@
 return {
 	"nvimtools/none-ls.nvim",
 	config = function()
-		vim.keymap.set("n", "<leader>=", "<cmd>lua vim.lsp.buf.format({async=true})<cr>", { desc = "LSP Format" })
 		-- Here is the formatting config
 		local null_ls = require("null-ls")
 		local git_cmd = vim.fn.system("git rev-parse --show-toplevel | tr -d '\n'")
@@ -22,8 +21,8 @@ return {
 			}),
 			null_ls.builtins.formatting.shfmt,
 			-- python
-			null_ls.builtins.formatting.black,
-			null_ls.builtins.formatting.isort,
+			-- null_ls.builtins.formatting.black,
+			-- null_ls.builtins.formatting.isort,
 		}
 		if vim.fn.filereadable(git_cmd .. "/.groovylintrc.json") ~= 1 then
 			-- null ls sources only if you aren't in a git repo

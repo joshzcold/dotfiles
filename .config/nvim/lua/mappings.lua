@@ -118,6 +118,7 @@ map("n", "<leader>s1", [[:g/^\_$\n\_^$/d<cr>]], { desc = "Clear >1 blank lines" 
 map("n", "<leader>s2", [[:g/^\_$\n\_^$\n\_^$/d<cr>]], { desc = "Clear >2 blank lines" })
 map("n", "<leader>s0", [[:g/^\s*$/d<cr>]], { desc = "Clear all blank lines" })
 map("n", "<leader>sw", [[:%s/\s\+$//e<cr>]], { desc = "Clear all blank lines" })
+map("n", "<leader>st", [[:%s/\s\+$//e<cr>]], { desc = "Clear trailing white space" })
 
 -- make m
 map("n", "<leader>mm", ":make<cr>", { desc = "Make" })

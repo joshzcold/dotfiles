@@ -45,6 +45,7 @@ export FZF_DEFAULT_COMMAND='rg --files'
 export ANDROID_SDK_ROOT='/opt/android-sdk'
 export ANDROID_HOME='/opt/android-sdk'
 export CHROME_EXECUTABLE=chromium
+export PDM_IGNORE_SAVED_PYTHON=1
 export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools/
 export PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin/
 export PATH=$PATH:$ANDROID_ROOT/emulator
@@ -178,6 +179,13 @@ function toggle_lights(){
     kitty +kitten themes --reload-in=all Github
     export CURRENT_KITTY_THEME=ON
   fi
+}
+
+function git_merge(){
+  branches=($( git for-each-ref --format="%(refname:short)" refs/heads/ | fzf -m))
+  for branch in "${branches[@]}"; do
+    git merge "$branch"
+  done
 }
 
 function kubectl() {

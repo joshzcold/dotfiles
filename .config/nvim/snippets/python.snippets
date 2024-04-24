@@ -12,3 +12,10 @@ snippet arg_string "argparse string"
 
 snippet arg_bool "argparse boolean"
 	parser.add_argument('--$1', metavar='$2', action='store_true',  help='$3')
+
+snippet trysmcron "try catch smcron block"
+	try:
+	except Exception as ex:
+		print("Error $1")
+		print(traceback.print_exception(ex))
+		sys.exit(42)
