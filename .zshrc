@@ -77,6 +77,7 @@ export TIMEFORMAT=%R
 
 # Path updates
 export PATH=$PATH:/bin/
+export PATH=$PATH:$HOME/.local/share/bob/nvim-bin
 export PATH=$PATH:$HOME/.emacs.d/bin
 export PATH=$PATH:$HOME/apps/node_modules/bin
 export PATH=$PATH:$HOME/.gem/ruby/3.0.0/bin

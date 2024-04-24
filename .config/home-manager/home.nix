@@ -58,6 +58,7 @@ in
     pkgs.virt-manager
     pkgs.awscli2
     pkgs.skopeo # interact with remote oci registries
+    pkgs.slop # For use with screen_record
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
