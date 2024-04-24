@@ -17,10 +17,36 @@ vim.api.nvim_create_user_command("GitPush", function()
   require("notify")("Pushed --> " .. message)
 end, {})
 
+vim.api.nvim_create_user_command("SnippetEdit", function(opts)
+  local config_path = vim.fn.stdpath("config")
+  local snippet_path = config_path .. "/snippets/" .. opts.args
+  print(config_path)
+  if vim.fn.filereadable(snippet_path) == 1 then
+    vim.cmd([[:e ]] .. snippet_path)
+  else
+    vim.notify("Snippet " .. snippet_path .. " not found.", vim.log.levels.ERROR)
+  end
+end, {
+  nargs = 1,
+  count = 1,
+  complete = function(opts)
+    local pattern = "*"
+    if opts.args ~= nil then
+      pattern = "*" .. opts.args
+    end
+    local snippet_path = vim.fn.stdpath("config") .. "/snippets/"
+    print(vim.inspect(vim.fn.globpath(snippet_path, pattern)))
+    local striped_files = {}
+    local files = vim.fn.globpath(snippet_path, pattern, false, true)
+    for _, v in ipairs(files) do
+      table.insert(striped_files, vim.fs.basename(v))
+    end
+    return striped_files
+  end,
+})
 
 -- supports moving on line wraps and appending to jump list when move is prepended by number
 vim.api.nvim_create_user_command("MoveWithJumpList", function(opts)
-  print(vim.inspect(opts.args))
   local count = tonumber(vim.v.count)
 
   if count == 0 then
@@ -66,7 +92,7 @@ vim.api.nvim_create_user_command("AnsibleLintFix", function()
                   vim.cmd("wa")
                   Job:new({
                     command = "ansible-lint",
-                    args = { "--nocolor", "-x", "role-name", "--fix", fix, vim.api.nvim_buf_get_name(0)  },
+                    args = { "--nocolor", "-x", "role-name", "--fix", fix, vim.api.nvim_buf_get_name(0) },
                     stdin = function()
                       local content = vim.api.nvim_buf_get_lines(0, 0, vim.api.nvim_buf_line_count(0), false)
                       return table.concat(content, "\n")
