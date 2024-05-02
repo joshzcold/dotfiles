@@ -5,7 +5,7 @@ return {
       {
         "rcarriga/nvim-dap-ui",
         dependencies = {
-          "nvim-neotest/nvim-nio"
+          "nvim-neotest/nvim-nio",
         },
         config = function()
           require("dapui").setup()
@@ -15,12 +15,16 @@ return {
         "mfussenegger/nvim-dap-python",
         config = function()
           require("dap-python").setup()
-        end
+        end,
       },
       { "theHamsta/nvim-dap-virtual-text" },
     },
     init = function()
       vim.keymap.set("n", "<leader>dac", function()
+        -- (Re-)reads launch.json if present
+        if vim.fn.filereadable(".vscode/launch.json") then
+          require("dap.ext.vscode").load_launchjs(nil, {})
+        end
         require("dap").continue()
       end, { desc = "Continue" })
 
@@ -84,6 +88,10 @@ return {
     config = function()
       local dap = require("dap")
       local dapui = require("dapui")
+
+      if vim.fn.filereadable(".vscode/launch.json") then
+        require("dap.ext.vscode").load_launchjs(nil, {})
+      end
 
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open({})
