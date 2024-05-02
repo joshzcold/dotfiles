@@ -68,10 +68,9 @@ return {
 		end, { desc = "Search git commits" })
 
 		vim.keymap.set("n", "<leader>gB", function()
-			local result = require("telescope.builtin").git_bcommits({
+			require("telescope.builtin").git_bcommits({
 				prompt_title = "switch to commit on this buffer",
 			})
-			print(result)
 		end, { desc = "Search git commits (buffer)" })
 
 		vim.keymap.set("n", "<leader>gb", function()

@@ -20,7 +20,6 @@ end, {})
 vim.api.nvim_create_user_command("SnippetEdit", function(opts)
   local config_path = vim.fn.stdpath("config")
   local snippet_path = config_path .. "/snippets/" .. opts.args
-  print(config_path)
   if vim.fn.filereadable(snippet_path) == 1 then
     vim.cmd([[:e ]] .. snippet_path)
   else
@@ -35,7 +34,6 @@ end, {
       pattern = "*" .. opts.args
     end
     local snippet_path = vim.fn.stdpath("config") .. "/snippets/"
-    print(vim.inspect(vim.fn.globpath(snippet_path, pattern)))
     local striped_files = {}
     local files = vim.fn.globpath(snippet_path, pattern, false, true)
     for _, v in ipairs(files) do
@@ -169,7 +167,6 @@ vim.api.nvim_create_user_command("InsertJiraTag", function()
             branch_tag = branch_tag .. " "
             local row, col = unpack(vim.api.nvim_win_get_cursor(0))
             vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { branch_tag })
-            print(branch_tag:len())
             vim.api.nvim_win_set_cursor(0, { 1, branch_tag:len() + 2 })
             vim.cmd([[:call feedkeys('A', 'n')]])
           end

@@ -80,7 +80,6 @@ return {
 				})
 			)
 
-			print(lSsources)
 		end
 		null_ls.setup({
 			sources = lSsources,

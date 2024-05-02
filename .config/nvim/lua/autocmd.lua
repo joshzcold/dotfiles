@@ -107,7 +107,7 @@ vim.api.nvim_create_autocmd({ "BufRead" }, {
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	pattern = { "python" },
 	callback = function()
-		vim.opt_local.makeprg = "pylama --format pylint"
+		vim.opt_local.makeprg = "ruff check --output-format text ."
 	end,
 })
 

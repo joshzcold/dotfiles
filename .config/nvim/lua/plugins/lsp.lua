@@ -122,6 +122,7 @@ return {
           "jsonls",
           "tailwindcss",
           "tsserver",
+          "ruff_lsp",
           "basedpyright"
         },
         automatic_installation = true,
@@ -264,7 +265,7 @@ return {
   {
     "ray-x/lsp_signature.nvim",
     event = "VeryLazy",
-    enabled = true,
+    enabled = false,
     config = function()
       vim.keymap.set({ "n" }, "<Leader>k", function()
         require("lsp_signature").toggle_float_win()
