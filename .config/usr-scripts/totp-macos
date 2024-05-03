@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+code="$(oathtool -b --totp "$(cat ~/git/codepaste/JumpcloudSSO)")"
+
+osascript -e "display notification \"${code}\" with title \"totp code\""
+echo "$code" | pbcopy
