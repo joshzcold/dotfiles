@@ -17,6 +17,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
 else
     # load custom dir colors (ignore 777 permissions for NTFS mounts)
     eval "$(dircolors ~/.dircolors)"
+    export SUDO_ASKPASS=/usr/bin/ksshaskpass
 fi
 # case insensitive file matching
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -47,7 +48,6 @@ export MANPAGER="/usr/bin/less -r -X -is"
 export GOPATH=$HOME/.go
 export GOROOT=/usr/local/go
 export KUBE_EDITOR=nvim
-export SUDO_ASKPASS=/usr/bin/ksshaskpass
 export FZF_DEFAULT_COMMAND='rg --files'
 export ANDROID_SDK_ROOT='/opt/android-sdk'
 export ANDROID_HOME='/opt/android-sdk'
