@@ -48,5 +48,7 @@ for i in $(seq 1 8); do
     yabai -m space --create
 done
 
+yabai -m rule --add app="^qutebrowser$" title!="^$" role="AXWindow" subrole="AXDialog" manage=on
+
 echo "yabai configuration loaded.."
 
