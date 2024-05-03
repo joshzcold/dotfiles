@@ -8,9 +8,16 @@ PROMPT=" $PROMPT"
 # source ~/.fzf-tab/fzf-tab.plugin.zsh
 # zstyle ':fzf-tab:*' accept-line enter
 
-# load custom dir colors (ignore 777 permissions for NTFS mounts)
-eval "$(dircolors ~/.dircolors)"
-
+if [[ "$(uname)" == "Darwin" ]]; then
+  export PATH=$PATH:/opt/homebrew/opt/coreutils/libexec/gnubin
+  export PATH=/usr/local/share/python:$PATH
+  source /opt/homebrew/bin/virtualenvwrapper_lazy.sh
+  export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+  export JAVA_HOME=/opt/homebrew/Cellar/openjdk/21.0.2
+else
+    # load custom dir colors (ignore 777 permissions for NTFS mounts)
+    eval "$(dircolors ~/.dircolors)"
+fi
 # case insensitive file matching
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
@@ -94,6 +101,9 @@ export PATH=$GOROOT/bin:$PATH
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/dotnet/tools
 
+# load custom dir colors (ignore 777 permissions for NTFS mounts)
+eval "$(dircolors ~/.dircolors)"
+
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000000
 SAVEHIST=10000000
@@ -128,7 +138,7 @@ alias genpass="openssl rand -base64 32"
 alias ls="ls --color=auto"
 alias sudo="sudo "
 alias vim="nvim"
-alias zshrc="nvim /home/joshua/.zshrc && source /home/joshua/.zshrc"
+alias zshrc="nvim $HOME/.zshrc && source $HOME/.zshrc"
 alias make="/usr/bin/make -j 8"
 alias markdown-preview="grip -b "
 alias vssh="ssh -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null"

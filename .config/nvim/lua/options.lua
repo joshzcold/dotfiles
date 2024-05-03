@@ -55,7 +55,7 @@ opt.timeoutlen = 300
 opt.autoread = true
 opt.diffopt = "vertical"
 opt.undofile = true
-opt.undodir = "/home/joshua/.config/nvim/undodir"
+opt.undodir = "~/.config/nvim/undodir"
 opt.scrolloff = 5
 
 opt.splitbelow = true

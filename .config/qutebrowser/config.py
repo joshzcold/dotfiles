@@ -4,6 +4,8 @@ c.url.searchengines["DEFAULT"] = "https://google.com/search?q={}"
 c.editor.command = ["kitty", "--class=float", "-e", "nvim", "-u", "NONE", "{}"]
 config.bind('<Ctrl-o>', 'tab-focus stack-prev')
 config.bind('<Ctrl-i>', 'tab-focus stack-next')
+config.bind('gk', 'tab-move +')
+config.bind('gj', 'tab-move -')
 config.bind('J', 'tab-prev')
 config.bind('K', 'tab-next')
 config.bind('j', 'scroll down')
