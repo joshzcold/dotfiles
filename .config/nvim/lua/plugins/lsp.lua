@@ -115,7 +115,7 @@ return {
         ensure_installed = {
           "lua_ls",
           "bashls",
-          "groovyls",
+          -- "groovyls",
           -- "jedi_language_server",
           "ansiblels",
           "yamlls",
