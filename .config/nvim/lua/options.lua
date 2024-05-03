@@ -55,7 +55,7 @@ opt.timeoutlen = 300
 opt.autoread = true
 opt.diffopt = "vertical"
 opt.undofile = true
-opt.undodir = "~/.config/nvim/undodir"
+opt.undodir = os.getenv("HOME") .. "/.config/nvim/undodir"
 opt.scrolloff = 5
 
 opt.splitbelow = true
@@ -73,8 +73,8 @@ opt.scrolloff = 4
 opt.shiftwidth = 4
 opt.list = true
 vim.opt.listchars = {
-  tab = '· ',
-  trail = '·'
+	tab = "· ",
+	trail = "·",
 }
 opt.linebreak = true
 opt.joinspaces = false
@@ -90,8 +90,10 @@ opt.guicursor =
 
 opt.spell = true
 
-vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function() vim.highlight.on_yank() end
+vim.api.nvim_create_autocmd("TextYankPost", {
+	callback = function()
+		vim.highlight.on_yank()
+	end,
 })
 
 -- grep programs
