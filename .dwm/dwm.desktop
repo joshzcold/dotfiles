@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=1.0
+Name=DWM
+Exec=run-dwm
+Icon=
+Type=Application
+DesktopNames=DWM
