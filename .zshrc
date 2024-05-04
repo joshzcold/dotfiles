@@ -639,5 +639,8 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/vault vault
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+if [ -f "$HOME/.nix-profile/share/fzf/key-bindings.zsh" ]; then
+  source "$HOME/.nix-profile/share/fzf/key-bindings.zsh"
+fi
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 eval "$(starship init zsh)"
