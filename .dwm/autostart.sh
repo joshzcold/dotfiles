@@ -1,4 +1,4 @@
-xfsettingsd &
+# xfsettingsd &
 autorandr -c default
 nitrogen --restore
 # hsetroot -solid "#0B5C70" &
