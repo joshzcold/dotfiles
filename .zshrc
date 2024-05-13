@@ -644,3 +644,11 @@ if [ -f "$HOME/.nix-profile/share/fzf/key-bindings.zsh" ]; then
 fi
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 eval "$(starship init zsh)"
+
+# Auto connect to work computer over ssh if on the vpn
+if [[ "$(uname)" == "Darwin" ]]; then
+  if ifconfig -a | grep 10.200; then
+    work
+  fi
+# TODO account for non-macos
+fi
