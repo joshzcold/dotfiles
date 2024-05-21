@@ -5,7 +5,7 @@ Description=kmonad keyboard config
 [Service]
 Restart=always
 RestartSec=3
-ExecStart=/usr/bin/kmonad %E/kmonad/epomaker-usb.kbd
+ExecStart=/usr/local/bin/kmonad %E/kmonad/epomaker-usb.kbd
 Nice=-20
 
 [Install]
