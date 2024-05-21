@@ -63,6 +63,7 @@ in
     pkgs.skopeo # interact with remote oci registries
     pkgs.slop # For use with screen_record
     pkgs.fzf
+    pkgs.fd
     pkgs.ripgrep
     pkgs.cargo
     pkgs.volctl
