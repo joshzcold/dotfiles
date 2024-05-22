@@ -46,7 +46,6 @@ in
     pkgs.tldr
     pkgs.vault
     pkgs.maim
-    pkgs.ansible
     pkgs.xdotool
     pkgs.redis
     pkgs.calc
