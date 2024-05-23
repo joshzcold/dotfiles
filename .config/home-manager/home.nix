@@ -58,7 +58,7 @@ in
     pkgs.virt-manager
     pkgs.awscli2
     pkgs.bat
-    pkgs.nodejs_22
+    #pkgs.nodejs_22
     pkgs.skopeo # interact with remote oci registries
     pkgs.slop # For use with screen_record
     pkgs.fzf
