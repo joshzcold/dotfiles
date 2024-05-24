@@ -100,6 +100,7 @@ export PATH=$PATH:$GOPATH/bin
 export PATH=$GOROOT/bin:$PATH
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/dotnet/tools
+export PATH=$PATH:$HOME/.local/share/nvim/mason/bin
 
 # load custom dir colors (ignore 777 permissions for NTFS mounts)
 eval "$(dircolors ~/.dircolors)"
