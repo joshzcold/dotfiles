@@ -36,6 +36,7 @@ in
     pkgs.kitty
     pkgs.kubectl
     # pkgs.neovim
+    pkgs.haskellPackages.kmonad
     pkgs.nitrogen
     pkgs.picom
     pkgs.qutebrowser
@@ -45,7 +46,6 @@ in
     pkgs.tldr
     pkgs.vault
     pkgs.maim
-    pkgs.ansible
     pkgs.xdotool
     pkgs.redis
     pkgs.calc
@@ -58,10 +58,11 @@ in
     pkgs.virt-manager
     pkgs.awscli2
     pkgs.bat
-    pkgs.nodejs_21
+    #pkgs.nodejs_22
     pkgs.skopeo # interact with remote oci registries
     pkgs.slop # For use with screen_record
     pkgs.fzf
+    pkgs.fd
     pkgs.ripgrep
     pkgs.cargo
     pkgs.volctl

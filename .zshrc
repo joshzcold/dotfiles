@@ -157,8 +157,11 @@ alias mk="mkvirtualenv"
 alias wk="workon"
 alias dk="deactivate"
 alias flow="./flow"
-alias work="ssh joshua@joshua-work"
 alias p81dns="sudo systemd-resolve --interface=p81 --set-dns 10.1.1.2 --set-dns 10.29.10.2 --set-dns 10.29.10.3 --set-domain secmet.co"
+
+function work(){
+  ssh -t -Y joshua@joshua-work "$@"
+}
 
 # cd into first dir
 alias cdf="cd "$(ls -d */|head -n 1)""
@@ -457,14 +460,19 @@ function fast_ssh(){
   hosts=("${(@f)$(cat /etc/hosts | fzf -m | awk '{print $2}')}")
   pos=$(( ${#hosts[*]} ))
   last=${hosts[$pos]}
+  command=()
+  if nmcli c show | grep p81 > /dev/null; then
+    command=("work" ${command[@]})
+  fi
 
   for host in "${hosts[@]}"; do
+    command+=(ssh "$host")
     # add to history
-    print -s "ssh $host"
+    print -s "${command[@]}"
     if [[ $host == $last ]]; then
-      TERM=xterm ssh $host </dev/tty
+      TERM=xterm ${command[@]} </dev/tty
     else
-      kitty --detach zsh -c "TERM=xterm ssh $host </dev/tty" &
+      kitty --detach zsh -c "TERM=xterm ${command[@]} </dev/tty" &
     fi
   done
 }
@@ -476,8 +484,13 @@ function fast_ssh_broadcast(){
 
   kitty @ goto-layout grid
   for host in "${hosts[@]}"; do
+    command=()
+    if nmcli c show | grep p81 > /dev/null; then
+      command=("work" ${command[@]})
+    fi
+    command+=(ssh "$host")
     kitty @ new-window
-    kitty @ send-text ssh $host
+    kitty @ send-text ${command[@]}
   done
   kitty @ focus-window -m id:1
   if [[ ${#hosts[@]} = 2 ]]; then
@@ -645,3 +658,11 @@ if [ -f "$HOME/.nix-profile/share/fzf/key-bindings.zsh" ]; then
 fi
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 eval "$(starship init zsh)"
+
+# Auto connect to work computer over ssh if on the vpn
+# if [[ "$(uname)" == "Darwin" ]]; then
+#   if ifconfig -a | grep 10.200; then
+#     work
+#   fi
+# # TODO account for non-macos
+# fi

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -x
 
 battery(){
@@ -18,21 +18,21 @@ battery(){
 }
 
 vpn(){
-  local vpn=$(nmcli c show --active | grep -P ".*?(?=[ \t]vpn[ \t])" | awk -F '  ' '{print $1}')
+  local vpn=$(nmcli c show --active | grep -P ".*?(?=[ \t]wireguard[ \t])" | awk -F '  ' '{print $1}')
   if [[ ! -z $vpn ]]; then
     echo "[vpn $vpn]"
   fi
 }
 
 wifi(){
-  local wifi=$(nmcli c show --active | grep -P ".*?(?=[ \t]wifi.*wlp2s0)" | awk -F '  ' '{print $1}')
+  local wifi=$(nmcli c show --active | grep -P ".*?(?=[ \t]wifi.*)" | awk -F '  ' '{print $1}')
   if [[ ! -z $wifi ]]; then
     echo "[wifi $wifi]"
   fi
 }
 
 while true; do
-  xsetroot -name "$(vpn) $(date +"%m-%d %r")"
+  xsetroot -name "$(battery) $(wifi) $(vpn) $(date +"%m-%d %r")"
    sleep 5    # Update time every 5 seconds
 done &
 
