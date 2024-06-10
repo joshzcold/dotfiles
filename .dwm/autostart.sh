@@ -1,12 +1,10 @@
 # xfsettingsd &
 autorandr -c default
 nitrogen --restore
-# hsetroot -solid "#0B5C70" &
 # emacs --daemon &
 unclutter -idle 1 -jitter 2 -root &
 nm-applet &
-# dunst &
-/usr/lib/xfce4/notifyd/xfce4-notifyd &
+dunst &
 pamac-tray &
 picom &
 # keynav &
