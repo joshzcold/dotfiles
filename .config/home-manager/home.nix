@@ -64,6 +64,7 @@ in
     pkgs.slop # For use with screen_record
     pkgs.fzf
     pkgs.fd
+    pkgs.screenkey # show keyboard input on screen
     pkgs.ripgrep
     pkgs.cargo
     pkgs.volctl

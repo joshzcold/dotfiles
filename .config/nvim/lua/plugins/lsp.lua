@@ -10,7 +10,6 @@ return {
       { "williamboman/mason.nvim" },
       { "williamboman/mason-lspconfig.nvim" },
       { "WhoIsSethDaniel/mason-tool-installer.nvim" },
-      { "folke/neodev.nvim" },
     },
     ---@class PluginLspOpts
     config = function()
@@ -123,7 +122,7 @@ return {
           "tailwindcss",
           "tsserver",
           "ruff_lsp",
-          "basedpyright"
+          "basedpyright",
         },
         automatic_installation = true,
       })
@@ -143,8 +142,6 @@ return {
           "ansible-lint",
         },
       })
-
-      require("neodev").setup({})
 
       require("mason-lspconfig").setup_handlers({
         -- The first entry (without a key) will be the default handler
@@ -290,4 +287,16 @@ return {
       require("corn").setup(opts)
     end,
   },
+  {
+    "folke/lazydev.nvim",
+    ft = "lua", -- only load on lua files
+    opts = {
+      library = {
+        -- See the configuration section for more details
+        -- Load luvit types when the `vim.uv` word is found
+        { path = "luvit-meta/library", words = { "vim%.uv" } },
+      },
+    },
+  },
+  { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
 }

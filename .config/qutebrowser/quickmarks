@@ -1,4 +1,3 @@
-	
 AA Wiki https://wiki.provo.microfocus.com:8443/pages/viewpage.action?spaceKey=AUTH&title=Advanced+Authentication+Engineering+Home
 AEM Management Analytics https://experience.adobe.com/#/@securitymetrics/so:securi6/analytics/spa/index.html?path=launch&defaultLandingPage=true%23/workspace
 AEM Management Customer https://experience.adobe.com/#/@securitymetrics/home
@@ -61,32 +60,19 @@ devops prometheus https://hq-devops-v-prometheus.secmet.co/alerts
 devops tools prometheus https://hq-devtools-v-prometheus-1.secmet.co/alerts
 devscan prometheus https://hq-devscan-v-prometheus-1.secmet.co/alerts?search=
 devvis prometheus https://hq-devvis-v-prometheus.secmet.co/alerts?search=
-dk-prod1-p-db-1	10.101.23.39
-dk-prod1-phv-apphost-1	10.101.23.10
+dk-prod1-p-db-1 10.101.23.39
 dk-prod1-phv-apphost-1 10.101.23.10
-dk-prod1-phv-apphost-2	10.101.23.11
 dk-prod1-phv-apphost-2 10.101.23.11
-dk-prod1-phv-apphost-3	10.101.23.12
-dk-prod1-phv-apphost-3	10.23.7.103
 dk-prod1-phv-apphost-3 10.101.23.12
-dk-prod1-phv-apphost-4	10.101.23.13
 dk-prod1-phv-apphost-4 10.101.23.13
-dk-prod1-phv-apphost-5	10.101.23.14
 dk-prod1-phv-apphost-5 10.101.23.14
-dk-prod1-phv-tools-1	10.102.23.19
 dk-prod1-phv-tools-1 10.101.23.19
-dk-prod2-p-db-2	10.102.23.39
-dk-prod2-phv-apphost-1	10.102.23.10
+dk-prod2-p-db-2 10.102.23.39
 dk-prod2-phv-apphost-1 10.102.23.10
-dk-prod2-phv-apphost-2	10.102.23.11
 dk-prod2-phv-apphost-2 10.102.23.11
-dk-prod2-phv-apphost-3	10.102.23.12
 dk-prod2-phv-apphost-3 10.102.23.12
-dk-prod2-phv-apphost-4	10.102.23.13
 dk-prod2-phv-apphost-4 10.102.23.13
-dk-prod2-phv-apphost-5	10.102.23.14
 dk-prod2-phv-apphost-5 10.102.23.14
-dk-prod2-phv-tools-1	10.102.23.19
 dk-prod2-phv-tools-1 10.102.23.19
 dk1 alertmanager http://dk-prod1-v-prometheus.secmet.co:9093
 dk1 docker visualizer https://dk-prod1-v-logs-proxy.secmet.co/visualizer/
@@ -111,83 +97,59 @@ hq alertmanager http://hq-prod3-v-prometheus.secmet.co:9093
 hq docker visualizer https://hq-prod3-v-logs-proxy.secmet.co/visualizer/
 hq prometheus https://hq-prod3-v-prometheus.secmet.co/alerts
 hq site https://hq-prod3-v-edgenginx-1.secmet.co/
-hq-dev-apphost-1	10.23.0.31
-hq-dev-apphost-2	10.0.23.32
-hq-dev-apphost-3	10.23.0.33
+hq-dev-apphost-1 10.23.0.31
+hq-dev-apphost-2 10.0.23.32
+hq-dev-apphost-3 10.23.0.33
 hq-dev-p-apphost-1 10.23.0.70
 hq-dev-p-apphost-2 10.23.0.61
 hq-dev-p-apphost-3 10.23.0.60
-hq-dev-phv-apphost-4	10.23.0.41
 hq-dev-phv-apphost-4 10.23.0.41
-hq-dev-phv-apphost-5	10.23.0.40
 hq-dev-phv-apphost-5 10.23.0.40
-hq-dev-phv-apphost-6	10.29.23.47
 hq-dev-phv-apphost-6 10.29.23.47
-hq-dev-phv-apphost-7	10.23.0.22
 hq-dev-phv-apphost-7 10.23.0.22
 hq-dev-phv-tools-1 10.23.0.30
-hq-devops-phv-apphost-1	10.23.10.3
 hq-devops-phv-apphost-1 10.23.10.3
-hq-devops-phv-apphost-2	10.23.10.4
 hq-devops-phv-apphost-2 10.23.10.4
-hq-devops-phv-apphost-3	10.23.10.5
 hq-devops-phv-apphost-3 10.23.10.5
-hq-devops-phv-apphost-4	10.23.10.6
 hq-devops-phv-apphost-4 10.23.10.6
-hq-devops-phv-apphost-5	10.23.10.8
 hq-devops-phv-apphost-5 10.23.10.8
-hq-devops-phv-apphost-6	10.23.10.9
 hq-devops-phv-apphost-6 10.23.10.9
-hq-devops-phv-apphost-7	10.23.10.10
 hq-devops-phv-apphost-7 10.23.10.10
-hq-devops-phv-apphost-8	10.23.10.11
 hq-devops-phv-apphost-8 10.23.10.11
 hq-devops-phv-tools-1 10.23.0.37
-hq-devtools-phv-tools-1	10.23.0.30
-hq-devtools-phv-tools-2	10.23.0.37
-hq-devtools-phv-tools-5	10.23.0.56
-hq-operations-phv-apphost-1	10.23.7.41
+hq-devtools-phv-tools-1 10.23.0.30
+hq-devtools-phv-tools-2 10.23.0.37
+hq-devtools-phv-tools-5 10.23.0.56
 hq-operations-phv-apphost-1 10.23.7.30
-hq-operations-phv-apphost-2	10.23.7.42
-hq-operations-phv-apphost-3	10.23.7.43
-hq-prod3-p-db-1	10.23.7.106
-hq-prod3-p-db-3	10.100.23.20
-hq-prod3-p-db-4	10.100.23.21
-hq-prod3-phv-apphost-1	10.100.23.10
+hq-operations-phv-apphost-2 10.23.7.42
+hq-operations-phv-apphost-3 10.23.7.43
+hq-prod3-p-db-1 10.23.7.106
+hq-prod3-p-db-3 10.100.23.20
+hq-prod3-p-db-4 10.100.23.21
 hq-prod3-phv-apphost-1 10.100.23.10
-hq-prod3-phv-apphost-2	10.100.23.11
 hq-prod3-phv-apphost-2 10.100.23.11
-hq-prod3-phv-apphost-3	10.100.23.12
 hq-prod3-phv-apphost-3 10.100.23.12
-hq-prod3-phv-apphost-4	10.100.23.13
 hq-prod3-phv-apphost-4 10.100.23.13
-hq-prod3-phv-apphost-5	10.100.23.14
 hq-prod3-phv-apphost-5 10.100.23.14
 hq-prod3-phv-tools-1 10.100.23.19
-hq-prodtools-phv-tools-1	10.23.0.55
-hq-ref-p-db-1	10.105.23.39
-hq-ref-p-db-2	10.105.23.40
-hq-ref-phv-apphost-1	10.105.23.10
+hq-prodtools-phv-tools-1 10.23.0.55
+hq-ref-p-db-1 10.105.23.39
+hq-ref-p-db-2 10.105.23.40
 hq-ref-phv-apphost-1 10.105.23.10
-hq-ref-phv-apphost-2	10.105.23.11
 hq-ref-phv-apphost-2 10.105.23.11
-hq-ref-phv-apphost-3	10.105.23.12
 hq-ref-phv-apphost-3 10.105.23.12
-hq-ref-phv-apphost-4	10.105.23.13
 hq-ref-phv-apphost-4 10.105.23.13
-hq-ref-phv-apphost-5	10.105.23.14
 hq-ref-phv-apphost-5 10.105.23.14
-hq-ref-phv-tools-1	10.105.23.19
 hq-ref-phv-tools-1 10.105.23.19
 hq-ref1 prometheus https://hq-ref1-v-prometheus.secmet.co/alerts
 hq-ref2 prometheus https://hq-ref2-v-prometheus-1.secmet.co/alerts
-hq-ref2-phv-apphost-1	10.23.10.14
-hq-ref2-phv-apphost-2	10.23.10.15
-hq-ref2-phv-apphost-3	10.23.10.16
-hq-ref2-phv-apphost-4	10.23.10.17
-hq-ref2-phv-apphost-5	10.23.0.57
-hq-vision-phv-apphost-1	10.100.23.27
-hq-vision-phv-apphost-2	10.100.23.28
+hq-ref2-phv-apphost-1 10.23.10.14
+hq-ref2-phv-apphost-2 10.23.10.15
+hq-ref2-phv-apphost-3 10.23.10.16
+hq-ref2-phv-apphost-4 10.23.10.17
+hq-ref2-phv-apphost-5 10.23.0.57
+hq-vision-phv-apphost-1 10.100.23.27
+hq-vision-phv-apphost-2 10.100.23.28
 hqref2 prometheus https://hq-ref2-v-prometheus.secmet.co/alerts
 html color reference https://www.w3schools.com/colors/colors_names.asp
 html emoji reference https://www.w3schools.com/charsets/ref_emoji.asp
@@ -253,3 +215,5 @@ svg hex to svg filter css https://angel-rs.github.io/css-color-filter-generator/
 traefik hq-ref1 https://traefik.hq-ref1-v-cluster-1.secmet.co:5000/dashboard/#/
 vision prod prometheus https://hq-prodvis-v-prometheus.secmet.co/alerts
 xmatters https://securitymetrics.xmatters.com
+ROMs mega thread https://r-roms.github.io/
+roms mega thread https://r-roms.github.io/
