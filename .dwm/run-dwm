@@ -2,6 +2,7 @@
 set -x
 
 battery(){
+  [ ! -f "/sys/class/power_supply/BAT0/capacity" ] && return
   local percent=$(cat /sys/class/power_supply/BAT0/capacity)
   local status=$(cat /sys/class/power_supply/BAT0/uevent | grep -o -P "(?<=POWER_SUPPLY_STATUS=).*")
   if [[ ! "$percent" = 100 ]]; then
