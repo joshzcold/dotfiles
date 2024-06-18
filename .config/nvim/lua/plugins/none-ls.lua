@@ -6,7 +6,7 @@ return {
 		local git_cmd = vim.fn.system("git rev-parse --show-toplevel | tr -d '\n'")
 		local lSsources = {
 			null_ls.builtins.formatting.prettierd.with({
-				-- extra_filetypes = { "yaml.ansible" }
+				extra_filetypes = { "yaml.ansible" }
 			}),
 			null_ls.builtins.formatting.stylua.with({
 				args = { "--indent-width", "2", "--indent-type", "Spaces", "-" },

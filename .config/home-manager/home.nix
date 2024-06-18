@@ -59,7 +59,7 @@ in
     pkgs.awscli2
     pkgs.bat
     pkgs.dunst # desktop notification
-    #pkgs.nodejs_22
+    pkgs.nodejs_21
     pkgs.skopeo # interact with remote oci registries
     pkgs.slop # For use with screen_record
     pkgs.fzf
