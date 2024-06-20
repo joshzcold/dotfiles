@@ -13,7 +13,7 @@ while IFS= read -r PROJECT; do
 	repos=$(curl -s -H "Authorization: Bearer $TOKEN" --request GET "$server/rest/api/1.0/projects/$PROJECT/repos?limit=999" | jq --raw-output ".values[].links.clone[] | select(.name == \"$clone_type\") | .href")
 	mkdir -p "${PROJECT}"
 	cd "${PROJECT}" || exit
-	echo "$repos" | parallel -I% git clone %
+	echo "$repos" | parallel -j 8 -I% git clone %
 	cd ../
 done <<<"$PROJECTS"
 

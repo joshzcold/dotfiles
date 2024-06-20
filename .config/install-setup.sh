@@ -5,12 +5,12 @@ function user_prompt(){
   echo    # (optional) move to a new line
 }
 
-user_prompt "Install git, base-devel, yadm"
+user_prompt "Install packages from apt"
 
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   set -x
-  sudo apt install git yadm
+  sudo apt install git yadm oathtool xclip
   { set +x; } 2> /dev/null 
 fi
 
@@ -59,7 +59,7 @@ user_prompt "Setup dictionary qutebrowser"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   set -x
-  /usr/share/qutebrowser/scripts/dictcli.py install en-US
+  /home/joshua/.nix-profile/share/qutebrowser/scripts/dictcli.py install en-US
   { set +x; } 2> /dev/null 
 fi
 
@@ -132,8 +132,6 @@ then
   npm config set prefix "${HOME}/.npm-packages"
   # user specific packages
   npm install -g qutejs
-  # global
-  sudo npm install -g qutejs
 fi
 
 user_prompt "Setup printing"
