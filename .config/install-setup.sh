@@ -10,8 +10,16 @@ user_prompt "Install packages from apt"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   set -x
-  sudo apt install git yadm oathtool xclip
-  { set +x; } 2> /dev/null 
+  sudo apt install -y \
+    git \
+    yadm \
+    oathtool \
+    xclip \
+    python3-venv \
+    python3-pip \
+    python3-virtualenv \
+    python3-virtualenvwrapper
+  { set +x; } 2> /dev/null
 fi
 
 user_prompt "use yadm and get dotfiles"
