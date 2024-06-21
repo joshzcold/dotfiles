@@ -134,12 +134,12 @@ then
   { set +x; } 2> /dev/null 
 fi
 
-user_prompt "Install nodejs dependencies"
+user_prompt "Install nodejs dependencies for qutebrowser"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  npm config set prefix "${HOME}/.npm-packages"
   # user specific packages
-  npm install -g qutejs
+  cd ~/.config/qutebrowser/userscripts
+  npm install qutejs
 fi
 
 user_prompt "Setup printing"
