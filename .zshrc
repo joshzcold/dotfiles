@@ -67,7 +67,7 @@ export WORKON_HOME=~/.virtualenvs
 [ -f " ~/.nix-profile/etc/profile.d/hm-session-vars.sh" ] && souce ~/.nix-profile/etc/profile.d/hm-session-vars.sh
 
 export PYTHONBREAKPOINT="pudb.set_trace"
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 # Set TERM based on if in ssh connection
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
   export TERM=xterm

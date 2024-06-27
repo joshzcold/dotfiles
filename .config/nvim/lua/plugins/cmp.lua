@@ -31,7 +31,7 @@ return {
           },
         },
         { name = "lazydev",   group_index = 0 },
-        { name = "async_path" },
+        { name = "path" },
       }
 
       cmp.setup({
