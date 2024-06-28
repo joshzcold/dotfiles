@@ -5,13 +5,21 @@ function user_prompt(){
   echo    # (optional) move to a new line
 }
 
-user_prompt "Install git, base-devel, yadm"
+user_prompt "Install packages from apt"
 
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   set -x
-  sudo pacman -S --needed git base-devel yadm
-  { set +x; } 2> /dev/null 
+  sudo apt install -y \
+    git \
+    yadm \
+    oathtool \
+    xclip \
+    python3-venv \
+    python3-pip \
+    python3-virtualenv \
+    python3-virtualenvwrapper
+  { set +x; } 2> /dev/null
 fi
 
 user_prompt "use yadm and get dotfiles"
@@ -28,6 +36,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
   set -x
   cd ~/.dwm
+  sudo apt install make libxft-dev libxcb-res0-dev libx11-dev libxinerama-dev libfontconfig-dev libx11-xcb-dev
   sudo make install
   sudo cp run-dwm /usr/bin/run-dwm
   sudo tee /usr/share/xsessions/dwm.desktop > /dev/null <<EOT
@@ -41,23 +50,16 @@ EOT
   { set +x; } 2> /dev/null 
 fi
 
-user_prompt "Install yay"
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-  set -x
-  cd /tmp
-  git clone https://aur.archlinux.org/yay-bin.git
-  cd yay-bin
-  makepkg -si
-  { set +x; } 2> /dev/null 
-fi
-
-user_prompt "Install all applications"
+user_prompt "Setup packages"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   set -x
   cd ~
-  yay -S --needed - < ~/.config/install-apps
+  sudo apt install zsh curl
+  sh <(curl -L https://nixos.org/nix/install) --daemon
+  nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+  nix-channel --update
+  nix-shell '<home-manager>' -A install
   { set +x; } 2> /dev/null 
 fi
 
@@ -65,7 +67,7 @@ user_prompt "Setup dictionary qutebrowser"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   set -x
-  /usr/share/qutebrowser/scripts/dictcli.py install en-US
+  /home/joshua/.nix-profile/share/qutebrowser/scripts/dictcli.py install en-US
   { set +x; } 2> /dev/null 
 fi
 
@@ -93,6 +95,7 @@ then
   sudo usermod -aG uinput $USER
   echo 'KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"' | sudo tee /etc/udev/rules.d/90-kmonad.rules
   sudo modprobe uinput
+  sudo ln -s /home/joshua/.nix-profile/bin/kmonad /usr/bin/kmonad
   { set +x; } 2> /dev/null 
 fi
 
@@ -131,14 +134,12 @@ then
   { set +x; } 2> /dev/null 
 fi
 
-user_prompt "Install nodejs dependencies"
+user_prompt "Install nodejs dependencies for qutebrowser"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  npm config set prefix "${HOME}/.npm-packages"
   # user specific packages
-  npm install -g qutejs
-  # global
-  sudo npm install -g qutejs
+  cd ~/.config/qutebrowser/userscripts
+  npm install qutejs
 fi
 
 user_prompt "Setup printing"

@@ -35,12 +35,20 @@ return {
 			vim.keymap.set("n", "<leader>gk", function()
 				vim.cmd([[:DiffviewClose]])
 			end, { desc = "Git diff close" })
-
 		end,
 	},
 	-- Add git related info in the signs columns and popups
 	{
 		"lewis6991/gitsigns.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"seanbreckenridge/gitsigns-yadm.nvim"
+		},
+		opts = {
+			_on_attach_pre = function(_, callback)
+				require("gitsigns-yadm").yadm_signs(callback)
+			end,
+		},
 		init = function()
 			vim.keymap.set("n", "<leader>gx", function()
 				vim.cmd([[:Gitsigns reset_hunk]])
@@ -49,15 +57,7 @@ return {
 			vim.keymap.set("n", "<leader>gn", function()
 				vim.cmd([[:Gitsigns next_hunk]])
 			end, { desc = "Move to next git hunk" })
-		end,
-		config = function()
-			require("gitsigns").setup({
-				-- attach_to_untracked = false,
-				yadm = {
-					enable = true,
-				},
-			})
-		end,
+		end
 	},
 	{
 		"ruifm/gitlinker.nvim",
@@ -81,15 +81,15 @@ return {
 					["bitbucket.secmet.co"] = function(url_data)
 						local project, repo = string.match(url_data.repo, "(%w+)/(.*)")
 						local url = "https://"
-							.. url_data.host
-							.. "/projects/"
-							.. project
-							.. "/repos/"
-							.. repo
-							.. "/browse/"
-							.. url_data.file
-							.. "?at="
-							.. url_data.rev
+								.. url_data.host
+								.. "/projects/"
+								.. project
+								.. "/repos/"
+								.. repo
+								.. "/browse/"
+								.. url_data.file
+								.. "?at="
+								.. url_data.rev
 						if url_data.lstart then
 							url = url .. "#" .. url_data.lstart
 						end

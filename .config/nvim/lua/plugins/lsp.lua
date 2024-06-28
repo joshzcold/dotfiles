@@ -114,7 +114,7 @@ return {
         ensure_installed = {
           "lua_ls",
           "bashls",
-          -- "groovyls",
+          "groovyls",
           -- "jedi_language_server",
           "ansiblels",
           "yamlls",
@@ -204,6 +204,16 @@ return {
             plugins = {
               pyflakes = { enabled = false },
               pylint = { enabled = false },
+            },
+            on_attach = on_attach,
+            capabilities = capabilities,
+          })
+        end,
+        ["groovyls"] = function()
+          lspconfig.groovyls.setup({
+            filetypes = {
+              "groovy",
+              "Jenkinsfile"
             },
             on_attach = on_attach,
             capabilities = capabilities,

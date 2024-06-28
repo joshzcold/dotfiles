@@ -48,7 +48,6 @@ chrome remote desktop https://remotedesktop.google.com/access
 clone hero aggregations https://docs.google.com/spreadsheets/u/1/d/13B823ukxdVMocowo1s5XnT3tzciOfruhUVePENKc01o/htmlview#
 clone hero search https://chorus.fightthe.pw/
 cohesity backups https://hq-cohesity.secmet.co/login
-confluence docs https://securitymetrics.atlassian.net/jira/software/c/projects/DV6/boards/234
 confluence https://securitymetrics.atlassian.net/wiki/spaces/DEVOPS/overview
 crontab guru https://crontab.guru/
 cups printers http://localhost:631/
@@ -142,7 +141,7 @@ hq-ref-phv-apphost-4 10.105.23.13
 hq-ref-phv-apphost-5 10.105.23.14
 hq-ref-phv-tools-1 10.105.23.19
 hq-ref1 prometheus https://hq-ref1-v-prometheus.secmet.co/alerts
-hq-ref2 prometheus https://hq-ref2-v-prometheus-1.secmet.co/alerts
+hq-ref2 prometheus https://hq-ref2-v-prometheus.secmet.co/alerts
 hq-ref2-phv-apphost-1 10.23.10.14
 hq-ref2-phv-apphost-2 10.23.10.15
 hq-ref2-phv-apphost-3 10.23.10.16
