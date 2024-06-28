@@ -294,7 +294,7 @@ function klog(){
 
 function ssha(){
   eval "$(ssh-agent)"
-  keys=("${(@f)$( grep -lr "PRIVATE" ~/.ssh | sort -u | fzf -m )}")
+  keys=("${(@f)$( grep -lR "PRIVATE" ~/.ssh | sort -u | fzf -m )}")
   for k in "${keys[@]}"; do
     ssh-add "$k"
   done
