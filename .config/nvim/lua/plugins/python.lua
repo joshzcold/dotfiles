@@ -1,3 +1,27 @@
+vim.api.nvim_create_user_command("BasedPyRightChangeTypeCheckingMode", function(opts)
+  local clients = vim.lsp.get_clients({
+    bufnr = vim.api.nvim_get_current_buf(),
+    name = "basedpyright",
+  })
+  for _, client in ipairs(clients) do
+    client.config.settings = vim.tbl_deep_extend("force", client.config.settings, {
+      basedpyright = {
+        analysis = {
+          typeCheckingMode = opts.args,
+        },
+      },
+    })
+    print(vim.inspect(client.config.settings))
+    client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+  end
+end, {
+  nargs = 1,
+  count = 1,
+  complete = function()
+    return { "off", "basic", "standard", "strict", "all" }
+  end,
+})
+
 return {
   {
     "AckslD/swenv.nvim",

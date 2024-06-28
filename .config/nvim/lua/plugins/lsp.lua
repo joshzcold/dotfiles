@@ -229,11 +229,13 @@ return {
           lspconfig.basedpyright.setup({
             settings = {
               basedpyright = {
-                -- typeCheckingMode = "off"
-              }
-            }
+                analysis = {
+                  typeCheckingMode = "standard",
+                },
+              },
+            },
           })
-        end
+        end,
       })
     end,
   },
