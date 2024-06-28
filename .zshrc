@@ -299,11 +299,15 @@ function ssha(){
     ssh-add "$k"
   done
   if [ -f "ansible.cfg" ]; then
-    deactivate
+    if [ -n "$VIRTUAL_ENV" ]; then
+      deactivate
+    fi
     workon ansible
     if [ -d "playbooks/" ];then
       playbook="$( ls playbooks/  | fzf -m )"
-      ./ur "playbooks/$playbook"
+      if [ -n "$playbook" ]; then
+        ./ur "playbooks/$playbook"
+      fi
     fi
   fi
 }

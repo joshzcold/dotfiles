@@ -35,7 +35,13 @@ return {
         virtual_text = {
           prefix = "■ ", -- Could be '●', '▎', 'x', '■', , 
         },
-        float = { border = border },
+        virtual_text = {
+          source = "always", -- Or "if_many"
+        },
+        float = {
+          border = border,
+          source = "always", -- Or "if_many"
+        },
       })
       -- make nvim-cmp aware of extra capabilities coming from lsp
       local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -213,12 +219,21 @@ return {
           lspconfig.groovyls.setup({
             filetypes = {
               "groovy",
-              "Jenkinsfile"
+              "Jenkinsfile",
             },
             on_attach = on_attach,
             capabilities = capabilities,
           })
         end,
+        ["basedpyright"] = function()
+          lspconfig.basedpyright.setup({
+            settings = {
+              basedpyright = {
+                -- typeCheckingMode = "off"
+              }
+            }
+          })
+        end
       })
     end,
   },
