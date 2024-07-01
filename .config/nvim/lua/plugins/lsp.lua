@@ -283,6 +283,7 @@ return {
     end,
   },
   {
+    -- Display small progress indicator on lsp progress events
     "j-hui/fidget.nvim",
     opts = {},
   },
