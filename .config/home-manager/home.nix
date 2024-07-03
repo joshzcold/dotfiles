@@ -73,6 +73,7 @@ in
     pkgs.unclutter
     pkgs.spotify
     pkgs.ansible
+    pkgs.ansible-lint
     pkgs.htop
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
