@@ -123,7 +123,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 vim.api.nvim_create_autocmd({ "BufRead" }, {
 	pattern = { "*.groovy" },
 	callback = function()
-		if vim.fn.search("pipeline", "nw") > 0 then
+		if vim.fn.search("pipeline {", "nw") > 0 then
 			vim.opt_local.ft = "Jenkinsfile"
 			vim.opt_local.indentexpr = "GetJavascriptIndent()"
 			vim.opt_local.makeprg = "jenkins-lint %"

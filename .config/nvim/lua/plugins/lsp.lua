@@ -219,7 +219,7 @@ return {
           lspconfig.groovyls.setup({
             filetypes = {
               "groovy",
-              "Jenkinsfile",
+              -- "Jenkinsfile",
             },
             on_attach = on_attach,
             capabilities = capabilities,

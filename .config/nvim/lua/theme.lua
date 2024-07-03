@@ -12,7 +12,6 @@ vim.api.nvim_set_hl(0, "Search", { reverse = true })
 vim.api.nvim_set_hl(0, "Cursor", { reverse = true })
 
 vim.cmd([[
-  au BufRead,BufNewFile *.groovy set filetype=Jenkinsfile
   autocmd FileType groovy setlocal commentstring=//\ %s
   autocmd FileType Jenkinsfile setlocal commentstring=//\ %s
 ]])
@@ -22,7 +21,7 @@ vim.cmd([[
   nnoremap <f10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'  . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"  . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<cr>
 ]])
 
-vim.cmd([[
-  " force syntax reload
-  autocmd BufEnter,InsertLeave * :syntax sync fromstart
-]])
+-- vim.cmd([[
+--   " force syntax reload
+--   autocmd BufEnter,InsertLeave * :syntax sync fromstart
+-- ]])
