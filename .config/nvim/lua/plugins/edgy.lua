@@ -1,6 +1,7 @@
 return {
   "folke/edgy.nvim",
   event = "VeryLazy",
+  enabled = false,
   opts = {
     animate = {
       enabled = false,

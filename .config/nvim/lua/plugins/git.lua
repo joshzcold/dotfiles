@@ -39,25 +39,30 @@ return {
 	},
 	-- Add git related info in the signs columns and popups
 	{
-		"lewis6991/gitsigns.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"seanbreckenridge/gitsigns-yadm.nvim"
-		},
+		"echasnovski/mini.diff",
 		opts = {
-			_on_attach_pre = function(_, callback)
-				require("gitsigns-yadm").yadm_signs(callback)
-			end,
+			view = {
+				style = "sign",
+				signs = { add = "+", change = "~", delete = "-" },
+			},
 		},
 		init = function()
 			vim.keymap.set("n", "<leader>gx", function()
-				vim.cmd([[:Gitsigns reset_hunk]])
-			end, { desc = "Undo git hunk at point" })
+				return MiniDiff.operator("reset") .. "gh"
+			end, { desc = "Undo git hunk at point", expr = true, remap = true })
 
 			vim.keymap.set("n", "<leader>gn", function()
-				vim.cmd([[:Gitsigns next_hunk]])
+				MiniDiff.goto_hunk("next", {})
 			end, { desc = "Move to next git hunk" })
-		end
+
+			vim.keymap.set("n", "<leader>gj", function()
+				MiniDiff.goto_hunk("next", {})
+			end, { desc = "Move to next git hunk" })
+
+			vim.keymap.set("n", "<leader>gk", function()
+				MiniDiff.goto_hunk("prev", {})
+			end, { desc = "Move to next git hunk" })
+		end,
 	},
 	{
 		"ruifm/gitlinker.nvim",
