@@ -5,6 +5,7 @@ return {
     --   vim.cmd([[:NeoTreeFocusToggle]])
     -- end, { desc = "Open nvim-tree" })
   -- end,
+  enabled = false,
   dependencies = {
     "nvim-lua/plenary.nvim",
     "MunifTanjim/nui.nvim",

@@ -40,6 +40,7 @@ return {
 	-- Add git related info in the signs columns and popups
 	{
 		"echasnovski/mini.diff",
+		enabled = false,
 		opts = {
 			view = {
 				style = "sign",

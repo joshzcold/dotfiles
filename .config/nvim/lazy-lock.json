@@ -32,6 +32,7 @@
   "mason.nvim": { "branch": "main", "commit": "2af3b574b68dc0273c7fb60369f3a48d5a16a857" },
   "mini.diff": { "branch": "main", "commit": "d052bf31cc01bb1dde0afd129d8dcdd9f36b9d35" },
   "mini.nvim": { "branch": "main", "commit": "12d275f4c3aeddfa12a758a69aff65090613ca34" },
+  "monorepo.nvim": { "branch": "main", "commit": "256a302900d6af6e032f1f2bf4f2407bd4569fe8" },
   "neo-tree.nvim": { "branch": "main", "commit": "206241e451c12f78969ff5ae53af45616ffc9b72" },
   "neodev.nvim": { "branch": "main", "commit": "46aa467dca16cf3dfe27098042402066d2ae242d" },
   "neogen": { "branch": "main", "commit": "6de0add4805165317ab7d3d36b5cef48b1b865f3" },
