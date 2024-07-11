@@ -75,3 +75,8 @@ snippet colors_high_intensity_backgrounds "A bunch of colors for shell scripting
 	On_IPurple='\033[0;105m'
 	On_ICyan='\033[0;106m'
 	On_IWhite='\033[0;107m'
+
+snippet heredoc_new_file "Here content to new file"
+	cat << EOF > $1
+	$2
+	EOF

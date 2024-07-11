@@ -20,6 +20,10 @@ require('lazy').setup('plugins', {
   change_detection = {
     notify = false,
   },
+  dev = {
+    path = "~/git/neovim",
+    patterns = {"joshzcold"}
+  },
   performance = {
     cache = {
       enabled = false,
