@@ -20,7 +20,7 @@
   "harpoon": { "branch": "master", "commit": "ccae1b9bec717ae284906b0bf83d720e59d12b91" },
   "jsonpath.nvim": { "branch": "main", "commit": "ea7e07e935f3f95deda97f9f6dc87f7bcf3fb69a" },
   "kitty-scrollback.nvim": { "branch": "main", "commit": "dc101d0a8356db9c7290dfbfa82c27ec35e3b55a" },
-  "lazy.nvim": { "branch": "main", "commit": "d1de92dffab5a862332fdd1892889d362369c12f" },
+  "lazy.nvim": { "branch": "main", "commit": "1d451b4c2ce957da05e2123ce1a001804fc7ea96" },
   "lazydev.nvim": { "branch": "main", "commit": "cea5d0fb556cdc35122d9cae772e7e0ed65b4505" },
   "linediff.vim": { "branch": "main", "commit": "ddae71ef5f94775d101c1c70032ebe8799f32745" },
   "lsp-status.nvim": { "branch": "master", "commit": "54f48eb5017632d81d0fd40112065f1d062d0629" },
