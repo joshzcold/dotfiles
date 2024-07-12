@@ -85,10 +85,9 @@ fi
 user_prompt "setup perimeter81"
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   set -x
-  yay --save --editmenu -S perimeter81
-  user_prompt "Add --no-sandbox to perimeter81.desktop Exec"
-  read -p "MANUAL STEP"
-  sudo nvim /usr/share/applications/perimeter81.desktop
+  xdg-open "https://support.perimeter81.com/docs/downloading-the-agent"
+  read -p "Download the deb"
+  sudo apt install ~/Downloads/Perimeter81*.deb
   { set +x; } 2>/dev/null
 fi
 
