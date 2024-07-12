@@ -80,3 +80,43 @@ snippet heredoc_new_file "Here content to new file"
 	cat << EOF > $1
 	$2
 	EOF
+
+snippet arguments_bash "bash Space seperated --option arguments"
+	POSITIONAL_ARGS=()
+
+	while [[ $# -gt 0 ]]; do
+		case \$1 in
+		-s | --something)
+			arg="\$2"
+			SOMETHING=("$arg")
+			shift 2 # with arg
+			;;
+		--default)
+			DEFAULT=YES
+			shift # with out
+			;;
+		-*)
+			echo "Unknown option \$1"
+			exit 1
+			;;
+		*)
+			POSITIONAL_ARGS+=("\$1") # save positional arg
+			shift                   # past argument
+			;;
+		esac
+	done
+
+	set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
+
+	echo "${POSITIONAL_ARGS[@]}"
+
+snippets get_required_apps "Bash function to get required applications for this program"
+	get_required_apps() {
+		needed=(kubectl jq)
+		for need in "${needed[@]}"; do
+			if ! command -v "$need" >/dev/null; then
+				echo "Missing  required app: ${need}"
+				exit 1
+			fi
+		done
+	}

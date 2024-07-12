@@ -19,6 +19,12 @@ vim.g.user = {
 -- Global user group to register other custom autocmds
 vim.api.nvim_create_augroup(vim.g.user.event, {})
 
+vim.api.nvim_create_autocmd({"BufEnter", "InsertLeave"}, {
+	callback = function ()
+		vim.cmd [[:syntax sync fromstart]]
+	end
+})
+
 
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
 	callback = function()
