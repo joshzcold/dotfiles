@@ -46,9 +46,8 @@ end, {
 -- supports moving on line wraps and appending to jump list when move is prepended by number
 vim.api.nvim_create_user_command("MoveWithJumpList", function(opts)
   local count = tonumber(vim.v.count)
-
   if count == 0 then
-    vim.cmd([[:norm g]] .. opts.args)
+    vim.cmd([[:norm! g]] .. opts.args)
   else
     if count > 0 then
       vim.cmd(":norm m'")

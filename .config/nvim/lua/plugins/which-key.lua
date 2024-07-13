@@ -68,61 +68,27 @@ return {
     })
 
     local wk = require("which-key")
-    wk.register({
-      f = {
-        name = "Jump", -- optional group name
-      },
-      ["/"] = {
-        name = "Find", -- optional group name
-      },
-      b = {
-        name = "Buffers",
-      },
-      j = {
-        name = "Misc",
-        j = {
-          name = "Jira Actions",
-        },
-      },
-      v = {
-        name = "Vim",
-        p = {
-          name = "Profile vim"
-        }
-      },
-      s = {
-        name = "Substitute",
-      },
-      g = {
-        name = "Git",
-      },
-      y = {
-        name = "Yank",
-      },
-      t = {
-        name = "Terminal",
-      },
-      d = {
-        name = "Debug",
-        a = {
-          name = "Control"
-        },
-        s = {
-          name = "Step",
-        },
-        h = {
-          name = "Hover",
-        },
-        u = {
-          name = "UI",
-        },
-        r = {
-          name = "Repl",
-        },
-        b = {
-          name = "Breakpoints",
-        },
-      },
+    wk.add({
+  {
+    { "<leader>/", group = "Find" },
+    { "<leader>b", group = "Buffers" },
+    { "<leader>d", group = "Debug" },
+    { "<leader>da", group = "Control" },
+    { "<leader>db", group = "Breakpoints" },
+    { "<leader>dh", group = "Hover" },
+    { "<leader>dr", group = "Repl" },
+    { "<leader>ds", group = "Step" },
+    { "<leader>du", group = "UI" },
+    { "<leader>f", group = "Jump" },
+    { "<leader>g", group = "Git" },
+    { "<leader>j", group = "Misc" },
+    { "<leader>jj", group = "Jira Actions" },
+    { "<leader>s", group = "Substitute" },
+    { "<leader>t", group = "Terminal" },
+    { "<leader>v", group = "Vim" },
+    { "<leader>vp", group = "Profile vim" },
+    { "<leader>y", group = "Yank" },
+  }
     }, { prefix = "<leader>" })
   end,
 }
