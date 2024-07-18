@@ -94,9 +94,13 @@ local function pip_install_with_venv(requirements_path)
           vim.notify(vim.inspect(j._stderr_results .. j._stdout_results), vim.log.levels.ERROR)
         else
           local pip_path = venv_path .. "/" .. "bin/pip"
+          local install_args = { "install", "-r", requirements_path }
+          if requirements_path == "pyproject.toml" then
+            install_args = { "install", "." }
+          end
           Job:new({
             command = pip_path,
-            args = { "install", "-r", requirements_path },
+            args = install_args,
             cwd = dir_name,
             on_exit = function(k, return_val)
               vim.schedule(function()
@@ -121,6 +125,7 @@ local function auto_set_python_venv(nested_opts)
     local pdm_lock_path = search_up("pdm.lock")
     local requirements_txt = search_up("requirements.txt")
     local dev_requirements_txt = search_up("dev-requirements.txt")
+    local pyproject_toml = search_up("pyproject.toml")
 
     if venv_path then
       swenv_set_venv(venv_path)
@@ -133,6 +138,8 @@ local function auto_set_python_venv(nested_opts)
       pip_install_with_venv(dev_requirements_txt)
     elseif requirements_txt then
       pip_install_with_venv(requirements_txt)
+    elseif pyproject_toml then
+      pip_install_with_venv(pyproject_toml)
     end
   end
 end
