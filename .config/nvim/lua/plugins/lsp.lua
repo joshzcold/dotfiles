@@ -227,10 +227,24 @@ return {
         end,
         ["basedpyright"] = function()
           lspconfig.basedpyright.setup({
+            on_init = function(client)
+              local venv = require("swenv.api").get_current_venv()
+              if venv ~= nil then
+                local venv_python = venv.path .. "/bin/python"
+                client.config.settings.python.pythonPath = venv_python
+              end
+            end,
             settings = {
               basedpyright = {
                 analysis = {
                   typeCheckingMode = "standard",
+                },
+              },
+              python = {
+                analysis = {
+                  diagnosticSeverityOverrides = {
+                    ignore = { "*" },
+                  },
                 },
               },
             },
