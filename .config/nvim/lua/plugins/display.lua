@@ -82,6 +82,7 @@ return {
             stages = "static",
             minimum_width = 5,
           })
+          vim.notify = require("notify")
         end,
       },
     },

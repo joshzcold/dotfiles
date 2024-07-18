@@ -83,7 +83,6 @@ local function pip_install_with_venv(requirements_path)
   if vim.fn.executable(python_app) ~= 1 then
     python_app = "python"
   end
-  print(python_app)
   Job:new({
     command = python_app,
     args = { "-m", "venv", venv_path },
