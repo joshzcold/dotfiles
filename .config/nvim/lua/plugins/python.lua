@@ -165,8 +165,8 @@ local function auto_set_python_venv(nested_opts)
 
     for _, val in ipairs(check_paths) do
       local found_path = nil
-      local search_path = val['path']
-      local callback = val['callback']
+      local search_path = val["path"]
+      local callback = val["callback"]
       if stop then
         return
       end
@@ -218,7 +218,8 @@ return {
     },
     config = function(_, opts)
       require("swenv").setup(opts)
-      vim.api.nvim_create_autocmd({ "BufEnter" }, {
+      vim.api.nvim_create_autocmd({ "FileType" }, {
+        pattern = { "python" },
         callback = auto_set_python_venv,
         group = vim.api.nvim_create_augroup("python_venv", { clear = true }),
       })
