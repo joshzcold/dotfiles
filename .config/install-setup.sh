@@ -91,27 +91,6 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   { set +x; } 2>/dev/null
 fi
 
-user_prompt "Install neovim plugins"
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-  set -x
-  nvim --headless "+Lazy! sync" +qa
-  { set +x; } 2>/dev/null
-fi
-
-user_prompt "Change yadm remote to ssh"
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-  set -x
-  yadm remote set-url origin git@github.com:joshzcold/dotfiles.git
-  { set +x; } 2>/dev/null
-fi
-
-user_prompt "Clone all securitymetrics repos"
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-  set -x
-  bash ~/.config/usr-scripts/clone_all_bb.sh
-  { set +x; } 2>/dev/null
-fi
-
 user_prompt "Install nodejs dependencies for qutebrowser"
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   # user specific packages
