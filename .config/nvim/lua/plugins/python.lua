@@ -119,26 +119,65 @@ local function pip_install_with_venv(requirements_path)
 end
 
 local function auto_set_python_venv(nested_opts)
+  local stop = false
   if vim.bo[nested_opts.buf].filetype == "python" then
-    local venv_path = search_up(".venv")
-    local pdm_lock_path = search_up("pdm.lock")
-    local requirements_txt = search_up("requirements.txt")
-    local dev_requirements_txt = search_up("dev-requirements.txt")
-    local pyproject_toml = search_up("pyproject.toml")
+    local check_paths = {
+      {
+        path = ".venv",
+        callback = function(path)
+          -- initial set, still want to do dependency install from others if available
+          swenv_set_venv(path)
+        end,
+      },
+      {
+        path = "pdm.lock",
+        callback = function(path)
+          pdm_sync(path)
+          vim.g._auto_set_python_venv_parent_dir = vim.fs.dirname(path)
+          stop = true
+        end,
+      },
+      {
+        path = "requirements.txt",
+        callback = function(path)
+          pip_install_with_venv(path)
+          vim.g._auto_set_python_venv_parent_dir = vim.fs.dirname(path)
+          stop = true
+        end,
+      },
+      {
+        path = "dev-requirements.txt",
+        callback = function(path)
+          pip_install_with_venv(path)
+          vim.g._auto_set_python_venv_parent_dir = vim.fs.dirname(path)
+          stop = true
+        end,
+      },
+      {
+        path = "pyproject.toml",
+        callback = function(path)
+          pip_install_with_venv(path)
+          vim.g._auto_set_python_venv_parent_dir = vim.fs.dirname(path)
+          stop = true
+        end,
+      },
+    }
 
-    if venv_path then
-      swenv_set_venv(venv_path)
-    end
-    if pdm_lock_path then
-      pdm_sync(pdm_lock_path)
-      return
-    end
-    if dev_requirements_txt then
-      pip_install_with_venv(dev_requirements_txt)
-    elseif requirements_txt then
-      pip_install_with_venv(requirements_txt)
-    elseif pyproject_toml then
-      pip_install_with_venv(pyproject_toml)
+    for _, val in ipairs(check_paths) do
+      local found_path = nil
+      local search_path = val['path']
+      local callback = val['callback']
+      if stop then
+        return
+      end
+      found_path = search_up(search_path)
+      if found_path ~= nil then
+        local last_parent_dir = vim.g._auto_set_python_venv_parent_dir
+        local new_parent_dir = vim.fs.dirname(found_path)
+        if last_parent_dir ~= new_parent_dir then
+          callback(found_path)
+        end
+      end
     end
   end
 end
