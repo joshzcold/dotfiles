@@ -2,9 +2,6 @@ return {
   "folke/which-key.nvim",
   config = function()
     require("which-key").setup({
-      modes = {
-        x = false,
-      },
       plugins = {
         marks = true,       -- shows a list of your marks on ' and `
         registers = true,   -- shows your registers on " in NORMAL or <C-r> in INSERT mode
@@ -36,7 +33,9 @@ return {
         align = "left",                 -- align columns left, center or right
       },
       show_help = true,                 -- show help message on the command line when the popup is visible
-      triggers = "auto",                -- automatically setup triggers
+      triggers = {
+        { "<leader>", mode = { "n" } },
+      },
       -- triggers = {"<leader>"} -- or specify a list manually
     })
 
