@@ -13,7 +13,7 @@ x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop
 video/mp4=mpv.desktop;
 video/mpeg=mpv.desktop;
 text/x-log=nvim.desktop;
-application/pdf=chromium.desktop;
+application/pdf=chromium-browser.desktop;chromium.desktop;
 
 [Default Applications]
 image/gif=viewnior.desktop
