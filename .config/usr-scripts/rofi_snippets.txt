@@ -30,3 +30,4 @@ kubectl run -ti --rm alpine-tools --image=alpine -- sh
 kubectl get pods -o jsonpath="{.items[*].spec['initContainers', 'containers'][*].image}" | tr -s '[[:space:]]' '\n' | sort | uniq -c
 watch "kubectl get pods -o jsonpath=\"{.items[*].spec['initContainers', 'containers'][*].image}\" | tr -s '[[:space:]]' '\n' | sort | uniq -c"
 kubectl get <OBJ> --no-headers --output go-template='{{ range $key, $value := . }} {{ $key }} {{ end }}'
+kubectl get jobs | grep "0/1" | awk '{print $1}' | xargs kubectl delete job
