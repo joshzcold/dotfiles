@@ -20,11 +20,13 @@ return {
 			{ "nvim-telescope/telescope-ui-select.nvim" },
 			{ "nvim-lua/popup.nvim" },
 			{ "nvim-lua/plenary.nvim" },
+			{ "debugloop/telescope-undo.nvim" },
 			{
 				"nvim-telescope/telescope-fzf-native.nvim",
 				build = "make",
 				config = function()
 					require("telescope").load_extension("fzf")
+					require("telescope").load_extension("undo")
 				end,
 			},
 		},
@@ -101,6 +103,10 @@ return {
 			vim.keymap.set("n", "<leader>gb", function()
 				require("telescope.builtin").git_branches({})
 			end, { desc = "Switch git branch" })
+
+			vim.keymap.set("n", "<leader>ju", function()
+				require("telescope").extensions.undo.undo({ side_by_side = true })
+			end, { desc = "Telescope undotree" })
 		end,
 		config = function()
 			local actions = require("telescope.actions")
@@ -113,6 +119,7 @@ return {
 						case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
 						-- the default case_mode is "smart_case"
 					},
+					undo = {},
 				},
 				pickers = {
 					live_grep = {
@@ -165,5 +172,5 @@ return {
 				},
 			})
 		end,
-	}
+	},
 }
