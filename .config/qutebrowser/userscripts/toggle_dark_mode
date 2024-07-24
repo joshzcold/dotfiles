@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
+set -eou pipefail
 
 dark_mode="false"
+dark_mode_file="${QUTE_DATA_DIR}/dark_mode"
 
-if [ -f "dark_mode" ]; then
-  dark_mode=$(cat dark_mode)
+if [ -f "$dark_mode_file" ]; then
+  dark_mode=$(cat "$dark_mode_file")
 fi
 
 if [ "$dark_mode" = "true" ]; then
@@ -14,4 +16,4 @@ fi
 echo "set colors.webpage.darkmode.enabled ${dark_mode}" >>"$QUTE_FIFO"
 echo "message-info \"set colors.webpage.darkmode.enabled ${dark_mode}\"" >>"$QUTE_FIFO"
 
-echo "$dark_mode" > "dark_mode"
+echo "$dark_mode" > "$dark_mode_file"
