@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+dark_mode="false"
+
+if [ -f "dark_mode" ]; then
+  dark_mode=$(cat dark_mode)
+fi
+
+if [ "$dark_mode" = "true" ]; then
+  dark_mode="false"
+else
+  dark_mode="true"
+fi
+echo "set colors.webpage.darkmode.enabled ${dark_mode}" >>"$QUTE_FIFO"
+echo "message-info \"set colors.webpage.darkmode.enabled ${dark_mode}\"" >>"$QUTE_FIFO"
+
+echo "$dark_mode" > "dark_mode"
