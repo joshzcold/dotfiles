@@ -108,6 +108,8 @@ static const char *volume_down[] = {"pactl", "set-sink-volume",
                                     "@DEFAULT_SINK@", "-10%", NULL};
 static const char *volume_mute[] = {"pactl", "set-sink-mute", "@DEFAULT_SINK@",
                                     "toggle", NULL};
+
+static const char *bitwarden[] = {"bwm", NULL};
 static Key keys[] = {
     /* modifier                     key        function        argument */
     {MODKEY, XK_d, spawn, {.v = applaunchercmd}},
@@ -125,6 +127,7 @@ static Key keys[] = {
     {0, XF86XK_AudioLowerVolume, spawn, {.v = volume_down}},
     {0, XF86XK_AudioMute, spawn, {.v = volume_mute}},
     {MODKEY, XK_b, togglebar, {0}},
+    {MODKEY | ShiftMask, XK_b, spawn, {.v = bitwarden}},
     {MODKEY, XK_j, focusstack, {.i = +1}},
     {MODKEY, XK_k, focusstack, {.i = -1}},
     {MODKEY, XK_i, incnmaster, {.i = +1}},

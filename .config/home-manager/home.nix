@@ -26,6 +26,8 @@ in
   home.packages = [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
+    pkgs.bitwarden-cli
+    pkgs.bitwarden-menu
     pkgs.jq
     pkgs.parallel
     pkgs.rofi
