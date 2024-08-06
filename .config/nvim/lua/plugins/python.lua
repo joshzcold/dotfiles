@@ -60,6 +60,8 @@ return {
     },
     config = function(_, opts)
       require("swenv").setup(opts)
+
+      vim.api.nvim_set_keymap('n', '<leader>pv', '<cmd>lua require("swenv.api").pick_venv()<cr>', { desc = 'Python pick venv' })
       vim.api.nvim_create_autocmd("FileType", {
           pattern = {"python"},
           callback = function()
