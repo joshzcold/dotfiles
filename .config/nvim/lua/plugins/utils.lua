@@ -22,7 +22,7 @@ return {
     ft = 'json',
   },
   {
-    'cuducos/yaml.nvim',
+    'joshzcold/yaml.nvim',
     lazy = true,
     ft = 'yaml',
   },
