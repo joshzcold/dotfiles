@@ -19,3 +19,16 @@ snippet logging "Simple logging setup to stdout"
 	logging.basicConfig(format='%(levelname)s %(message)s', stream=sys.stdout, encoding="utf=8", level=logging.INFO)
 	if args.debug:
 			log.setLevel(logging.DEBUG)
+
+snippet colors "python colors for printing"
+	PURPLE = "\033[95m"
+	BLUE = "\033[94m"
+	CYAN = "\033[96m"
+	GREEN = "\033[92m"
+	GRAY = "\033[90m"
+	YELLOW = "\033[93m"
+	RED = "\033[91m"
+	RESET = "\033[0m"
+	BOLD = "\033[1m"
+	UNDERLINE = "\033[4m"
+	ITALICS = "\033[3m"
