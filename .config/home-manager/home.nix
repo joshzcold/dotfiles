@@ -27,7 +27,8 @@ in
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     pkgs.bitwarden-cli
-    pkgs.bitwarden-menu
+    # TODO maybe a newer packge of bitwarden-menu will fix issues
+    # pkgs.bitwarden-menu
     pkgs.jq
     pkgs.parallel
     pkgs.rofi

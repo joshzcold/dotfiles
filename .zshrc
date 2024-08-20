@@ -65,7 +65,6 @@ export WORKON_HOME=~/.virtualenvs
 
 [ -f "/usr/bin/virtualenvwrapper_lazy.sh" ] &&  source /usr/bin/virtualenvwrapper_lazy.sh
 [ -f "/usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh" ] &&  source /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh
-[ -f " ~/.nix-profile/etc/profile.d/hm-session-vars.sh" ] && souce ~/.nix-profile/etc/profile.d/hm-session-vars.sh
 
 export PYTHONBREAKPOINT="pudb.set_trace"
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
@@ -102,6 +101,8 @@ export PATH=$GOROOT/bin:$PATH
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/dotnet/tools
 export PATH=$PATH:$HOME/.local/share/nvim/mason/bin
+
+[ -f " ~/.nix-profile/etc/profile.d/hm-session-vars.sh" ] && souce ~/.nix-profile/etc/profile.d/hm-session-vars.sh
 
 # load custom dir colors (ignore 777 permissions for NTFS mounts)
 eval "$(dircolors ~/.dircolors)"
