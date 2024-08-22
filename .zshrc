@@ -70,7 +70,7 @@ export PYTHONBREAKPOINT="pudb.set_trace"
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 # Set TERM based on if in ssh connection
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-  export TERM=xterm
+  export TERM=xterm-256color
 else
   export TERM=xterm-kitty
 fi
@@ -477,9 +477,9 @@ function fast_ssh(){
     # add to history
     print -s "${command[@]}"
     if [[ $host == $last ]]; then
-      TERM=xterm ${command[@]} </dev/tty
+      TERM=xterm-256color ${command[@]} </dev/tty
     else
-      kitty --detach zsh -c "TERM=xterm ${command[@]} </dev/tty" &
+      kitty --detach zsh -c "TERM=xterm-256color ${command[@]} </dev/tty" &
     fi
   done
 }
