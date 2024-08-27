@@ -19,7 +19,7 @@ local function search_up(dir_or_file)
   end
   return found
 end
-function set_groovy_classpath()
+local function set_groovy_classpath()
   local Job = require("plenary.job")
   local gradle_dir = vim.fs.dirname(search_up("build.gradle"))
   vim.notify("groovyls: starting gradle dependencies install at: " .. gradle_dir, vim.log.levels.INFO)
@@ -34,7 +34,7 @@ function set_groovy_classpath()
           vim.schedule(function()
             if j.code ~= 0 then
               vim.notify(
-                "./gradlew dependencies: " .. vim.inspect(j._stderr_results .. j._stdout_results),
+                "./gradlew dependencies: " .. vim.inspect(j._stderr_results),
                 vim.log.levels.ERROR
               )
             else
