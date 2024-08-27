@@ -161,6 +161,7 @@ alias dk="deactivate"
 alias flow="./flow"
 alias p81dns="sudo systemd-resolve --interface=p81 --set-dns 10.1.1.2 --set-dns 10.29.10.2 --set-dns 10.29.10.3 --set-domain secmet.co"
 alias vault_login="vault login -no-print -address ${VAULT_ADDR} -method oidc role=admin"
+alias java_switch_version="sudo update-alternatives --config java"
 
 function work(){
   ssh -t -Y joshua@joshua-work "$@"

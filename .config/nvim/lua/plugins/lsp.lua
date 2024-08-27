@@ -1,3 +1,87 @@
+local function search_up(dir_or_file)
+  local found = nil
+  local dir_to_check = nil
+  -- get parent directory via vim expand
+  local dir_template = "%:p:h"
+  while not found and dir_to_check ~= "/" do
+    dir_to_check = vim.fn.expand(dir_template)
+    local check_path = dir_to_check .. "/" .. dir_or_file
+    local check_git = dir_to_check .. "/" .. ".git"
+    if vim.fn.isdirectory(check_path) == 1 or vim.fn.filereadable(check_path) == 1 then
+      found = dir_to_check .. "/" .. dir_or_file
+    else
+      dir_template = dir_template .. ":h"
+    end
+    -- If we hit a .git directory then stop searching and return found even if nil
+    if vim.fn.isdirectory(check_git) == 1 then
+      return found
+    end
+  end
+  return found
+end
+function set_groovy_classpath()
+  local Job = require("plenary.job")
+  local gradle_dir = vim.fs.dirname(search_up("build.gradle"))
+  vim.notify("groovyls: starting gradle dependencies install at: " .. gradle_dir, vim.log.levels.INFO)
+  Job
+      :new({
+        command = "./gradlew",
+        args = {
+          "dependencies",
+        },
+        cwd = gradle_dir,
+        on_exit = function(j, _)
+          vim.schedule(function()
+            if j.code ~= 0 then
+              vim.notify(
+                "./gradlew dependencies: " .. vim.inspect(j._stderr_results .. j._stdout_results),
+                vim.log.levels.ERROR
+              )
+            else
+              Job
+                  :new({
+                    command = "gradle-classpath",
+                    cwd = gradle_dir,
+                    on_exit = function(k, _)
+                      vim.schedule(function()
+                        if k.code ~= 0 then
+                          vim.notify("gradle-classpath: " .. vim.inspect(k._stderr_results), vim.log.levels.ERROR)
+                        else
+                          local classpath_results = k._stdout_results
+                          vim.notify("Setting classpath in groovyls ...", vim.log.levels.INFO)
+                          local groovy_lsp_client = vim.lsp.get_clients({ name = "groovyls" })[1]
+                          if not groovy_lsp_client then
+                            vim.notify("Error lsp client groovyls not found.", vim.log.levels.ERROR)
+                            return
+                          end
+                          if groovy_lsp_client.settings then
+                            groovy_lsp_client.settings = vim.tbl_deep_extend(
+                              "force",
+                              groovy_lsp_client.settings,
+                              { groovy = { classpath = classpath_results } }
+                            )
+                          else
+                            groovy_lsp_client.config.settings = vim.tbl_deep_extend(
+                              "force",
+                              groovy_lsp_client.config.settings,
+                              { groovy = { classpath = classpath_results } }
+                            )
+                          end
+                          groovy_lsp_client.notify(
+                            "workspace/didChangeConfiguration",
+                            { settings = groovy_lsp_client.config.settings }
+                          )
+                        end
+                      end)
+                    end,
+                  })
+                  :start()
+            end
+          end)
+        end,
+      })
+      :start()
+end
 return {
 
   {
@@ -221,7 +305,10 @@ return {
               "groovy",
               -- "Jenkinsfile",
             },
-            on_attach = on_attach,
+            on_attach = function(client, bufnr)
+              on_attach(client, bufnr)
+              set_groovy_classpath()
+            end,
             capabilities = capabilities,
           })
         end,
