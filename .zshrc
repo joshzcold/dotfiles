@@ -67,7 +67,7 @@ export WORKON_HOME=~/.virtualenvs
 [ -f "/usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh" ] &&  source /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh
 
 export PYTHONBREAKPOINT="pudb.set_trace"
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 # Set TERM based on if in ssh connection
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
   export TERM=xterm-256color

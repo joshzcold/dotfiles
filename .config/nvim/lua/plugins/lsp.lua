@@ -22,6 +22,9 @@ end
 local function set_groovy_classpath()
   local Job = require("plenary.job")
   local gradle_dir = vim.fs.dirname(search_up("build.gradle"))
+  if not gradle_dir then
+    return
+  end
   vim.notify("groovyls: starting gradle dependencies install at: " .. gradle_dir, vim.log.levels.INFO)
   Job
       :new({
@@ -207,6 +210,7 @@ return {
           "lua_ls",
           "bashls",
           "groovyls",
+          "jdtls",
           -- "jedi_language_server",
           "ansiblels",
           "yamlls",
