@@ -47,7 +47,8 @@ function set_groovy_classpath()
                         if k.code ~= 0 then
                           vim.notify("gradle-classpath: " .. vim.inspect(k._stderr_results), vim.log.levels.ERROR)
                         else
-                          local classpath_results = k._stdout_results
+                          local _classpath_results_stdout = k._stdout_results[1]
+                          local classpath_results = vim.split(_classpath_results_stdout, ":")
                           vim.notify("Setting classpath in groovyls ...", vim.log.levels.INFO)
                           local groovy_lsp_client = vim.lsp.get_clients({ name = "groovyls" })[1]
                           if not groovy_lsp_client then
@@ -69,7 +70,7 @@ function set_groovy_classpath()
                           end
                           groovy_lsp_client.notify(
                             "workspace/didChangeConfiguration",
-                            { settings = groovy_lsp_client.config.settings }
+                            { settings = groovy_lsp_client.settings }
                           )
                         end
                       end)
@@ -82,6 +83,7 @@ function set_groovy_classpath()
       })
       :start()
 end
+
 return {
 
   {
@@ -303,7 +305,12 @@ return {
           lspconfig.groovyls.setup({
             filetypes = {
               "groovy",
-              -- "Jenkinsfile",
+              "Jenkinsfile",
+            },
+            settings = {
+              groovy = {
+                classpath = {},
+              },
             },
             on_attach = function(client, bufnr)
               on_attach(client, bufnr)
