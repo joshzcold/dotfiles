@@ -84,6 +84,7 @@ static const char *dmenucmd[] = {
     "dmenu_run", "-m",      dmenumon, "-fn",    dmenufont, "-nb",     col_gray1,
     "-nf",       col_gray3, "-sb",    col_cyan, "-sf",     col_gray4, NULL};
 static const char *termcmd[] = {"nixGL", "kitty", NULL};
+static const char *termcmdStartWork[] = {"bash", "-c", "RUN='work' nixGL kitty --detach zsh -is", NULL};
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = {"nixGL", "kitty", "-T", scratchpadname, NULL};
 static const char *termst[] = {"st", NULL};
@@ -114,6 +115,7 @@ static Key keys[] = {
     /* modifier                     key        function        argument */
     {MODKEY, XK_d, spawn, {.v = applaunchercmd}},
     {MODKEY, XK_Return, spawn, {.v = termcmd}},
+    {MODKEY, XK_w, spawn, {.v = termcmdStartWork}},
     {MODKEY, XK_grave, togglescratch, {.v = scratchpadcmd}},
     {MODKEY, XK_s, spawn, {.v = screenshotcmd}},
     {MODKEY | ShiftMask, XK_s, spawn, {.v = snippetlaunchercmd}},

@@ -674,3 +674,5 @@ eval "$(starship init zsh)"
 #   fi
 # # TODO account for non-macos
 # fi
+#
+eval "$RUN"
