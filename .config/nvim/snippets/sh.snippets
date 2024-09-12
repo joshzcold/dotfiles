@@ -1,8 +1,17 @@
+snippet script_path "SCRIPT_PATH var"
+	SCRIPTPATH="$(
+		cd -- "$(dirname "$0")" >/dev/null 2>&1 || exit
+		pwd -P
+	)"
+
+snippet random_string "Random string in bash"
+	ID=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 13; echo)
+
 snippet set+x "silent set +x"
 	{ set +x; } 2>/dev/null
 
 snippet required_var "Set required variable in sh"
-	: "${${1}?"${1} is a required variable"}"
+	: "${VAR?"VAR is a required variable"}"
 
 snippet colors "A bunch of colors for shell scripting [regular]"
 	Color_Off='\033[0m'

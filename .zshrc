@@ -406,7 +406,7 @@ function git_branch(){
 }
 function new_jira_branch(){
   ( git fetch origin &>/dev/null & )
-  jira_issues="$(jira issue list --plain --columns 'KEY,STATUS,TYPE,SUMMARY,ASSIGNEE' -a "$(jira me)" -s 'In Progress' -s 'Code Review' -s 'In QA'  -s 'QA Ready' --no-headers)"
+  jira_issues="$(jira issue list --plain --columns 'KEY,STATUS,TYPE,SUMMARY,ASSIGNEE' -s 'In Progress' -s 'Code Review' -s 'In QA'  -s 'QA Ready' --no-headers)"
   list=""
   list+="${jira_issues}"
   list+="\nCHORE"

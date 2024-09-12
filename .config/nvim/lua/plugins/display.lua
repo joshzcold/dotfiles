@@ -137,4 +137,14 @@ return {
     "kevinhwang91/nvim-bqf",
     opts = {},
   },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    opts = {},
+    init = function ()
+      require("github-theme").setup()
+      vim.api.nvim_set_hl(0, "RenderMarkdownCode", { bg = "#151b23" })
+      vim.api.nvim_set_hl(0, "RenderMarkdownCodeInline", { bg = "#151b23" })
+    end,
+    dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" }, -- if you use the mini.nvim suite
+  },
 }
