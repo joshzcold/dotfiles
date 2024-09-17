@@ -24,15 +24,23 @@ return {
 		cmd = { "DiffviewOpen" },
 		init = function()
 			vim.keymap.set("n", "<leader>gd", function()
-				vim.cmd([[:DiffviewOpen]])
+				if vim.bo.filetype == "DiffviewFiles" then
+					vim.cmd([[:DiffviewClose]])
+				else
+					vim.cmd([[:DiffviewOpen]])
+				end
 			end, { desc = "Git diff" })
 
 			vim.keymap.set("n", "<leader>gm", function()
-				vim.cmd([[!git fetch origin]])
-				vim.cmd([[:DiffviewOpen origin/master]])
+				if vim.bo.filetype == "DiffviewFiles" then
+					vim.cmd([[:DiffviewClose]])
+				else
+					vim.cmd([[!git fetch origin]])
+					vim.cmd([[:DiffviewOpen origin/master]])
+				end
 			end, { desc = "Git diff (master)" })
 
-			vim.keymap.set("n", "<leader>gk", function()
+			vim.keymap.set("n", "<leader>gq", function()
 				vim.cmd([[:DiffviewClose]])
 			end, { desc = "Git diff close" })
 		end,

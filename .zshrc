@@ -307,12 +307,6 @@ function ssha(){
       deactivate
     fi
     workon ansible
-    if [ -d "playbooks/" ];then
-      playbook="$( ls playbooks/  | fzf -m )"
-      if [ -n "$playbook" ]; then
-        ./ur "playbooks/$playbook"
-      fi
-    fi
   fi
 }
 
