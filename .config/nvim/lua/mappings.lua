@@ -85,7 +85,7 @@ map("n", "<esc>", ":noh<return><esc>")
 -- leader mappings --
 map("n", "<leader>", "", { desc = "" })
 -- Helpful yanking y
-map("n", "<leader>yy", [[:let @+ = expand("%")<cr>]], { desc = "Yank relative path" })             -- lua/mappings.lua
+map("n", "<leader>yy", [[:let @+ = fnamemodify(expand("%"), ":~:.") <cr>]], { desc = "Yank relative path" })             -- lua/mappings.lua
 map("n", "<leader>yf", [[:let @+ = expand("%:t")<cr>]], { desc = "Yank filename" })                -- mappings.lua
 map("n", "<leader>yF", [[:let @+ = expand("%:p")<cr>]], { desc = "Yank file full path" })          -- /home/joshua/.config/nvim/lua/mappings.lua
 map("n", "<leader>yd", [[:let @+ = expand("%:h")<cr>]], { desc = "Yank directory relative path" }) -- lua
