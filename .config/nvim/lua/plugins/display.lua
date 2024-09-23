@@ -139,9 +139,13 @@ return {
   },
   {
     "MeanderingProgrammer/render-markdown.nvim",
-    opts = {},
+    opts = {
+      callout = {
+        story = { raw = '[!STORY]', rendered = '  Story', highlight = 'RenderMarkdownHint' },
+        spike = { raw = '[!SPIKE]', rendered = '  Spike', highlight = 'RenderMarkdownInfo' },
+      }
+    },
     init = function()
-      require("github-theme").setup()
       local prefix = "RenderMarkdown"
       vim.api.nvim_set_hl(0, prefix .. "Code", { bg = "#151b23" })
       vim.api.nvim_set_hl(0, prefix .. "CodeInline", { bg = "#151b23" })

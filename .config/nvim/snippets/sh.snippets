@@ -119,13 +119,18 @@ snippet arguments_bash "bash Space seperated --option arguments"
 
 	echo "${POSITIONAL_ARGS[@]}"
 
-snippets get_required_apps "Bash function to get required applications for this program"
+snippet get_required_apps "Bash function to get required applications for this program"
 	get_required_apps() {
-		needed=(kubectl jq)
-		for need in "${needed[@]}"; do
-			if ! command -v "$need" >/dev/null; then
-				echo "Missing  required app: ${need}"
+		needed=($1)
+		for need in "\${needed[@]}"; do
+			if ! command -v "\$need" >/dev/null; then
+				echo "Missing  required app: \${need}"
 				exit 1
 			fi
 		done
 	}
+
+snippet loop_over_file "While loop for contents of a file"
+	while read -r line; do
+		echo "--> \$line"
+	done <$1
