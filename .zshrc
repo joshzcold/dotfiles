@@ -75,6 +75,7 @@ else
   export TERM=xterm-kitty
 fi
 export JIRA_API_TOKEN=$(cat ~/git/codepaste/JiraToken)
+export JIRA_API_USER=joshua.cold@securitymetrics.com
 # export BW_CLIENTSECRET=$(cat ~/git/codepaste/BitwardenClientSecret)
 export CR_PAT=$(cat ~/git/codepaste/GitHubContainerRegistryToken)
 export BITBUCKET_TOKEN=$(cat ~/git/codepaste/BitBucketPat)
