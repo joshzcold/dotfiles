@@ -32,3 +32,41 @@ snippet colors "python colors for printing"
 	BOLD = "\033[1m"
 	UNDERLINE = "\033[4m"
 	ITALICS = "\033[3m"
+
+snippet args_typed "argparse with Typed args"
+	from dataclasses import dataclass
+
+	@dataclass
+	class ProgramArgs:
+			"""Typed program arguments."""
+			loglevel: int
+			dryrun: bool
+
+
+	def set_logging(log_level):
+			logging.basicConfig(level=log_level)
+
+	def parse_args():
+			parser = argparse.ArgumentParser(description="")
+			parser.add_argument(
+					"--dryrun",
+					action="store_true",
+					help="skip creating tickets and just display what I would create",
+					default=False,
+			)
+			parser.add_argument(
+					"--debug",
+					dest="loglevel",
+					action="store_const",
+					const=logging.DEBUG,
+					default=logging.WARNING,
+			)
+
+			parser.add_argument("--verbose", dest="loglevel", action="store_const", const=logging.INFO)
+			return parser.parse_args(namespace=ProgramArgs)
+
+snippet main "Main function with if statement"
+	def main(): ...
+
+	if __name__ == "__main__":
+			main()

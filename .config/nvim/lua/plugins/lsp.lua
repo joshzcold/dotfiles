@@ -216,7 +216,7 @@ return {
           "yamlls",
           "jsonls",
           "tailwindcss",
-          "tsserver",
+          "ts_ls",
           "ruff_lsp",
           "basedpyright",
         },
