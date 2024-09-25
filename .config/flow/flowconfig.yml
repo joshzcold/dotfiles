@@ -2,3 +2,4 @@ no_open_browser_on_ready: true
 email: joshua.cold@securitymetrics.com
 #vault_lookup_oidc_profile: admin
 kubernetes_wait_for_teardown: "false"
+# flow_notifications: true
