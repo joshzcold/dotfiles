@@ -309,7 +309,7 @@ return {
           lspconfig.groovyls.setup({
             filetypes = {
               "groovy",
-              "Jenkinsfile",
+              -- "Jenkinsfile",
             },
             settings = {
               groovy = {

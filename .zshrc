@@ -63,8 +63,12 @@ export ANSIBLE_HASHI_VAULT_TOKEN_PATH=$HOME
 export PYTHONWARNINGS="ignore:Unverified HTTPS request"
 export WORKON_HOME=~/.virtualenvs
 
-[ -f "/usr/bin/virtualenvwrapper_lazy.sh" ] &&  source /usr/bin/virtualenvwrapper_lazy.sh
-[ -f "/usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh" ] &&  source /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh
+[ -f "/usr/bin/virtualenvwrapper_lazy.sh" ] && source /usr/bin/virtualenvwrapper_lazy.sh
+[ -f "/usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh" ] && source /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh
+if [ -f "$HOME/.local/bin/virtualenvwrapper_lazy.sh" ]; then
+  export VIRTUALENVWRAPPER_SCRIPT="$HOME/.local/bin/virtualenvwrapper.sh"
+  source ~/.local/bin/virtualenvwrapper_lazy.sh
+fi
 
 export PYTHONBREAKPOINT="pudb.set_trace"
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64

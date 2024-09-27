@@ -14,7 +14,18 @@ return {
       {
         "mfussenegger/nvim-dap-python",
         config = function()
-          require("dap-python").setup()
+          require("dap-python").setup(vim.fn.expand("~/.virtualenvs/debugpy/bin/python"))
+          require("dap-python").resolve_python = function()
+            return require("swenv").swenv_api.get_current_venv()
+          end
+          require("dap-python").test_runner = "pytest"
+          vim.keymap.set({ "n", "v" }, "<Leader>dt", function()
+            require("dap-python").test_method()
+          end, { desc = "Dap Python: Run test method" })
+
+          vim.keymap.set("n", "<leader>dav", function()
+            require("dap").step_over()
+          end, { desc = "Step Over" })
         end,
       },
       { "theHamsta/nvim-dap-virtual-text" },
