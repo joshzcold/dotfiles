@@ -14,18 +14,14 @@ return {
       {
         "mfussenegger/nvim-dap-python",
         config = function()
-          require("dap-python").setup(vim.fn.expand("~/.virtualenvs/debugpy/bin/python"))
-          require("dap-python").resolve_python = function()
-            return require("swenv").swenv_api.get_current_venv()
-          end
+          local debugpy_python_path = require('mason-registry').get_package('debugpy'):get_install_path() .. '/venv/bin/python3'
+          local dap_python = require('dap-python')
+          dap_python.setup(debugpy_python_path, {}) ---@diagnostic disable-line: missing-fields
           require("dap-python").test_runner = "pytest"
+
           vim.keymap.set({ "n", "v" }, "<Leader>dt", function()
             require("dap-python").test_method()
           end, { desc = "Dap Python: Run test method" })
-
-          vim.keymap.set("n", "<leader>dav", function()
-            require("dap").step_over()
-          end, { desc = "Step Over" })
         end,
       },
       { "theHamsta/nvim-dap-virtual-text" },
