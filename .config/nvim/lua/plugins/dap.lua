@@ -13,9 +13,16 @@ return {
       },
       {
         "mfussenegger/nvim-dap-python",
+        dependencies = {
+          {
+            "williamboman/mason.nvim",
+            opts = {},
+          },
+        },
         config = function()
-          local debugpy_python_path = require('mason-registry').get_package('debugpy'):get_install_path() .. '/venv/bin/python3'
-          local dap_python = require('dap-python')
+          local debugpy_python_path = require("mason-registry").get_package("debugpy"):get_install_path()
+              .. "/venv/bin/python3"
+          local dap_python = require("dap-python")
           dap_python.setup(debugpy_python_path, {}) ---@diagnostic disable-line: missing-fields
           require("dap-python").test_runner = "pytest"
 
@@ -81,16 +88,16 @@ return {
       end, { desc = "Breakpoint Condition" })
 
       vim.keymap.set("n", "<leader>dbm", function()
-        require("dap").set_breakpoint({ nil, nil, vim.fn.input("Log point message: ") })
+        require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
       end, { desc = "Log point Message" })
 
-      vim.keymap.set("n", "<leader>dbt", function()
+      vim.keymap.set("n", "<leader>dbb", function()
         require("dap").toggle_breakpoint()
       end, { desc = "Create" })
 
-      vim.keymap.set("n", "<leader>dbi", function()
-        require("dap").toggle()
-      end, { desc = "Scopes" })
+      vim.keymap.set("n", "<leader>dbl", function()
+        require("dap").list_breakpoints(true)
+      end, { desc = "List" })
     end,
     config = function()
       local dap = require("dap")
