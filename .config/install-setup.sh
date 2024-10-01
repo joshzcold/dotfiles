@@ -54,7 +54,19 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   fi
   nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
   nix-channel --update
+  { set +x; } 2>/dev/null
+fi
+
+user_prompt "Run nix home-manager"
+if [[ $REPLY =~ ^[Yy]$ ]]; then
   nix-shell '<home-manager>' -A install
+  { set +x; } 2>/dev/null
+fi
+
+user_prompt "Get nixGL"
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+  nix-channel --add https://github.com/nix-community/nixGL/archive/main.tar.gz nixgl && nix-channel --update
+  nix-env -iA nixgl.auto.nixGLDefault   # or replace `nixGLDefault` with your desired wrapper
   { set +x; } 2>/dev/null
 fi
 
