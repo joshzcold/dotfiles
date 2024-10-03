@@ -422,7 +422,7 @@ function new_jira_branch(){
   list+="${jira_issues}"
   list+="\nCHORE"
   list+="\nENHANCEMENT"
-  selected_line="$( echo "${list}" | fzf)"
+  selected_line="$( echo "${list}" | fzf --query 'Joshua Cold')"
   [ -z "$selected_line" ] && return
   key="$(echo "${selected_line}" | awk '{print $1}')"
 
