@@ -410,7 +410,7 @@ function git_convert_to_branch_name() {
   output="$(echo "${output}" | tr '[:upper:]' '[:lower:]')" # To lowercase
   output="$(echo "${output}" | tr '[:punct:]' '_' | tr ' ' '_')" # Replace special characters with underscores
   output="$(echo "${output}" | tr -s '_')" # Remove duplicate underscores
-  output="$(echo "${output}" | cut -c 1-40)" # Shorten to 40 characters
+  output="$(echo "${output}" | cut -c 1-250)" # Shorten to 40 characters
   output="$(echo "${output}" | sed -e 's/_$//')" # Remove trailing underscores
   echo "$output"
 }
@@ -427,7 +427,6 @@ function new_jira_branch(){
   key="$(echo "${selected_line}" | awk '{print $1}')"
 
   branch_summary="$(echo "${selected_line}" | tr -s '\t' | awk -F '\t' '{print $4}')" # Start with the summary
-  branch_summary=$(git_convert_to_branch_name "$branch_summary")
   suffix_prompt="Branch suffix?: "
   echo
   echo -n "${suffix_prompt}"
