@@ -410,7 +410,7 @@ function git_convert_to_branch_name() {
   output="$(echo "${output}" | tr '[:upper:]' '[:lower:]')" # To lowercase
   output="$(echo "${output}" | tr '[:punct:]' '_' | tr ' ' '_')" # Replace special characters with underscores
   output="$(echo "${output}" | tr -s '_')" # Remove duplicate underscores
-  output="$(echo "${output}" | cut -c 1-250)" # Shorten to 40 characters
+  output="$(echo "${output}" | cut -c 1-200)" # Shorten to 200
   output="$(echo "${output}" | sed -e 's/_$//')" # Remove trailing underscores
   echo "$output"
 }
