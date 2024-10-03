@@ -403,6 +403,18 @@ function git_branch(){
   zle reset-prompt
   return 0
 }
+
+# Convert a string into a value that is an acceptable git branch name
+function git_convert_to_branch_name() {
+  output="$1"
+  output="$(echo "${output}" | tr '[:upper:]' '[:lower:]')" # To lowercase
+  output="$(echo "${output}" | tr '[:punct:]' '_' | tr ' ' '_')" # Replace special characters with underscores
+  output="$(echo "${output}" | tr -s '_')" # Remove duplicate underscores
+  output="$(echo "${output}" | cut -c 1-40)" # Shorten to 40 characters
+  output="$(echo "${output}" | sed -e 's/_$//')" # Remove trailing underscores
+  echo "$output"
+}
+
 function new_jira_branch(){
   ( git fetch origin &>/dev/null & )
   jira_issues="$(jira issue list --plain --columns 'KEY,STATUS,TYPE,SUMMARY,ASSIGNEE' -s 'In Progress' -s 'Code Review' -s 'In QA'  -s 'QA Ready' --no-headers)"
@@ -414,19 +426,13 @@ function new_jira_branch(){
   [ -z "$selected_line" ] && return
   key="$(echo "${selected_line}" | awk '{print $1}')"
 
-  # Get a default value for the suffix
-  default_suffix="$(echo "${selected_line}" | tr -s '\t' | awk -F '\t' '{print $4}')" # Start with the summary
-  default_suffix="$(echo "${default_suffix}" | tr '[:upper:]' '[:lower:]')" # To lowercase
-  default_suffix="$(echo "${default_suffix}" | tr '[:punct:]' '_' | tr ' ' '_')" # Replace special characters with underscores
-  default_suffix="$(echo "${default_suffix}" | tr -s '_')" # Remove duplicate underscores
-  default_suffix="$(echo "${default_suffix}" | cut -c 1-40)" # Shorten to 40 characters
-  default_suffix="$(echo "${default_suffix}" | sed -e 's/_$//')" # Remove trailing underscores
-
-  branch_summary="${default_suffix}"
+  branch_summary="$(echo "${selected_line}" | tr -s '\t' | awk -F '\t' '{print $4}')" # Start with the summary
+  branch_summary=$(git_convert_to_branch_name "$branch_summary")
   suffix_prompt="Branch suffix?: "
   echo
   echo -n "${suffix_prompt}"
   vared branch_summary
+  branch_summary=$(git_convert_to_branch_name "$branch_summary")
   branch="${key}_${branch_summary}"
 
   if git rev-parse --verify "${branch}" &>/dev/null; then
