@@ -182,8 +182,8 @@ function diff_remote_files(){
   remote_file=""
   hosts=("${(@f)$(cat /etc/hosts | fzf -m | awk '{print $2}')}")
   file_prompt="Remote file?: "
-  echo
   echo -n "${file_prompt}"
+  echo
   vared remote_file
   vim_c_cmd=""
   remote_file_procs=""
@@ -244,8 +244,8 @@ function ascii(){
 git_hard_reset(){
   answer=""
   command=( "git" "reset" "--hard" "origin/$(git rev-parse --abbrev-ref HEAD)" )
-
   echo -n "Executing '${command}' are you sure? [y/N]"
+  echo
   vared answer
   if [ "$answer" = "y" ]; then
     git fetch origin
@@ -428,8 +428,8 @@ function new_jira_branch(){
 
   branch_summary="$(echo "${selected_line}" | tr -s '\t' | awk -F '\t' '{print $4}')" # Start with the summary
   suffix_prompt="Branch suffix?: "
-  echo
   echo -n "${suffix_prompt}"
+  echo
   vared branch_summary
   branch_summary=$(git_convert_to_branch_name "$branch_summary")
   branch="${key}_${branch_summary}"
