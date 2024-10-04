@@ -16,7 +16,7 @@ return {
 				end, { desc = "Term Tab " .. i })
 
 				vim.keymap.set("n", "<leader>t" .. i .. "l", function()
-					local width = vim.fn.winwidth(0)
+					local width = vim.o.columns
 					local set_width = width / 3
 					vim.cmd(":" .. n .. "ToggleTerm size=" .. set_width .. " direction=vertical")
 				end, { desc = "Term Right " .. i })
