@@ -158,3 +158,4 @@ function fastssh(){
 
 complete -C /usr/bin/vault vault
 export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:$HOME/.local/bin

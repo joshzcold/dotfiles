@@ -9,22 +9,21 @@ end
 -- User Config
 -- ---
 vim.g.user = {
-  leaderkey = ' ',
-  transparent = false,
-  event = 'UserGroup',
-  config = {
-    undodir = vim.fn.stdpath('cache') .. '/undo',
-  },
+	leaderkey = " ",
+	transparent = false,
+	event = "UserGroup",
+	config = {
+		undodir = vim.fn.stdpath("cache") .. "/undo",
+	},
 }
 -- Global user group to register other custom autocmds
 vim.api.nvim_create_augroup(vim.g.user.event, {})
 
-vim.api.nvim_create_autocmd({"BufEnter", "InsertLeave"}, {
-	callback = function ()
-		vim.cmd [[:syntax sync fromstart]]
-	end
+vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
+	callback = function()
+		vim.cmd([[:syntax sync fromstart]])
+	end,
 })
-
 
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
 	callback = function()
@@ -39,16 +38,16 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
 -- Don't do it when the position is invalid, when inside an event handler
 -- (happens when dropping a file on gvim) and for a commit message (it's
 -- likely a different one than last time).
-vim.api.nvim_create_autocmd('BufReadPost', {
-  group = vim.g.user.event,
-  callback = function(args)
-    local valid_line = vim.fn.line([['"]]) >= 1 and vim.fn.line([['"]]) < vim.fn.line('$')
-    local not_commit = vim.b[args.buf].filetype ~= 'commit'
+vim.api.nvim_create_autocmd("BufReadPost", {
+	group = vim.g.user.event,
+	callback = function(args)
+		local valid_line = vim.fn.line([['"]]) >= 1 and vim.fn.line([['"]]) < vim.fn.line("$")
+		local not_commit = vim.b[args.buf].filetype ~= "commit"
 
-    if valid_line and not_commit then
-      vim.cmd([[normal! g`"]])
-    end
-  end,
+		if valid_line and not_commit then
+			vim.cmd([[normal! g`"]])
+		end
+	end,
 })
 
 -- Ansible
@@ -114,7 +113,12 @@ vim.api.nvim_create_autocmd({ "BufRead" }, {
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	pattern = { "python" },
 	callback = function()
-		vim.opt_local.makeprg = "ruff check --output-format text ."
+		local pyproject_file = SearchUp("pyproject.toml")
+		if not pyproject_file then
+			vim.opt_local.makeprg = "ruff check --output-format=concise ."
+		else
+			vim.opt_local.makeprg = "ruff check --config=" .. pyproject_file .. " --output-format=concise ."
+		end
 	end,
 })
 
@@ -140,16 +144,16 @@ vim.api.nvim_create_autocmd({ "BufRead" }, {
 
 -- json
 vim.api.nvim_create_autocmd({ "BufRead" }, {
-	pattern = { "*.json", "*.jsonc"},
+	pattern = { "*.json", "*.jsonc" },
 	callback = function()
-  	vim.opt_local.winbar = "%{%v:lua.require'jsonpath'.get()%}"
+		vim.opt_local.winbar = "%{%v:lua.require'jsonpath'.get()%}"
 	end,
 })
 
 -- yaml
 vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "yaml", "yaml.ansible"  },
+	pattern = { "yaml", "yaml.ansible" },
 	callback = function()
-  	vim.opt_local.winbar = "%{%v:lua.require'yaml_nvim'.get_yaml_key()%}"
+		vim.opt_local.winbar = "%{%v:lua.require'yaml_nvim'.get_yaml_key()%}"
 	end,
 })

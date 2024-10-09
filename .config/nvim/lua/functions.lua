@@ -1,3 +1,25 @@
+function SearchUp(dir_or_file)
+  local found = nil
+  local dir_to_check = nil
+  -- get parent directory via vim expand
+  local dir_template = "%:p:h"
+  while not found and dir_to_check ~= "/" do
+    dir_to_check = vim.fn.expand(dir_template)
+    local check_path = dir_to_check .. "/" .. dir_or_file
+    local check_git = dir_to_check .. "/" .. ".git"
+    if vim.fn.isdirectory(check_path) == 1 or vim.fn.filereadable(check_path) == 1 then
+      found = dir_to_check .. "/" .. dir_or_file
+    else
+      dir_template = dir_template .. ":h"
+    end
+    -- If we hit a .git directory then stop searching and return found even if nil
+    if vim.fn.isdirectory(check_git) == 1 then
+      return found
+    end
+  end
+  return found
+end
+
 local function get_jira_tag()
   local Job = require("plenary.job")
   local out_branch_tag = ""
