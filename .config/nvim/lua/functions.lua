@@ -21,23 +21,23 @@ function SearchUp(dir_or_file)
 end
 
 local function get_jira_tag()
-  local Job = require("plenary.job")
+  local handle = io.popen("git rev-parse --abbrev-ref HEAD")
+  if not handle then
+    return
+  end
   local out_branch_tag = ""
-  Job:new({
-    command = "git",
-    args = { "rev-parse", "--abbrev-ref", "HEAD" },
-    on_exit = function(j, _)
-      local patterns = {
-        "(%a%w%d%-%d+)",
-        "(ENHANCEMENT)",
-        "(CHORE)",
-      }
-      for _, p in ipairs(patterns) do
-        local _, _, branch_tag = string.find(j:result()[1], p)
-        out_branch_tag = branch_tag
-      end
-    end,
-  }):sync()
+  local result = handle:read("*a")
+  local patterns = {
+    "(%a%w%d%-%d+)",
+    "(ENHANCEMENT)",
+    "(CHORE)",
+  }
+  for _, p in ipairs(patterns) do
+    local _, _, branch_tag = string.find(result, p)
+    if branch_tag then
+      out_branch_tag = branch_tag
+    end
+  end
   return out_branch_tag
 end
 

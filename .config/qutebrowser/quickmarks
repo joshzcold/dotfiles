@@ -178,6 +178,9 @@ hqref2 prometheus https://hq-ref2-v-prometheus.secmet.co/alerts
 prodtools prometheus https://hq-prodtools-v-prometheus.secmet.co/alerts
 scan prod prometheus https://hq-prodscan-v-prometheus.secmet.co/alerts
 vision prod prometheus https://hq-prodvis-v-prometheus.secmet.co/alerts
+hq-prod3 prometheus https://hq-prod3-v-prometheus.secmet.co/alerts
+dk-prod1 prometheus https://dk-prod1-v-prometheus.secmet.co/alerts
+dk-prod2 prometheus https://dk-prod2-v-prometheus.secmet.co/alerts
 
 #---------------- Logs Servers
 logs dk-prod1 https://dk-prod1-v-elastic-1.secmet.co/app/home#/
