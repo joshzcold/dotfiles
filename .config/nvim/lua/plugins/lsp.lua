@@ -15,10 +15,7 @@ local function set_groovy_classpath()
         on_exit = function(j, _)
           vim.schedule(function()
             if j.code ~= 0 then
-              vim.notify(
-                "./gradlew dependencies: " .. vim.inspect(j._stderr_results),
-                vim.log.levels.ERROR
-              )
+              vim.notify("./gradlew dependencies: " .. vim.inspect(j._stderr_results), vim.log.levels.ERROR)
             else
               Job
                   :new({
@@ -393,17 +390,12 @@ return {
       })
     end,
   },
+
   {
-    "RaafatTurki/corn.nvim",
-    enabled = true,
-    event = "VeryLazy",
-    opts = {
-      on_toggle = function(is_hidden)
-        vim.diagnostic.config({ virtual_text = not vim.diagnostic.config().virtual_text })
-      end,
-    },
-    config = function(_, opts)
-      require("corn").setup(opts)
+    "rachartier/tiny-inline-diagnostic.nvim",
+    event = "VeryLazy", -- Or `LspAttach`
+    config = function()
+      require("tiny-inline-diagnostic").setup()
     end,
   },
   {
