@@ -49,7 +49,7 @@ in
     pkgs.shellcheck
     pkgs.sshpass
     pkgs.tldr
-    pkgs.vault
+    # pkgs.vault
     pkgs.maim
     pkgs.xdotool
     pkgs.redis

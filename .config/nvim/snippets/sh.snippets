@@ -1,8 +1,11 @@
-snippet script_path "SCRIPT_PATH var"
+snippet script_path_executing "SCRIPT_PATH to where the user is when executing"
 	SCRIPTPATH="$(
-		cd -- "$(dirname "$0")" >/dev/null 2>&1 || exit
+		cd -- "$(dirname "\$0")" >/dev/null 2>&1 || exit
 		pwd -P
 	)"
+
+snippet script_path "SCRIPT_PATH to directory of script location"
+	SCRIPTPATH=$(dirname "$(realpath "\$0")")
 
 snippet random_string "Random string in bash"
 	ID=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 13; echo)

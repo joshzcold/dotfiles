@@ -176,6 +176,24 @@ return {
             },
           })
         end, { desc = "LSP Format" })
+        vim.lsp.handlers["textDocument/references"] = function(_, result)
+          vim.g.lsp_last_word = vim.fn.expand("<cword>")
+          if not result then
+            return
+          end
+          if #result == 0 then
+            vim.notify("Getting references...")
+            return
+          end
+          if #result == 1 then
+            vim.notify("No references found...", vim.log.levels.WARN)
+            return
+          end
+          vim.notify("LSP references are in quickfix", vim.log.levels.INFO)
+          vim.fn.setqflist(vim.lsp.util.locations_to_items(result, "utf-8"))
+          print(vim.inspect(result))
+          vim.cmd([[cnext]])
+        end
       end
 
       local lspconfig = require("lspconfig")
