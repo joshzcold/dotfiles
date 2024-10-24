@@ -23,3 +23,4 @@ https://10.101.58.53/api/purchase/healthcheck/heartbeat 502 Bad Gateway
 https://mail.google.com/mail/u/0/#chat/dm/iA3NK4AAAAE QA - Development Dept - Chat
 https://jenkins.secmet.co/computer/Worker-2/markOffline Taking Worker-2 Offline [Jenkins]
 https://securitymetrics.atlassian.net/jira/software/c/projects/DV6/boards/292?selectedIssue=DV6-1586 DV6 - Kanban - Agile Board - Security Metrics
+https://jenkins-devops.secmet.co/ Dashboard [Jenkins]

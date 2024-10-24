@@ -91,7 +91,9 @@ return {
 
 			-- git
 			vim.keymap.set("n", "<leader>gc", function()
-				vim.cmd([[:Telescope git_commits<cr>]])
+				require("telescope.builtin").git_commits({
+					prompt_title = "switch to commit",
+				})
 			end, { desc = "Search git commits" })
 
 			vim.keymap.set("n", "<leader>gB", function()

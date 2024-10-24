@@ -1,11 +1,8 @@
-snippet script_path_executing "SCRIPT_PATH to where the user is when executing"
-	SCRIPTPATH="$(
-		cd -- "$(dirname "\$0")" >/dev/null 2>&1 || exit
-		pwd -P
-	)"
+snippet script_path_executing "SCRIPT_PATH to directory of script location"
+	SCRIPTPATH=$(dirname "$(realpath "\$0")")
 
 snippet script_path "SCRIPT_PATH to directory of script location"
-	SCRIPTPATH=$(dirname "$(realpath "\$0")")
+	SCRIPTPATH=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 
 snippet random_string "Random string in bash"
 	ID=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 13; echo)
@@ -140,3 +137,12 @@ snippet loop_over_file "While loop for contents of a file"
 
 snippet export_oauth_vault_cred "SM export var with vault lookup"
 	export $1__client_$2="{{ vault_lookup('[vp]/data/oauth', '$1_client_$2', vault_token) }}"
+
+snippet split_to_array_comma "Split a comma seperated string by comma"
+	mapfile -t -d ',' ${1:new_array} < <(printf '%s' "${2:foo,bar}")
+
+snippet join_array_comma "Join an array by comma"
+	${1:VAR}=$(
+		IFS=$','
+		echo "\${${2:array}[*]}"
+	)
