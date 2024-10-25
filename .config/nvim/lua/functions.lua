@@ -192,11 +192,9 @@ vim.api.nvim_create_user_command("InsertJiraTag", function()
   local branch_tag = get_jira_tag()
   local buf_text = vim.api.nvim_buf_get_lines(0, 0, -1, false)
   if branch_tag then
-    local _, _, already_in = string.find(buf_text[1], branch_tag)
-    if branch_tag and not already_in then
+    if branch_tag and not string.find(buf_text[1], branch_tag) then
       branch_tag = branch_tag .. " "
-      local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-      vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { branch_tag })
+      vim.api.nvim_buf_set_text(0, 0, 0, 0, 0, { branch_tag })
       vim.api.nvim_win_set_cursor(0, { 1, branch_tag:len() + 2 })
       vim.cmd([[:call feedkeys('A', 'n')]])
     end
