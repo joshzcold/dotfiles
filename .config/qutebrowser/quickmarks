@@ -183,6 +183,7 @@ dk-prod1 prometheus https://dk-prod1-v-prometheus.secmet.co/alerts
 dk-prod2 prometheus https://dk-prod2-v-prometheus.secmet.co/alerts
 
 #---------------- Logs Servers
+logs securitymetrics grafana https://grafana.secmet.co/d/fe1z87vr4enswe/log-view
 logs dk-prod1 https://dk-prod1-v-elastic-1.secmet.co/app/home#/
 logs dk-prod2 https://dk-prod2-v-elastic-1.secmet.co/app/home#/
 logs hq-dev https://hq-dev-v-elastic-1.secmet.co/app/home#/
