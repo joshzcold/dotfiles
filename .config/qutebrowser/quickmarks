@@ -62,9 +62,7 @@ AEM Management Analytics https://experience.adobe.com/#/@securitymetrics/so:secu
 AEM Management Customer https://experience.adobe.com/#/@securitymetrics/home
 AEM Management Target https://experience.adobe.com/#/@securitymetrics/target/activities
 AEM management https://experience.adobe.com/#/@securitymetrics/cloud-manager/repositories.html/program/5705
-AWS Pulse SecurityMetrics Signin https://881351460453.signin.aws.amazon.com/console
-AWS Security Metrics Prod Signin https://securitymetrics.signin.aws.amazon.com/console
-AWS Security Metrics Dev Signin https://994593511793.signin.aws.amazon.com/console
+AWS Security Metrics Signin https://securitymetrics.awsapps.com/start
 IT servicedesk https://securitymetrics.atlassian.net/servicedesk/customer/portals
 SecurityMetrics IT certificate server https://hq-operations-v-cert-1.secmet.co/login/?next=/
 SecurityMetrics Tenable.sc https://10.22.1.102/

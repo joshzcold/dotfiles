@@ -85,11 +85,11 @@ map("n", "<esc>", ":noh<return><esc>")
 -- leader mappings --
 map("n", "<leader>", "", { desc = "" })
 -- Helpful yanking y
-map("n", "<leader>yy", [[:let @+ = fnamemodify(expand("%"), ":~:.") <cr>]], { desc = "Yank relative path" })             -- lua/mappings.lua
-map("n", "<leader>yf", [[:let @+ = expand("%:t")<cr>]], { desc = "Yank filename" })                -- mappings.lua
-map("n", "<leader>yF", [[:let @+ = expand("%:p")<cr>]], { desc = "Yank file full path" })          -- /home/joshua/.config/nvim/lua/mappings.lua
-map("n", "<leader>yd", [[:let @+ = expand("%:h")<cr>]], { desc = "Yank directory relative path" }) -- lua
-map("n", "<leader>yD", [[:let @+ = expand("%:p:h")<cr>]], { desc = "Yank directory full path" })   -- /home/joshua/.config/nvim/lua
+map("n", "<leader>yy", [[:let @+ = fnamemodify(expand("%"), ":~:.") <cr>]], { desc = "Yank relative path" }) -- lua/mappings.lua
+map("n", "<leader>yf", [[:let @+ = expand("%:t")<cr>]], { desc = "Yank filename" })                          -- mappings.lua
+map("n", "<leader>yF", [[:let @+ = expand("%:p")<cr>]], { desc = "Yank file full path" })                    -- /home/joshua/.config/nvim/lua/mappings.lua
+map("n", "<leader>yd", [[:let @+ = expand("%:h")<cr>]], { desc = "Yank directory relative path" })           -- lua
+map("n", "<leader>yD", [[:let @+ = expand("%:p:h")<cr>]], { desc = "Yank directory full path" })             -- /home/joshua/.config/nvim/lua
 map(
 	"n",
 	"<leader>yg",
@@ -124,6 +124,8 @@ map("n", "<leader>st", [[:%s/\s\+$//e<cr>]], { desc = "Clear trailing white spac
 map("n", "<leader>mm", ":make<cr>", { desc = "Make" })
 map("n", "<leader>m,", "f,li<CR><Esc>lq", { desc = "(macro) split comma to newline" })
 map("n", "<leader>m\\", [[Wi\<CR><Esc>l]], { desc = "(macro) split shell by \\" })
+map("n", "<leader>mv", [[/.Values<CR>V:s/\\(\\w\\)-\\(\\w\\)/\\1_\\2/g<CR>j]], { desc = "(macro) convert - to _ in helm Values string" })
+
 map(
 	"n",
 	"<leader>mf",
