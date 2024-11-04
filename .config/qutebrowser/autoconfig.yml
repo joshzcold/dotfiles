@@ -88,10 +88,12 @@ settings:
     https://www.facebook.com: true
     https://www.onlinemictest.com: true
   content.media.audio_video_capture:
+    https://app.chime.aws: true
     https://meet.google.com: true
     https://teams.microsoft.com: true
     https://www.facebook.com: true
   content.media.video_capture:
+    https://app.chime.aws: true
     https://meet.google.com: true
     https://teams.microsoft.com: true
     https://us02web.zoom.us: true
