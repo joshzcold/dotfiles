@@ -316,7 +316,7 @@ function ssha(){
 }
 
 function virt_connect() {
-  hosts=("${(@f)$(cat /etc/hosts | fzf -m --query '-p' | awk '{print $2}')}")
+  hosts=("${(@f)$(cat /etc/hosts | fzf -m --query '' | awk '{print $2}')}")
   command=()
 
   for host in "${hosts[@]}"; do
