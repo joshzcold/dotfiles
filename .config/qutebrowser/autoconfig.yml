@@ -77,6 +77,7 @@ settings:
   content.javascript.enabled:
     '*://10.155.0.99/*': true
   content.media.audio_capture:
+    https://app.zoom.us: true
     https://discord.com: true
     https://imperva.zoom.us: true
     https://meet.google.com: true
@@ -101,6 +102,7 @@ settings:
   content.mouse_lock:
     https://classic.minecraft.net: true
   content.notifications.enabled:
+    https://app.chime.aws: true
     https://calendar.google.com: true
     https://chat.gooogle.com: true
     https://drive.google.com: true
