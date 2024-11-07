@@ -156,38 +156,6 @@ vim.api.nvim_create_user_command("AnsibleLintFix", function()
   }):sync()
 end, {})
 
-vim.api.nvim_create_user_command("AnsibleRequirementsBumpGitCommit", function()
-  local Job = require("plenary.job")
-  Job:new({
-    command = "git",
-    args = { "diff", "--cached" },
-    on_exit = function(j, _)
-      local last_version = nil
-      local result_list = {}
-      for _, v in pairs(j:result()) do
-        local version_pattern = "+%s+version:%s+(.+)"
-        local name_pattern = "name:%s+(.+)"
-        local _, _, version = string.find(v, version_pattern)
-        local _, _, name = string.find(v, name_pattern)
-        if version then
-          last_version = version
-        end
-        if name then
-          if last_version then
-            table.insert(result_list, name .. " --> " .. last_version)
-            last_version = nil
-          end
-        end
-      end
-      vim.schedule(function()
-        local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-        vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, result_list)
-        vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { " bump ansible roles: " })
-      end)
-    end,
-  }):sync()
-end, {})
-
 vim.api.nvim_create_user_command("InsertJiraTag", function()
   local branch_tag = get_jira_tag()
   local buf_text = vim.api.nvim_buf_get_lines(0, 0, -1, false)

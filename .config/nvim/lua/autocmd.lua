@@ -122,14 +122,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	end,
 })
 
--- git
-vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "commitmsg", "gitcommit" },
-	callback = function()
-		map("n", "<leader>a", "<cmd>AnsibleRequirementsBumpGitCommit<cr>", { desc = "Ansible insert new role bumps" })
-	end,
-})
-
 -- groovy, jenkins pipelines
 vim.api.nvim_create_autocmd({ "BufRead" }, {
 	pattern = { "*.groovy" },
