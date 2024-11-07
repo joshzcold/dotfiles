@@ -6,6 +6,7 @@ return {
     -- - bracket navigation
     -- -- :h *mini.bracketed*
     require("mini.bracketed").setup()
+    require("mini.icons").setup()
     -- - animate
     -- -- :h mini.animate
     -- require('mini.animate').setup()

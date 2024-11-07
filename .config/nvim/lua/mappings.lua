@@ -142,7 +142,7 @@ map("n", "<leader>j=", ":normal mqHmwgg=G`wzt`q<cr>", { desc = "Indent file" })
 map("n", "<leader>js", ":syntax sync fromstart<cr>", { desc = "Restart Syntax" })
 
 -- buffers b
-map("n", "<leader>bd", ":bn|:bd#<cr>", { desc = "Delete Buffer" })
+-- map("n", "<leader>bd", ":bn|:bd#<cr>", { desc = "Delete Buffer" })
 map("n", "<leader>bx", ":%bd|e#<cr>", { desc = "Delete All Other Buffers" })
 
 -- git g

@@ -71,20 +71,20 @@ return {
       {
         "MunifTanjim/nui.nvim",
       },
-      {
-        "rcarriga/nvim-notify",
-        config = function()
-          require("notify").setup({
-            fps = 30,
-            timeout = 1500,
-            render = "compact",
-            top_down = false,
-            stages = "static",
-            minimum_width = 5,
-          })
-          vim.notify = require("notify")
-        end,
-      },
+      -- {
+      --   "rcarriga/nvim-notify",
+      --   config = function()
+      --     require("notify").setup({
+      --       fps = 30,
+      --       timeout = 1500,
+      --       render = "compact",
+      --       top_down = false,
+      --       stages = "static",
+      --       minimum_width = 5,
+      --     })
+      --     vim.notify = require("notify")
+      --   end,
+      -- },
     },
   },
   -- fancy editing mode for less distraction

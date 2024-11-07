@@ -388,11 +388,11 @@ return {
       end, { silent = true, noremap = true, desc = "Neogen Generate language docstring." })
     end,
   },
-  {
-    -- Display small progress indicator on lsp progress events
-    "j-hui/fidget.nvim",
-    opts = {},
-  },
+  -- {
+  --   -- Display small progress indicator on lsp progress events
+  --   "j-hui/fidget.nvim",
+  --   opts = {},
+  -- },
   {
     "ray-x/lsp_signature.nvim",
     event = "VeryLazy",
