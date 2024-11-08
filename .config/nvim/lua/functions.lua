@@ -160,7 +160,9 @@ vim.api.nvim_create_user_command("InsertJiraTag", function()
   local branch_tag = get_jira_tag()
   local buf_text = vim.api.nvim_buf_get_lines(0, 0, -1, false)
   if branch_tag then
-    if branch_tag and string.find(buf_text[1], branch_tag) ~= nil then
+    local search_check = string.find(buf_text[1], branch_tag) == nil
+    print(search_check)
+    if branch_tag and search_check then
       branch_tag = branch_tag .. " "
       vim.api.nvim_buf_set_text(0, 0, 0, 0, 0, { branch_tag })
     end
