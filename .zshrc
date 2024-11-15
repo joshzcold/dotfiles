@@ -513,14 +513,15 @@ function fast_ssh_broadcast(){
       command=("work" ${command[@]})
     fi
     command+=(ssh "$host")
-    kitty @ new-window
+    kitty @ new-window --title 
     kitty @ send-text ${command[@]}
   done
   kitty @ focus-window -m id:1
   if [[ ${#hosts[@]} = 2 ]]; then
     kitty @ resize-window -m id:1 -i -50
   fi
-  kitty +kitten broadcast
+  kitty +kitten broadcast --hide-input-toggle="Ctrl+Enter"
+
 }
 
 function nvm() {
