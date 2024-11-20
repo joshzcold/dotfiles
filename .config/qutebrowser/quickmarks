@@ -63,7 +63,8 @@ AEM management https://experience.adobe.com/#/@securitymetrics/cloud-manager/rep
 AWS Security Metrics Signin https://securitymetrics.awsapps.com/start
 IT servicedesk https://securitymetrics.atlassian.net/servicedesk/customer/portals
 SecurityMetrics IT certificate server https://hq-operations-v-cert-1.secmet.co/login/?next=/
-SecurityMetrics Tenable.sc https://10.22.1.102/
+SecurityMetrics Tenable Prod https://tenable.secmet.co
+SecurityMetrics Tenable Dev https://hq-dev-v-tenable-1.secmet.co
 Securitymetrics Digital Ocean https://cloud.digitalocean.com/kubernetes/clusters?i=26882c
 Site failover Imperva WAF https://securitymetrics.atlassian.net/wiki/spaces/DEVOPS/pages/1285849102/Imperva+WAF+Runbook
 bamboohr securitymetrics https://securitymetrics.bamboohr.com/home/
