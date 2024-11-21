@@ -211,7 +211,7 @@ return {
           "jsonls",
           "tailwindcss",
           "ts_ls",
-          "ruff_lsp",
+          "gopls",
           "basedpyright",
         },
         automatic_installation = true,
