@@ -171,6 +171,7 @@ vision prod prometheus https://hq-prodvis-v-prometheus.secmet.co/alerts
 hq-prod3 prometheus https://hq-prod3-v-prometheus.secmet.co/alerts
 dk-prod1 prometheus https://dk-prod1-v-prometheus.secmet.co/alerts
 dk-prod2 prometheus https://dk-prod2-v-prometheus.secmet.co/alerts
+scm-do-us prometheus https://prometheus.scm-us.secmet.co/alerts
 logs securitymetrics grafana https://grafana.secmet.co/d/fe1z87vr4enswe/log-view
 logs dk-prod1 https://dk-prod1-v-elastic-1.secmet.co/app/home#/
 logs dk-prod2 https://dk-prod2-v-elastic-1.secmet.co/app/home#/
