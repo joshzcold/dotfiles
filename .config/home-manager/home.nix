@@ -79,6 +79,11 @@ in
     pkgs.ansible-lint
     pkgs.htop
     pkgs.groovy
+    pkgs.kdePackages.dolphin
+    pkgs.kdePackages.dolphin-plugins
+    pkgs.kdePackages.breeze
+    pkgs.kdePackages.kde-gtk-config
+    pkgs.xfce.thunar
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the

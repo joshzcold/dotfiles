@@ -57,7 +57,7 @@ end, {})
 vim.api.nvim_create_user_command("GitPush", function()
   local message = git_write_with_input()
   vim.api.nvim_command(":!git push")
-  require("notify")("Pushed --> " .. message)
+  vim.notify("Pushed --> " .. message)
 end, {})
 
 vim.api.nvim_create_user_command("SnippetEdit", function(opts)
