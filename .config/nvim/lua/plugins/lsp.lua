@@ -191,6 +191,10 @@ return {
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
             end, { desc = "lsp toggle inlay hints" })
           end
+
+          if client and client.server_capabilities.inlayHintProvider then
+            vim.lsp.inlay_hint.enable(true)
+          end
         end,
       })
 
