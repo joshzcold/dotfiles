@@ -112,6 +112,7 @@ map(
 	{ desc = "Yank regex capture group" }
 )
 
+map("n", "yc", "yygccp", { desc = "Duplicate line and comment out", noremap = false })
 -- substitute s
 map("n", "<leader>su", ":%!uniq<cr>", { desc = "Delete duplicate lines" })
 map("n", "<leader>s1", [[:g/^\_$\n\_^$/d<cr>]], { desc = "Clear >1 blank lines" })
@@ -124,7 +125,12 @@ map("n", "<leader>st", [[:%s/\s\+$//e<cr>]], { desc = "Clear trailing white spac
 map("n", "<leader>mm", ":make<cr>", { desc = "Make" })
 map("n", "<leader>m,", "f,li<CR><Esc>lq", { desc = "(macro) split comma to newline" })
 map("n", "<leader>m\\", [[Wi\<CR><Esc>l]], { desc = "(macro) split shell by \\" })
-map("n", "<leader>mv", [[/.Values<CR>V:s/\\(\\w\\)-\\(\\w\\)/\\1_\\2/g<CR>j]], { desc = "(macro) convert - to _ in helm Values string" })
+map(
+	"n",
+	"<leader>mv",
+	[[/.Values<CR>V:s/\\(\\w\\)-\\(\\w\\)/\\1_\\2/g<CR>j]],
+	{ desc = "(macro) convert - to _ in helm Values string" }
+)
 
 map(
 	"n",
@@ -132,6 +138,11 @@ map(
 	[[/format<CR>f(lv/,\|)<CR>lhd0/{\d}<CR>lvp<Esc>0]],
 	{ desc = "(macro) convert python format string to fstring partially" }
 )
+
+map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Visually move line down" })
+map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Visually move line up" })
+map("v", "<c-j>", ":m '>+1<CR>gv=gv", { desc = "Visually move line down" })
+map("v", "<c-k>", ":m '<-2<CR>gv=gv", { desc = "Visually move line up" })
 
 -- vim v
 map("n", "<leader>vr", ":source $MYVIMRC", { desc = "Source Config" })

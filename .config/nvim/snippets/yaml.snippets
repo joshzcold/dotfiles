@@ -681,3 +681,34 @@ snippet secc "SecurityContext" !b
 snippet commwhil "Command with while loop" !b
 	command: [ "/bin/sh", "-c", "--" ]
 	args: [ "while true; do sleep 30; done;" ]
+
+snippet story "Story for jira_create_lots_of_tickets"
+  - type: Story
+    title: "$1"
+    project_key: DV6
+    description: |
+      $2
+    story_point_estimate: $3
+    acceptance_criteria: |
+      $4
+    transition_type_name: Dev Ready
+snippet spike "Spike for jira_create_lots_of_tickets"
+  - type: Spike
+    title: "$1"
+    project_key: DV6
+    description: |
+      $2
+    story_point_estimate: $3
+    acceptance_criteria: |
+      $4
+    transition_type_name: Dev Ready
+snippet bug "Bug for jira_create_lots_of_tickets"
+  - type: Bug
+    title: "$1"
+    project_key: DV6
+    description: |
+      $2
+    story_point_estimate: $3
+    acceptance_criteria: |
+      $4
+    transition_type_name: Dev Ready
