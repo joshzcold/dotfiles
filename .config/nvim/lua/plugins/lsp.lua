@@ -79,269 +79,230 @@ return {
     ---@class PluginLspOpts
     config = function()
       -- LSP settings
-
-      local border = {
-        { "┌", "FloatBorder" },
-        { "─", "FloatBorder" },
-        { "┐", "FloatBorder" },
-        { "│", "FloatBorder" },
-        { "┘", "FloatBorder" },
-        { "─", "FloatBorder" },
-        { "└", "FloatBorder" },
-        { "│", "FloatBorder" },
-      }
-      -- Add the border on hover and on signature help popup window
-      local handlers = {
-        ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-        ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
-      }
+      --
       -- Add border to the diagnostic popup window
       vim.diagnostic.config({
         virtual_text = {
           prefix = "■ ", -- Could be '●', '▎', 'x', '■', , 
         },
-        virtual_text = {
-          source = "always", -- Or "if_many"
-        },
         float = {
-          border = border,
-          source = "always", -- Or "if_many"
+          border = "single",
         },
       })
-      -- make nvim-cmp aware of extra capabilities coming from lsp
+      -- LSP servers and clients are able to communicate to each other what features they support.
+      --  By default, Neovim doesn't support everything that is in the LSP specification.
+      --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
+      --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      -- capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+      -- capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities(capabilities))
       capabilities.textDocument.foldingRange = {
         dynamicRegistration = false,
         lineFoldingOnly = true,
       }
 
-      -- disable virtal text for corn.nvim
-      vim.diagnostic.config({ virtual_text = false })
-      vim.g.diagnostics_active = true
-      function _G.toggle_diagnostics()
-        if vim.g.diagnostics_active then
-          vim.g.diagnostics_active = false
-          vim.diagnostic.disable()
-        else
-          vim.g.diagnostics_active = true
-          vim.diagnostic.enable()
-        end
-      end
-
-      vim.api.nvim_set_keymap(
-        "n",
-        "<leader>lt",
-        ":call v:lua.toggle_diagnostics()<CR>",
-        { desc = "toggle_diagnostics" }
-      )
       -- Use an on_attach function to only map the following keys
       -- after the language server attaches to the current buffer
-      local on_attach = function(client, bufnr)
-        vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-        -- Mappings.
-        vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", { desc = "lsp declaration" })
-        vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", { desc = "lsp definition" })
-        vim.keymap.set("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<cr>", { desc = "lsp code action" })
-        -- don't set the keywordprg if we have one we already want
-        if vim.opt_local.keywordprg:get() == "" then
-          vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", { desc = "lsp buffer hover" })
-        end
-        vim.keymap.set("n", "<leader>i", "<cmd>lua vim.lsp.buf.implementation()<cr>", { desc = "lsp implementation" })
-        vim.keymap.set("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<cr>", { desc = "lsp type defintion" })
-        vim.keymap.set("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>", { desc = "lsp rename" })
-        vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", { desc = "lsp references" })
-        vim.keymap.set("n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<cr>", { desc = "lsp diagnostics" })
-        vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>", { desc = "lsp diagnostic goto next" })
-        vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>", { desc = "lsp diagnostic goto prev" })
-        vim.keymap.set(
-          "n",
-          "<leader>q",
-          "<cmd>lua vim.diagnostic.set_loclist()<cr>",
-          { desc = "lsp diagnostic qixfix" }
-        )
-        vim.keymap.set("n", "<leader>ld", "<cmd>lua vim.diagnostic.disable()<cr>", { desc = "lsp diagnostic disable" })
-        vim.keymap.set("n", "<leader>le", "<cmd>lua vim.diagnostic.enable()<cr>", { desc = "lsp diagnostic enable" })
-        vim.keymap.set("n", "<leader>=", function()
-          vim.lsp.buf.format({
-            async = true,
-          })
-        end, { desc = "LSP Format" })
-        vim.keymap.set("x", "<leader>=", function()
-          vim.lsp.buf.format({
-            async = true,
-            range = {
-              vim.inspect(vim.api.nvim_buf_get_mark(0, "<")),
-              vim.inspect(vim.api.nvim_buf_get_mark(0, ">")),
-            },
-          })
-        end, { desc = "LSP Format" })
-        vim.lsp.handlers["textDocument/references"] = function(_, result)
-          vim.g.lsp_last_word = vim.fn.expand("<cword>")
-          if not result then
-            return
-          end
-          if #result == 0 then
-            vim.notify("Getting references...")
-            return
-          end
-          if #result == 1 then
-            vim.notify("No references found...", vim.log.levels.WARN)
-            return
-          end
-          vim.notify("LSP references are in quickfix", vim.log.levels.INFO)
-          vim.fn.setqflist(vim.lsp.util.locations_to_items(result, "utf-8"))
-          print(vim.inspect(result))
-          vim.cmd([[cnext]])
-        end
-      end
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
+        callback = function(event)
+          -- Mappings.
+          vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "lsp diagnostics" })
+          vim.keymap.set("n", "<leader>i", vim.lsp.buf.implementation, { desc = "lsp implementation" })
+          vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { desc = "lsp rename" })
+          vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "lsp buffer hover" })
+          vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "lsp diagnostic goto next" })
+          vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "lsp diagnostic goto prev" })
+          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "lsp declaration" })
+          vim.keymap.set("n", "ga", vim.lsp.buf.code_action, { desc = "lsp code action" })
+          vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "lsp definition" })
+          vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "lsp references" })
+          vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, { desc = "lsp type defintion" })
+          vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "lsp diagnostic qixfix" })
 
-      local lspconfig = require("lspconfig")
+          vim.keymap.set("n", "<leader>=", function()
+            vim.lsp.buf.format({ async = true })
+          end, { desc = "lsp format" })
+
+          vim.keymap.set("x", "<leader>=", function()
+            vim.lsp.buf.format({
+              async = true,
+              range = {
+                vim.inspect(vim.api.nvim_buf_get_mark(0, "<")),
+                vim.inspect(vim.api.nvim_buf_get_mark(0, ">")),
+              },
+            })
+          end, { desc = "lsp format range" })
+
+          vim.lsp.handlers["textDocument/references"] = function(_, result)
+            vim.g.lsp_last_word = vim.fn.expand("<cword>")
+            if not result then
+              return
+            end
+            if #result == 0 then
+              vim.notify("Getting references...")
+              return
+            end
+            if #result == 1 then
+              vim.notify("No references found...", vim.log.levels.WARN)
+              return
+            end
+            vim.notify("LSP references are in quickfix", vim.log.levels.INFO)
+            vim.fn.setqflist(vim.lsp.util.locations_to_items(result, "utf-8"))
+            print(vim.inspect(result))
+            vim.cmd([[cnext]])
+          end
+
+          -- The following two autocommands are used to highlight references of the
+          -- word under your cursor when your cursor rests there for a little while.
+          --    See `:help CursorHold` for information about when this is executed
+          --
+          -- When you move your cursor, the highlights will be cleared (the second autocommand).
+          local client = vim.lsp.get_client_by_id(event.data.client_id)
+          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+            local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
+            vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+              buffer = event.buf,
+              group = highlight_augroup,
+              callback = vim.lsp.buf.document_highlight,
+            })
+
+            vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+              buffer = event.buf,
+              group = highlight_augroup,
+              callback = vim.lsp.buf.clear_references,
+            })
+
+            vim.api.nvim_create_autocmd("LspDetach", {
+              group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
+              callback = function(event2)
+                vim.lsp.buf.clear_references()
+                vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
+              end,
+            })
+          end
+
+          -- The following code creates a keymap to toggle inlay hints in your
+          -- code, if the language server you are using supports them
+          --
+          -- This may be unwanted, since they displace some of your code
+          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+            vim.keymap.set("n", "<leader>th", function()
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+            end, { desc = "lsp toggle inlay hints" })
+          end
+        end,
+      })
+
+      local servers = {
+        bashls = {},
+        gopls = {},
+        ts_ls = {},
+        tailwindcss = {},
+        jsonls = {},
+        jdtls = {},
+        ansiblels = {
+          settings = {
+            ansible = {
+              ansible = {
+                useFullyQualifiedCollectionNames = true,
+              },
+              validation = {
+                lint = {
+                  enabled = true,
+                  arguments = "-x role-name,package-latest,fqcn-builtins",
+                },
+              },
+            },
+          },
+        },
+        yamlls = {
+          yaml = {
+            keyOrdering = false,
+          },
+        },
+        lua_ls = {
+          settings = {
+            Lua = {
+              hint = { enable = true },
+              workspace = {
+                checkThirdParty = false,
+              },
+            },
+          },
+        },
+        pylsp = {
+          plugins = {
+            pyflakes = { enabled = false },
+            pylint = { enabled = false },
+          },
+        },
+        groovyls = {
+          filetypes = {
+            "groovy",
+            -- "Jenkinsfile",
+          },
+          settings = {
+            groovy = {
+              classpath = {},
+            },
+          },
+          on_attach = function(_, _)
+            set_groovy_classpath()
+          end,
+        },
+        basedpyright = {
+          on_init = function(client)
+            local venv = require("swenv.api").get_current_venv()
+            if venv ~= nil then
+              local venv_python = venv.path .. "/bin/python"
+              client.config.settings.python.pythonPath = venv_python
+            end
+          end,
+          settings = {
+            basedpyright = {
+              analysis = {
+                typeCheckingMode = "standard",
+              },
+            },
+            python = {
+              analysis = {
+                diagnosticSeverityOverrides = {
+                  ignore = { "*" },
+                },
+              },
+            },
+          },
+        },
+      }
 
       require("mason").setup()
+      local ensure_installed = vim.tbl_keys(servers or {})
+
+      vim.list_extend(ensure_installed, {
+        "stylua",
+        "shellcheck",
+        "shfmt",
+        "ruff",
+        "autopep8",
+        "black",
+        "isort",
+        "pydocstyle",
+        "npm-groovy-lint",
+        "ansible-lint",
+      })
+
+      require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+
       require("mason-lspconfig").setup({
-        ensure_installed = {
-          "lua_ls",
-          "bashls",
-          "groovyls",
-          "jdtls",
-          -- "jedi_language_server",
-          "ansiblels",
-          "yamlls",
-          "jsonls",
-          "tailwindcss",
-          "ts_ls",
-          "gopls",
-          "basedpyright",
-        },
-        automatic_installation = true,
-      })
-      require("mason-tool-installer").setup({
+        handlers = {
+          function(server_name)
+            local server = servers[server_name] or {}
 
-        -- a list of all tools you want to ensure are installed upon start
-        ensure_installed = {
-          "stylua",
-          "shellcheck",
-          "shfmt",
-          "ruff",
-          "autopep8",
-          "black",
-          "isort",
-          "pydocstyle",
-          "npm-groovy-lint",
-          "ansible-lint",
+            server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+            require("lspconfig")[server_name].setup(server)
+          end,
         },
-      })
-
-      require("mason-lspconfig").setup_handlers({
-        -- The first entry (without a key) will be the default handler
-        -- and will be called for each installed server that doesn't have
-        -- a dedicated handler.
-        function(server_name) -- default handler (optional)
-          require("lspconfig")[server_name].setup({
-            on_attach = on_attach,
-            capabilities = capabilities,
-            handlers = handlers,
-          })
-        end,
-        -- Next, you can provide a dedicated handler for specific servers.
-        ["ansiblels"] = function()
-          lspconfig.ansiblels.setup({
-            settings = {
-              ansible = {
-                ansible = {
-                  useFullyQualifiedCollectionNames = true,
-                },
-                validation = {
-                  lint = {
-                    enabled = true,
-                    arguments = "-x role-name,package-latest,fqcn-builtins",
-                  },
-                },
-              },
-            },
-            on_attach = on_attach,
-            capabilities = capabilities,
-          })
-        end,
-        ["yamlls"] = function()
-          lspconfig.yamlls.setup({
-            settings = {
-              yaml = {
-                keyOrdering = false,
-              },
-            },
-            on_attach = on_attach,
-            capabilities = capabilities,
-          })
-        end,
-        ["lua_ls"] = function()
-          lspconfig.lua_ls.setup({
-            settings = {
-              Lua = {
-                hint = { enable = true },
-                workspace = {
-                  checkThirdParty = false,
-                },
-              },
-            },
-            on_attach = on_attach,
-            capabilities = capabilities,
-          })
-        end,
-        ["pylsp"] = function()
-          lspconfig.pylsp.setup({
-            plugins = {
-              pyflakes = { enabled = false },
-              pylint = { enabled = false },
-            },
-            on_attach = on_attach,
-            capabilities = capabilities,
-          })
-        end,
-        ["groovyls"] = function()
-          lspconfig.groovyls.setup({
-            filetypes = {
-              "groovy",
-              -- "Jenkinsfile",
-            },
-            settings = {
-              groovy = {
-                classpath = {},
-              },
-            },
-            on_attach = function(client, bufnr)
-              on_attach(client, bufnr)
-              set_groovy_classpath()
-            end,
-            capabilities = capabilities,
-          })
-        end,
-        ["basedpyright"] = function()
-          lspconfig.basedpyright.setup({
-            on_init = function(client)
-              local venv = require("swenv.api").get_current_venv()
-              if venv ~= nil then
-                local venv_python = venv.path .. "/bin/python"
-                client.config.settings.python.pythonPath = venv_python
-              end
-            end,
-            settings = {
-              basedpyright = {
-                analysis = {
-                  typeCheckingMode = "standard",
-                },
-              },
-              python = {
-                analysis = {
-                  diagnosticSeverityOverrides = {
-                    ignore = { "*" },
-                  },
-                },
-              },
-            },
-          })
-        end,
       })
     end,
   },
@@ -388,27 +349,6 @@ return {
       end, { silent = true, noremap = true, desc = "Neogen Generate language docstring." })
     end,
   },
-  -- {
-  --   -- Display small progress indicator on lsp progress events
-  --   "j-hui/fidget.nvim",
-  --   opts = {},
-  -- },
-  {
-    "ray-x/lsp_signature.nvim",
-    event = "VeryLazy",
-    enabled = false,
-    config = function()
-      vim.keymap.set({ "n" }, "<Leader>k", function()
-        require("lsp_signature").toggle_float_win()
-      end, { silent = true, noremap = true, desc = "toggle signature" })
-      require("lsp_signature").setup({
-        -- floating_window = true,
-        -- floating_window_above_cur_line = true,
-        -- floating_window_off_y = -5,
-      })
-    end,
-  },
-
   {
     "rachartier/tiny-inline-diagnostic.nvim",
     event = "VeryLazy", -- Or `LspAttach`

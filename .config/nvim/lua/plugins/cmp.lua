@@ -1,43 +1,96 @@
 return {
-  -- {
-  --   "saghen/blink.cmp",
-  --   lazy = false, -- lazy loading handled internally
-  --   -- optional: provides snippets for the snippet source
-  --   dependencies = "rafamadriz/friendly-snippets",
-  --
-  --   -- use a release tag to download pre-built binaries
-  --   version = "v0.*",
-  --   -- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
-  --   -- build = 'cargo build --release',
-  --
-  --   opts = {
-  --     keymap = {
-  --       accept = '<Enter>',
-  --       select_next = '<Tab>',
-  --       select_prev = '<S-Tab>',
-  --       snippet_forward = '<C-j>',
-  --       snippet_backward = '<C-k>'
-  --     },
-  --     highlight = {
-  --       -- sets the fallback highlight groups to nvim-cmp's highlight groups
-  --       -- useful for when your theme doesn't support blink.cmp
-  --       -- will be removed in a future release, assuming themes add support
-  --       use_nvim_cmp_as_default = true,
-  --     },
-  --     -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-  --     -- adjusts spacing to ensure icons are aligned
-  --     nerd_font_variant = "normal",
-  --
-  --     -- experimental auto-brackets support
-  --     -- accept = { auto_brackets = { enabled = true } }
-  --
-  --     -- experimental signature help support
-  --     -- trigger = { signature_help = { enabled = true } }
-  --   },
-  -- },
+  {
+    "saghen/blink.cmp",
+    lazy = false, -- lazy loading handled internally
+    -- optional: provides snippets for the snippet source
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+      "L3MON4D3/LuaSnip",
+    },
+
+    -- use a release tag to download pre-built binaries
+    version = "v0.*",
+    -- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+    -- build = 'cargo build --release',
+
+    opts = {
+      completion = {
+        documentation = {
+          auto_show = true,
+        },
+        menu = {
+          draw = {
+            columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind" } },
+          },
+        },
+        list = {
+          selection = "auto_insert",
+        },
+      },
+      keymap = {
+        ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+        ["<C-e>"] = { "hide", "fallback" },
+        ["<Tab>"] = { "select_next", "fallback" },
+        ["<S-Tab>"] = { "select_prev", "fallback" },
+        ["<CR>"] = { "accept", "fallback" },
+
+        ["<Up>"] = { "select_prev", "fallback" },
+        ["<Down>"] = { "select_next", "fallback" },
+        ["<C-p>"] = { "select_prev", "fallback" },
+        ["<C-n>"] = { "select_next", "fallback" },
+
+        ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+        ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+        ["<C-j>"] = { "snippet_forward" },
+        ["<C-k>"] = { "snippet_backward" },
+      },
+
+      appearance = {
+        -- Sets the fallback highlight groups to nvim-cmp's highlight groups
+        -- Useful for when your theme doesn't support blink.cmp
+        -- will be removed in a future release
+        use_nvim_cmp_as_default = true,
+        -- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+        -- Adjusts spacing to ensure icons are aligned
+        nerd_font_variant = "mono",
+      },
+
+      -- default list of enabled providers defined so that you can extend it
+      -- elsewhere in your config, without redefining it, via `opts_extend`
+      sources = {
+        completion = {
+          enabled_providers = { "lsp", "path", "luasnip", "snippets", "buffer" },
+        },
+      },
+
+      -- experimental auto-brackets support
+      -- completion = { accept = { auto_brackets = { enabled = true } } }
+
+      -- experimental signature help support
+      -- signature = { enabled = true }
+      snippets = {
+        expand = function(snippet)
+          require("luasnip").lsp_expand(snippet)
+        end,
+        active = function(filter)
+          if filter and filter.direction then
+            return require("luasnip").jumpable(filter.direction)
+          end
+          return require("luasnip").in_snippet()
+        end,
+        jump = function(direction)
+          require("luasnip").jump(direction)
+        end,
+      },
+      -- allows extending the providers array elsewhere in your config
+      -- without having to redefine it
+      opts_extend = { "sources.default" },
+    },
+  },
 
   {
     "iguanacucumber/magazine.nvim",
+    enabled = false,
     name = "nvim-cmp",
     lazy = false,
     event = "InsertEnter",

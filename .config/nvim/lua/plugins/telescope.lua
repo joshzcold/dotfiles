@@ -109,6 +109,21 @@ return {
 			vim.keymap.set("n", "<leader>ju", function()
 				require("telescope").extensions.undo.undo({ side_by_side = true })
 			end, { desc = "Telescope undotree" })
+
+			vim.keymap.set("n", "<leader>/h", function()
+				require("telescope.builtin").help_tags({})
+			end, { desc = "Telescope help tags" })
+
+			vim.keymap.set("n", "<leader>/v", function()
+				require("telescope.builtin").find_files({
+					cwd = vim.fn.stdpath("config"),
+					file_ignore_patterns = {
+						"node%_modules/.*",
+						"undodir/.*",
+					},
+					hidden = true,
+				})
+			end, { desc = "Telescope neovim config" })
 		end,
 		config = function()
 			local actions = require("telescope.actions")
