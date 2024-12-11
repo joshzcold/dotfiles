@@ -190,3 +190,4 @@ jenkins devops plugins https://jenkins-devops.secmet.co/manage/pluginManager/
 jenkins build plugins https://jenkins.secmet.co/manage/pluginManager/
 jenkins prod plugins https://jenkins-prod.secmet.co/manage/pluginManager/
 securitymetrics grafana https://grafana.secmet.co/?orgId=1
+SecurityMetrics api endpoints swagger https://www.securitymetrics.com/standards/?service_names=ALL

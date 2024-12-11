@@ -125,6 +125,8 @@ map("n", "<leader>st", [[:%s/\s\+$//e<cr>]], { desc = "Clear trailing white spac
 map("n", "<leader>mm", ":make<cr>", { desc = "Make" })
 map("n", "<leader>m,", "f,li<CR><Esc>lq", { desc = "(macro) split comma to newline" })
 map("n", "<leader>m\\", [[Wi\<CR><Esc>l]], { desc = "(macro) split shell by \\" })
+map("n", "<leader>m{", [[/{{<CR>i{{`<Esc>/}}<CR>A`}}<Esc>j^]], { desc = "(macro) helm wrap curls with ``" })
+
 map(
 	"n",
 	"<leader>mv",
