@@ -34,7 +34,7 @@ return {
       },
       show_help = true,                 -- show help message on the command line when the popup is visible
       triggers = {
-        { "<leader>", mode = { "n" } },
+        { "<leader>", mode = { "n", "v" } },
       },
       -- triggers = {"<leader>"} -- or specify a list manually
     })

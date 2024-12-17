@@ -24,15 +24,15 @@ return {
 			{
 				"nvim-telescope/telescope-fzf-native.nvim",
 				build = "make",
-				config = function()
-					require("telescope").load_extension("fzf")
-					require("telescope").load_extension("undo")
-				end,
 			},
+			{ "ANGkeith/telescope-terraform-doc.nvim" },
 		},
 		lazy = true,
 		keymap = "<leader>",
 		init = function()
+			require("telescope").load_extension("fzf")
+			require("telescope").load_extension("undo")
+			require("telescope").load_extension("terraform_doc")
 			default_ignore_file_patterns = {
 				"node%_modules/.*",
 				"undodir/.*",
@@ -119,6 +119,12 @@ return {
 					hidden = true,
 				})
 			end, { desc = "Telescope neovim config" })
+			vim.keymap.set(
+				"n",
+				"<leader>/t",
+				[[:Telescope terraform_doc full_name=hashicorp/aws<cr>]],
+				{ desc = "Terraform aws modules" }
+			)
 		end,
 		config = function()
 			local actions = require("telescope.actions")
