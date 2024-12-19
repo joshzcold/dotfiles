@@ -30,24 +30,8 @@ return {
 		lazy = true,
 		keymap = "<leader>",
 		init = function()
-			require("telescope").load_extension("fzf")
-			require("telescope").load_extension("undo")
-			require("telescope").load_extension("terraform_doc")
-			default_ignore_file_patterns = {
-				"node%_modules/.*",
-				"undodir/.*",
-				".*venv/.*",
-				".*.venv/.*",
-				".*.npm/.*",
-				".*__pycache__.*",
-				".*.nox.*",
-				".*.pytest_cache.*",
-				".*.pdm.*",
-				".*.cache.*",
-			}
 			vim.keymap.set("n", "<leader><leader>", function()
 				require("telescope.builtin").find_files({
-					file_ignore_patterns = default_ignore_file_patterns,
 					hidden = true,
 				})
 			end, { desc = "Find File" })
@@ -65,7 +49,6 @@ return {
 
 			vim.keymap.set("n", "<leader>/a", function()
 				require("telescope.builtin").find_files({
-					file_ignore_patterns = default_ignore_file_patterns,
 					no_ignore = true,
 					no_ignore_parent = true,
 					desc = "All Files",
@@ -115,7 +98,6 @@ return {
 			vim.keymap.set("n", "<leader>/v", function()
 				require("telescope.builtin").find_files({
 					cwd = vim.fn.stdpath("config"),
-					file_ignore_patterns = default_ignore_file_patterns,
 					hidden = true,
 				})
 			end, { desc = "Telescope neovim config" })
@@ -189,6 +171,9 @@ return {
 					},
 				},
 			})
+			require("telescope").load_extension("fzf")
+			require("telescope").load_extension("undo")
+			require("telescope").load_extension("terraform_doc")
 		end,
 	},
 }
