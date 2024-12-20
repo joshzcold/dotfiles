@@ -313,7 +313,6 @@ return {
   },
   {
     "Davidyz/inlayhint-filler.nvim",
-    branch = "line-selection",
     keys = {
       {
         "<leader>li", -- Use whatever keymap you want.
