@@ -9,7 +9,7 @@ return {
     },
 
     -- use a release tag to download pre-built binaries
-    branch = "v0.*",
+    version = "*",
     -- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
     -- build = 'cargo build --release',
 
@@ -59,7 +59,7 @@ return {
       -- default list of enabled providers defined so that you can extend it
       -- elsewhere in your config, without redefining it, via `opts_extend`
       sources = {
-        completion = {
+        default = {
           enabled_providers = { "lsp", "path", "luasnip", "snippets", "buffer" },
         },
       },
@@ -85,8 +85,8 @@ return {
       },
       -- allows extending the providers array elsewhere in your config
       -- without having to redefine it
-      opts_extend = { "sources.default" },
     },
+    opts_extend = { "sources.default" },
   },
 
   {
