@@ -58,11 +58,6 @@ return {
 
       -- default list of enabled providers defined so that you can extend it
       -- elsewhere in your config, without redefining it, via `opts_extend`
-      sources = {
-        default = {
-          enabled_providers = { "lsp", "path", "luasnip", "snippets", "buffer" },
-        },
-      },
 
       -- experimental auto-brackets support
       -- completion = { accept = { auto_brackets = { enabled = true } } }
@@ -85,6 +80,15 @@ return {
       },
       -- allows extending the providers array elsewhere in your config
       -- without having to redefine it
+      sources = {
+        default = {
+          "lsp",
+          "path",
+          "luasnip",
+          "snippets",
+          "buffer",
+        },
+      },
     },
     opts_extend = { "sources.default" },
   },
