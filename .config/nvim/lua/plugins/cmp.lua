@@ -1,6 +1,7 @@
 return {
   {
     "saghen/blink.cmp",
+    enabled = false,
     lazy = false, -- lazy loading handled internally
     -- optional: provides snippets for the snippet source
     dependencies = {
@@ -95,7 +96,7 @@ return {
 
   {
     "iguanacucumber/magazine.nvim",
-    enabled = false,
+    enabled = true,
     name = "nvim-cmp",
     lazy = false,
     event = "InsertEnter",

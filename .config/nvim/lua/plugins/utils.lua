@@ -117,6 +117,10 @@ return {
           Snacks.toggle.treesitter():map("<leader>uT")
           Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
           Snacks.toggle.inlay_hints():map("<leader>uh")
+          vim.api.nvim_create_user_command("Notifications", function()
+            Snacks.notifier.show_history()
+          end, {})
+
         end,
       })
     end,
