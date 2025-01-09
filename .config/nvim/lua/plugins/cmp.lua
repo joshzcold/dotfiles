@@ -1,7 +1,7 @@
 return {
   {
     "saghen/blink.cmp",
-    enabled = false,
+    enabled = true,
     lazy = false, -- lazy loading handled internally
     -- optional: provides snippets for the snippet source
     dependencies = {
@@ -26,7 +26,10 @@ return {
           },
         },
         list = {
-          selection = "auto_insert",
+          selection = {
+            preselect = false,
+            auto_insert = true,
+          },
         },
       },
       keymap = {
@@ -66,6 +69,7 @@ return {
       -- experimental signature help support
       -- signature = { enabled = true }
       snippets = {
+        preset = "luasnip",
         expand = function(snippet)
           require("luasnip").lsp_expand(snippet)
         end,
@@ -85,7 +89,6 @@ return {
         default = {
           "lsp",
           "path",
-          "luasnip",
           "snippets",
           "buffer",
         },
@@ -96,7 +99,7 @@ return {
 
   {
     "iguanacucumber/magazine.nvim",
-    enabled = true,
+    enabled = false,
     name = "nvim-cmp",
     lazy = false,
     event = "InsertEnter",
