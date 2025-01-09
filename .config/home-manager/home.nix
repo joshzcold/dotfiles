@@ -84,7 +84,7 @@ in
     pkgs.kdePackages.breeze
     pkgs.kdePackages.kde-gtk-config
     pkgs.xfce.thunar
-    pkgs.justbuild
+    pkgs.just
     pkgs.luarocks-nix
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
