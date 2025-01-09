@@ -5,7 +5,7 @@ return {
     lazy = false, -- lazy loading handled internally
     -- optional: provides snippets for the snippet source
     dependencies = {
-      "mikavilpas/blink-ripgrep.nvim",
+      "joshzcold/blink-ripgrep.nvim",
       "rafamadriz/friendly-snippets",
       "L3MON4D3/LuaSnip",
     },

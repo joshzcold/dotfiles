@@ -84,6 +84,8 @@ in
     pkgs.kdePackages.breeze
     pkgs.kdePackages.kde-gtk-config
     pkgs.xfce.thunar
+    pkgs.justbuild
+    pkgs.luarocks-nix
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
