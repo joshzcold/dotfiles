@@ -16,7 +16,7 @@ end, {})
 return {
   {
     "projekt0n/github-nvim-theme",
-    version = "v0.0.7",
+    version = "v1.1.2",
     config = function()
       require("github-theme").setup({
         -- options = {
