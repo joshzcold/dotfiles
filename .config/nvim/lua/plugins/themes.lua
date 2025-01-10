@@ -16,12 +16,38 @@ end, {})
 return {
   {
     "projekt0n/github-nvim-theme",
-    version = "v0.0.7",
+    version = "v1.1.2",
     config = function()
       require("github-theme").setup({
-        -- options = {
-        --   transparent = true,
-        -- },
+        options = {
+          styles = {                         -- Style to be applied to different syntax groups
+            comments = "NONE",               -- Value is any valid attr-list value `:help attr-list`
+            functions = "NONE",
+            keywords = "NONE",
+            variables = "NONE",
+            conditionals = "NONE",
+            constants = "NONE",
+            numbers = "NONE",
+            operators = "NONE",
+            strings = "NONE",
+            types = "NONE",
+          },
+          inverse = { -- Inverse highlight for different types
+            match_paren = false,
+            visual = false,
+            search = false,
+          },
+          darken = { -- Darken floating windows and sidebar-like windows
+            floats = true,
+            sidebars = {
+              enable = true,
+              list = {}, -- Apply dark background to specific windows
+            },
+          },
+          modules = { -- List of various plugins and additional options
+            -- ...
+          },
+        },
       })
       vim.api.nvim_set_keymap("n", "<c-t>", ":ThemeToggleLights<cr>", {
         desc = "Toggle light dark theme",

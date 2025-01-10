@@ -19,7 +19,7 @@ vim.cmd([[
 vim.api.nvim_set_hl(0, "LspInlayHint", { bg = "#0a0c0f", fg = "#6e7681", })
 
 
--- local palette = require('github-theme.palette').load('github_dark_default')
---
--- vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = palette.black.base, fg = palette.white.bright, })
--- vim.api.nvim_set_hl(0, "TelescopeMatching", { bg = palette.black.base, fg = palette.red.bright, })
+local palette = require('github-theme.palette').load('github_dark_default')
+
+vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = palette.accent.subtle })
+vim.api.nvim_set_hl(0, "TelescopeMatching", { fg = palette.blue.bright, bold = true })
