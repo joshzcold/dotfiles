@@ -197,11 +197,14 @@ function diff_remote_files(){
 
 function toggle_lights(){
   if [ -n "$CURRENT_KITTY_THEME" ]; then
-    kitty +kitten themes --reload-in=all Github Dark
+    kitty +kitten themes --reload-in=all Kanagawa_dragon
+    sed -i 's/^background.*/background #0a0c0f/g' $HOME/.config/kitty/current-theme.conf
     export CURRENT_KITTY_THEME=
+    notify-send "Set theme to dark"
   else
-    kitty +kitten themes --reload-in=all Github
+    kitty +kitten themes --reload-in=all Kanagawa_light
     export CURRENT_KITTY_THEME=ON
+    notify-send "Set theme to light"
   fi
 }
 
