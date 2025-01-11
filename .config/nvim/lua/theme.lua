@@ -1,6 +1,8 @@
-vim.cmd([[
-  colorscheme github_dark_default
-]])
+-- vim.cmd([[ colorscheme github_dark_default ]])
+-- vim.cmd([[colorscheme tokyonight-night]])
+-- vim.cmd([[colorscheme catppuccin-mocha]])
+vim.cmd([[colorscheme kanagawa ]])
+
 -- highlighting tweaks
 vim.api.nvim_set_hl(0, "SpellBad", { sp = "#325905", underline = true })
 vim.api.nvim_set_hl(0, "SpellCap", { sp = "#000c7a", underline = true })
@@ -15,11 +17,3 @@ vim.cmd([[
   autocmd FileType groovy setlocal commentstring=//\ %s
   autocmd FileType Jenkinsfile setlocal commentstring=//\ %s
 ]])
-
-vim.api.nvim_set_hl(0, "LspInlayHint", { bg = "#0a0c0f", fg = "#6e7681", })
-
-
-local palette = require('github-theme.palette').load('github_dark_default')
-
-vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = palette.accent.subtle })
-vim.api.nvim_set_hl(0, "TelescopeMatching", { fg = palette.blue.bright, bold = true })

@@ -20,8 +20,8 @@ return {
     config = function()
       require("github-theme").setup({
         options = {
-          styles = {                         -- Style to be applied to different syntax groups
-            comments = "NONE",               -- Value is any valid attr-list value `:help attr-list`
+          styles = {             -- Style to be applied to different syntax groups
+            comments = "italic", -- Value is any valid attr-list value `:help attr-list`
             functions = "NONE",
             keywords = "NONE",
             variables = "NONE",
@@ -48,6 +48,14 @@ return {
             -- ...
           },
         },
+        specs = {
+          all = {
+            syntax = {
+              -- As with palettes, a specific style's value will be used over the `all`'s value.
+              functions = "blue",
+            },
+          },
+        },
       })
       vim.api.nvim_set_keymap("n", "<c-t>", ":ThemeToggleLights<cr>", {
         desc = "Toggle light dark theme",
@@ -55,5 +63,47 @@ return {
         silent = true,
       })
     end,
+  },
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    opts = {
+      color_overrides = {
+        all = {},
+        latte = {},
+        frappe = {},
+        macchiato = {},
+        mocha = {
+          base = "#0a0c0f",
+        },
+      },
+    },
+  },
+  {
+    "rebelot/kanagawa.nvim",
+    priority = 1000,
+    opts = {
+      colors = { -- add/modify theme and palette colors
+        palette = {},
+        theme = {
+          wave = {},
+          lotus = {},
+          dragon = {},
+          all = {
+            ui = {
+              bg = "#0a0c0f",
+              bg_gutter = "none",
+            },
+          },
+        },
+      },
+    },
   },
 }
