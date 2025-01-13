@@ -18,3 +18,5 @@
 	directory = /opt/flutter
 [credential]
 	helper = store
+[core]
+	excludesFile = ~/.gitignore
