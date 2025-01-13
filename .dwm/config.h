@@ -110,7 +110,8 @@ static const char *volume_down[] = {"pactl", "set-sink-volume",
 static const char *volume_mute[] = {"pactl", "set-sink-mute", "@DEFAULT_SINK@",
                                     "toggle", NULL};
 
-static const char *bitwarden[] = {"bwm", NULL};
+// .config/usr-scripts/bw-pass.sh
+static const char *bitwarden[] = {"/home/joshua/.config/usr-scripts/bw-pass.sh", NULL};
 static Key keys[] = {
     /* modifier                     key        function        argument */
     {MODKEY, XK_d, spawn, {.v = applaunchercmd}},
