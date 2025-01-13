@@ -108,9 +108,14 @@ return {
             end,
           },
           ripgrep = {
+            enabled = function()
+              local git_cmd = vim.fn.system("git rev-parse --show-toplevel | tr -d '\n'")
+              return not string.find(git_cmd, "dev/sm")
+            end,
             module = "blink-ripgrep",
             name = "Ripgrep",
             opts = {
+              project_root_marker = { "Dockerfile", "Jenkinsfile", ".git" },
               project_root_fallback = false,
               future_features = {
                 -- Kill previous searches when a new search is started. This is
