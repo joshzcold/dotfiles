@@ -4,3 +4,6 @@ snippet import_role "Import role ansible task block"
 			name: $1
 		tags:
 			- $1
+
+snippet vault_lookup_ansible "hashi_vault template syntax"
+	"{{ lookup('hashi_vault', 'secret=$1/data/$2:$3') }}"

@@ -82,20 +82,28 @@ return {
       -- allows extending the providers array elsewhere in your config
       -- without having to redefine it
       sources = {
-        default = {
-          "lsp",
-          "path",
-          "snippets",
-          "buffer",
-          "ripgrep",
-        },
+        default = function(ctx)
+          local success, node = pcall(vim.treesitter.get_node)
+          -- If in comment then only do buffer and ripgrep
+          if
+              success
+              and node
+              and vim.tbl_contains({ "comment", "line_comment", "block_comment", "comment_content" }, node:type())
+          then
+            return { "buffer", "ripgrep" }
+          else
+            return { "lsp", "path", "snippets", "buffer", "ripgrep" }
+          end
+        end,
         providers = {
           buffer = {
             name = "Buffer",
             module = "blink.cmp.sources.buffer",
             opts = {
               get_bufnrs = function()
-                return vim.api.nvim_list_bufs()
+                return vim.tbl_filter(function(bufnr)
+                  return vim.bo[bufnr].buftype == ""
+                end, vim.api.nvim_list_bufs())
               end,
             },
             transform_items = function(_, items)
@@ -109,6 +117,7 @@ return {
           },
           ripgrep = {
             enabled = function()
+              -- disable for the sm repo. Its just too big for ripgrep
               local git_cmd = vim.fn.system("git rev-parse --show-toplevel | tr -d '\n'")
               return not string.find(git_cmd, "dev/sm")
             end,
@@ -132,6 +141,17 @@ return {
               end
               return items
             end,
+            score_offset = -10,
+          },
+          snippets = {
+            name = "Snippets",
+            module = "blink.cmp.sources.snippets",
+            score_offset = 20,
+          },
+          lsp = {
+            name = "LSP",
+            module = "blink.cmp.sources.lsp",
+            score_offset = 10,
           },
         },
       },
