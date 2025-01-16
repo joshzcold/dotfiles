@@ -82,7 +82,7 @@ return {
       -- allows extending the providers array elsewhere in your config
       -- without having to redefine it
       sources = {
-        default = function(ctx)
+        default = function(_)
           local success, node = pcall(vim.treesitter.get_node)
           -- If in comment then only do buffer and ripgrep
           if
