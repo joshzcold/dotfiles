@@ -66,19 +66,35 @@ function max4 {
 set -e
 set -o pipefail
 
-selection=$(tac "$CACHE_FILE" | dmenu -l 20)
-json=$(vault kv get -format=json "${selection}")
+function lookup_secret_folder() {
 
-echo "$json" | jq -r '.data.data | keys' &>/dev/null || {
-	notify-send -h string:x-canonical-private-synchronous:anything "No secrets found..."
-	exit 1
+	json=$(vault kv get -format=json "${selection}")
+
+	echo "$json" | jq -r '.data.data | keys' &>/dev/null || {
+		notify-send -h string:x-canonical-private-synchronous:anything "No secrets found..."
+		exit 1
+	}
 }
 
-secret_selection=$(echo "$json" | jq -r '.data.data | keys | .[]' | dmenu -l 20)
-secret=$(echo "$json" | jq -r --arg secret_key "${secret_selection}" '.data.data[$secret_key]')
-notify-send -h string:x-canonical-private-synchronous:anything "Copied key: ${selection}:${secret_selection} to clipboard"
-echo "$secret" | xclip -selection clipboard
+function lookup_secret() {
+	secret=$(echo "$json" | jq -r --arg secret_key "${secret_selection}" '.data.data[$secret_key]')
+	notify-send -h string:x-canonical-private-synchronous:anything "Copied key: ${selection}:${secret_selection} to clipboard"
+	echo "$secret" | xclip -selection clipboard
 
-# Make sure last selected appears at top of list
-sed -i "\#^.*${selection}.*\$#d" "$CACHE_FILE"
-echo "$selection" >>"$CACHE_FILE"
+	# Make sure last selected appears at top of list
+	sed -i "\#^.*${selection}:${secret_selection}\$#d" "$CACHE_FILE"
+	echo "$selection:${secret_selection}" >>"$CACHE_FILE"
+}
+
+selection=$(tac "$CACHE_FILE" | dmenu -l 20)
+
+if [[ ! "$selection" =~ .*:.* ]]; then
+	lookup_secret_folder
+	secret_selection=$(echo "$json" | jq -r '.data.data | keys | .[]' | dmenu -l 20)
+else
+	secret_selection=$(echo "$selection" | rev | cut -d: -f1 | rev)
+	selection=$(echo "$selection" | cut -d: -f1)
+	lookup_secret_folder
+fi
+
+lookup_secret

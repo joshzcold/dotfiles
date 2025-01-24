@@ -170,3 +170,10 @@ vim.api.nvim_create_user_command("InsertJiraTag", function()
     vim.cmd([[:call feedkeys('A', 'n')]])
   end
 end, {})
+
+-- Workaround for getting terraform-ls errors when opening up tfvars file
+vim.filetype.add({
+  extension = {
+    tfvars = "hcl"
+  }
+})
