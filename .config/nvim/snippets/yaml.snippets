@@ -1,21 +1,3 @@
-snippet debug "Ansible debug print statement"
-	- name: Print Variables
-		ansible.builtin.debug:
-			msg: "${1:variable}: {{ $1 }}"
-
-snippet var "ansible string with variable"
-	"{{ ${1:var} }}"  
-
-snippet vault_lookup_ansible "hashi_vault template syntax"
-	"{{ lookup('hashi_vault', 'secret=$1/data/$2:$3') }}"
-	
-snippet import_role "Import role ansible task block"
-	- name: Ansible role $1 setup
-		import_role:
-			name: $1
-		tags:
-			- $1
-
 snippet	dep	"Deployment"	!bm
 	apiVersion: apps/v1
 	kind: Deployment

@@ -24,7 +24,7 @@ end, {
 
 return {
   {
-    "joshzcold/swenv.nvim",
+    "AckslD/swenv.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {
       -- Should return a list of tables with a `name` and a `path` entry each.

@@ -319,18 +319,6 @@ function ssha(){
   fi
 }
 
-function virt_connect() {
-  hosts=("${(@f)$(cat /etc/hosts | fzf -m --query '' | awk '{print $2}')}")
-  command=()
-
-  for host in "${hosts[@]}"; do
-    command=("virt-manager" "-c=qemu+ssh://joshua.cold@${host}/system")
-    # add to history
-    print -s "${command[@]}"
-    ${command[@]}
-  done
-}
-
 function kconf(){
   found_config=$(readlink -f $(ls ~/.kube/*.y*ml | fzf))
   export KUBECONFIG=$found_config
@@ -582,9 +570,6 @@ bindkey '^t' toggle_lights
 
 zle -N totp
 bindkey '^y' totp
-
-zle -N virt_connect
-bindkey '^v' virt_connect
 
 zle -N cgit
 bindkey '^S' cgit

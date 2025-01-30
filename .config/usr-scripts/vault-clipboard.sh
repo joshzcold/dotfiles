@@ -79,7 +79,7 @@ function lookup_secret_folder() {
 function lookup_secret() {
 	secret=$(echo "$json" | jq -r --arg secret_key "${secret_selection}" '.data.data[$secret_key]')
 	notify-send -h string:x-canonical-private-synchronous:anything "Copied key: ${selection}:${secret_selection} to clipboard"
-	echo "$secret" | xclip -selection clipboard
+	printf "%s" "$secret" | xclip -selection clipboard
 
 	# Make sure last selected appears at top of list
 	sed -i "\#^.*${selection}:${secret_selection}\$#d" "$CACHE_FILE"
