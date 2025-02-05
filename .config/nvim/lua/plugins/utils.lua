@@ -168,6 +168,14 @@ return {
   },
   {
     "MagicDuck/grug-far.nvim",
-    opts = {}
+    opts = {},
+    init = function()
+      vim.api.nvim_set_keymap(
+        "n",
+        "<leader>/r",
+        "<cmd>GrugFar<cr>",
+        { noremap = true, desc = "Global Search and Replace (grug-far)" }
+      )
+    end,
   },
 }
