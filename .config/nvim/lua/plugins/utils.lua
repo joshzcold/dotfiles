@@ -120,7 +120,6 @@ return {
           vim.api.nvim_create_user_command("Notifications", function()
             Snacks.notifier.show_history()
           end, {})
-
         end,
       })
     end,
@@ -166,5 +165,9 @@ return {
         },
       })
     end,
+  },
+  {
+    "MagicDuck/grug-far.nvim",
+    opts = {}
   },
 }
