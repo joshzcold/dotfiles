@@ -247,12 +247,12 @@ return {
             },
           },
         },
-        pylsp = {
-          plugins = {
-            pyflakes = { enabled = false },
-            pylint = { enabled = false },
-          },
-        },
+        -- pylsp = {
+        --   plugins = {
+        --     pyflakes = { enabled = false },
+        --     pylint = { enabled = false },
+        --   },
+        -- },
         groovyls = {
           filetypes = {
             "groovy",
