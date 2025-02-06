@@ -86,7 +86,7 @@ in
     pkgs.xfce.thunar
     pkgs.just
     pkgs.luarocks-nix
-
+    pkgs.ast-grep
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
