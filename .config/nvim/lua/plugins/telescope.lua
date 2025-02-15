@@ -27,6 +27,7 @@ return {
 			},
 			{ "ANGkeith/telescope-terraform-doc.nvim" },
 		},
+		enabled = false,
 		lazy = true,
 		keymap = "<leader>",
 		init = function()
