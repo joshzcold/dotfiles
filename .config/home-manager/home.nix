@@ -24,69 +24,64 @@ in
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    pkgs.bitwarden-cli
-    # TODO maybe a newer packge of bitwarden-menu will fix issues
-    # pkgs.bitwarden-menu
-    pkgs.jq
-    pkgs.parallel
-    pkgs.rofi
-    pkgs.yadm
-    pkgs.autorandr
-    pkgs.dmenu
-    pkgs.ffcast
-    pkgs.kubernetes-helm
-    pkgs.jira-cli-go
-    pkgs.kitty
-    pkgs.kubectl
-    # pkgs.neovim
-    pkgs.haskellPackages.kmonad
-    pkgs.nitrogen
-    pkgs.picom
-    pkgs.qutebrowser
-    pkgs.rofimoji
-    pkgs.shellcheck
-    pkgs.sshpass
-    pkgs.tldr
-    # pkgs.vault
-    pkgs.maim
-    pkgs.xdotool
-    pkgs.redis
-    pkgs.calc
-    pkgs.chromium
-    pkgs.starship
-    pkgs.hyperfine
-    pkgs.kubetail
-    pkgs.lxappearance
-    pkgs.up
-    pkgs.virt-manager
-    pkgs.awscli2
-    pkgs.bat
-    pkgs.dunst # desktop notification
-    pkgs.nodejs_22
-    pkgs.skopeo # interact with remote oci registries
-    pkgs.slop # For use with screen_record
-    pkgs.fzf
-    pkgs.fd
-    pkgs.screenkey # show keyboard input on screen
-    pkgs.ripgrep
-    pkgs.cargo
-    pkgs.volctl
-    pkgs.unclutter
-    pkgs.spotify
     pkgs.ansible
     pkgs.ansible-lint
-    pkgs.htop
+    pkgs.ast-grep
+    pkgs.autorandr
+    pkgs.awscli2
+    pkgs.bat
+    pkgs.bitwarden-cli
+    pkgs.calc
+    pkgs.cargo
+    pkgs.chromium
+    pkgs.dmenu
+    pkgs.dunst # desktop notification
+    pkgs.fd
+    pkgs.ffcast
+    pkgs.fzf
     pkgs.groovy
+    pkgs.haskellPackages.kmonad
+    pkgs.htop
+    pkgs.hyperfine
+    pkgs.jira-cli-go
+    pkgs.jq
+    pkgs.just
+    pkgs.kdePackages.breeze
     pkgs.kdePackages.dolphin
     pkgs.kdePackages.dolphin-plugins
-    pkgs.kdePackages.breeze
     pkgs.kdePackages.kde-gtk-config
-    pkgs.xfce.thunar
-    pkgs.just
+    pkgs.kitty
+    pkgs.kubectl
+    pkgs.kubernetes-helm
+    pkgs.kubetail
+    pkgs.lazygit
     pkgs.luarocks-nix
-    pkgs.ast-grep
+    pkgs.lxappearance
+    pkgs.maim
+    pkgs.nitrogen
+    pkgs.nodejs_22
+    pkgs.parallel
+    pkgs.picom
+    pkgs.qutebrowser
+    pkgs.redis
+    pkgs.ripgrep
+    pkgs.rofi
+    pkgs.rofimoji
+    pkgs.screenkey # show keyboard input on screen
+    pkgs.shellcheck
+    pkgs.skopeo # interact with remote oci registries
+    pkgs.slop # For use with screen_record
+    pkgs.spotify
+    pkgs.sshpass
+    pkgs.starship
+    pkgs.tldr
+    pkgs.unclutter
+    pkgs.up
+    pkgs.virt-manager
+    pkgs.volctl
+    pkgs.xdotool
+    pkgs.xfce.thunar
+    pkgs.yadm
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
