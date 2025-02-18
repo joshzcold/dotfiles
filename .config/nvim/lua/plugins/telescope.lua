@@ -27,66 +27,66 @@ return {
 			},
 			{ "ANGkeith/telescope-terraform-doc.nvim" },
 		},
-		enabled = false,
+		enabled = true,
 		lazy = true,
 		keymap = "<leader>",
 		init = function()
-			vim.keymap.set("n", "<leader><leader>", function()
-				require("telescope.builtin").find_files({
-					hidden = true,
-				})
-			end, { desc = "Find File" })
-
-			vim.keymap.set("n", "<leader>/?", function()
-				require("telescope.builtin").grep_string({
-					only_sort_text = true,
-				})
-			end, { desc = "Grep Directory" })
-
-			vim.keymap.set("n", "<leader>/f", function()
-				require("telescope.builtin").treesitter()
-				vim.cmd([[:norm zt]])
-			end, { desc = "Treesitter" })
-
-			vim.keymap.set("n", "<leader>/a", function()
-				require("telescope.builtin").find_files({
-					no_ignore = true,
-					no_ignore_parent = true,
-					desc = "All Files",
-				})
-			end, { desc = "All Files" })
-
-			vim.keymap.set("n", "<leader>/q", function()
-				require("telescope.builtin").resume()
-			end, { desc = "Telescope last search" })
-
-			vim.keymap.set("n", "<leader>//", function()
-				require("telescope.builtin").live_grep({
-					only_sort_text = true,
-				})
-			end, { desc = "Live Grep Directory" })
-
-			-- buffers
-			vim.keymap.set("n", "<leader>bb", function()
-				require("telescope.builtin").buffers()
-			end, { desc = "List Buffers" })
-
-			-- git
-			vim.keymap.set("n", "<leader>gc", function()
-				require("telescope.builtin").git_commits({
-					prompt_title = "switch to commit",
-				})
-			end, { desc = "Search git commits" })
-
-			vim.keymap.set("n", "<leader>gB", function()
-				require("telescope.builtin").git_bcommits({
-					prompt_title = "switch to commit on this buffer",
-				})
-			end, { desc = "Search git commits (buffer)" })
-
-			vim.keymap.set("n", "<leader>gb", function()
-				require("telescope.builtin").git_branches({})
-			end, { desc = "Switch git branch" })
+			-- vim.keymap.set("n", "<leader><leader>", function()
+			-- 	require("telescope.builtin").find_files({
+			-- 		hidden = true,
+			-- 	})
+			-- end, { desc = "Find File" })
+			--
+			-- vim.keymap.set("n", "<leader>/?", function()
+			-- 	require("telescope.builtin").grep_string({
+			-- 		only_sort_text = true,
+			-- 	})
+			-- end, { desc = "Grep Directory" })
+			--
+			-- vim.keymap.set("n", "<leader>/f", function()
+			-- 	require("telescope.builtin").treesitter()
+			-- 	vim.cmd([[:norm zt]])
+			-- end, { desc = "Treesitter" })
+			--
+			-- vim.keymap.set("n", "<leader>/a", function()
+			-- 	require("telescope.builtin").find_files({
+			-- 		no_ignore = true,
+			-- 		no_ignore_parent = true,
+			-- 		desc = "All Files",
+			-- 	})
+			-- end, { desc = "All Files" })
+			--
+			-- vim.keymap.set("n", "<leader>/q", function()
+			-- 	require("telescope.builtin").resume()
+			-- end, { desc = "Telescope last search" })
+			--
+			-- vim.keymap.set("n", "<leader>//", function()
+			-- 	require("telescope.builtin").live_grep({
+			-- 		only_sort_text = true,
+			-- 	})
+			-- end, { desc = "Live Grep Directory" })
+			--
+			-- -- buffers
+			-- vim.keymap.set("n", "<leader>bb", function()
+			-- 	require("telescope.builtin").buffers()
+			-- end, { desc = "List Buffers" })
+			--
+			-- -- git
+			-- vim.keymap.set("n", "<leader>gc", function()
+			-- 	require("telescope.builtin").git_commits({
+			-- 		prompt_title = "switch to commit",
+			-- 	})
+			-- end, { desc = "Search git commits" })
+			--
+			-- vim.keymap.set("n", "<leader>gB", function()
+			-- 	require("telescope.builtin").git_bcommits({
+			-- 		prompt_title = "switch to commit on this buffer",
+			-- 	})
+			-- end, { desc = "Search git commits (buffer)" })
+			--
+			-- vim.keymap.set("n", "<leader>gb", function()
+			-- 	require("telescope.builtin").git_branches({})
+			-- end, { desc = "Switch git branch" })
 
 			vim.keymap.set("n", "<leader>ju", function()
 				require("telescope").extensions.undo.undo({ side_by_side = true })
