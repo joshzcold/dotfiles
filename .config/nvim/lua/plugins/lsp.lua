@@ -124,10 +124,10 @@ return {
           vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "lsp buffer hover" })
           vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "lsp diagnostic goto next" })
           vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "lsp diagnostic goto prev" })
-          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "lsp declaration" })
+          -- vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "lsp declaration" })
           vim.keymap.set("n", "ga", vim.lsp.buf.code_action, { desc = "lsp code action" })
-          vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "lsp definition" })
-          vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "lsp references" })
+          -- vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "lsp definition" })
+          -- vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "lsp references" })
           vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, { desc = "lsp type defintion" })
           vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "lsp diagnostic qixfix" })
 

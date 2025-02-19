@@ -30,15 +30,6 @@ return {
 
           lualine_c = {
             "filename",
-            -- Get the last noice message into the bar
-            {
-              function()
-                local message = require("noice").api.status.message.get()
-                return message:sub(1, 120)
-              end,
-              cond = require("noice").api.status.message.has,
-              color = { fg = "6b6b6b" },
-            },
           },
           lualine_x = {
             "filetype",
@@ -51,11 +42,6 @@ return {
               cond = function()
                 return vim.bo.filetype == "python"
               end,
-            },
-            {
-              require("noice").api.status.mode.get,
-              cond = require("noice").api.status.mode.has,
-              color = { fg = "ff9e64" },
             },
             {
               function()

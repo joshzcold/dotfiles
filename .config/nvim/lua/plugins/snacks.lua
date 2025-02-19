@@ -6,14 +6,15 @@ return {
     lazy = false,
     ---@type snacks.Config
     opts = {
-      bigfile = { enabled = true },
+      bigfile = {},
       notifier = {
         enabled = true,
         timeout = 3000,
       },
-      quickfile = { enabled = true },
-      statuscolumn = { enabled = false },
-      words = { enabled = true },
+      dashboard = {},
+      quickfile = {},
+      statuscolumn = {},
+      words = {},
       picker = {
         win = {
           list = { keys = { ["<c-x>"] = { "edit_split", mode = { "i", "n" } } } },
@@ -31,7 +32,7 @@ return {
       { "<leader>/:",      function() Snacks.picker.command_history() end,       desc = "Command History" },
       { "<leader>/n",      function() Snacks.picker.notifications() end,         desc = "Notification History" },
       { "<leader>/e",      function() Snacks.explorer() end,                     desc = "File Explorer" },
-      { "<leader>/q",      function() Snacks.picker.search_history() end,        desc = "File Explorer" },
+      { "<leader>/q",      function() Snacks.picker.resume() end,                desc = "Resume search" },
       -- LSP
       { "gd",              function() Snacks.picker.lsp_definitions() end,       desc = "Goto Definition" },
       { "gD",              function() Snacks.picker.lsp_declarations() end,      desc = "Goto Declaration" },
