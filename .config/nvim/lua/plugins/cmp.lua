@@ -93,7 +93,7 @@ return {
           then
             return { "buffer", "ripgrep" }
           else
-            return { "lsp", "path", "snippets", "buffer", "ripgrep" }
+            return { "lazydev", "lsp", "path", "snippets", "buffer", "ripgrep" }
           end
         end,
         providers = {
@@ -153,6 +153,13 @@ return {
             name = "LSP",
             module = "blink.cmp.sources.lsp",
             score_offset = 50,
+          },
+
+          lazydev = {
+            name = "LazyDev",
+            module = "lazydev.integrations.blink",
+            -- make lazydev completions top priority (see `:h blink.cmp`)
+            score_offset = 100,
           },
         },
       },
