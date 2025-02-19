@@ -171,6 +171,7 @@ function p81dns {
 alias vault_login="vault login -no-print -address ${VAULT_ADDR} -method oidc role=admin"
 alias java_switch_version="sudo update-alternatives --config java"
 alias less="less -R"
+alias clipboard="xclip -selection clipboard"
 
 function work(){
   ssh -t -Y joshua@joshua-work "$@"
