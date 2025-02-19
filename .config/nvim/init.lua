@@ -1,28 +1,28 @@
-require 'functions'
-require 'autocmd'
-require 'options'
-require 'mappings'
+require("functions")
+require("autocmd")
+require("options")
+require("mappings")
 
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system {
-    'git',
-    'clone',
-    '--filter=blob:none',
-    '--single-branch',
-    'https://github.com/folke/lazy.nvim.git',
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "--single-branch",
+    "https://github.com/folke/lazy.nvim.git",
     lazypath,
-  }
+  })
 end
 vim.opt.runtimepath:prepend(lazypath)
 
-require('lazy').setup('plugins', {
+require("lazy").setup("plugins", {
   change_detection = {
     notify = false,
   },
   dev = {
     path = "~/git/neovim",
-    patterns = {"joshzcold"}
+    patterns = { "joshzcold" },
   },
   performance = {
     cache = {
@@ -30,17 +30,16 @@ require('lazy').setup('plugins', {
     },
     rtp = {
       disabled_plugins = {
-        'matchparen',
+        "matchparen",
         -- 'gzip',
         -- 'netrwPlugin',
         -- 'tarPlugin',
         -- 'tohtml',
-        'zipPlugin',
-        'tutor',
+        "zipPlugin",
+        "tutor",
       },
     },
   },
 })
-require 'theme'
-require 'term'
-
+require("theme")
+require("term")
