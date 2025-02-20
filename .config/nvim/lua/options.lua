@@ -7,17 +7,17 @@ opt.backspace = { "indent", "eol", "start" }
 opt.clipboard = "unnamedplus"
 -- Set the clipboard to osc52 if in ssh connection
 if os.getenv("SSH_CONNECTION") then
-	vim.g.clipboard = {
-		name = "OSC 52",
-		copy = {
-			["+"] = require("vim.ui.clipboard.osc52").copy("+"),
-			["*"] = require("vim.ui.clipboard.osc52").copy("*"),
-		},
-		paste = {
-			["+"] = require("vim.ui.clipboard.osc52").paste("+"),
-			["*"] = require("vim.ui.clipboard.osc52").paste("*"),
-		},
-	}
+  vim.g.clipboard = {
+    name = "OSC 52",
+    copy = {
+      ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+      ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+    },
+    paste = {
+      ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+      ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+    },
+  }
 end
 opt.completeopt = "menu,menuone,noselect"
 --Set highlight on search
@@ -73,8 +73,8 @@ opt.scrolloff = 4
 opt.shiftwidth = 4
 opt.list = true
 vim.opt.listchars = {
-	tab = "· ",
-	trail = "·",
+  tab = "· ",
+  trail = "·",
 }
 opt.linebreak = true
 opt.joinspaces = false
@@ -86,14 +86,14 @@ opt.wrap = true
 opt.cc = "0"
 opt.mouse = "a"
 opt.guicursor =
-"n-v-c-sm:block-blinkwait50-blinkon50-blinkoff50,i-ci-ve:ver25-Cursor-blinkon100-blinkoff100,r-cr-o:hor20"
+  "n-v-c-sm:block-blinkwait50-blinkon50-blinkoff50,i-ci-ve:ver25-Cursor-blinkon100-blinkoff100,r-cr-o:hor20"
 
 opt.spell = true
 
 vim.api.nvim_create_autocmd("TextYankPost", {
-	callback = function()
-		vim.highlight.on_yank()
-	end,
+  callback = function()
+    vim.highlight.on_yank()
+  end,
 })
 
 -- grep programs

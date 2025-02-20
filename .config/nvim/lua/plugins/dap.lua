@@ -21,7 +21,7 @@ return {
         },
         config = function()
           local debugpy_python_path = require("mason-registry").get_package("debugpy"):get_install_path()
-              .. "/venv/bin/python3"
+            .. "/venv/bin/python3"
           local dap_python = require("dap-python")
           dap_python.setup(debugpy_python_path, {}) ---@diagnostic disable-line: missing-fields
           require("dap-python").test_runner = "pytest"

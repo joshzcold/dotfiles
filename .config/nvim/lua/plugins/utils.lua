@@ -42,7 +42,7 @@ return {
     end,
   },
   -- allows sudo password prompt inside vim
-  { "lambdalisue/suda.vim",   cmd = { "SudaWrite" } },
+  { "lambdalisue/suda.vim", cmd = { "SudaWrite" } },
 
   -- :YankMacro [register]
   { "jesseleite/nvim-macroni" },
@@ -74,11 +74,11 @@ return {
         -- Although I recommend just using the segments field below to build your
         -- statuscolumn to benefit from the performance optimizations in this plugin.
         -- builtin.lnumfunc number string options
-        thousands = false,   -- or line number thousands separator string ("." / ",")
+        thousands = false, -- or line number thousands separator string ("." / ",")
         relculright = false, -- whether to right-align the cursor line number with 'relativenumber' set
         -- Builtin 'statuscolumn' options
-        ft_ignore = nil,     -- lua table with 'filetype' values for which 'statuscolumn' will be unset
-        bt_ignore = nil,     -- lua table with 'buftype' values for which 'statuscolumn' will be unset
+        ft_ignore = nil, -- lua table with 'filetype' values for which 'statuscolumn' will be unset
+        bt_ignore = nil, -- lua table with 'buftype' values for which 'statuscolumn' will be unset
         -- Default segments (fold -> sign -> line number + separator), explained below
         segments = {
           { text = { "%C" }, click = "v:lua.ScFa" },
@@ -89,7 +89,7 @@ return {
             click = "v:lua.ScLa",
           },
         },
-        clickmod = "c",   -- modifier used for certain actions in the builtin clickhandlers:
+        clickmod = "c", -- modifier used for certain actions in the builtin clickhandlers:
         -- "a" for Alt, "c" for Ctrl and "m" for Meta.
         clickhandlers = { -- builtin click handlers
           Lnum = builtin.lnum_click,

@@ -18,7 +18,7 @@ return {
     opts = {
       overrides = function(colors)
         return {
-          WinSeparator = { fg = colors.palette.dragonBlack6 }
+          WinSeparator = { fg = colors.palette.dragonBlack6 },
         }
       end,
       colors = { -- add/modify theme and palette colors

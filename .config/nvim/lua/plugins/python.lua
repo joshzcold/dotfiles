@@ -51,7 +51,7 @@ return {
           client.settings = vim.tbl_deep_extend("force", client.settings, { python = { pythonPath = venv_python } })
         else
           client.config.settings =
-              vim.tbl_deep_extend("force", client.config.settings, { python = { pythonPath = venv_python } })
+            vim.tbl_deep_extend("force", client.config.settings, { python = { pythonPath = venv_python } })
         end
         client.notify("workspace/didChangeConfiguration", { settings = nil })
       end,
@@ -61,12 +61,17 @@ return {
     config = function(_, opts)
       require("swenv").setup(opts)
 
-      vim.api.nvim_set_keymap('n', '<leader>pv', '<cmd>lua require("swenv.api").pick_venv()<cr>', { desc = 'Python pick venv' })
+      vim.api.nvim_set_keymap(
+        "n",
+        "<leader>pv",
+        '<cmd>lua require("swenv.api").pick_venv()<cr>',
+        { desc = "Python pick venv" }
+      )
       vim.api.nvim_create_autocmd("FileType", {
-          pattern = {"python"},
-          callback = function()
-              require('swenv.api').auto_venv()
-          end
+        pattern = { "python" },
+        callback = function()
+          require("swenv.api").auto_venv()
+        end,
       })
     end,
   },

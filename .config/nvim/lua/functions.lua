@@ -119,38 +119,38 @@ vim.api.nvim_create_user_command("AnsibleLintFix", function()
           table.insert(result_list, v)
         end
         require("telescope.pickers")
-            .new({}, {
-              prompt_title = "Ansible Lint Fix",
-              finder = require("telescope.finders").new_table({
-                results = result_list,
-              }),
-              attach_mappings = function(prompt_bufnr, _)
-                actions.select_default:replace(function()
-                  actions.close(prompt_bufnr)
-                  local selection = action_state.get_selected_entry()
-                  local fix = string.match(selection[1], "(%w+).+")
-                  vim.cmd("wa")
-                  Job:new({
-                    command = "ansible-lint",
-                    args = { "--nocolor", "-x", "role-name", "--fix", fix, vim.api.nvim_buf_get_name(0) },
-                    stdin = function()
-                      local content = vim.api.nvim_buf_get_lines(0, 0, vim.api.nvim_buf_line_count(0), false)
-                      return table.concat(content, "\n")
-                    end,
-                    on_exit = function(k, _)
-                      vim.schedule(function()
-                        if k.code ~= 0 then
-                          vim.notify(vim.inspect(j._stderr_results))
-                        end
-                      end)
-                    end,
-                  }):start()
-                end)
-                return true
-              end,
-              sorter = require("telescope.config").values.generic_sorter({}),
-            })
-            :find()
+          .new({}, {
+            prompt_title = "Ansible Lint Fix",
+            finder = require("telescope.finders").new_table({
+              results = result_list,
+            }),
+            attach_mappings = function(prompt_bufnr, _)
+              actions.select_default:replace(function()
+                actions.close(prompt_bufnr)
+                local selection = action_state.get_selected_entry()
+                local fix = string.match(selection[1], "(%w+).+")
+                vim.cmd("wa")
+                Job:new({
+                  command = "ansible-lint",
+                  args = { "--nocolor", "-x", "role-name", "--fix", fix, vim.api.nvim_buf_get_name(0) },
+                  stdin = function()
+                    local content = vim.api.nvim_buf_get_lines(0, 0, vim.api.nvim_buf_line_count(0), false)
+                    return table.concat(content, "\n")
+                  end,
+                  on_exit = function(k, _)
+                    vim.schedule(function()
+                      if k.code ~= 0 then
+                        vim.notify(vim.inspect(j._stderr_results))
+                      end
+                    end)
+                  end,
+                }):start()
+              end)
+              return true
+            end,
+            sorter = require("telescope.config").values.generic_sorter({}),
+          })
+          :find()
       end)
     end,
   }):sync()
@@ -174,16 +174,16 @@ end, {})
 -- Workaround for getting terraform-ls errors when opening up tfvars file
 vim.filetype.add({
   extension = {
-    tfvars = "hcl"
-  }
+    tfvars = "hcl",
+  },
 })
 
-vim.api.nvim_create_user_command('WipeWindowlessBufs', function ()
-  local bufinfos = vim.fn.getbufinfo({buflisted = true})
-  vim.tbl_map(function (bufinfo)
+vim.api.nvim_create_user_command("WipeWindowlessBufs", function()
+  local bufinfos = vim.fn.getbufinfo({ buflisted = true })
+  vim.tbl_map(function(bufinfo)
     if bufinfo.changed == 0 and (not bufinfo.windows or #bufinfo.windows == 0) then
-      print(('Deleting buffer %d : %s'):format(bufinfo.bufnr, bufinfo.name))
-      vim.api.nvim_buf_delete(bufinfo.bufnr, {force = false, unload = false})
+      print(("Deleting buffer %d : %s"):format(bufinfo.bufnr, bufinfo.name))
+      vim.api.nvim_buf_delete(bufinfo.bufnr, { force = false, unload = false })
     end
   end, bufinfos)
-end, { desc = 'Wipeout all buffers not shown in a window'})
+end, { desc = "Wipeout all buffers not shown in a window" })

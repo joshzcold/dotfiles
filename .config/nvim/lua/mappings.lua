@@ -1,9 +1,9 @@
 local function map(mode, lhs, rhs, opts)
-	local options = { noremap = true, silent = true }
-	if opts then
-		options = vim.tbl_extend("force", options, opts)
-	end
-	vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+  local options = { noremap = true, silent = true }
+  if opts then
+    options = vim.tbl_extend("force", options, opts)
+  end
+  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
 vim.g.mapleader = " "
@@ -59,15 +59,15 @@ map("x", "L", "$")
 
 -- map("n", "<bs>", "<c-^>`”zz") -- switch between buffers with delete
 map("n", "<bs>", "<c-^>") -- switch between buffers with delete
-map("n", "Q", "@q")       -- no EX mode, execute q macro
+map("n", "Q", "@q") -- no EX mode, execute q macro
 
 -- keep selection on indenting lines
 map("v", ">", ">gv")
 map("v", "<", "<gv")
 
-map("n", "Y", "y$")   -- Y yank until the end of line
+map("n", "Y", "y$") -- Y yank until the end of line
 map("n", "vv", "vg_") -- vv visual to end of characters
-map("n", "$", "g_")   -- don't copy white space when using $
+map("n", "$", "g_") -- don't copy white space when using $
 
 -- keep centered while jumping around in search/J
 map("n", "n", "nzzzv")
@@ -86,30 +86,30 @@ map("n", "<esc>", ":noh<return><esc>")
 map("n", "<leader>", "", { desc = "" })
 -- Helpful yanking y
 map("n", "<leader>yy", [[:let @+ = fnamemodify(expand("%"), ":~:.") <cr>]], { desc = "Yank relative path" }) -- lua/mappings.lua
-map("n", "<leader>yf", [[:let @+ = expand("%:t")<cr>]], { desc = "Yank filename" })                          -- mappings.lua
-map("n", "<leader>yF", [[:let @+ = expand("%:p")<cr>]], { desc = "Yank file full path" })                    -- /home/joshua/.config/nvim/lua/mappings.lua
-map("n", "<leader>yd", [[:let @+ = expand("%:h")<cr>]], { desc = "Yank directory relative path" })           -- lua
-map("n", "<leader>yD", [[:let @+ = expand("%:p:h")<cr>]], { desc = "Yank directory full path" })             -- /home/joshua/.config/nvim/lua
+map("n", "<leader>yf", [[:let @+ = expand("%:t")<cr>]], { desc = "Yank filename" }) -- mappings.lua
+map("n", "<leader>yF", [[:let @+ = expand("%:p")<cr>]], { desc = "Yank file full path" }) -- /home/joshua/.config/nvim/lua/mappings.lua
+map("n", "<leader>yd", [[:let @+ = expand("%:h")<cr>]], { desc = "Yank directory relative path" }) -- lua
+map("n", "<leader>yD", [[:let @+ = expand("%:p:h")<cr>]], { desc = "Yank directory full path" }) -- /home/joshua/.config/nvim/lua
 map(
-	"n",
-	"<leader>yg",
-	[[:let @+ = trim(system("git branch --show-current 2>/dev/null"))<cr>]],
-	{ desc = "Yank git branch" }
-)                                                                                                       -- main|dev|master
+  "n",
+  "<leader>yg",
+  [[:let @+ = trim(system("git branch --show-current 2>/dev/null"))<cr>]],
+  { desc = "Yank git branch" }
+) -- main|dev|master
 
 map("n", "<leader>yj", [[:let @+=luaeval('require"jsonpath".get()')<cr>]], { desc = "Yank json path" }) -- .path.to.json.object
 
 map(
-	"n",
-	"<leader>yR",
-	[[:let @a='' | %s/regex/\=setreg('A', submatch(0) . "\n")/n<c-f> ]],
-	{ desc = "Yank regex capture group" }
+  "n",
+  "<leader>yR",
+  [[:let @a='' | %s/regex/\=setreg('A', submatch(0) . "\n")/n<c-f> ]],
+  { desc = "Yank regex capture group" }
 )
 map(
-	"x",
-	"<leader>yR",
-	[[:let @a='' | '<,'>s/regex/\=setreg('A', submatch(0) . "\n")/n<c-f> ]],
-	{ desc = "Yank regex capture group" }
+  "x",
+  "<leader>yR",
+  [[:let @a='' | '<,'>s/regex/\=setreg('A', submatch(0) . "\n")/n<c-f> ]],
+  { desc = "Yank regex capture group" }
 )
 
 map("n", "yc", "yygccp", { desc = "Duplicate line and comment out", noremap = false })
@@ -128,17 +128,17 @@ map("n", "<leader>m\\", [[Wi\<CR><Esc>l]], { desc = "(macro) split shell by \\" 
 map("n", "<leader>m{", [[/{{<CR>i{{`<Esc>/}}<CR>A`}}<Esc>j^]], { desc = "(macro) helm wrap curls with ``" })
 
 map(
-	"n",
-	"<leader>mv",
-	[[/.Values<CR>V:s/\\(\\w\\)-\\(\\w\\)/\\1_\\2/g<CR>j]],
-	{ desc = "(macro) convert - to _ in helm Values string" }
+  "n",
+  "<leader>mv",
+  [[/.Values<CR>V:s/\\(\\w\\)-\\(\\w\\)/\\1_\\2/g<CR>j]],
+  { desc = "(macro) convert - to _ in helm Values string" }
 )
 
 map(
-	"n",
-	"<leader>mf",
-	[[/format<CR>f(lv/,\|)<CR>lhd0/{\d}<CR>lvp<Esc>0]],
-	{ desc = "(macro) convert python format string to fstring partially" }
+  "n",
+  "<leader>mf",
+  [[/format<CR>f(lv/,\|)<CR>lhd0/{\d}<CR>lvp<Esc>0]],
+  { desc = "(macro) convert python format string to fstring partially" }
 )
 
 map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Visually move line down" })
@@ -167,22 +167,22 @@ map("n", "<leader>gu", ":Git pull<cr>", { desc = "Git pull" })
 
 -- Profiling
 map("n", "<leader>vps", "", {
-	desc = "Profile Start",
-	callback = function()
-		vim.cmd([[
+  desc = "Profile Start",
+  callback = function()
+    vim.cmd([[
 		:profile start /tmp/nvim-profile.log
 		:profile func *
 		:profile file *
 	]])
-	end,
+  end,
 })
 
 map("n", "<leader>vpe", "", {
-	desc = "Profile End",
-	callback = function()
-		vim.cmd([[
+  desc = "Profile End",
+  callback = function()
+    vim.cmd([[
 		:profile stop
 		:e /tmp/nvim-profile.log
 	]])
-	end,
+  end,
 })
