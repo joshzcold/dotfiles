@@ -8,9 +8,6 @@ return {
       null_ls.builtins.formatting.prettierd.with({
         extra_filetypes = { "yaml.ansible" },
       }),
-      null_ls.builtins.formatting.stylua.with({
-        args = { "--indent-width", "2", "--indent-type", "Spaces", "-" },
-      }),
 
       null_ls.builtins.formatting.nginx_beautifier.with({
         args = { "-s", "4", "-i", "-o", "$FILENAME" },

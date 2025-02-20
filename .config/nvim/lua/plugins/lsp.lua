@@ -6,61 +6,61 @@ local function set_groovy_classpath()
   end
   vim.notify("groovyls: starting gradle dependencies install at: " .. gradle_dir, vim.log.levels.INFO)
   Job
-    :new({
-      command = "./gradlew",
-      args = {
-        "dependencies",
-      },
-      cwd = gradle_dir,
-      on_exit = function(j, _)
-        vim.schedule(function()
-          if j.code ~= 0 then
-            vim.notify("./gradlew dependencies: " .. vim.inspect(j._stderr_results), vim.log.levels.ERROR)
-          else
-            Job
-              :new({
-                command = "gradle-classpath",
-                cwd = gradle_dir,
-                on_exit = function(k, _)
-                  vim.schedule(function()
-                    if k.code ~= 0 then
-                      vim.notify("gradle-classpath: " .. vim.inspect(k._stderr_results), vim.log.levels.ERROR)
-                    else
-                      local _classpath_results_stdout = k._stdout_results[1]
-                      local classpath_results = vim.split(_classpath_results_stdout, ":")
-                      vim.notify("Setting classpath in groovyls ...", vim.log.levels.INFO)
-                      local groovy_lsp_client = vim.lsp.get_clients({ name = "groovyls" })[1]
-                      if not groovy_lsp_client then
-                        vim.notify("Error lsp client groovyls not found.", vim.log.levels.ERROR)
-                        return
-                      end
-                      if groovy_lsp_client.settings then
-                        groovy_lsp_client.settings = vim.tbl_deep_extend(
-                          "force",
-                          groovy_lsp_client.settings,
-                          { groovy = { classpath = classpath_results } }
-                        )
-                      else
-                        groovy_lsp_client.config.settings = vim.tbl_deep_extend(
-                          "force",
-                          groovy_lsp_client.config.settings,
-                          { groovy = { classpath = classpath_results } }
-                        )
-                      end
-                      groovy_lsp_client.notify(
-                        "workspace/didChangeConfiguration",
-                        { settings = groovy_lsp_client.settings }
-                      )
-                    end
-                  end)
-                end,
-              })
-              :start()
-          end
-        end)
-      end,
-    })
-    :start()
+      :new({
+        command = "./gradlew",
+        args = {
+          "dependencies",
+        },
+        cwd = gradle_dir,
+        on_exit = function(j, _)
+          vim.schedule(function()
+            if j.code ~= 0 then
+              vim.notify("./gradlew dependencies: " .. vim.inspect(j._stderr_results), vim.log.levels.ERROR)
+            else
+              Job
+                  :new({
+                    command = "gradle-classpath",
+                    cwd = gradle_dir,
+                    on_exit = function(k, _)
+                      vim.schedule(function()
+                        if k.code ~= 0 then
+                          vim.notify("gradle-classpath: " .. vim.inspect(k._stderr_results), vim.log.levels.ERROR)
+                        else
+                          local _classpath_results_stdout = k._stdout_results[1]
+                          local classpath_results = vim.split(_classpath_results_stdout, ":")
+                          vim.notify("Setting classpath in groovyls ...", vim.log.levels.INFO)
+                          local groovy_lsp_client = vim.lsp.get_clients({ name = "groovyls" })[1]
+                          if not groovy_lsp_client then
+                            vim.notify("Error lsp client groovyls not found.", vim.log.levels.ERROR)
+                            return
+                          end
+                          if groovy_lsp_client.settings then
+                            groovy_lsp_client.settings = vim.tbl_deep_extend(
+                              "force",
+                              groovy_lsp_client.settings,
+                              { groovy = { classpath = classpath_results } }
+                            )
+                          else
+                            groovy_lsp_client.config.settings = vim.tbl_deep_extend(
+                              "force",
+                              groovy_lsp_client.config.settings,
+                              { groovy = { classpath = classpath_results } }
+                            )
+                          end
+                          groovy_lsp_client.notify(
+                            "workspace/didChangeConfiguration",
+                            { settings = groovy_lsp_client.settings }
+                          )
+                        end
+                      end)
+                    end,
+                  })
+                  :start()
+            end
+          end)
+        end,
+      })
+      :start()
 end
 
 return {
@@ -104,7 +104,7 @@ return {
       local blink_is_loaded = package.loaded["blink.cmp"] ~= nil
       if blink_is_loaded then
         capabilities =
-          vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities(capabilities))
+            vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities(capabilities))
         -- print("loaded lsp capabilities with blink")
       end
 
@@ -241,6 +241,13 @@ return {
         lua_ls = {
           settings = {
             Lua = {
+              format = {
+                enable = true,
+                defaultConfig = {
+                  indent_style = "space",
+                  indent_size = "2",
+                },
+              },
               hint = { enable = true },
               workspace = {
                 checkThirdParty = false,
