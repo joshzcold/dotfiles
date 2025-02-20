@@ -11,7 +11,6 @@ return {
         enabled = true,
         timeout = 3000,
       },
-      dashboard = {},
       quickfile = {},
       statuscolumn = {},
       words = {},
