@@ -312,7 +312,7 @@ return {
         "black",
         "isort",
         "pydocstyle",
-        "npm-groovy-lint@15.0.0",
+        "npm-groovy-lint",
         "ansible-lint",
       })
 

@@ -99,6 +99,29 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
+-- Put in the jira tag in to the commit automatically
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  pattern = { "*.sh" },
+  callback = function()
+    local file = vim.fn.expand('%')
+    local perms = vim.fn.getfperm(file)
+    local owner_permissions = perms:sub(1, 3)
+    if owner_permissions ~= "rwx" then
+      vim.ui.select({
+        "Yes",
+        "No"
+      }, {
+        prompt = "Add executable permission to this script?"
+      }, function(choice)
+        if choice == "Yes" then
+          vim.system({ "chmod", "+x", file })
+          vim.notify("Added executable permissions to: " .. file)
+        end
+      end)
+    end
+  end,
+})
+
 -- set nginx conf type base on search match
 vim.api.nvim_create_autocmd({ "BufRead" }, {
   pattern = { "*.conf", "*.conf.*" },
@@ -156,7 +179,8 @@ vim.api.nvim_create_autocmd("LspProgress", {
   ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
   callback = function(ev)
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
-    local value = ev.data.params.value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
+    local value = ev.data.params
+        .value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
     if not client or type(value) ~= "table" then
       return
     end
@@ -188,7 +212,7 @@ vim.api.nvim_create_autocmd("LspProgress", {
       title = client.name,
       opts = function(notif)
         notif.icon = #progress[client.id] == 0 and " "
-          or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+            or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
       end,
     })
   end,
