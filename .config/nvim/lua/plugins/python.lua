@@ -23,15 +23,16 @@ end, {
 })
 
 return {
+  ---@module 'python'
   {
-    "AckslD/swenv.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    "joshzcold/python.nvim",
+    ---@type python.Config
     opts = {
       -- Should return a list of tables with a `name` and a `path` entry each.
       -- Gets the argument `venvs_path` set below.
       -- By default just lists the entries in `venvs_path`.
       get_venvs = function(venvs_path)
-        return require("swenv.api").get_venvs(venvs_path)
+        return require("python.venv").get_venvs(venvs_path)
       end,
       -- Path passed to `get_venvs`.
       venvs_path = vim.fn.expand("~/.virtualenvs"),
@@ -42,7 +43,7 @@ return {
         if not client then
           return
         end
-        local venv = require("swenv.api").get_current_venv()
+        local venv = require("python.venv").get_current_venv()
         if not venv then
           return
         end
@@ -58,21 +59,22 @@ return {
       auto_create_venv = true,
       auto_create_venv_dir = ".venv",
     },
+
     config = function(_, opts)
-      require("swenv").setup(opts)
+      require("python").setup(opts)
 
       vim.api.nvim_set_keymap(
         "n",
         "<leader>pv",
-        '<cmd>lua require("swenv.api").pick_venv()<cr>',
+        '<cmd>lua require("python.venv").pick_venv()<cr>',
         { desc = "Python pick venv" }
       )
       vim.api.nvim_create_autocmd("FileType", {
         pattern = { "python" },
         callback = function()
-          require("swenv.api").auto_venv()
+          require("python.venv").auto_venv()
         end,
       })
     end,
-  },
+  }
 }

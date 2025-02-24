@@ -37,8 +37,7 @@ return {
               return require("lsp-status").status()
             end,
             {
-              "swenv",
-              icon = "",
+              "python",
               cond = function()
                 return vim.bo.filetype == "python"
               end,
