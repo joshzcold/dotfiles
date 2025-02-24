@@ -107,16 +107,18 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     local perms = vim.fn.getfperm(file)
     local owner_permissions = perms:sub(1, 3)
     if owner_permissions ~= "rwx" then
-      vim.ui.select({
-        "Yes",
-        "No"
-      }, {
-        prompt = "Add executable permission to this script?"
-      }, function(choice)
-        if choice == "Yes" then
-          vim.system({ "chmod", "+x", file })
-          vim.notify("Added executable permissions to: " .. file)
-        end
+      vim.schedule(function()
+        vim.ui.select({
+          "Yes",
+          "No"
+        }, {
+          prompt = "Add executable permission to this script?"
+        }, function(choice)
+          if choice == "Yes" then
+            vim.system({ "chmod", "+x", file })
+            vim.notify("Added executable permissions to: " .. file)
+          end
+        end)
       end)
     end
   end,

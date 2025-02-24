@@ -1,8 +1,9 @@
 return {
-  {
-    "stevearc/dressing.nvim",
-    opts = {},
-  },
+  -- {
+  --   "stevearc/dressing.nvim",
+  --   opts = {},
+  --   enabled = true
+  -- },
   {
     "kevinhwang91/nvim-bqf",
     opts = {},
