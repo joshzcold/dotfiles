@@ -43,7 +43,7 @@ return {
         if not client then
           return
         end
-        local venv = require("python.venv").get_current_venv()
+        local venv = require("python.venv").current_venv()
         if not venv then
           return
         end
