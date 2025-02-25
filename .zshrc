@@ -440,9 +440,9 @@ function new_jira_branch(){
   )
   jira_issues="$(${jira_command[@]} | grep -oP "^\w+.*")"
   list=""
-  list+="${jira_issues}"
-  list+="\nCHORE"
+  list+="CHORE"
   list+="\nENHANCEMENT"
+  list+="\n${jira_issues}"
   selected_line="$( echo "${list}" | fzf --query '')"
   [ -z "$selected_line" ] && return
   key="$(echo "${selected_line}" | awk '{print $1}')"
