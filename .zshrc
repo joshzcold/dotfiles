@@ -423,6 +423,12 @@ function git_convert_to_branch_name() {
   echo "$output"
 }
 
+function new_jira_issue(){
+  cd ~/git/tool/one_off_scripts/jira/
+  source .venv/bin/activate
+  vim tickets.yaml
+}
+
 function new_jira_branch(){
   ( git fetch origin &>/dev/null & )
   jira_issues="$(jira issue list --plain --columns 'KEY,STATUS,TYPE,SUMMARY,ASSIGNEE' -s 'In Progress' -s 'Code Review' -s 'In QA'  -s 'QA Ready' --no-headers)"
@@ -568,6 +574,7 @@ setopt noflowcontrol
 bindkey -s '^x' 'fast_ssh^M'
 bindkey -s '^z' 'fast_ssh_broadcast^M'
 bindkey -s '^j' 'new_jira_branch^M'
+bindkey -s '^i' 'new_jira_issue^M'
 
 zle -N toggle_lights
 bindkey '^t' toggle_lights

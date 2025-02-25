@@ -31,6 +31,7 @@ kubectl get pods -o jsonpath="{.items[*].spec['initContainers', 'containers'][*]
 watch "kubectl get pods -o jsonpath=\"{.items[*].spec['initContainers', 'containers'][*].image}\" | tr -s '[[:space:]]' '\n' | sort | uniq -c"
 kubectl get <OBJ> --no-headers --output go-template='{{ range $key, $value := . }} {{ $key }} {{ end }}'
 kubectl get jobs | grep "0/1" | awk '{print $1}' | xargs kubectl delete job
+kubectl get pods | grep "0/1" | awk '{print $1}' | xargs kubectl delete pod
 kubectl get secrets ca-key -o jsonpath="{['data']['ca\.key']}" | base64 -d
 ldapsearch -H ldaps://ldap.jumpcloud.com -x -b "ou=Users,o=6402471ce00e50f88e413da3,dc=jumpcloud,dc=com" -w '****' -D "uid=it_api_automation,ou=Users,o=6402471ce00e50f88e413da3,dc=jumpcloud,dc=com" > ldapout.txt
 sudo apt-mark unhold $(apt-mark showhold)
