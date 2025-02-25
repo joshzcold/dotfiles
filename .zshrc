@@ -431,7 +431,14 @@ function new_jira_issue(){
 
 function new_jira_branch(){
   ( git fetch origin &>/dev/null & )
-  jira_issues="$(jira issue list --plain --columns 'KEY,STATUS,TYPE,SUMMARY,ASSIGNEE' -s 'In Progress' -s 'Code Review' -s 'In QA'  -s 'QA Ready' --no-headers)"
+
+  jira_command=(
+    jira issue list --plain
+    --columns 'ASSIGNEE,KEY,STATUS,TYPE,SUMMARY'
+    -s 'In Progress' -s 'Code Review' -s 'In QA'  -s 'QA Ready'
+    --no-headers
+  )
+  jira_issues="$(${jira_command[@]} | grep -oP "^\w+.*")"
   list=""
   list+="${jira_issues}"
   list+="\nCHORE"
