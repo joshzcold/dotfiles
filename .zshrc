@@ -571,10 +571,17 @@ bindkey -M vicmd 'V' edit-command-line
 
 setopt noflowcontrol
 
-bindkey -s '^x' 'fast_ssh^M'
-bindkey -s '^z' 'fast_ssh_broadcast^M'
-bindkey -s '^j' 'new_jira_branch^M'
-bindkey -s '^i' 'new_jira_issue^M'
+zle -N fast_ssh
+bindkey '^x' fast_ssh
+
+zle -N fast_ssh_broadcast
+bindkey '^z' fast_ssh_broadcast
+
+zle -N new_jira_branch
+bindkey '^j' new_jira_branch
+
+zle -N new_jira_issue
+bindkey '^u' new_jira_issue
 
 zle -N toggle_lights
 bindkey '^t' toggle_lights
@@ -602,6 +609,7 @@ bindkey '^l' klog
 
 zle -N k_switch_namespace
 bindkey '^n' k_switch_namespace
+
 zstyle ':completion:*' menu select
 
 # allow copy and pasting to xclip in vi-mode
