@@ -4,9 +4,3 @@ _ur_completions() {
 }
 
 complete -o bashdefault -o default -F _ur_completions ur
-
-_flow_completions(){
-	COMPREPLY=($(compgen -W "$($1 --help)"))
-}
-
-complete -o bashdefault -o default -F _flow_completions flow
