@@ -577,8 +577,7 @@ bindkey '^x' fast_ssh
 zle -N fast_ssh_broadcast
 bindkey '^z' fast_ssh_broadcast
 
-zle -N new_jira_branch
-bindkey '^j' new_jira_branch
+bindkey -s '^j' 'new_jira_branch^M'
 
 zle -N new_jira_issue
 bindkey '^u' new_jira_issue
