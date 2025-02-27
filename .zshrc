@@ -423,7 +423,7 @@ function git_convert_to_branch_name() {
   echo "$output"
 }
 
-function new_jira_issue(){
+function _new_jira_issue(){
   cd ~/git/tool/one_off_scripts/jira/
   source .venv/bin/activate
   vim tickets.yaml
@@ -586,8 +586,8 @@ bindkey '^z' fast_ssh_broadcast
 
 bindkey -s '^j' 'new_jira_branch^M'
 
-zle -N new_jira_issue
-bindkey '^u' new_jira_issue
+zle -N _new_jira_issue
+bindkey '^u' _new_jira_issue
 
 zle -N toggle_lights
 bindkey '^t' toggle_lights

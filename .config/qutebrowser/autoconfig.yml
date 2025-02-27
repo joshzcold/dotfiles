@@ -78,6 +78,7 @@ settings:
   content.javascript.enabled:
     '*://10.155.0.99/*': true
   content.media.audio_capture:
+    https://app.slack.com: true
     https://app.zoom.us: true
     https://discord.com: true
     https://imperva.zoom.us: true
