@@ -17,6 +17,13 @@ return {
     -- build = 'cargo build --release',
 
     opts = {
+      cmdline = {
+        completion = {
+          menu = {
+            auto_show = true
+          }
+        }
+      },
       completion = {
         documentation = {
           auto_show = true,

@@ -32,6 +32,7 @@ return {
       { "<leader>bb",      function() Snacks.picker.buffers() end,                                 desc = "Buffers" },
       { "<leader>//",      function() Snacks.picker.grep() end,                                    desc = "Grep" },
       { "<leader>/:",      function() Snacks.picker.command_history() end,                         desc = "Command History" },
+      { "<leader>/h",      function() Snacks.picker.help() end,                         desc = "Neovim Help Docs" },
       { "<leader>/n",      function() Snacks.picker.notifications() end,                           desc = "Notification History" },
       { "<leader>/e",      function() Snacks.explorer() end,                                       desc = "File Explorer" },
       { "<leader>/q",      function() Snacks.picker.resume() end,                                  desc = "Resume search" },
