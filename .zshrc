@@ -447,7 +447,7 @@ function new_jira_branch(){
   [ -z "$selected_line" ] && return
   key="$(echo "${selected_line}" | awk '{print $1}')"
 
-  branch_summary="$(echo "${selected_line}" | tr -s '\t' | awk -F '\t' '{print $4}')" # Start with the summary
+  branch_summary="$(echo "${selected_line}" | tr -s '\t' | awk -F '\t' '{print $5}')" # Start with the summary
   suffix_prompt="Branch suffix?: "
   echo -n "${suffix_prompt}"
   echo
