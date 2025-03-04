@@ -434,7 +434,7 @@ function new_jira_branch(){
 
   jira_command=(
     jira issue list --plain
-    --columns 'ASSIGNEE,KEY,STATUS,TYPE,SUMMARY'
+    --columns 'KEY,STATUS,TYPE,ASSIGNEE,SUMMARY'
     -s 'In Progress' -s 'Code Review' -s 'In QA'  -s 'QA Ready'
     --no-headers
   )
