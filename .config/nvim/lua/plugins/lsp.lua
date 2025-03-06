@@ -276,13 +276,6 @@ return {
           end,
         },
         basedpyright = {
-          on_init = function(client)
-            local venv = require("python.venv").current_venv()
-            if venv ~= nil then
-              local venv_python = venv.path .. "/bin/python"
-              client.config.settings.python.pythonPath = venv_python
-            end
-          end,
           settings = {
             basedpyright = {
               analysis = {
