@@ -423,7 +423,7 @@ function git_convert_to_branch_name() {
   echo "$output"
 }
 
-function new_jira_issue(){
+function _new_jira_issue(){
   cd ~/git/tool/one_off_scripts/jira/
   source .venv/bin/activate
   vim tickets.yaml
@@ -434,7 +434,7 @@ function new_jira_branch(){
 
   jira_command=(
     jira issue list --plain
-    --columns 'ASSIGNEE,KEY,STATUS,TYPE,SUMMARY'
+    --columns 'KEY,STATUS,TYPE,ASSIGNEE,SUMMARY'
     -s 'In Progress' -s 'Code Review' -s 'In QA'  -s 'QA Ready'
     --no-headers
   )
@@ -586,8 +586,8 @@ bindkey '^z' fast_ssh_broadcast
 
 bindkey -s '^j' 'new_jira_branch^M'
 
-zle -N new_jira_issue
-bindkey '^u' new_jira_issue
+zle -N _new_jira_issue
+bindkey '^u' _new_jira_issue
 
 zle -N toggle_lights
 bindkey '^t' toggle_lights
@@ -698,6 +698,10 @@ if [ -f "$HOME/.nix-profile/share/fzf/key-bindings.zsh" ]; then
 fi
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 eval "$(starship init zsh)"
+
+# Load flow bash completion
+
+[ -f /etc/bash_completion.d/flow-completion ] && source /etc/bash_completion.d/flow-completion
 
 # Auto connect to work computer over ssh if on the vpn
 # if [[ "$(uname)" == "Darwin" ]]; then

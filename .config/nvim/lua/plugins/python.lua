@@ -27,29 +27,7 @@ return {
   {
     "joshzcold/python.nvim",
     ---@type python.Config
-    opts = {
-      post_set_venv = function()
-        local client = vim.lsp.get_clients({ name = "basedpyright" })[1]
-        if not client then
-          return
-        end
-        local venv = require("python.venv").current_venv()
-        if not venv then
-          return
-        end
-        local venv_python = venv.path .. "/bin/python"
-        if client.settings then
-          client.settings = vim.tbl_deep_extend("force", client.settings, { python = { pythonPath = venv_python } })
-        else
-          client.config.settings =
-            vim.tbl_deep_extend("force", client.config.settings, { python = { pythonPath = venv_python } })
-        end
-        client.notify("workspace/didChangeConfiguration", { settings = nil })
-      end,
-      auto_create_venv = true,
-      auto_create_venv_dir = ".venv",
-    },
-
+    opts = {},
     config = function(_, opts)
       require("python").setup(opts)
 
@@ -59,12 +37,6 @@ return {
         '<cmd>lua require("python.venv").pick_venv()<cr>',
         { desc = "Python pick venv" }
       )
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = { "python" },
-        callback = function()
-          require("python.venv").auto_venv()
-        end,
-      })
     end,
   }
 }
