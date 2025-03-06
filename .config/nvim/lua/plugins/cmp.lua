@@ -20,8 +20,14 @@ return {
       cmdline = {
         completion = {
           menu = {
-            auto_show = true
+            auto_show = true,
           }
+        },
+        keymap = {
+          ["<Tab>"] = { "select_next", "fallback" },
+          ["<S-Tab>"] = { "select_prev", "fallback" },
+          ["<CR>"] = { "select_and_accept", "fallback" },
+          ['<C-e>'] = { 'cancel' },
         }
       },
       completion = {
@@ -94,9 +100,9 @@ return {
           local success, node = pcall(vim.treesitter.get_node)
           -- If in comment then only do buffer and ripgrep
           if
-            success
-            and node
-            and vim.tbl_contains({ "comment", "line_comment", "block_comment", "comment_content" }, node:type())
+              success
+              and node
+              and vim.tbl_contains({ "comment", "line_comment", "block_comment", "comment_content" }, node:type())
           then
             return { "buffer", "ripgrep" }
           else

@@ -1,4 +1,5 @@
 ---@module 'snacks'
+---@diagnostic disable: missing-fields`
 return {
   {
     "folke/snacks.nvim",
@@ -17,9 +18,37 @@ return {
       input = { enabled = false },
       words = {},
       picker = {
-        win = {
-          list = { keys = { ["<c-x>"] = { "edit_split", mode = { "i", "n" } } } },
-          input = { keys = { ["<c-x>"] = { "edit_split", mode = { "i", "n" } } } },
+        sources = {
+          ---@type snacks.picker.buffers.Config
+          buffers = {
+            win = {
+              input = {
+                keys = {
+                  ["<c-x>"] = { "edit_split", mode = { "n", "i" } },
+                },
+              },
+            },
+          },
+          ---@type snacks.picker.explorer.Config
+          explorer = {
+            win = {
+              list = {
+                keys = {
+                  ["x"] = "explorer_move",
+                  ["m"] = "explorer_move",
+                  ["/"] = function()
+                    vim.api.nvim_feedkeys("/", "n", false)
+                  end,
+                },
+              }
+            }
+          },
+          files = {
+            list = { keys = { ["<c-x>"] = { "edit_split", mode = { "i", "n" } } } },
+            win = {
+              input = { keys = { ["<c-x>"] = { "edit_split", mode = { "i", "n" } } } },
+            },
+          }
         },
       },
       styles = {},
@@ -32,7 +61,7 @@ return {
       { "<leader>bb",      function() Snacks.picker.buffers() end,                                 desc = "Buffers" },
       { "<leader>//",      function() Snacks.picker.grep() end,                                    desc = "Grep" },
       { "<leader>/:",      function() Snacks.picker.command_history() end,                         desc = "Command History" },
-      { "<leader>/h",      function() Snacks.picker.help() end,                         desc = "Neovim Help Docs" },
+      { "<leader>/h",      function() Snacks.picker.help() end,                                    desc = "Neovim Help Docs" },
       { "<leader>/n",      function() Snacks.picker.notifications() end,                           desc = "Notification History" },
       { "<leader>/e",      function() Snacks.explorer() end,                                       desc = "File Explorer" },
       { "<leader>/q",      function() Snacks.picker.resume() end,                                  desc = "Resume search" },
