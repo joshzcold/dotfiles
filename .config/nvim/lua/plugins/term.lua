@@ -38,6 +38,9 @@ return {
       end, { desc = "Term Select" })
 
       -- misc keymappings jira
+      vim.keymap.set("n", "<leader>jb", function()
+        vim.cmd[[:JiraNewBranch]]
+      end, { desc = "New Jira Branch" })
       vim.keymap.set("n", "<leader>jjn", function()
         toggle_term("jira issue create")
       end, { desc = "New Jira issue" })
