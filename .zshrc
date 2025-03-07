@@ -502,13 +502,9 @@ function fast_ssh(){
     command+=(ssh "$host")
     # add to history
     print -s "${command[@]}"
-    if [[ $host == $last ]]; then
-      TERM=xterm-256color ${command[*]} </dev/tty
-    else
-      kitty --detach zsh -c "TERM=xterm-256color ${command[*]}"
-    fi
-    sleep 1
+    kitty --detach zsh -c "TERM=xterm-256color ${command[*]}"
   done
+  exit
 }
 
 function fast_ssh_broadcast(){
