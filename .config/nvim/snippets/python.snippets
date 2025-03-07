@@ -70,3 +70,55 @@ snippet main "Main function with if statement"
 
 	if __name__ == "__main__":
 			main()
+
+snippet python_script_starter "Starting point for python script"
+	#!/usr/bin/env python3
+	"""Python script."""
+
+	import argparse
+	import logging
+	from dataclasses import dataclass
+
+	log: logging.Logger = logging.getLogger()
+
+
+	@dataclass
+	class ProgramArgs:
+		"""Typed program arguments."""
+
+		loglevel: int
+		dryrun: bool
+
+
+	def set_logging(log_level) -> None:
+		"""Set logging level from args."""
+		logging.basicConfig(level=log_level)
+
+
+	def parse_args() -> type[ProgramArgs]:
+		"""Get arguments."""
+		parser = argparse.ArgumentParser(description="")
+		parser.add_argument(
+			"--dryrun",
+			action="store_true",
+			help="Preform a dryrun action",
+			default=False,
+		)
+		parser.add_argument(
+			"--debug",
+			dest="loglevel",
+			action="store_const",
+			const=logging.DEBUG,
+			default=logging.INFO,
+		)
+		return parser.parse_args(namespace=ProgramArgs)
+
+
+	def main() -> None:
+		"""Main fuction."""
+		args: type[ProgramArgs] = parse_args()
+		set_logging(args.loglevel)
+
+
+	if __name__ == "__main__":
+		main()
