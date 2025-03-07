@@ -197,3 +197,7 @@ vim.api.nvim_create_user_command("WipeWindowlessBufs", function()
     end
   end, bufinfos)
 end, { desc = "Wipeout all buffers not shown in a window" })
+
+vim.api.nvim_create_user_command("JiraNewBranch", function()
+    toggle_term("zsh -c 'new_jira_branch.sh || sleep 3'")
+end, { desc = "Run new jira branch command in pop up terminal" })
