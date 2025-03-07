@@ -493,20 +493,21 @@ function fast_ssh(){
   hosts=("${(@f)$(cat /etc/hosts | fzf -m | awk '{print $2}')}")
   pos=$(( ${#hosts[*]} ))
   last=${hosts[$pos]}
-  command=()
-  if nmcli c show | grep p81 > /dev/null; then
-    command=("work" ${command[@]})
-  fi
 
   for host in "${hosts[@]}"; do
+    command=()
+    if nmcli c show | grep p81 > /dev/null; then
+      command=("work")
+    fi
     command+=(ssh "$host")
     # add to history
     print -s "${command[@]}"
     if [[ $host == $last ]]; then
-      TERM=xterm-256color ${command[@]} </dev/tty
+      TERM=xterm-256color ${command[*]} </dev/tty
     else
-      kitty --detach zsh -c "TERM=xterm-256color ${command[@]} </dev/tty" &
+      kitty --detach zsh -c "TERM=xterm-256color ${command[*]}"
     fi
+    sleep 1
   done
 }
 
