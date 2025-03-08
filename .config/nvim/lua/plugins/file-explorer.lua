@@ -14,7 +14,7 @@ return {
   {
     {
       "kyazdani42/nvim-tree.lua",
-      enabled = false,
+      enabled = true,
       dependencies = {
         { "nvim-tree/nvim-web-devicons" },
       },

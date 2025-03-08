@@ -63,7 +63,7 @@ return {
       { "<leader>/:",      function() Snacks.picker.command_history() end,                         desc = "Command History" },
       { "<leader>/h",      function() Snacks.picker.help() end,                                    desc = "Neovim Help Docs" },
       { "<leader>/n",      function() Snacks.picker.notifications() end,                           desc = "Notification History" },
-      { "<leader>/e",      function() Snacks.explorer() end,                                       desc = "File Explorer" },
+      -- { "<leader>/e",      function() Snacks.explorer() end,                                       desc = "File Explorer" },
       { "<leader>/q",      function() Snacks.picker.resume() end,                                  desc = "Resume search" },
       { "<leader>ju",      function() Snacks.picker.undo() end,                                    desc = "Undo history" },
       { "<leader>/u",      function() Snacks.picker.undo() end,                                    desc = "Undo history" },
