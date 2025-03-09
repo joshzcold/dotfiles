@@ -19,17 +19,6 @@ return {
             opts = {},
           },
         },
-        config = function()
-          local debugpy_python_path = require("mason-registry").get_package("debugpy"):get_install_path()
-            .. "/venv/bin/python3"
-          local dap_python = require("dap-python")
-          dap_python.setup(debugpy_python_path, {}) ---@diagnostic disable-line: missing-fields
-          require("dap-python").test_runner = "pytest"
-
-          vim.keymap.set({ "n", "v" }, "<Leader>dt", function()
-            require("dap-python").test_method()
-          end, { desc = "Dap Python: Run test method" })
-        end,
       },
       { "theHamsta/nvim-dap-virtual-text" },
     },
