@@ -27,10 +27,18 @@ return {
   {
     "joshzcold/python.nvim",
     ---@type python.Config
-    opts = {},
-    config = function(_, opts)
-      require("python").setup(opts)
+    opts = { ---@diagnostic disable-line: missing-fields`
+      -- Also do venv stuff for ansible
+      auto_venv_lsp_attach_patterns = { "*.py", "*.yml" },
+      command_setup_filetypes = { "yaml.ansible", "python" }
+    },
+    dependencies = {
+      { "mfussenegger/nvim-dap" },
+      { "mfussenegger/nvim-dap-python" },
+      { "neovim/nvim-lspconfig" },
 
+    },
+    init = function()
       vim.api.nvim_set_keymap(
         "n",
         "<leader>pv",
