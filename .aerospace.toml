@@ -1,9 +1,8 @@
-# Reference: https://github.com/i3/i3/blob/next/etc/config
-
 # Run Sketchybar together with AeroSpace
 # sketchbar has a built-in detection of already running process,
 # so it won't be run twice on AeroSpace restart
 after-startup-command = ['exec-and-forget sketchybar']
+start-at-login = true
 
 # Notify Sketchybar about workspace change
 exec-on-workspace-change = ['/bin/bash', '-c',
@@ -43,8 +42,8 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
     # i3 wraps focus by default
     cmd-j =         'focus --boundaries-action wrap-around-the-workspace left'
     cmd-k =         'focus --boundaries-action wrap-around-the-workspace right'
-    cmd-h =         'resize width -50'
-    cmd-l =         'resize width +50'
+    cmd-h =         'resize width +50'
+    cmd-l =         'resize width -50'
     # cmd-l =         'focus --boundaries-action wrap-around-the-workspace up'
     # cmd-semicolon = 'focus --boundaries-action wrap-around-the-workspace right'
 
