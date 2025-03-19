@@ -28,16 +28,20 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 #                 See:
 #                 https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-    inner.horizontal = 8
-    inner.vertical =   8
-    outer.left =       0
-    outer.bottom =     20
+    inner.horizontal = 2
+    inner.vertical =   2
+    outer.left =       2
+    outer.bottom =     0
     outer.top =        0
-    outer.right =      0
+    outer.right =      2
 
 [mode.main.binding]
     # See: https://nikitabobko.github.io/AeroSpace/goodies#open-a-new-window-with-applescript
     cmd-enter = 'exec-and-forget kitty -d ~'
+
+    # Screenshot
+    cmd-s = 'exec-and-forget screencapture -c -s'
+    cmd-t = 'exec-and-forget bash ~/.config/usr-scripts/totp-macos'
 
     # i3 wraps focus by default
     cmd-j =         'focus --boundaries-action wrap-around-the-workspace left'
@@ -56,7 +60,7 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
     # Consider using 'join-with' command as a 'split' replacement if you want to enable
     # normalizations
     # cmd-h = 'split horizontal'
-    cmd-v = 'split vertical'
+    # cmd-v = 'split vertical'
 
     cmd-f = 'fullscreen'
 
@@ -96,7 +100,7 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
     cmd-shift-9 = 'move-node-to-workspace 9'
     cmd-shift-0 = 'move-node-to-workspace 10'
 
-    cmd-shift-c = 'reload-config'
+    cmd-shift-r = 'reload-config'
 
     cmd-r = 'mode resize'
 
