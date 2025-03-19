@@ -43,6 +43,8 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
     cmd-s = 'exec-and-forget screencapture -c -s'
     cmd-t = 'exec-and-forget bash ~/.config/usr-scripts/totp-macos'
 
+    cmd-q = 'close --quit-if-last-window'
+
     # i3 wraps focus by default
     cmd-j =         'focus --boundaries-action wrap-around-the-workspace left'
     cmd-k =         'focus --boundaries-action wrap-around-the-workspace right'
@@ -66,7 +68,7 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
     # cmd-s = 'layout v_accordion' # 'layout stacking' in i3
     # cmd-w = 'layout h_accordion' # 'layout tabbed' in i3
-    cmd-e = 'layout tiles horizontal vertical' # 'layout toggle split' in i3
+    # cmd-e = 'layout tiles horizontal vertical' # 'layout toggle split' in i3
 
     cmd-shift-space = 'layout floating tiling' # 'floating toggle' in i3
 
@@ -102,15 +104,15 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
     cmd-shift-r = 'reload-config'
 
-    cmd-r = 'mode resize'
+    # cmd-r = 'mode resize'
 
-[mode.resize.binding]
-    h = 'resize width -50'
-    j = 'resize height +50'
-    k = 'resize height -50'
-    l = 'resize width +50'
-    enter = 'mode main'
-    esc = 'mode main'
+# [mode.resize.binding]
+#     h = 'resize width -50'
+#     j = 'resize height +50'
+#     k = 'resize height -50'
+#     l = 'resize width +50'
+#     enter = 'mode main'
+#     esc = 'mode main'
 
 [[on-window-detected]]
 if.app-id = 'org.qutebrowser.qutebrowser'
