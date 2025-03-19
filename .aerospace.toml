@@ -44,6 +44,7 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
     cmd-t = 'exec-and-forget bash ~/.config/usr-scripts/totp-macos'
 
     cmd-q = 'close --quit-if-last-window'
+    cmd-n = 'exec-and-forget bash ~/.config/usr-scripts/sketchbar-rename.sh'
 
     # i3 wraps focus by default
     cmd-j =         'focus --boundaries-action wrap-around-the-workspace left'
