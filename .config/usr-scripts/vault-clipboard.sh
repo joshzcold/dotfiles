@@ -35,7 +35,7 @@ function notify(){
 }
 
 touch "$CACHE_FILE"
-VAULT_TOKEN=$(cat /home/joshua/.vault-token)
+VAULT_TOKEN=$(cat $HOME/.vault-token)
 export VAULT_TOKEN
 
 
