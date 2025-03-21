@@ -13,6 +13,16 @@ vim.api.nvim_set_hl(0, "StatusLine", { fg = "#8b949e", bg = nil })
 vim.api.nvim_set_hl(0, "Search", { reverse = true })
 vim.api.nvim_set_hl(0, "Cursor", { reverse = true })
 
+-- DiagnosticError xxx guifg=#e82424
+-- DiagnosticWarn xxx guifg=#ff9e3b
+-- DiagnosticInfo xxx guifg=#658594
+-- DiagnosticHint xxx guifg=#6a9589
+-- DiagnosticOk   xxx guifg=#98bb6c
+
+-- more muted warning for lsp diagnostics
+vim.api.nvim_set_hl(0, "DiagnosticWarn", { fg = "#a3703c" })
+vim.api.nvim_set_hl(0, "DiagnosticSignWarn", { fg = "#a3703c" })
+
 vim.cmd([[
   autocmd FileType groovy setlocal commentstring=//\ %s
   autocmd FileType Jenkinsfile setlocal commentstring=//\ %s
