@@ -65,6 +65,8 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     map("n", "<leader>laf", "<cmd>AnsibleLintFix<cr>", { desc = "Ansible Lint Fix" })
     vim.opt_local.makeprg = "ansible-lint -p --nocolor"
     vim.opt_local.keywordprg = "ansible-doc"
+    map("n", "<leader>/t", "",
+      { desc = "Search for ansible task", callback = function() Snacks.picker.grep({ search = "- name: " }) end })
   end,
 })
 -- set yaml.ansible file type based on search match
