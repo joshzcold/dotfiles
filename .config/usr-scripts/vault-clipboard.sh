@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2068
 # Recursive function that will
 # - List all the secrets in the given $path
 # - Call itself for all path values in the given $path
@@ -13,11 +14,33 @@ export VAULT_ADDR="https://vault.secmet.co:8200"
 Yellow='\033[0;33m' # Yellow
 PS4="${Yellow}>>>${Color_Off} "
 
+
+SELECTION_CMD=(dmenu -l 20)
+CLIPBOARD_CMD=(xclip -selection clipboard)
+SED_COMMAND="sed"
+
+if [[ "$(uname -s)" == "Darwin" ]]; then
+	SELECTION_CMD=(choose -m)
+	CLIPBOARD_CMD=(pbcopy)
+SED_COMMAND="gsed"
+fi
+
+
+function notify(){
+	if [[ "$(uname -s)" == "Darwin" ]]; then
+		osascript -e "display notification \"$1\" with title \"vault-clipboard.sh\""
+	else
+		notify-send -h string:x-canonical-private-synchronous:anything "$1"
+	fi
+}
+
 touch "$CACHE_FILE"
-VAULT_TOKEN=$(cat /home/joshua/.vault-token)
+VAULT_TOKEN=$(cat $HOME/.vault-token)
 export VAULT_TOKEN
 
-echo "$VAULT_TOKEN" | vault login - || notify-send "Vault login failed"
+
+echo "$VAULT_TOKEN" | vault login - || notify "Vault login failed"
+
 
 function traverse() {
 	path="${1}"
@@ -52,7 +75,7 @@ function traverse() {
 
 mapfile -t -d $'\n' vaults < <(vault secrets list -format=json | jq -r 'to_entries[] | select(.value.type =="kv") | .key')
 
-notify-send -h string:x-canonical-private-synchronous:anything "Looking up secrets..."
+notify "Looking up secrets..."
 for vault in "${vaults[@]}"; do
 	traverse "$vault" &
 done
@@ -71,26 +94,26 @@ function lookup_secret_folder() {
 	json=$(vault kv get -format=json "${selection}")
 
 	echo "$json" | jq -r '.data.data | keys' &>/dev/null || {
-		notify-send -h string:x-canonical-private-synchronous:anything "No secrets found..."
+		notify "No secrets found..."
 		exit 1
 	}
 }
 
 function lookup_secret() {
 	secret=$(echo "$json" | jq -r --arg secret_key "${secret_selection}" '.data.data[$secret_key]')
-	notify-send -h string:x-canonical-private-synchronous:anything "Copied key: ${selection}:${secret_selection} to clipboard"
-	printf "%s" "$secret" | xclip -selection clipboard
+	notify "Copied key: ${selection}:${secret_selection} to clipboard"
+	printf "%s" "$secret" | ${CLIPBOARD_CMD[@]}
 
 	# Make sure last selected appears at top of list
-	sed -i "\#^.*${selection}:${secret_selection}\$#d" "$CACHE_FILE"
+	${SED_COMMAND} -i "\#^.*${selection}:${secret_selection}\$#d" "$CACHE_FILE"
 	echo "$selection:${secret_selection}" >>"$CACHE_FILE"
 }
 
-selection=$(tac "$CACHE_FILE" | dmenu -l 20)
+selection=$(tac "$CACHE_FILE" | ${SELECTION_CMD[@]})
 
 if [[ ! "$selection" =~ .*:.* ]]; then
 	lookup_secret_folder
-	secret_selection=$(echo "$json" | jq -r '.data.data | keys | .[]' | dmenu -l 20)
+	secret_selection=$(echo "$json" | jq -r '.data.data | keys | .[]' | ${SELECTION_CMD[@]})
 else
 	secret_selection=$(echo "$selection" | rev | cut -d: -f1 | rev)
 	selection=$(echo "$selection" | cut -d: -f1)
