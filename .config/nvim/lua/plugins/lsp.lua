@@ -122,7 +122,7 @@ return {
           vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "lsp diagnostics" })
           vim.keymap.set("n", "<leader>i", vim.lsp.buf.implementation, { desc = "lsp implementation" })
           vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { desc = "lsp rename" })
-          vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "lsp buffer hover" })
+          vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, { desc = "lsp buffer hover" })
           vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "lsp diagnostic goto next" })
           vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "lsp diagnostic goto prev" })
           -- vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "lsp declaration" })
@@ -381,6 +381,7 @@ return {
   },
   {
     "rachartier/tiny-inline-diagnostic.nvim",
+    enabled = false,
     event = "VeryLazy", -- Or `LspAttach`
     config = function()
       require("tiny-inline-diagnostic").setup()

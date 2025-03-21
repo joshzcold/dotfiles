@@ -29,8 +29,8 @@ return {
     ---@type python.Config
     opts = { ---@diagnostic disable-line: missing-fields`
       -- Also do venv stuff for ansible
-      auto_venv_lsp_attach_patterns = { "*.py", "*.yml" },
-      command_setup_filetypes = { "yaml.ansible", "python" }
+      auto_venv_lsp_attach_patterns = { "*.py" },
+      command_setup_filetypes = { "python" }
     },
     dependencies = {
       { "mfussenegger/nvim-dap" },
