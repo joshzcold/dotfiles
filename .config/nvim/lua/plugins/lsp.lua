@@ -335,7 +335,6 @@ return {
     },
   },
   "onsails/lspkind-nvim",
-  "nvim-lua/lsp-status.nvim",
   {
     "folke/trouble.nvim",
     dependencies = {

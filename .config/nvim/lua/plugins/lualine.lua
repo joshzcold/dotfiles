@@ -33,9 +33,6 @@ return {
           },
           lualine_x = {
             "filetype",
-            function()
-              return require("lsp-status").status()
-            end,
             {
               "python",
               cond = function()

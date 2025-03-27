@@ -113,16 +113,16 @@ fi
 user_prompt "Install bob neovim"
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   cd /opt
-  sudo wget https://github.com/MordechaiHadad/bob/releases/download/v3.0.1/bob-linux-x86_64.zip
+  sudo wget https://github.com/MordechaiHadad/bob/releases/download/v4.0.3/bob-linux-x86_64.zip
   sudo unzip bob-linux-x86_64.zip
 fi
 
 user_prompt "Symlink apps into /usr/local/bin"
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   cd /usr/local/bin
-  sudo ln -s "$(command -v kmonad)"
-  sudo ln -s /home/joshua/.local/share/bob/nvim-bin/nvim
-  sudo ln -s /opt/bob-linux-x86_64/bob
+  sudo ln -sf "$(command -v kmonad)"
+  sudo ln -sf /home/joshua/.local/share/bob/nvim-bin/nvim
+  sudo ln -sf /opt/bob-linux-x86_64/bob
 fi
 
 user_prompt "Symlink ssh key from codepaste"

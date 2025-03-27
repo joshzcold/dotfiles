@@ -32,7 +32,6 @@ in
     pkgs.bat
     pkgs.bitwarden-cli
     pkgs.calc
-    pkgs.cargo
     pkgs.chromium
     pkgs.dmenu
     pkgs.dunst # desktop notification
