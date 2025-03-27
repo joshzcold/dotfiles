@@ -40,6 +40,7 @@ return {
           "rasi",
           -- "http",
           "json",
+          "jinja",
           "css",
           -- "sql",
           -- "scss",
