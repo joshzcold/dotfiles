@@ -31,21 +31,6 @@ return {
       auto_venv_lsp_attach_patterns = { "*.py" },
       command_setup_filetypes = { "python" },
       python_lua_snippets = true,
-    },
-    dependencies = {
-      { "mfussenegger/nvim-dap" },
-      { "mfussenegger/nvim-dap-python" },
-      { "neovim/nvim-lspconfig" },
-      { "MunifTanjim/nui.nvim" },
-      { "L3MON4D3/LuaSnip" }
-    },
-    init = function()
-      vim.api.nvim_set_keymap(
-        "n",
-        "<leader>pv",
-        '<cmd>lua require("python.venv").pick_venv()<cr>',
-        { desc = "Python pick venv" }
-      )
-    end,
+    }
   }
 }
