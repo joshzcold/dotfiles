@@ -8,4 +8,6 @@ if [ -f "/home/joshua/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
   export XDG_DATA_DIRS=$HOME/.nix-profile/share:$HOME/.share:"${XDG_DATA_DIRS:-/usr/local/share/:/usr/share/}"
   source /home/joshua/.nix-profile/etc/profile.d/hm-session-vars.sh
 fi
-. "$HOME/.cargo/env"
+if [ -f "$HOME/.cargo/env" ]; then
+  . "$HOME/.cargo/env"
+fi
