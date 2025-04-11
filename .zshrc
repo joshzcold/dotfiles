@@ -53,6 +53,7 @@ export ANDROID_SDK_ROOT='/opt/android-sdk'
 export ANDROID_HOME='/opt/android-sdk'
 export CHROME_EXECUTABLE=chromium
 export PDM_IGNORE_SAVED_PYTHON=1
+export DOTNET_ROOT=$HOME/.dotnet
 export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools/
 export PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin/
 export PATH=$PATH:$ANDROID_ROOT/emulator
@@ -104,8 +105,8 @@ export PATH=$PATH:$HOME/.config/usr-scripts
 export PATH=$PATH:$GOPATH/bin
 export PATH=$GOROOT/bin:$PATH
 export PATH=$PATH:$HOME/.local/bin
-export PATH=$PATH:$HOME/dotnet/tools
 export PATH=$PATH:$HOME/.local/share/nvim/mason/bin
+export PATH=$DOTNET_ROOT:$DOTNET_ROOT/tools:$PATH
 
 [ -f " ~/.nix-profile/etc/profile.d/hm-session-vars.sh" ] && souce ~/.nix-profile/etc/profile.d/hm-session-vars.sh
 
