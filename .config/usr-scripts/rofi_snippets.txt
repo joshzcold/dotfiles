@@ -39,3 +39,4 @@ for user in $(cut -f1 -d: /etc/passwd); do sudo crontab -u $user -l 2>/dev/null 
 kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o jsonpath="{['data']['password']}" | base64 --decode | xclip -selection clipboard && echo && kubectl -n rook-ceph get ing --no-headers rook-ceph-dashboard
 tr -dc A-Za-z0-9 </dev/urandom | head -c 25; echo
 openssl s_client -showcerts -servername www.example.com -connect www.example.com:443 </dev/null
+qemu-img resize nameofimg.img +30G
