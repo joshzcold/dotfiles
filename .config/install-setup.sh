@@ -52,7 +52,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo "You now need to exit the shell and restart this script"
     exit
   fi
-  nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+  nix-channel --add https://github.com/nix-community/home-manager/archive/release-24.11.tar.gz home-manager
   nix-channel --update
   { set +x; } 2>/dev/null
 fi
