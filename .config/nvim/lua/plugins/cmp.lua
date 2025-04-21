@@ -160,7 +160,7 @@ return {
           snippets = {
             name = "Snippets",
             module = "blink.cmp.sources.snippets",
-            score_offset = 100,
+            score_offset = 10,
           },
           lsp = {
             name = "LSP",
