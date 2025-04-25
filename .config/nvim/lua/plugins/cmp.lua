@@ -12,7 +12,7 @@ return {
     },
 
     -- use a release tag to download pre-built binaries
-    version = "*",
+    -- version = "*",
     -- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
     -- build = 'cargo build --release',
 
@@ -106,7 +106,7 @@ return {
           then
             return { "buffer", "ripgrep" }
           else
-            return { "lazydev", "lsp", "path", "snippets", "buffer", "ripgrep" }
+            return { "lazydev", "lsp", "path", "snippets", "buffer" }
           end
         end,
         providers = {
@@ -155,7 +155,7 @@ return {
               end
               return items
             end,
-            score_offset = -10,
+            score_offset = 5,
           },
           snippets = {
             name = "Snippets",

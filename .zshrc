@@ -44,7 +44,7 @@ export VISUAL=nvim
 export NPM_PACKAGES="${HOME}/.npm-packages"
 export VAULT_ADDR="https://vault.secmet.co:8200"
 export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
-export MANPAGER="/usr/bin/less -r -X -is"
+export MANPAGER="nvim +Man!"
 export GOPATH=$HOME/.go
 export GOROOT=/usr/local/go
 export KUBE_EDITOR=nvim
@@ -415,7 +415,7 @@ function git_branch(){
 
 function _new_jira_issue(){
   cd ~/git/tool/one_off_scripts/jira/
-  source .venv/bin/activate
+# source .venv/bin/activate  # commented out by conda initialize
   vim tickets.yaml
 }
 
