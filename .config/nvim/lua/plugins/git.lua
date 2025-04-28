@@ -95,15 +95,15 @@ return {
           ["bitbucket.secmet.co"] = function(url_data)
             local project, repo = string.match(url_data.repo, "(%w+)/(.*)")
             local url = "https://"
-              .. url_data.host
-              .. "/projects/"
-              .. project
-              .. "/repos/"
-              .. repo
-              .. "/browse/"
-              .. url_data.file
-              .. "?at="
-              .. url_data.rev
+                .. url_data.host
+                .. "/projects/"
+                .. project
+                .. "/repos/"
+                .. repo
+                .. "/browse/"
+                .. url_data.file
+                .. "?at="
+                .. url_data.rev
             if url_data.lstart then
               url = url .. "#" .. url_data.lstart
             end
