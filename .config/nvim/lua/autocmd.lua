@@ -82,6 +82,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = { "*/playbooks/*.yml", "*/tasks/*.yml" },
   callback = function()
     vim.opt_local.ft = "yaml.ansible"
+    -- vim.treesitter.language.register('yaml.ansible', { 'yaml' })
   end,
 })
 
