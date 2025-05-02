@@ -143,8 +143,8 @@ map(
 
 map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Visually move line down" })
 map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Visually move line up" })
-map("v", "<c-j>", ":m '>+1<CR>gv=gv", { desc = "Visually move line down" })
-map("v", "<c-k>", ":m '<-2<CR>gv=gv", { desc = "Visually move line up" })
+-- map("v", "<c-j>", ":m '>+1<CR>gv=gv", { desc = "Visually move line down" })
+-- map("v", "<c-k>", ":m '<-2<CR>gv=gv", { desc = "Visually move line up" })
 
 -- vim v
 map("n", "<leader>vr", ":source $MYVIMRC", { desc = "Source Config" })
