@@ -165,6 +165,7 @@ alias mk="mkvirtualenv"
 alias wk="workon"
 alias dk="deactivate"
 alias flow="./flow"
+alias home-manager-upgrade="sudo -i nix-channel --update && home-manager switch"
 function p81dns {
     sudo resolvectl dns p81 10.29.10.2 ||
     sudo systemd-resolve --interface=p81 --set-dns 10.29.10.2 --set-dns 10.29.10.3 --set-domain secmet.co
@@ -484,8 +485,8 @@ function fast_ssh_broadcast(){
       command=("work" ${command[@]})
     fi
     command+=(ssh "$host")
-    kitty @ new-window --title 
-    kitty @ send-text ${command[@]}
+    window_id=$(kitty @ new-window --title)
+    kitty @ send-text  -m "id:$window_id" ${command[@]}
   done
   kitty @ focus-window -m id:1
   if [[ ${#hosts[@]} = 2 ]]; then
