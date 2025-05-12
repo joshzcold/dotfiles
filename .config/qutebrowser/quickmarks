@@ -83,7 +83,7 @@ pulse pipeline kibana securitymetrics https://search-sm-es-v1-prod-wnjyqjs5yqaxd
 pulse pipeline kibana/es securitymetrics https://search-sm-es-v1-prod-wnjyqjs5yqaxdyyocnmefuun5e.us-west-2.es.amazonaws.com/
 registry binary repo nexus https://registry.secmet.co/
 securitymetrics dental benefits https://www.principal.com/
-securitymetrics jenkins current mono-repo master builds https://jenkins.secmet.co/blue/organizations/jenkins/Development%2Fsm/activity?branch=master
+securitymetrics jenkins current mono-repo master builds https://jenkins.secmet.co/job/Development/job/sm/job/master/
 securitymetrics payroll https://payroll.paylogics.com/payday-benefits
 securitymetrics vsphere hq-inf3 https://hq-inf3-v-vcenter-1.secmet.co
 snipe-it https://securitymetrics.snipe-it.io/account/view-assets
