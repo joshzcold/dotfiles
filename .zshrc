@@ -271,16 +271,6 @@ function yu(){
   yadm push
 }
 
-function vault-token(){
-  if timeout 5s vault login -method oidc role="admin" >/dev/null 2>&1; then
-    token=$(cat ~/.vault-token)
-    xdotool type "$token"
-    ( qutebrowser :tab-close > /dev/null 2>&1 & )
-  else
-    echo "ERROR"
-  fi
-}
-
 function searchGitHistory(){
   INITIAL_QUERY=""
   RG_PREFIX="git grep --column --color=always --threads 4"
