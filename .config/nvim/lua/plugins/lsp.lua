@@ -297,7 +297,8 @@ return {
       require("mason").setup()
       local ensure_installed = vim.tbl_keys(servers or {})
 
-      vim.list_extend(ensure_installed, {
+
+      local tools_ensure_installed = {
         "stylua",
         "shellcheck",
         "shfmt",
@@ -305,20 +306,20 @@ return {
         "pydocstyle",
         "npm-groovy-lint",
         "ansible-lint",
-      })
+      }
 
-      require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+      require("mason-tool-installer").setup({ ensure_installed = tools_ensure_installed })
 
       require("mason-lspconfig").setup({
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-
-            server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-            require("lspconfig")[server_name].setup(server)
-          end,
-        },
+        automatic_enable = true,
+        ensure_installed = ensure_installed,
       })
+
+
+      for server in pairs(servers) do
+        local server_config = servers[server]
+        vim.lsp.config(server, server_config)
+      end
     end,
   },
   {
