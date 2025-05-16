@@ -406,7 +406,7 @@ function git_branch(){
 
 function _new_jira_issue(){
   cd ~/git/tool/one_off_scripts/jira/
-  source .venv/bin/activate
+  [ -f ".venv/bin/activate" ] && source .venv/bin/activate
 # source .venv/bin/activate  # commented out by conda initialize
   vim tickets.yaml
 }
