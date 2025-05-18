@@ -39,20 +39,21 @@ EOT
   { set +x; } 2>/dev/null
 fi
 
-user_prompt "Setup packages"
+user_prompt "Setup packages and nix-channel"
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   set -x
   cd ~
   sudo apt install zsh curl
   if ! command -v nix-channel; then
-    sh <(curl -L https://nixos.org/nix/install) --daemon
+    sh <(curl -L https://nixos.org/nix/install) --daemon --yes
   fi
 
   if ! command -v nix-channel; then
     echo "You now need to exit the shell and restart this script"
     exit
   fi
-  nix-channel --add https://github.com/nix-community/home-manager/archive/release-24.11.tar.gz home-manager
+  nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs-unstable
+  nix-channel --add https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz home-manager
   nix-channel --update
   { set +x; } 2>/dev/null
 fi
