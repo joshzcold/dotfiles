@@ -92,11 +92,13 @@ settings:
     https://www.onlinemictest.com: true
   content.media.audio_video_capture:
     https://app.chime.aws: true
+    https://app.zoom.us: true
     https://meet.google.com: true
     https://teams.microsoft.com: true
     https://www.facebook.com: true
   content.media.video_capture:
     https://app.chime.aws: true
+    https://app.zoom.us: true
     https://meet.google.com: true
     https://teams.microsoft.com: true
     https://us02web.zoom.us: true
@@ -106,6 +108,7 @@ settings:
   content.notifications.enabled:
     https://app.chime.aws: true
     https://app.slack.com: true
+    https://app.zoom.us: true
     https://calendar.google.com: true
     https://chat.gooogle.com: true
     https://drive.google.com: true
