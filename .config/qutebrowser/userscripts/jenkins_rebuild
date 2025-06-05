@@ -1,23 +1,30 @@
 #!/usr/bin/env node
 
-const qutejs = require('qutejs');
+const qutejs = require("qutejs");
 
-let url_parts = process.env.QUTE_URL.split("/")
+let url_parts = process.env.QUTE_URL.split("/");
 
-if(process.env.QUTE_URL.includes("console")){
-  let new_path = url_parts.slice(0, -1).join("/")
-  qutejs.open(`${new_path}/rebuild`)
-}else if(process.env.QUTE_URL.includes("rebuild")){
-  let old_job_num = parseInt(url_parts[url_parts.length -2])
-  let new_path = url_parts.slice(0, -2).join("/")
-  if(process.env.QUTE_URL.includes("parameterized")){
-    old_job_num = parseInt(url_parts[url_parts.length -3])
-    new_path = url_parts.slice(0, -3).join("/")
+if (process.env.QUTE_URL.includes("console")) {
+  let new_path = url_parts.slice(0, -1).join("/");
+  qutejs.open(`${new_path}/rebuild`);
+} else if (process.env.QUTE_URL.includes("pipeline-overview")) {
+  let parsedUrl = process.env.QUTE_URL.replace(
+    /(.*)\pipeline-overview.*/,
+    "$1",
+  );
+  url_parts = parsedUrl.split("/");
+  let new_path = url_parts.slice(0, -1).join("/");
+  qutejs.open(`${new_path}/rebuild`);
+} else if (process.env.QUTE_URL.includes("rebuild")) {
+  let old_job_num = parseInt(url_parts[url_parts.length - 2]);
+  let new_path = url_parts.slice(0, -2).join("/");
+  if (process.env.QUTE_URL.includes("parameterized")) {
+    old_job_num = parseInt(url_parts[url_parts.length - 3]);
+    new_path = url_parts.slice(0, -3).join("/");
   }
-  qutejs.jseval([], function () {
-      document.getElementsByName("Submit")[0].click();
+  qutejs.jseval([], function() {
+    document.getElementsByName("Submit")[0].click();
   });
-}
-else{
-  qutejs.open(`${process.env.QUTE_URL}/lastBuild/console`)
+} else {
+  qutejs.open(`${process.env.QUTE_URL}/lastBuild/console`);
 }

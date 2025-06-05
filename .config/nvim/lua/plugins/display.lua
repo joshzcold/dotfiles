@@ -13,7 +13,8 @@ return {
     opts = {
       callout = {
         story = { raw = "[!STORY]", rendered = "  Story", highlight = "RenderMarkdownHint" },
-        spike = { raw = "[!SPIKE]", rendered = "  Spike", highlight = "RenderMarkdownInfo" },
+        spike = { raw = "[!SPIKE]", rendered = " Spike", highlight = "RenderMarkdownInfo" },
+        ticket = { raw = "[!TICKET]", rendered = " Ticket", highlight = "RenderMarkdownHint" },
       },
     },
     init = function()
