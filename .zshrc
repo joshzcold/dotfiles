@@ -13,11 +13,12 @@ if [[ "$(uname)" == "Darwin" ]]; then
   export PATH=/usr/local/share/python:$PATH
   source /opt/homebrew/bin/virtualenvwrapper_lazy.sh
   export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
-  export JAVA_HOME=/opt/homebrew/Cellar/openjdk/21.0.2
+  export JAVA_HOME=/opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk/Contents/Home
 else
     # load custom dir colors (ignore 777 permissions for NTFS mounts)
     eval "$(dircolors ~/.dircolors)"
     export SUDO_ASKPASS=/usr/bin/ksshaskpass
+    export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 fi
 # case insensitive file matching
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -72,7 +73,6 @@ if [ -f "$HOME/.local/bin/virtualenvwrapper_lazy.sh" ]; then
 fi
 
 export PYTHONBREAKPOINT="pudb.set_trace"
-export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 # Set TERM based on if in ssh connection
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
   export TERM=xterm-256color
