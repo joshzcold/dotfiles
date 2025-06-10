@@ -29,7 +29,9 @@ return {
           lualine_b = { GetRepoName, "branch", "diff" },
 
           lualine_c = {
-            "filename",
+            function()
+              return vim.fn.fnamemodify(vim.fn.expand("%"), ":~:.")
+            end
           },
           lualine_x = {
             "filetype",

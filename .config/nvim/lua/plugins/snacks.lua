@@ -48,6 +48,11 @@ return {
             win = {
               input = { keys = { ["<c-x>"] = { "edit_split", mode = { "i", "n" } } } },
             },
+            formatters = {
+              file = {
+                filename_first = false
+              }
+            }
           }
         },
       },
@@ -55,7 +60,7 @@ return {
     },
     -- stylua: ignore
     keys = {
-      { "<leader><space>", function() Snacks.picker.files({}) end,                                   desc = "Find Files" },
+      { "<leader><space>", function() Snacks.picker.files({ follow=true}) end,                                   desc = "Find Files" },
       { "<leader>/v",      function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
       { "<leader>/b",      function() Snacks.picker.buffers() end,                                 desc = "Buffers" },
       { "<leader>bb",      function() Snacks.picker.buffers() end,                                 desc = "Buffers" },
