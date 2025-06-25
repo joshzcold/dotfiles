@@ -59,6 +59,7 @@ in
     pkgs.lxappearance
     pkgs.maim
     pkgs.nitrogen
+    pkgs.vagrant
     pkgs.nodejs_22
     pkgs.parallel
     pkgs.picom

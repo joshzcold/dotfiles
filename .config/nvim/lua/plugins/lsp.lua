@@ -215,7 +215,16 @@ return {
         bashls = {},
         gopls = {},
         ts_ls = {},
-        tailwindcss = {},
+        tailwindcss = {
+          filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+          settings = {
+            tailwindCSS = {
+              includeLanguages = {
+                templ = "html",
+              },
+            },
+          },
+        },
         jsonls = {},
         jdtls = {},
         terraformls = {},

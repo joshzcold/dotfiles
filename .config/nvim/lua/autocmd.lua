@@ -63,7 +63,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
       { desc = "reformat put in space in ansible variable templates" }
     )
     map("n", "<leader>laf", "<cmd>AnsibleLintFix<cr>", { desc = "Ansible Lint Fix" })
-    vim.opt_local.makeprg = "ansible-lint -p --nocolor"
+    vim.opt_local.makeprg = "~/.virtualenvs/ansible/bin/ansible-lint -p --nocolor"
     vim.opt_local.keywordprg = "ansible-doc"
     map("n", "<leader>/t", "",
       { desc = "Search for ansible task", callback = function() Snacks.picker.grep({ search = "- name: " }) end })
