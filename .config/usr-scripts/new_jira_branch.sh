@@ -20,7 +20,7 @@ echo -e "${Yellow}Getting jira issues...${Color_Off}"
 jira_command=(
   jira issue list --plain
   --columns 'KEY,STATUS,TYPE,ASSIGNEE,SUMMARY'
-  -s 'In Progress' -s 'Code Review' -s 'In QA' -s 'QA Ready'
+  -s 'In Progress' -s 'Code Review' -s 'In QA' -s 'QA Ready' -s 'Merge Ready' -s "In Approval"
   --no-headers
 )
 

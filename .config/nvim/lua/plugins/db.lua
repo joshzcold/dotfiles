@@ -26,7 +26,7 @@ return {
           "plsql",
         },
         callback = function()
-          vim.schedule(db_completion)
+          -- vim.schedule(db_completion)
         end,
       })
     end,
