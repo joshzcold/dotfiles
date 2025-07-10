@@ -345,14 +345,6 @@ function k_switch_namespace(){
   fi
 }
 
-function pass(){
-  if bw login; then
-  else
-    bw list items | jq -r '.[] | [.name, .login.username, .login.password ] | @tsv' | fzf
-  fi
-
-}
-
 function git_clean_up_dangling_branches(){
   git branch --merged | grep -Pv "^(\*|\+|master)" | xargs git branch -D || true
 }
