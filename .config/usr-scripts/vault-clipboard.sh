@@ -14,7 +14,6 @@ export VAULT_ADDR="https://vault.secmet.co:8200"
 Yellow='\033[0;33m' # Yellow
 PS4="${Yellow}>>>${Color_Off} "
 
-
 SELECTION_CMD=(dmenu -l 20)
 CLIPBOARD_CMD=(xclip -selection clipboard)
 SED_COMMAND="sed"
@@ -22,11 +21,10 @@ SED_COMMAND="sed"
 if [[ "$(uname -s)" == "Darwin" ]]; then
 	SELECTION_CMD=(choose -m)
 	CLIPBOARD_CMD=(pbcopy)
-SED_COMMAND="gsed"
+	SED_COMMAND="gsed"
 fi
 
-
-function notify(){
+function notify() {
 	if [[ "$(uname -s)" == "Darwin" ]]; then
 		osascript -e "display notification \"$1\" with title \"vault-clipboard.sh\""
 	else
@@ -38,9 +36,10 @@ touch "$CACHE_FILE"
 VAULT_TOKEN=$(cat $HOME/.vault-token)
 export VAULT_TOKEN
 
-
-echo "$VAULT_TOKEN" | vault login - || notify "Vault login failed"
-
+echo "$VAULT_TOKEN" | vault login - || {
+	notify "Vault login failed, preforming oidc login in default browser"
+	vault login -no-print -address ${VAULT_ADDR} -method oidc role=admin
+}
 
 function traverse() {
 	path="${1}"
