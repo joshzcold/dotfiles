@@ -1,0 +1,6 @@
+* DONE Lets do this specific thing 
+  SCHEDULED: <2025-07-15 Tue> CLOSED: [2025-07-15 Tue 16:13]
+
+* DONE Help
+  SCHEDULED: <2025-07-15 Tue> CLOSED: [2025-07-15 Tue 16:13]
+  [2025-07-15 Tue]
