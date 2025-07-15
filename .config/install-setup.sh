@@ -114,7 +114,8 @@ fi
 user_prompt "Install bob neovim"
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   cd /opt
-  sudo wget https://github.com/MordechaiHadad/bob/releases/download/v4.0.3/bob-linux-x86_64.zip
+  sudo rm -f bob-linux-x86_64.zip
+  sudo wget https://github.com/MordechaiHadad/bob/releases/download/v4.1.1/bob-linux-x86_64.zip
   sudo unzip bob-linux-x86_64.zip
 fi
 
