@@ -109,6 +109,9 @@ return {
             return { "lazydev", "lsp", "path", "snippets", "buffer" }
           end
         end,
+        per_filetype = {
+          org = { 'orgmode' }
+        },
         providers = {
           buffer = {
             name = "Buffer",
@@ -128,6 +131,11 @@ return {
               end
               return items
             end,
+          },
+          orgmode = {
+            name = 'Orgmode',
+            module = 'orgmode.org.autocompletion.blink',
+            fallbacks = { 'buffer' },
           },
           ripgrep = {
             enabled = function()

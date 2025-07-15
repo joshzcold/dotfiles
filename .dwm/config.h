@@ -87,6 +87,10 @@ static const char *termcmd[] = {"nixGL", "kitty", NULL};
 static const char *termcmdStartWork[] = {"bash", "-c", "RUN='work' nixGL kitty --detach zsh -is", NULL};
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = {"nixGL", "kitty", "-T", scratchpadname, NULL};
+
+static const char scratchpad_notes_name[] = "notes";
+static const char *scratchpad_notes_cmd[] = {"nixGL", "kitty", "-T", scratchpad_notes_name, "zsh", "-c", "nvim -c 'Org agenda a'", NULL};
+
 static const char *termst[] = {"st", NULL};
 static const char *screenshotcmd[] = {
     "/home/joshua/.config/usr-scripts/screenshot.sh"};
@@ -119,6 +123,7 @@ static Key keys[] = {
     {MODKEY, XK_Return, spawn, {.v = termcmd}},
     {MODKEY, XK_w, spawn, {.v = termcmdStartWork}},
     {MODKEY, XK_grave, togglescratch, {.v = scratchpadcmd}},
+    {MODKEY | ShiftMask, XK_n, spawn, {.v = scratchpad_notes_cmd}},
     {MODKEY, XK_s, spawn, {.v = screenshotcmd}},
     {MODKEY | ShiftMask, XK_s, spawn, {.v = snippetlaunchercmd}},
     {MODKEY, XK_r, spawn, {.v = screenrecordcmd}},
