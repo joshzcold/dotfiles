@@ -1,62 +1,9 @@
-* DONE Fix hq-devtools prometheus exporters
-  SCHEDULED: <2025-07-16 Wed>
-  [2025-07-16 Wed]
+* TODO Organize and vet ubuntu desktop and server images
+  SCHEDULED: <2025-07-18 Fri>
+  - [ ] Figure out some standard/quick way of imaging the devices
+  - [ ] Figure out some way to validate they are the same image when they left the office.
 
-* DONE reinit postgresql databases in hq-ref
-  SCHEDULED: <2025-07-16 Wed> CLOSED: [2025-07-16 Wed 09:36]
+* TODO Investigate outage today at 8:45am
+  SCHEDULED: <2025-07-18 Fri>
 
-* DONE Check on burn-n-build failures 
-  SCHEDULED: <2025-07-16 Wed> CLOSED: [2025-07-16 Wed 09:29]
-  [2025-07-16 Wed]
-
-* DONE Check on smcron production failures
-  SCHEDULED: <2025-07-16 Wed> CLOSED: [2025-07-16 Wed 09:27]
-
-* DONE Done rabbitmq 4 ticket
-  SCHEDULED: <2025-07-16 Wed> CLOSED: [2025-07-16 Wed 10:24]
-  - [X] Make sure to update the deprecation sheet 
-
-* DONE Check on Nexus approval ticket
-  SCHEDULED: <2025-07-16 Wed> CLOSED: [2025-07-16 Wed 09:56]
-
-* DONE Check on PiiSCan approval ticket
-  SCHEDULED: <2025-07-16 Wed> CLOSED: [2025-07-16 Wed 09:54]
-
-* DONE Workon external secrets operator in aws
-  SCHEDULED: <2025-07-16 Wed> CLOSED: [2025-07-16 Wed 14:33]
-  - Sync vault secrets needed in secrets operator to secrets manager
-
-* DONE Check out weird test failures at 6-9am
-  SCHEDULED: <2025-07-16 Wed> CLOSED: [2025-07-17 Thu 09:09]
-
-* DONE Check on node-exporter unavailable on dk-prod2-p-db-1
-  SCHEDULED: <2025-07-16 Wed> CLOSED: [2025-07-16 Wed 09:54]
-
-* DONE Remount NFS for production db and do copy
-  SCHEDULED: <2025-07-16 Wed> CLOSED: [2025-07-16 Wed 11:23]
-  [2025-07-16 Wed]
-
-* DONE Create ticket for handling unmounted NFS in postgresql backup
-  CLOSED: [2025-07-16 Wed 11:25]
-
-* DONE Helping Johnny with virtualenv issues in flow
-  CLOSED: [2025-07-16 Wed 11:21]
-
-* DONE Ken manager tools QnA via email
-  SCHEDULED: <2025-07-16 Wed> CLOSED: [2025-07-16 Wed 15:58]
-
-* DONE Check out test failures 7am today
-  SCHEDULED: <2025-07-17 Thu> CLOSED: [2025-07-17 Thu 10:32]
-  - [ ] Check out generating loki urls for test-automation messages
-
-* DONE Check on PR for report_gen service
-  SCHEDULED: <2025-07-16 Wed> CLOSED: [2025-07-17 Thu 09:22]
-
-* DONE Fix devvis prometheus setup
-  SCHEDULED: <2025-07-16 Wed> CLOSED: [2025-07-17 Thu 09:13]
-
-* TODO Finish interactive psql change for PR
-  SCHEDULED: <2025-07-17 Thu>
-
-* DONE Create meeting with Jared next week for cilium
-  SCHEDULED: <2025-07-17 Thu> CLOSED: [2025-07-17 Thu 09:13]
+* TODO Cutover to DK

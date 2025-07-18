@@ -243,10 +243,28 @@ return {
             },
           },
         },
+        helm_ls = {
+          on_attach = function(_, _)
+            vim.api.nvim_set_keymap("n", "<leader>yc", "", {
+              desc = "Yamlls: insert a crd for kubernetes.",
+              callback = function()
+                require('user.yaml-additional-schemas').init()
+              end
+            })
+          end,
+        },
         yamlls = {
           yaml = {
             keyOrdering = false,
           },
+          on_attach = function(_, _)
+            vim.api.nvim_set_keymap("n", "<leader>yc", "", {
+              desc = "Yamlls: insert a crd for kubernetes.",
+              callback = function()
+                require('user.yaml-additional-schemas').init()
+              end
+            })
+          end,
         },
         lua_ls = {
           settings = {
