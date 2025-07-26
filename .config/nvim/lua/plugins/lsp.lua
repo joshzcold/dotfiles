@@ -216,7 +216,7 @@ return {
         gopls = {},
         ts_ls = {},
         tailwindcss = {
-          filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+          filetypes = { "templ", "astro", "javascript", "typescript", "react", "typescriptreact", },
           settings = {
             tailwindCSS = {
               includeLanguages = {
