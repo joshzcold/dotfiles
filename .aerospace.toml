@@ -32,7 +32,7 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
     inner.vertical =   2
     outer.left =       2
     outer.bottom =     0
-    outer.top =        0
+    outer.top =        [{ monitor."XG2401.*" = 40 }, 24]
     outer.right =      2
 
 [mode.main.binding]
@@ -106,15 +106,15 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
     cmd-shift-r = 'reload-config'
 
-    # cmd-r = 'mode resize'
+    cmd-r = 'mode resize'
 
-# [mode.resize.binding]
-#     h = 'resize width -50'
-#     j = 'resize height +50'
-#     k = 'resize height -50'
-#     l = 'resize width +50'
-#     enter = 'mode main'
-#     esc = 'mode main'
+[mode.resize.binding]
+    h = 'resize width -50'
+    j = 'resize height +50'
+    k = 'resize height -50'
+    l = 'resize width +50'
+    enter = 'mode main'
+    esc = 'mode main'
 
 [[on-window-detected]]
 if.app-id = 'org.qutebrowser.qutebrowser'
