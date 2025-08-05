@@ -32,7 +32,7 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
     inner.vertical =   2
     outer.left =       2
     outer.bottom =     0
-    outer.top =        [{ monitor."XG2401.*" = 40 }, 24]
+    outer.top =        [{ monitor."XG2401.*" = 30 }, 0]
     outer.right =      2
 
 [mode.main.binding]
