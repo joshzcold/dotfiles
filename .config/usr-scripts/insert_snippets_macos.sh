@@ -23,6 +23,6 @@ if [[ -n "$selection" ]]; then
 		echo -n "$selection" | pbcopy
 	fi
 	sleep 0.1
-	# xdotool key ctrl+shift+v >/dev/null
+	osascript -e 'tell application "System Events" to keystroke "v" using command down'
 
 fi
