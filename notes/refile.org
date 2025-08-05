@@ -1,7 +1,3 @@
-* TODO Organize and vet ubuntu desktop and server images
-  SCHEDULED: <2025-07-21 Mon>
-  - [ ] Figure out some standard/quick way of imaging the devices
-  - [ ] Figure out some way to validate they are the same image when they left the office.
 
 * DONE Investigate outage today at 8:45am
   SCHEDULED: <2025-07-18 Fri> CLOSED: [2025-07-18 Fri 15:34]
@@ -9,14 +5,67 @@
 * DONE PR to adjust gravity memory and replicas
   SCHEDULED: <2025-07-21 Mon> CLOSED: [2025-07-21 Mon 09:14]
 
-* TODO Catch up on my PRs and wanted adjustments
-  SCHEDULED: <2025-07-21 Mon>
+* DONE Catch up on my PRs and wanted adjustments
+  SCHEDULED: <2025-07-21 Mon> CLOSED: [2025-07-21 Mon 09:39]
 
 * DONE Cutover to DK after updates
   SCHEDULED: <2025-07-18 Fri> CLOSED: [2025-07-18 Fri 15:34]
 
-* TODO Book Kikis vet appointment
-  SCHEDULED: <2025-07-21 Mon>
-
 * DONE Help QA get sudo access on hq-dev scan
   SCHEDULED: <2025-07-21 Mon> CLOSED: [2025-07-21 Mon 09:14]
+
+* DONE Book Kikis vet appointment
+  SCHEDULED: <2025-07-21 Mon> CLOSED: [2025-07-21 Mon 14:13]
+
+* DONE Create and do ticket to revert unattended upgrades
+  SCHEDULED: <2025-07-21 Mon> CLOSED: [2025-07-22 Tue 09:23]
+
+* DONE Check on e2e run of https://bitbucket.secmet.co/projects/DEV/repos/sm/pull-requests/1257/overview
+  SCHEDULED: <2025-07-22 Tue> CLOSED: [2025-07-22 Tue 11:33]
+
+* DONE Create tickets from devops team meeting
+  SCHEDULED: <2025-07-22 Tue> CLOSED: [2025-07-22 Tue 10:38]
+  - [X] Remove scan production
+
+* DONE check on smcron kubernetes burn-n-build
+  SCHEDULED: <2025-07-22 Tue> CLOSED: [2025-07-22 Tue 09:27]
+
+* DONE Remove unmissed reference to Jacob in pdm locks
+  SCHEDULED: <2025-07-21 Mon> CLOSED: [2025-07-22 Tue 11:34]
+
+* TODO Create script to get metrics on PR that have had comments, changes requested for managers
+  SCHEDULED: <2025-07-21 Mon>
+
+* TODO Ask IT about what is possible customization wise for jira.
+  SCHEDULED: <2025-07-21 Mon>
+
+* TODO Organize and vet ubuntu desktop and server images SCHEDULED: <2025-07-21 Mon>
+  - [ ] Figure out some standard/quick way of imaging the devices
+  - [ ] Figure out some way to validate they are the same image when they left the office.
+
+* TODO Try out new neovim file explorer
+  SCHEDULED: <2025-07-22 Tue>
+
+* DONE Respond to Turner Bushell
+  SCHEDULED: <2025-07-22 Tue> CLOSED: [2025-07-22 Tue 15:02]
+
+* DONE Check on prod dk-prod1 smcron issue
+  SCHEDULED: <2025-07-22 Tue> CLOSED: [2025-07-30 Wed 16:30]
+
+* DONE Check on devops bot not escalating alerts
+  SCHEDULED: <2025-07-23 Wed> CLOSED: [2025-07-30 Wed 16:30]
+
+* TODO Reach out about the remoting solution VM for testing products
+  SCHEDULED: <2025-08-01 Fri>
+
+* TODO Reach out to Alan about the code signing process. Why can't usb passthrough work?
+  SCHEDULED: <2025-08-01 Fri>
+
+* TODO Try out neovim file finder with frequency 
+  SCHEDULED: <2025-08-04 Mon>
+
+* TODO Check on uv build with static files
+  SCHEDULED: <2025-08-04 Mon>
+
+* TODO Add peter to write access for AWS 
+  SCHEDULED: <2025-08-04 Mon>
