@@ -42,6 +42,7 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
     # Screenshot
     cmd-s = 'exec-and-forget screencapture -c -s'
     cmd-t = 'exec-and-forget bash ~/.config/usr-scripts/totp-macos'
+    cmd-e = 'exec-and-forget bash ~/.config/usr-scripts/macos-emoji.sh'
     cmd-shift-v = 'exec-and-forget /opt/homebrew/bin/bash ~/.config/usr-scripts/vault-clipboard.sh'
 
     cmd-shift-s = 'exec-and-forget /opt/homebrew/bin/bash ~/.config/usr-scripts/insert_snippets_macos.sh'
