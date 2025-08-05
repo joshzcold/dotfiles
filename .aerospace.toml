@@ -44,6 +44,8 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
     cmd-t = 'exec-and-forget bash ~/.config/usr-scripts/totp-macos'
     cmd-shift-v = 'exec-and-forget /opt/homebrew/bin/bash ~/.config/usr-scripts/vault-clipboard.sh'
 
+    cmd-shift-s = 'exec-and-forget /opt/homebrew/bin/bash ~/.config/usr-scripts/insert_snippets_macos.sh'
+
     cmd-q = 'close --quit-if-last-window'
     cmd-n = 'exec-and-forget bash ~/.config/usr-scripts/sketchbar-rename.sh'
 
