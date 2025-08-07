@@ -56,7 +56,10 @@ return {
             "groovy",
             "Jenkinsfile",
           },
-          disable = {},
+          disable = {
+            -- https://github.com/camdencheek/tree-sitter-dockerfile/issues/63
+            "dockerfile"
+          },
         },
         incremental_selection = {
           enable = true,
