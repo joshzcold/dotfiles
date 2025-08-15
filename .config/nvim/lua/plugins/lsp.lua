@@ -279,6 +279,7 @@ return {
               hint = { enable = true },
               workspace = {
                 checkThirdParty = false,
+                ignoreDir = { "undodir/" }
               },
             },
           },
