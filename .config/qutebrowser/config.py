@@ -7,7 +7,7 @@ c: ConfigContainer = c
 
 config.load_autoconfig()
 c.tabs.new_position.related = "last"
-c.url.searchengines["DEFAULT"] = "https://google.com/search?q={}"
+c.url.searchengines["DEFAULT"] = "https://kagi.com/search?q={}"
 c.editor.command = ["kitty", "--class=float", "-e", "nvim", "-u", "NONE", "{}"]
 
 config.bind("<Ctrl-o>", "tab-focus stack-prev")

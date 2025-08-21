@@ -151,4 +151,4 @@ settings:
     global: left
   url.searchengines:
     global:
-      DEFAULT: https://google.com/search?q={}
+      DEFAULT: https://kagi.com/search?q={}
