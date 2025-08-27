@@ -1,23 +1,5 @@
-* DONE Create script to get metrics on PR that have had comments, changes requested for managers
-  SCHEDULED: <2025-07-21 Mon> CLOSED: [2025-08-07 Thu 16:06]
-
-* DONE Ask IT about what is possible customization wise for jira.
-  SCHEDULED: <2025-07-21 Mon> CLOSED: [2025-08-14 Thu 10:31]
-
-* DONE Organize and vet ubuntu desktop and server images
-  SCHEDULED: <2025-08-12 Tue> CLOSED: [2025-08-14 Thu 10:31]
-  - [X] Figure out some standard/quick way of imaging the devices
-  - [X] Figure out some way to validate they are the same image when they left the office.
-
-* DONE Reach out to Alan about the code signing process. Why can't usb passthrough work?
-  SCHEDULED: <2025-08-01 Fri> CLOSED: [2025-08-14 Thu 10:40]
-  - [X] Create ticket to start process of ownership.
-
-* DONE Reach out about the remoting solution VM for testing products
-  SCHEDULED: <2025-08-01 Fri> CLOSED: [2025-08-14 Thu 10:43]
-
-* TODO Try out neovim file finder with frequency 
-  SCHEDULED: <2025-08-04 Mon>
+* TODO Create form and doc about evaluting nomachine for enterprise
+  SCHEDULED: <2025-08-27 Wed>
 
 * TODO Read deeper in manager-tools results and find corrleations to co-workers
   SCHEDULED: <2025-08-12 Tue>

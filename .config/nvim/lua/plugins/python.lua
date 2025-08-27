@@ -26,6 +26,7 @@ return {
   ---@module 'python'
   {
     "joshzcold/python.nvim",
+    enable = false,
     ---@type python.Config
     opts = { ---@diagnostic disable-line: missing-fields`
       auto_venv_lsp_attach_patterns = { "*.py" },

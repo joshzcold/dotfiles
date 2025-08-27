@@ -2,6 +2,6 @@
 # Remove the # and select ctrl-X to finish.
 # 
 export $(dbus-launch)
-exec xfce4-session
+exec env GNOME_SHELL_SESSION_MODE=ubuntu /usr/bin/gnome-session --session=ubuntu
 # exec /usr/bin/openbox-session
 # exec bspwm

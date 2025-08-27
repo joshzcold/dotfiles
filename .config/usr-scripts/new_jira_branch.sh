@@ -27,6 +27,7 @@ jira_command=(
 jira_issues="$("${jira_command[@]}" | grep -oP "^\w+.*")"
 list=""
 list+="CHORE"$'\n'
+list+="HOTFIX"$'\n'
 list+="ENHANCEMENT"$'\n'
 list+="${jira_issues}"
 selected_line="$(printf '%s' "${list}" | fzf --query '')"
