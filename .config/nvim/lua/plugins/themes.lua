@@ -29,7 +29,7 @@ return {
           dragon = {},
           all = {
             ui = {
-              bg = "#0a0c0f",
+              -- bg = "#0a0c0f",
               bg_gutter = "none",
             },
           },
