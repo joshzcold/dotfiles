@@ -15,26 +15,33 @@ return {
   {
     "rebelot/kanagawa.nvim",
     priority = 1000,
-    opts = {
-      overrides = function(colors)
-        return {
-          WinSeparator = { fg = colors.palette.dragonBlack6 },
-        }
-      end,
-      colors = { -- add/modify theme and palette colors
-        palette = {},
-        theme = {
-          wave = {},
-          lotus = {},
-          dragon = {},
-          all = {
-            ui = {
-              -- bg = "#0a0c0f",
-              bg_gutter = "none",
+    config = function()
+      local background_override = {
+        bg = "#0a0c0f",
+        bg_gutter = "none",
+      }
+
+      if vim.o.background == "light" then
+        background_override = {}
+      end
+      require('kanagawa').setup({
+        overrides = function(colors)
+          return {
+            WinSeparator = { fg = colors.palette.dragonBlack6 },
+          }
+        end,
+        colors = { -- add/modify theme and palette colors
+          palette = {},
+          theme = {
+            wave = {},
+            lotus = {},
+            dragon = {},
+            all = {
+              ui = background_override,
             },
           },
         },
-      },
-    },
+      })
+    end
   },
 }
