@@ -30,7 +30,6 @@ return {
     ---@type python.Config
     opts = { ---@diagnostic disable-line: missing-fields`
       auto_venv_lsp_attach_patterns = { "*.py" },
-      command_setup_filetypes = { "python" },
       python_lua_snippets = true,
     }
   }
