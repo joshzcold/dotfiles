@@ -269,6 +269,12 @@ return {
         lua_ls = {
           settings = {
             Lua = {
+              diagnostics = {
+                globals = {
+                  "vim",
+                  "Snacks"
+                }
+              },
               format = {
                 enable = true,
                 defaultConfig = {

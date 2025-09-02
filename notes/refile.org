@@ -1,5 +1,6 @@
-* TODO Create form and doc about evaluting nomachine for enterprise
-  SCHEDULED: <2025-08-27 Wed>
-
-* TODO Read deeper in manager-tools results and find corrleations to co-workers
-  SCHEDULED: <2025-08-12 Tue>
+* TODO Create tickets regarding scheduling, vision devices, github
+  SCHEDULED: <2025-08-29 Fri>
+  - [ ] Make sure we can auto setup vision in flow with a device and a scan
+  - [ ] Make sure we can do a scan from a vision container in hq-devvis
+  - [ ] Github tickets
+  - [ ] 

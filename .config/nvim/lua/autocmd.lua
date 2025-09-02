@@ -103,7 +103,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 })
 
 -- Put in the jira tag in to the commit automatically
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+vim.api.nvim_create_autocmd({ "BufNewFile" }, {
   pattern = { "*.sh" },
   callback = function()
     local file = vim.fn.expand('%')
@@ -115,11 +115,17 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
           "Yes",
           "No"
         }, {
-          prompt = "Add executable permission to this script?"
+          prompt = "Add executable permission to this script on write?"
         }, function(choice)
           if choice == "Yes" then
-            vim.system({ "chmod", "+x", file })
-            vim.notify("Added executable permissions to: " .. file)
+            vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+              pattern = { file },
+              callback = function(writePostAutoCmd)
+                vim.system({ "chmod", "+x", file })
+                vim.notify("Added executable permissions to: " .. file)
+                vim.api.nvim_del_autocmd(writePostAutoCmd.id)
+              end
+            })
           end
         end)
       end)
