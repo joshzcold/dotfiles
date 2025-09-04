@@ -1,6 +1,8 @@
-* TODO Create tickets regarding scheduling, vision devices, github
-  SCHEDULED: <2025-08-29 Fri>
+* DONE Create tickets regarding scheduling, vision devices, github
+  SCHEDULED: <2025-08-29 Fri> CLOSED: [2025-09-03 Wed 15:23]
   - [ ] Make sure we can auto setup vision in flow with a device and a scan
   - [ ] Make sure we can do a scan from a vision container in hq-devvis
-  - [ ] Github tickets
-  - [ ] 
+  - [X] Github tickets
+
+* DONE Pull internal routes from edge-nginx for cory to determine deprecation
+  SCHEDULED: <2025-09-03 Wed> CLOSED: [2025-09-03 Wed 13:11]

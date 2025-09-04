@@ -43,7 +43,7 @@ in
     pkgs.haskellPackages.kmonad
     pkgs.htop
     pkgs.hyperfine
-    pkgs.jira-cli-go
+    # pkgs.jira-cli-go update when past v1.7.0
     pkgs.jq
     pkgs.just
     pkgs.kdePackages.breeze
