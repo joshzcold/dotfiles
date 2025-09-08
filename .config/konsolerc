@@ -4,14 +4,22 @@ DefaultProfile=Main.profile
 [Favorite Profiles]
 Favorites=Main.profile
 
+[General]
+ConfigVersion=1
+
 [KonsoleWindow]
 ShowMenuBarByDefault=false
 
 [MainWindow]
+1920x1080 screen: Height=1008
+1920x1080 screen: Width=960
+1920x1080 screen: XPosition=960
+1920x1080 screen: YPosition=28
+DP-4=DP-4
 Height 1080=1031
 Height 1920=1867
 MenuBar=Disabled
-State=AAAA/wAAAAD9AAAAAAAAA4QAAAP5AAAABAAAAAQAAAAIAAAACPwAAAAA
+State=AAAA/wAAAAD9AAAAAQAAAAAAAAAAAAAAAPwCAAAAAvsAAAAiAFEAdQBpAGMAawBDAG8AbQBtAGEAbgBkAHMARABvAGMAawAAAAAA/////wAAAXwBAAAD+wAAABwAUwBTAEgATQBhAG4AYQBnAGUAcgBEAG8AYwBrAAAAAAD/////AAABFQEAAAMAAAPAAAADwgAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAACAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABwAcwBlAHMAcwBpAG8AbgBUAG8AbwBsAGIAYQByAQAAAOj/////AAAAAAAAAAA=
 ToolBarsMovable=Disabled
 Width 1080=497
 Width 1920=938
@@ -20,3 +28,6 @@ Window-Maximized 1200x1920=true
 [Notification Messages]
 CloseAllTabs=true
 ShowPasteUnprintableWarning=false
+
+[UiSettings]
+ColorScheme=

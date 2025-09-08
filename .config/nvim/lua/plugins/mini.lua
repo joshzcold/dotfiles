@@ -7,6 +7,7 @@ return {
     -- -- :h *mini.bracketed*
     require("mini.bracketed").setup()
     require("mini.icons").setup()
+    require("mini.test").setup()
     -- - animate
     -- -- :h mini.animate
     -- require('mini.animate').setup()
