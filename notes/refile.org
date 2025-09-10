@@ -6,3 +6,15 @@
 
 * DONE Pull internal routes from edge-nginx for cory to determine deprecation
   SCHEDULED: <2025-09-03 Wed> CLOSED: [2025-09-03 Wed 13:11]
+
+* TODO Jenkines pipeline github
+  SCHEDULED: <2025-09-05 Fri>
+  - [X] Github jobdsl jobs
+  - [X] git clone urls
+  - [ ] git credential
+  - [X] git script to create branch, tags with class
+  - [ ] github api credential
+  - [X] bitbucket_get_latest_tags.py
+  - [X] git archive
+  - [X] importing of org.sm.Bitbucket
+  - [ ] adjust scripts to use github app authentication
