@@ -7,14 +7,17 @@
 * DONE Pull internal routes from edge-nginx for cory to determine deprecation
   SCHEDULED: <2025-09-03 Wed> CLOSED: [2025-09-03 Wed 13:11]
 
-* TODO Jenkines pipeline github
-  SCHEDULED: <2025-09-05 Fri>
+* DONE Jenkines pipeline github
+  SCHEDULED: <2025-09-05 Fri> CLOSED: [2025-09-17 Wed 15:31]
   - [X] Github jobdsl jobs
   - [X] git clone urls
-  - [ ] git credential
+  - [X] git credential
   - [X] git script to create branch, tags with class
-  - [ ] github api credential
+  - [X] github api credential
   - [X] bitbucket_get_latest_tags.py
   - [X] git archive
   - [X] importing of org.sm.Bitbucket
-  - [ ] adjust scripts to use github app authentication
+  - [X] adjust scripts to use github app authentication
+
+* TODO IT ticket to do idrac renames and server inconsistencies
+  - [ ] Create a doc on inconsistencies with servers in HQ for it to adjust in snipe-it, idrac.
