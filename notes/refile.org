@@ -19,5 +19,12 @@
   - [X] importing of org.sm.Bitbucket
   - [X] adjust scripts to use github app authentication
 
+* TODO Check on hagrid's vet appointment
+  SCHEDULED: <2025-09-19 Fri>
+
 * TODO IT ticket to do idrac renames and server inconsistencies
+  SCHEDULED: <2025-09-19 Fri>
   - [ ] Create a doc on inconsistencies with servers in HQ for it to adjust in snipe-it, idrac.
+
+* TODO Add epic and tickets for dev arch next plan
+  SCHEDULED: <2025-09-18 Thu>
