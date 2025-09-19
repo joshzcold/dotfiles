@@ -26,5 +26,5 @@
   SCHEDULED: <2025-09-19 Fri>
   - [ ] Create a doc on inconsistencies with servers in HQ for it to adjust in snipe-it, idrac.
 
-* TODO Add epic and tickets for dev arch next plan
-  SCHEDULED: <2025-09-18 Thu>
+* DONE Add epic and tickets for dev arch next plan for security tools
+  SCHEDULED: <2025-09-18 Thu> CLOSED: [2025-09-18 Thu 13:43]
