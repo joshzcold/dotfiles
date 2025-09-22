@@ -19,8 +19,8 @@
   - [X] importing of org.sm.Bitbucket
   - [X] adjust scripts to use github app authentication
 
-* TODO Check on hagrid's vet appointment
-  SCHEDULED: <2025-09-19 Fri>
+* DONE Check on hagrid's vet appointment
+  SCHEDULED: <2025-09-19 Fri> CLOSED: [2025-09-22 Mon 17:08]
 
 * TODO IT ticket to do idrac renames and server inconsistencies
   SCHEDULED: <2025-09-19 Fri>
@@ -28,3 +28,12 @@
 
 * DONE Add epic and tickets for dev arch next plan for security tools
   SCHEDULED: <2025-09-18 Thu> CLOSED: [2025-09-18 Thu 13:43]
+
+* TODO Fix jira api search for grafana and jenkins
+  SCHEDULED: <2025-09-23 Tue>
+
+* TODO Enable sudo password on saint george datbase replica
+  SCHEDULED: <2025-09-23 Tue>
+
+* TODO Check on cdc ansible playbook failure in hq-devops
+  SCHEDULED: <2025-09-23 Tue>
