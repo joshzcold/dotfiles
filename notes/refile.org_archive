@@ -92,4 +92,12 @@
   - [ ] Make sure we can auto setup vision in flow with a device and a scan
   - [ ] Make sure we can do a scan from a vision container in hq-devvis
   - [X] Github tickets
-
+* TODO Improve my handling of TODOs in org mode                        :ARCHIVE:
+  SCHEDULED: <2025-09-23 Tue>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2025-09-23 Tue 15:13
+  :ARCHIVE_FILE: /home/joshua/notes/refile.org
+  :ARCHIVE_CATEGORY: refile
+  :ARCHIVE_TODO: TODO
+  :END:
+  - [ ] How to notify myself so I keep up with this list daily

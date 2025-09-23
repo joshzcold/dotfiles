@@ -181,6 +181,41 @@ vim.api.nvim_create_user_command("InsertJiraTag", function()
   end
 end, {})
 
+vim.api.nvim_create_user_command("OrgModeTODO", function()
+  local orgmode = require("orgmode.files"):new({ paths = { "~/notes/**/*" } })
+  local files = orgmode:load_sync(true, 20000)
+  local output = ""
+  for _, orgfile in pairs(files.all_files) do
+    for _, headline in ipairs(orgfile:get_opened_unfinished_headlines()) do
+      for _, date in ipairs(headline:get_deadline_and_scheduled_dates()) do
+        local title = headline:get_headline_line_content()
+        local date_string = ("%s-%s-%s"):format(date.year, date.month, date.day)
+        output = output .. ("\n%s: %s"):format(title, date_string)
+      end
+    end
+  end
+  local title = "Agenda Items in TODO:"
+  if output ~= "" then
+    vim.print(title .. output)
+  end
+  if vim.fn.executable('notify-send') == 1 then
+    vim.system({
+      'notify-send',
+      ('--icon=~/.local/share/nvim/lazy/orgmode/assets/nvim-orgmode-small.png'),
+      '--app-name=orgmode',
+      title,
+      output,
+    })
+  end
+
+  if vim.fn.executable('terminal-notifier') == 1 then
+    vim.system({ 'terminal-notifier', '-title', title, '-message', output })
+  end
+  if #vim.api.nvim_list_uis() == 0 then
+    vim.cmd([[qall!]])
+  end
+end, {})
+
 -- Workaround for getting terraform-ls errors when opening up tfvars file
 vim.filetype.add({
   extension = {
@@ -199,5 +234,5 @@ vim.api.nvim_create_user_command("WipeWindowlessBufs", function()
 end, { desc = "Wipeout all buffers not shown in a window" })
 
 vim.api.nvim_create_user_command("JiraNewBranch", function()
-    toggle_term("zsh -c 'new_jira_branch.sh || sleep 3'")
+  toggle_term("zsh -c 'new_jira_branch.sh || sleep 3'")
 end, { desc = "Run new jira branch command in pop up terminal" })

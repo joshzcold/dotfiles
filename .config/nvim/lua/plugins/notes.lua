@@ -17,7 +17,7 @@ return {
                 }
             },
             notifications = {
-                enabled = true,
+                enabled = false,
                 cron_enabled = true,
                 repeater_reminder_time = false,
                 deadline_warning_reminder_time = false,
