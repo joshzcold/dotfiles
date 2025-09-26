@@ -204,3 +204,4 @@ Security Metrics Product EOL Spread Sheet https://docs.google.com/spreadsheets/d
 SecurityMetrics manager tools https://manager-tools.com/
 argocd hq-operations https://argocd.hq-operations-v-kubebalancer-1.secmet.co/applications
 github https://github.com/
+Cohesity Kubernetes Protection Groups - SecurityMetrics https://hq-cohesity.secmet.co/protection/group/list?environment=kubernetes&lastRunStatus=Succeeded
