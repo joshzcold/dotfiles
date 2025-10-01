@@ -101,3 +101,97 @@
   :ARCHIVE_TODO: TODO
   :END:
   - [ ] How to notify myself so I keep up with this list daily
+* TODO [#A] Fix cohesity backups for hq-ref2
+  SCHEDULED: <2025-09-24 Wed>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2025-09-26 Fri 21:10
+  :ARCHIVE_FILE: /home/joshua/notes/refile.org
+  :ARCHIVE_CATEGORY: refile
+  :ARCHIVE_TODO: TODO
+  :END:
+* TODO Create epic and ticket about owning and improving the uptime reporting/alerting
+  SCHEDULED: <2025-09-29 Mon>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2025-09-26 Fri 21:11
+  :ARCHIVE_FILE: /home/joshua/notes/refile.org
+  :ARCHIVE_CATEGORY: refile
+  :ARCHIVE_TODO: TODO
+  :END:
+  
+
+*
+* DONE Improve my handling of TODOs in org mode                        :ARCHIVE:
+  SCHEDULED: <2025-09-23 Tue> CLOSED: [2025-09-23 Tue 15:51]
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2025-09-26 Fri 21:12
+  :ARCHIVE_FILE: /home/joshua/notes/refile.org
+  :ARCHIVE_CATEGORY: refile
+  :ARCHIVE_TODO: DONE
+  :END:
+  - [X] How to notify myself so I keep up with this list daily
+* DONE [#C] Start process to move Peter's desk                         :ARCHIVE:
+  SCHEDULED: <2025-10-02 Thu> CLOSED: [2025-09-26 Fri 10:42]
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2025-09-26 Fri 21:12
+  :ARCHIVE_FILE: /home/joshua/notes/refile.org
+  :ARCHIVE_CATEGORY: refile
+  :ARCHIVE_TODO: DONE
+  :END:
+* DONE Improve my handling of TODOs in org mode                        :ARCHIVE:
+  SCHEDULED: <2025-09-23 Tue> CLOSED: [2025-09-23 Tue 15:51]
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2025-09-26 Fri 21:15
+  :ARCHIVE_FILE: /home/joshua/notes/refile.org
+  :ARCHIVE_CATEGORY: refile
+  :ARCHIVE_TODO: DONE
+  :END:
+  - [X] How to notify myself so I keep up with this list daily
+* DONE [#C] Start process to move Peter's desk                         :ARCHIVE:
+  SCHEDULED: <2025-10-02 Thu> CLOSED: [2025-09-26 Fri 10:42]
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2025-09-26 Fri 21:15
+  :ARCHIVE_FILE: /home/joshua/notes/refile.org
+  :ARCHIVE_CATEGORY: refile
+  :ARCHIVE_TODO: DONE
+  :END:
+* DONE [#A] Circle back on certificate expiration on kubebalancer when Jared finds fix :ARCHIVE:
+  SCHEDULED: <2025-09-26 Fri> CLOSED: [2025-09-26 Fri 21:10]
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2025-09-26 Fri 21:15
+  :ARCHIVE_FILE: /home/joshua/notes/refile.org
+  :ARCHIVE_CATEGORY: refile
+  :ARCHIVE_TODO: DONE
+  :END:
+* DONE [#A] Fix cohesity backups for hq-ref2
+  SCHEDULED: <2025-09-24 Wed> CLOSED: [2025-09-26 Fri 21:15]
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2025-09-26 Fri 21:15
+  :ARCHIVE_FILE: /home/joshua/notes/refile.org
+  :ARCHIVE_CATEGORY: refile
+  :ARCHIVE_TODO: DONE
+  :END:
+* DONE Fix for devops bot doing an escalation from previous escalations :ARCHIVE:
+  SCHEDULED: <2025-09-29 Mon> CLOSED: [2025-10-01 Wed 09:58]
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2025-10-01 Wed 10:01
+  :ARCHIVE_FILE: /home/joshua/notes/refile.org
+  :ARCHIVE_CATEGORY: refile
+  :ARCHIVE_TODO: DONE
+  :END:
+* DONE Ask IT for pingdom account access                               :ARCHIVE:
+  SCHEDULED: <2025-09-30 Tue> CLOSED: [2025-09-30 Tue 11:04]
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2025-10-01 Wed 10:01
+  :ARCHIVE_FILE: /home/joshua/notes/refile.org
+  :ARCHIVE_CATEGORY: refile
+  :ARCHIVE_TODO: DONE
+  :END:
+* DONE [#A] Schedule with Smiths flu shots                             :ARCHIVE:
+  SCHEDULED: <2025-09-29 Mon> CLOSED: [2025-10-01 Wed 09:58]
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2025-10-01 Wed 10:01
+  :ARCHIVE_FILE: /home/joshua/notes/refile.org
+  :ARCHIVE_CATEGORY: refile
+  :ARCHIVE_TODO: DONE
+  :END:
+
