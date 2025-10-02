@@ -1,22 +1,24 @@
-* TODO [#B] Check on status of hq-dev hypervisors
-  SCHEDULED: <2025-09-25 Thu>
 
-* TODO [#B] Work on docker bake with Cory, see about direction and ownership of generated files
-  SCHEDULED: <2025-10-02 Thu>
-
-* TODO Check on PR to deprecate dependency-check and unleash
+* Check on PR to deprecate dependency-check and unleash
   SCHEDULED: <2025-10-01 Wed>
- 
-* TODO Setup "Windows App" on macos testing RDP
+  - [ ] Passing build
+
+* Setup "Windows App" on macos testing RDP
   SCHEDULED: <2025-09-29 Mon>
   - [X] apple account
   - [ ] setup rdp with linux machine
 
-* TODO Ticket: Jaeger get tags for kubernetes namespace, pod, deployment, etc
+* TODO [#B] Work on docker bake with Cory, see about direction and ownership of generated files
   SCHEDULED: <2025-10-02 Thu>
+
+* TODO Enhance jira script to put in TODO and at the top
+  SCHEDULED: <2025-10-03 Fri>
 
 * TODO [#B] dashboard potential for versions of applications in mvdaemon
   SCHEDULED: <2025-09-30 Tue>
+
+* TODO Ticket: Jaeger get tags for kubernetes namespace, pod, deployment, etc
+  SCHEDULED: <2025-10-02 Thu>
 
 * TODO Create epic and tickets about HA services for tools
   SCHEDULED: <2025-09-29 Mon>
@@ -27,5 +29,7 @@
 * TODO Create epic and ticket about owning and improving the uptime reporting/alerting
   SCHEDULED: <2025-09-29 Mon>
 
-* TODO Enhance jira script to put in TODO and at the top
-  SCHEDULED: <2025-10-03 Fri>
+* TODO Find way to order infra deprecation by priority
+  SCHEDULED: <2025-10-02 Thu>
+  - [ ] Add column for jira ticket(s) for implementation
+

@@ -194,4 +194,20 @@
   :ARCHIVE_CATEGORY: refile
   :ARCHIVE_TODO: DONE
   :END:
+* DONE Ask for new jira board for architecture group
+  SCHEDULED: <2025-10-02 Thu> CLOSED: [2025-10-02 Thu 11:17]
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2025-10-02 Thu 12:11
+  :ARCHIVE_FILE: /home/joshua/notes/refile.org
+  :ARCHIVE_CATEGORY: refile
+  :ARCHIVE_TODO: DONE
+  :END:
+* DONE [#B] Check on status of hq-dev hypervisors
+  SCHEDULED: <2025-09-25 Thu> CLOSED: [2025-10-02 Thu 12:11]
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2025-10-02 Thu 12:11
+  :ARCHIVE_FILE: /home/joshua/notes/refile.org
+  :ARCHIVE_CATEGORY: refile
+  :ARCHIVE_TODO: DONE
+  :END:
 
