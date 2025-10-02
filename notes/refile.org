@@ -33,3 +33,5 @@
   SCHEDULED: <2025-10-02 Thu>
   - [ ] Add column for jira ticket(s) for implementation
 
+* TODO Set a restart policy on mvdaemon in build
+  SCHEDULED: <2025-10-02 Thu>
