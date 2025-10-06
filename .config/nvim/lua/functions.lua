@@ -189,15 +189,18 @@ vim.api.nvim_create_user_command("OrgModeTODO", function()
     for _, headline in ipairs(orgfile:get_opened_unfinished_headlines()) do
       for _, date in ipairs(headline:get_deadline_and_scheduled_dates()) do
         local title = headline:get_headline_line_content()
-        local date_string = ("%s-%s-%s"):format(date.year, date.month, date.day)
-        output = output .. ("\n%s: %s"):format(title, date_string)
+        if string.match(title, ".*TODO.*") then
+          local date_string = ("%s-%s-%s"):format(date.year, date.month, date.day)
+          output = output .. ("\n%s: %s"):format(title, date_string)
+        end
       end
     end
   end
   local title = "Agenda Items in TODO:"
-  if output ~= "" then
-    vim.print(title .. output)
+  if output == "" then
+    return
   end
+  vim.print(title .. output)
   if vim.fn.executable('notify-send') == 1 then
     vim.system({
       'notify-send',
