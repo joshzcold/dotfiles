@@ -69,6 +69,14 @@
                     {
                         "manipulators": [
                             {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^kitty\\.app$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "description": "Change left control to left command (copy)",
                                 "from": {
                                     "key_code": "c",
