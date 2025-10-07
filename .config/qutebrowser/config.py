@@ -29,3 +29,4 @@ c.qt.args = ["disable-blink-features=DocumentPictureInPictureAPI"]
 if platform.system() == "Darwin":
     c.editor.command = ["/opt/homebrew/bin/kitty", "-e", "nvim", "-u", "NONE", "{}"]
     config.bind("<Ctrl-c>", "yank selection")
+    config.bind("<Ctrl-v>", r"insert-text -- {clipboard}")
