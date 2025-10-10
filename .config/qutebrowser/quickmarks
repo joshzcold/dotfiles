@@ -107,11 +107,7 @@ dk-prod2-phv-apphost-3 10.102.23.12
 dk-prod2-phv-apphost-4 10.102.23.13
 dk-prod2-phv-apphost-5 10.102.23.14
 dk-prod2-phv-tools-1 10.102.23.19
-hq-dev-phv-apphost-4 10.23.0.41
-hq-dev-phv-apphost-5 10.23.0.40
-hq-dev-phv-apphost-6 10.29.23.47
-hq-dev-phv-apphost-7 10.23.0.22
-hq-dev-phv-devdb-2 10.23.0.38
+hq-devtools-phv-devdb 10.23.0.38
 hq-devops-phv-apphost-1 10.23.10.3
 hq-devops-phv-apphost-2 10.23.10.4
 hq-devops-phv-apphost-3 10.23.10.5
@@ -157,7 +153,6 @@ hq-scanprod-phv-scan-4 10.23.0.44
 hq-scanprod-phv-scan-6 10.23.0.46
 hq-vision-phv-apphost-1 10.100.23.27
 hq-vision-phv-apphost-2 10.100.23.28
-dev prometheus https://hq-dev-v-prometheus-1.secmet.co/alerts?search=
 devops prometheus https://hq-devops-v-prometheus.secmet.co/alerts
 devops tools prometheus https://hq-devtools-v-prometheus-1.secmet.co/alerts
 devscan prometheus https://hq-devscan-v-prometheus-1.secmet.co/alerts?search=
@@ -174,15 +169,6 @@ dk-prod2 prometheus https://dk-prod2-v-prometheus.secmet.co/alerts
 scm-do-us prometheus https://prometheus.scm-us.secmet.co/alerts
 scm-aws-us prometheus https://prometheus.scm-aws-us.secmet.co/alerts
 logs securitymetrics grafana https://grafana.secmet.co/d/fe1z87vr4enswe/log-view
-logs dk-prod1 https://dk-prod1-v-elastic-1.secmet.co/app/home#/
-logs dk-prod2 https://dk-prod2-v-elastic-1.secmet.co/app/home#/
-logs hq-dev https://hq-dev-v-elastic-1.secmet.co/app/home#/
-logs hq-devops https://hq-devops-v-elastic-1.secmet.co/app/home#/
-logs hq-prod3 https://hq-prod1-v-elastic-1.secmet.co/app/home#/
-logs hq-ref1 https://hq-ref1-v-elastic-1.secmet.co/app/home#/
-logs hq-ref2 https://hq-ref2-v-elastic-1.secmet.co/app/home#/
-logs scan https://hq-prodscan-v-elastic-1.secmet.co/app/home#/
-logs vision https://hq-prodvis-v-elastic-1.secmet.co/app/home#/
 jenkins build https://jenkins.secmet.co
 jenkins devops https://jenkins-devops.secmet.co
 jenkins prod https://jenkins-prod.secmet.co
