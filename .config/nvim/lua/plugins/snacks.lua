@@ -63,7 +63,7 @@ return {
     },
     -- stylua: ignore
     keys = {
-      { "<leader><space>", function() Snacks.picker.smart({ follow = true }) end,                  desc = "Find Files" },
+      { "<leader><space>", function() Snacks.picker.smart({ follow = true, hidden = true }) end,   desc = "Find Files" },
       { "<leader>/v",      function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
       { "<leader>/b",      function() Snacks.picker.grep_buffers() end,                            desc = "Buffers" },
       { "<leader>bb",      function() Snacks.picker.buffers() end,                                 desc = "Buffers" },
