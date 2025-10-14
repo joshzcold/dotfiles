@@ -6,6 +6,14 @@
                     {
                         "manipulators": [
                             {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "kitty"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "description": "Change left control to left command (cut)",
                                 "from": {
                                     "key_code": "x",
@@ -27,6 +35,14 @@
                     {
                         "manipulators": [
                             {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "kitty"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "description": "Change left control to left command (select-all)",
                                 "from": {
                                     "key_code": "a",
@@ -48,6 +64,14 @@
                     {
                         "manipulators": [
                             {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "kitty"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "description": "Change left control to left command (paste)",
                                 "from": {
                                     "key_code": "v",
@@ -72,7 +96,7 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^kitty\\.app$"
+                                            "kitty"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
