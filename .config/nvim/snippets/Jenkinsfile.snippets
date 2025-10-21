@@ -167,18 +167,14 @@ snippet pipeline "Default Declarative Jenkins Pipeline"
 
 snippet pipeline-sm "Default Declarative Jenkins Pipeline Security Metrics"
 	@Library("jenkins-library") _ // codenarc-disable-line
-	import org.sm.Swarm
+	import org.sm.Site
 	import org.sm.Notify
-	// import org.sm.Authorization
-	// import org.sm.Prod
 
-	Swarm s = new Swarm()
+	Site s = new Site()
 	node('built-in') {
-		s.createSwarmParameters(
+		s.createSiteParameters(
 			[
 				environment: [:],
-				stack: [:],
-				tag: [:]
 			],
 			[
 				string(name: "name", defaultValue: "", description: "Name the stack differently from its default value."),
@@ -192,18 +188,18 @@ snippet pipeline-sm "Default Declarative Jenkins Pipeline Security Metrics"
 		)
 	}
 
-	String agentLabel = swarm.hosts[env.environment].node_labels
+	String agentLabel = site.hosts[env.environment].node_labels
 	// Authorization author = new Authorization()
 	// List chain = author.authChain(author.authDeployProd)
 	pipeline {
 		// parameters{
-			  // string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
-				// text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
-				// booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
-				// choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
-				// password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
+		// string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+		// text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
+		// booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
+		// choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
+		// password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
 		// }
-		agent { label "\${agentLabel}" }
+		agent { label "${agentLabel}" }
 		options {
 			ansiColor('xterm')
 			authorizationMatrix(chain)
@@ -212,16 +208,17 @@ snippet pipeline-sm "Default Declarative Jenkins Pipeline Security Metrics"
 		stages {
 			stage('setup') {
 				steps {
-          // Prod p = new Prod()
-          // p.checkProdCurrentSite(env.environment, env.stack, true)
-					git branch: 'master',
-							credentialsId: secrets.GIT_CRED,
-							url: 'ssh://git@bitbucket.secmet.co:7999/---.git'
+					script {
+						// Prod p = new Prod()
+						// p.checkProdCurrentSite(env.environment, env.stack, true)
+						git branch: 'master',
+								credentialsId: secrets.GIT_CRED,
+								url: 'ssh://git@bitbucket.secmet.co:7999/---.git'
+					}
 				}
 			}
-			stage('${1:execute}') {
+			stage('execute') {
 				steps {
-
 				}
 			}
 		}
@@ -245,10 +242,11 @@ snippet pipeline-sm "Default Declarative Jenkins Pipeline Security Metrics"
 				script {
 					if (env.notify.toBoolean()) {
 						Notify n = new Notify()
-						n.setupVenv()
 						String users = n.findUserIDs(consts.DEVOPS_TEAM, consts.CHAT_SPACE_DEVOPS_BUILD)
-						env.message = "\${users} MY MESSAGE"
-						n.sendMessage([text: env.message], consts.CHAT_SPACE_DEVOPS_BUILD)
+						env.message = "<strong><a href=\"${BUILD_URL}console\">${JOB_NAME}</a> had a failure result</strong>"
+						Map message_map = n.sendMessageWithHTMLTemplate(env.message)
+						message_map.text = "${users}"
+						n.sendMessage(message_map, consts.CHAT_SPACE_DEVOPS_BUILD)
 					}
 				}
 			}
@@ -256,11 +254,10 @@ snippet pipeline-sm "Default Declarative Jenkins Pipeline Security Metrics"
 				script {
 					if (env.notify.toBoolean()) {
 						Notify n = new Notify()
-						n.setupVenv()
 						String users = n.findUserIDs(consts.DEVOPS_TEAM, consts.CHAT_SPACE_DEVOPS_BUILD)
-						env.message = "<strong>MY MESSAGE</strong>"
+						env.message = "<strong><a href=\"${BUILD_URL}console\">${JOB_NAME}</a> had a unstable result</strong>"
 						Map message_map = n.sendMessageWithHTMLTemplate(env.message)
-						message_map.text = "\${users}"
+						message_map.text = "${users}"
 						n.sendMessage(message_map, consts.CHAT_SPACE_DEVOPS_BUILD)
 					}
 				}
