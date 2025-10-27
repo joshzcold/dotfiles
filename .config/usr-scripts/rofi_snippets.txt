@@ -40,3 +40,6 @@ kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o jsonpath="{['dat
 tr -dc A-Za-z0-9 </dev/urandom | head -c 25; echo
 openssl s_client -showcerts -servername www.example.com -connect www.example.com:443 </dev/null
 qemu-img resize nameofimg.img +30G
+kubectl annotate es EXTERNAL_SECRET force-sync=$(date +%s) --overwrite
+kubectl get deployments,cronjobs -o json | jq '.items[]|select(.spec.template.spec.containers[]?.env[]?.valueFrom.secretKeyRef.name == "SECRET_NAME") | .metadata.name'
+kubectl get deployments,cronjobs -o json | jq '.items[]|select(.spec.template.spec.containers[]?.env[]?.valueFrom.secretKeyRef.name == "SECRET") | .metadata.name' | sort -u | xargs kubectl rollout restart deployment
