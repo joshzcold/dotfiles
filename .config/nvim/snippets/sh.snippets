@@ -1,3 +1,11 @@
+snippet input "get input from user with 1 char answer"
+	ans=n
+	echo -e "\${YELLOW}${1:Question}? [y/N]:\${RESET}"
+	read -r -n1 ans
+	if [[ "\$ans" = y ]]; then
+		echo "Doing operation"
+	fi
+	
 snippet script_path_executing "SCRIPT_PATH to directory of script location"
 	SCRIPTPATH=$(dirname "$(realpath "\$0")")
 
