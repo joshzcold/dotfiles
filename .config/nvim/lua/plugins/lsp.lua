@@ -133,9 +133,9 @@ return {
           vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, { desc = "lsp type defintion" })
           vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "lsp diagnostic qixfix" })
 
-          vim.keymap.set("n", "<leader>=", function()
-            vim.lsp.buf.format({ async = true })
-          end, { desc = "lsp format" })
+          -- vim.keymap.set("n", "<leader>=", function()
+          --   vim.lsp.buf.format({ async = true })
+          -- end, { desc = "lsp format" })
 
           vim.keymap.set("x", "<leader>=", function()
             vim.lsp.buf.format({
@@ -236,8 +236,7 @@ return {
               },
               validation = {
                 lint = {
-                  enabled = true,
-                  arguments = "-x role-name,package-latest,fqcn-builtins",
+                  enabled = false,
                 },
               },
             },
