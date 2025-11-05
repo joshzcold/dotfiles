@@ -82,7 +82,7 @@ pulse pipeline kibana securitymetrics https://search-sm-es-v1-prod-wnjyqjs5yqaxd
 pulse pipeline kibana/es securitymetrics https://search-sm-es-v1-prod-wnjyqjs5yqaxdyyocnmefuun5e.us-west-2.es.amazonaws.com/
 registry binary repo nexus https://registry.secmet.co/
 securitymetrics dental benefits https://www.principal.com/
-securitymetrics jenkins current mono-repo master builds https://jenkins.secmet.co/job/Development/job/sm/job/master/
+securitymetrics jenkins current mono-repo master builds https://jenkins.secmet.co/job/Github/job/sm/job/master/
 securitymetrics payroll https://payroll.paylogics.com/payday-benefits
 securitymetrics vsphere hq-inf3 https://hq-inf3-v-vcenter-1.secmet.co
 snipe-it https://securitymetrics.snipe-it.io/account/view-assets
@@ -191,5 +191,7 @@ argocd hq-operations https://argocd.hq-operations-v-kubebalancer-1.secmet.co/app
 github https://github.com/
 Cohesity Kubernetes Protection Groups - SecurityMetrics https://hq-cohesity.secmet.co/protection/group/list?environment=kubernetes&lastRunStatus=Succeeded
 pingdom - SecurityMetrics https://my.solarwinds.cloud/login?response_type=code&scope=openid%20swicus&client_id=pingdom&state=pKh6HddX2H1mEpSpWMfIsxbwluVgu3dt&redirect_uri=https%3A%2F%2Fmy.pingdom.com%2Fauth%2Fswicus%2Fcallback
+github securitymetrics pull requests https://github.com/pulls?q=is%3Aopen+is%3Apr+archived%3Afalse+user%3ASecurityMetrics+review-requested%3Ajoshzcold
 github notifications https://github.com/notifications
 pull requests github https://github.com/pulls?q=is%3Aopen+is%3Apr+archived%3Afalse+user%3ASecurityMetrics+author%3Ajoshzcold
+pull requests github review requested https://github.com/pulls?q=is%3Aopen+is%3Apr+archived%3Afalse+user%3ASecurityMetrics+review-requested%3Ajoshzcold

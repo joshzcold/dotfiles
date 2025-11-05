@@ -128,6 +128,38 @@ snippet post "Jenkins file post condition"
 		}
 	}
 
+snippet post_fail "Jenkins file post condition with failure" 
+	// import org.sm.Notify
+  // parameters {
+  //     booleanParam(name: 'notify', defaultValue: true, description: 'notify devops team of failure')
+  // }
+	post {
+		failure {
+			script {
+				if (env.notify.toBoolean()) {
+					Notify n = new Notify()
+					List maintainers = consts.DEVOPS_TEAM
+					String users = n.findUserIDs(maintainers, consts.CHAT_SPACE_DEVOPS_BUILD)
+					env.message = "\${users} \n \${BUILD_DISPLAY_NAME} \n \${BUILD_URL} " +
+						"has failed its trigger execution"
+					n.sendMessage([text: env.message], consts.CHAT_SPACE_DEVOPS_BUILD)
+				}
+			}
+		}
+		unstable {
+			script {
+				if (env.notify.toBoolean()) {
+					Notify n = new Notify()
+					List maintainers = consts.DEVOPS_TEAM
+					String users = n.findUserIDs(maintainers, consts.CHAT_SPACE_DEVOPS_BUILD)
+					env.message = "\${users} \n \${BUILD_DISPLAY_NAME} \n \${BUILD_URL} " +
+						"has failed its trigger execution"
+					n.sendMessage([text: env.message], consts.CHAT_SPACE_DEVOPS_BUILD)
+				}
+			}
+		}
+	}
+
 snippet pipeline "Default Declarative Jenkins Pipeline"
 	@Library("jenkins-library") _
 	pipeline {
