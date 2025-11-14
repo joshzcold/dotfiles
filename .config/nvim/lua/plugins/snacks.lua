@@ -9,6 +9,11 @@ return {
     ---@type snacks.Config
     opts = {
       bigfile = {},
+      gh = {
+        -- your gh configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      },
       notifier = {
         enabled = true,
         timeout = 3000,
