@@ -24,7 +24,7 @@ return {
       words = {},
       picker = {
         filter = {
-          cwd = true
+          cwd = true,
         },
         sources = {
           ---@type snacks.picker.buffers.Config
@@ -43,13 +43,14 @@ return {
               list = {
                 keys = {
                   ["x"] = "explorer_move",
+                  ["<ESC>"] = "<ESC>",
                   ["m"] = "explorer_move",
                   ["/"] = function()
                     vim.api.nvim_feedkeys("/", "n", false)
                   end,
                 },
-              }
-            }
+              },
+            },
           },
           files = {
             list = { keys = { ["<c-x>"] = { "edit_split", mode = { "i", "n" } } } },
@@ -58,26 +59,57 @@ return {
             },
             formatters = {
               file = {
-                filename_first = true
-              }
-            }
-          }
+                filename_first = true,
+              },
+            },
+          },
         },
       },
       styles = {},
     },
     -- stylua: ignore
     keys = {
-      { "<leader><space>", function() Snacks.picker.smart({ follow = true, hidden = true }) end,   desc = "Find Files" },
+      { "<leader><space>", function()
+        local pickers = Snacks.picker.get({source= "explorer"})
+        local picker = pickers[1]
+
+        local search_dirs = {}
+        if picker then
+          for _, selected in ipairs(picker:selected({ fallback = true })) do
+            table.insert(search_dirs, Snacks.picker.util.path(selected))
+          end
+        end
+
+        if search_dirs then
+          Snacks.picker.files({ follow = true, hidden = true, dirs = search_dirs })
+        else
+          Snacks.picker.smart()
+        end
+      end,   desc = "Find Files" },
       { "<leader>/v",      function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
       { "<leader>/b",      function() Snacks.picker.grep_buffers() end,                            desc = "Buffers" },
       { "<leader>bb",      function() Snacks.picker.buffers() end,                                 desc = "Buffers" },
-      { "<leader>//",      function() Snacks.picker.grep() end,                                    desc = "Grep" },
+      { "<leader>//",      function()
+        local pickers = Snacks.picker.get({source= "explorer"})
+        local picker = pickers[1]
+
+        local search_dirs = {}
+        if picker then
+          for _, selected in ipairs(picker:selected({ fallback = true })) do
+            table.insert(search_dirs, Snacks.picker.util.path(selected))
+          end
+        end
+        if search_dirs then
+          Snacks.picker.grep({dirs =search_dirs})
+        else
+          Snacks.picker.grep()
+        end
+      end,                                    desc = "Grep" },
       { "<leader>/f",      function() Snacks.picker.treesitter() end,                              desc = "Treesitter" },
       { "<leader>/:",      function() Snacks.picker.command_history() end,                         desc = "Command History" },
       { "<leader>/h",      function() Snacks.picker.help() end,                                    desc = "Neovim Help Docs" },
       { "<leader>/n",      function() Snacks.picker.notifications() end,                           desc = "Notification History" },
-      -- { "<leader>/e",      function() Snacks.explorer() end,                                       desc = "File Explorer" },
+      { "<leader>/e",      function() Snacks.explorer() end,                                       desc = "File Explorer" },
       { "<leader>/q",      function() Snacks.picker.resume() end,                                  desc = "Resume search" },
       { "<leader>ju",      function() Snacks.picker.undo() end,                                    desc = "Undo history" },
       { "<leader>/u",      function() Snacks.picker.undo() end,                                    desc = "Undo history" },
@@ -133,8 +165,8 @@ return {
           Snacks.toggle.diagnostics():map("<leader>ud")
           Snacks.toggle.line_number():map("<leader>ul")
           Snacks.toggle
-              .option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 })
-              :map("<leader>uc")
+            .option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 })
+            :map("<leader>uc")
           Snacks.toggle.treesitter():map("<leader>uT")
           Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
           Snacks.toggle.inlay_hints():map("<leader>uh")
