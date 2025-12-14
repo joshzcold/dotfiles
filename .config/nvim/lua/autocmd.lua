@@ -156,6 +156,14 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "typescript", "typescriptreact", "javascript" },
+  callback = function()
+      vim.opt_local.makeprg = "npm run lint"
+      vim.cmd.compiler("eslint")
+  end,
+})
+
 -- groovy, jenkins pipelines
 vim.api.nvim_create_autocmd({ "BufRead" }, {
   pattern = { "*.groovy" },
