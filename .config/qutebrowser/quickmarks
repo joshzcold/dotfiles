@@ -31,7 +31,7 @@ google drive https://drive.google.com/drive/u/0/home
 html color reference https://www.w3schools.com/colors/colors_names.asp
 html emoji reference https://www.w3schools.com/charsets/ref_emoji.asp
 imperva WAF Security Metrics https://my.imperva.com/admin/login
-jenkins env vars https://jenkins.secmet.co/env-vars.html/
+jenkins env vars https://jenkins-build.secmet.co/env-vars.html/
 jenkins examples https://www.jenkins.io/doc/pipeline/examples/
 jenkins extended choice reference https://github.com/jenkinsci/extended-choice-parameter-plugin/blob/master/src/main/java/com/cwctravel/hudson/plugins/extended_choice_parameter/ExtendedChoiceParameterDefinition.java
 jenkins gdsl https://10.29.158.99/job/Theater/pipeline-syntax/gdsl
@@ -82,7 +82,7 @@ pulse pipeline kibana securitymetrics https://search-sm-es-v1-prod-wnjyqjs5yqaxd
 pulse pipeline kibana/es securitymetrics https://search-sm-es-v1-prod-wnjyqjs5yqaxdyyocnmefuun5e.us-west-2.es.amazonaws.com/
 registry binary repo nexus https://registry.secmet.co/
 securitymetrics dental benefits https://www.principal.com/
-securitymetrics jenkins current mono-repo master builds https://jenkins.secmet.co/job/Github/job/sm/job/master/
+securitymetrics jenkins current mono-repo master builds https://jenkins-build.secmet.co/job/Github/job/sm/job/master/
 securitymetrics payroll https://payroll.paylogics.com/payday-benefits
 securitymetrics vsphere hq-inf3 https://hq-inf3-v-vcenter-1.secmet.co
 snipe-it https://securitymetrics.snipe-it.io/account/view-assets
@@ -168,12 +168,12 @@ dk-prod2 prometheus https://dk-prod2-v-prometheus.secmet.co/alerts
 scm-do-us prometheus https://prometheus.scm-us.secmet.co/alerts
 scm-aws-us prometheus https://prometheus.scm-aws-us.secmet.co/alerts
 logs securitymetrics grafana https://grafana.secmet.co/d/fe1z87vr4enswe/log-view
-jenkins build https://jenkins.secmet.co
+jenkins build https://jenkins-build.secmet.co
 jenkins devops https://jenkins-devops.secmet.co
 jenkins prod https://jenkins-prod.secmet.co
-Jenkins jobdsl build docs https://jenkins.secmet.co/plugin/job-dsl/api-viewer/index.html#
+Jenkins jobdsl build docs https://jenkins-build.secmet.co/plugin/job-dsl/api-viewer/index.html#
 jenkins devops plugins https://jenkins-devops.secmet.co/manage/pluginManager/
-jenkins build plugins https://jenkins.secmet.co/manage/pluginManager/
+jenkins build plugins https://jenkins-build.secmet.co/manage/pluginManager/
 jenkins prod plugins https://jenkins-prod.secmet.co/manage/pluginManager/
 securitymetrics grafana https://grafana.secmet.co/?orgId=1
 eme https://www.google.com/search?sca_esv=dba731e05581bad3&q=magika&udm=2&fbs=AEQNm0Aa4sjWe7Rqy32pFwRj0UkWd8nbOJfsBGGB5IQQO6L3J7pRxUp2pI1mXV9fBsfh39Jw_Y7pXPv6W9UjIXzt09-YcTgsUhtl-qcwSkoXhsBEhQJArPBAXcPFslLJJeb0CQmElws4ohzWolyxtCfPf6qtNcoEZVhWVH9-dOy7kluzuXglrFMeQQKhBoX0REo4mT6a3kD6fayV4jOQuG-yfkqvSjfKZQ&sa=X&ved=2ahUKEwjN-Onmt5mKAxUoE0QIHfepBXAQtKgLegQIGBAB&biw=1910&bih=1019&dpr=1
