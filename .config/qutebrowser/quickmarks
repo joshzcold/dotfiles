@@ -195,3 +195,4 @@ github securitymetrics pull requests https://github.com/pulls?q=is%3Aopen+is%3Ap
 github notifications https://github.com/notifications
 pull requests github https://github.com/pulls?q=is%3Aopen+is%3Apr+archived%3Afalse+user%3ASecurityMetrics+author%3Ajoshzcold
 pull requests github review requested https://github.com/pulls?q=is%3Aopen+is%3Apr+archived%3Afalse+user%3ASecurityMetrics+review-requested%3Ajoshzcold
+documentation securitymetrics https://sm.docs.securitymetrics.com/
