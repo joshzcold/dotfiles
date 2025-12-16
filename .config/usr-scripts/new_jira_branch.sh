@@ -15,7 +15,7 @@ function git_convert_to_branch_name() {
 
 (git fetch origin &>/dev/null &)
 
-echo -e "${Yellow}Getting jira issues...${Color_Off}"
+echo -e "${Yellow}Getting jira issues...${Color_Off}" 1>&2
 
 jira_command=(
   jira issue list --plain
@@ -44,8 +44,22 @@ branch_summary=$(git_convert_to_branch_name "$branch_summary")
 branch="${key}_${branch_summary}"
 
 if git rev-parse --verify "${branch}" &>/dev/null; then
-  echo "Branch ${branch} already exists"
+  echo "Branch ${branch} already exists" 1>&2
   exit 1
 fi
 
+if [ "$(git rev-parse --abbrev-ref HEAD)" = "master" ]; then
+  ans=y
+  worktree_path="$(dirname "$(git rev-parse --show-toplevel)")/$(basename -s .git "$(git config --get remote.origin.url)").${branch}"
+  echo -e "${Yellow}This worktree is currently 'master' do you want to create a new worktree at '${worktree_path}'? [n/Y]:${Color_Off}" 1>&2
+  read -r -n1 ans
+
+  if [ "$ans" = "Y" ] || [ "$ans" = "y" ] || [ -z "$ans" ]; then
+    set -x
+    git worktree add "${worktree_path}" 1>&2
+    cd "${worktree_path}" || exit 1
+    { set +x; } 2>/dev/null
+    echo "${worktree_path}"
+  fi
+fi
 git checkout --no-track -b "${branch}" origin/master

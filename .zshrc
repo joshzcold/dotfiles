@@ -411,7 +411,10 @@ function _new_jira_issue(){
 }
 
 function new_jira_branch(){
-  new_jira_branch.sh
+  local chdir=$(new_jira_branch.sh)
+  if [ -n "$chdir" ]; then
+    cd "$chdir" || exit 1
+  fi
 }
 
 function prometheus_unhealthy_targets(){
