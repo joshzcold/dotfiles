@@ -75,8 +75,11 @@ return {
 
         local search_dirs = {}
         if picker then
-          for _, selected in ipairs(picker:selected({ fallback = true })) do
-            table.insert(search_dirs, Snacks.picker.util.path(selected))
+          local selected = picker:selected({fallback= true})
+          for _, sel in ipairs(selected) do
+            if sel.dir then
+              table.insert(search_dirs, Snacks.picker.util.path(sel))
+            end
           end
         end
 
@@ -95,8 +98,11 @@ return {
 
         local search_dirs = {}
         if picker then
-          for _, selected in ipairs(picker:selected({ fallback = true })) do
-            table.insert(search_dirs, Snacks.picker.util.path(selected))
+          local selected = picker:selected({fallback= true})
+          for _, sel in ipairs(selected) do
+            if sel.dir then
+              table.insert(search_dirs, Snacks.picker.util.path(sel))
+            end
           end
         end
         if search_dirs then
