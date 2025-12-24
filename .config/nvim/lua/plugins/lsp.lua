@@ -309,22 +309,25 @@ return {
             set_groovy_classpath()
           end,
         },
-        basedpyright = {
-          settings = {
-            basedpyright = {
-              analysis = {
-                typeCheckingMode = "standard",
-              },
-            },
-            python = {
-              analysis = {
-                diagnosticSeverityOverrides = {
-                  ignore = { "*" },
-                },
-              },
-            },
-          },
-        },
+        -- https://github.com/astral-sh/ty/issues/2032
+        -- https://github.com/astral-sh/ty/issues/2031
+        ty = {},
+        -- basedpyright = {
+        --   settings = {
+        --     basedpyright = {
+        --       analysis = {
+        --         typeCheckingMode = "standard",
+        --       },
+        --     },
+        --     python = {
+        --       analysis = {
+        --         diagnosticSeverityOverrides = {
+        --           ignore = { "*" },
+        --         },
+        --       },
+        --     },
+        --   },
+        -- },
       }
 
       require("mason").setup()
