@@ -12,7 +12,8 @@ WHITE='\033[0;37m'
 PS4="${YELLOW}>>>${RESET} "
 
 function user_prompt() {
-    read -p "${YELLOW}$1 ${RESET}[y/n]" -n 1 -r
+    echo -e "${YELLOW}$1 ${RESET}[y/n]"
+    read -n 1 -r
     echo
 }
 
