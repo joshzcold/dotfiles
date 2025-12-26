@@ -65,6 +65,7 @@ return {
         "diff",
         "gitcommit",
         "html",
+        "helm",
         "javascript",
         "lua",
         "luadoc",

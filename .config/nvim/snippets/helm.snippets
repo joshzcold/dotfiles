@@ -1,0 +1,71 @@
+snippet service "Kubernetes service"
+  apiVersion: v1
+  kind: Service
+  metadata:
+    name: $1
+  spec:
+    selector:
+      # Pick 1
+      # app.kubernetes.io/name: $1
+      app: $1
+    ports:
+      - protocol: TCP
+        port: 80
+        targetPort: 80
+
+snippet deployment "Kubernetes deployment"
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: $1
+    labels:
+      app: $1
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: $1
+    template:
+      metadata:
+        labels:
+          app: $1
+      spec:
+        containers:
+          - name: $1
+            image: $1:latest
+            ports:
+              - containerPort: 80
+
+snippet env_container "Kubernetes env spec for container"
+  env:
+    - name: $1
+      value: "$2"
+
+snippet volume_spec "Kubernetes volume spec"
+  volumes:
+    - name: $1
+      hostPath:
+       path: /etc/foo
+
+snippet volume_mount_container_spec "Kubernetes volume mount on container"
+  volumeMounts:
+    - name: config-vol
+      mountPath: /etc/config
+
+snippet ingress_spec "Kubernetes ingress spec"
+  apiVersion: networking.k8s.io/v1
+  kind: Ingress
+  metadata:
+    name: $1-ingress
+  spec:
+    rules:
+    - host: "$1.${2-joshcold.duckdns.org}"
+      http:
+        paths:
+        - pathType: Prefix
+          path: "/"
+          backend:
+            service:
+              name: $1
+              port:
+                number: 8080
