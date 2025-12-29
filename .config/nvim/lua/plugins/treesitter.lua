@@ -75,6 +75,7 @@ return {
         "vim",
         "python",
         "vimdoc",
+        "jinja",
       }
 
       -- make sure nvim-treesitter can load
