@@ -59,23 +59,36 @@ return {
 
     config = function(_, _)
       local ensure_installed = {
-        "bash",
         "c",
-        "css",
-        "diff",
-        "gitcommit",
-        "html",
-        "helm",
-        "javascript",
+        "comment",
         "lua",
-        "luadoc",
-        "markdown",
-        "markdown_inline",
-        "query",
-        "vim",
+        "javascript",
+        "typescript",
+        "html",
+        "yaml",
         "python",
-        "vimdoc",
+        "bash",
+        "go",
+        "dockerfile",
+        "vim",
+        "ruby",
+        "perl",
+        -- "comment",
+        "query",
+        "make",
+        "php",
+        "tsx",
+        "rasi",
+        -- "http",
+        "json",
         "jinja",
+        "css",
+        -- "sql",
+        -- "scss",
+        "svelte",
+        "regex",
+        "markdown",
+        -- "markdown_inline",
       }
 
       -- make sure nvim-treesitter can load
@@ -220,5 +233,25 @@ return {
         enable = true,
       },
     },
+  },
+  {
+    "Wansmer/treesj",
+    keys = {
+      {
+        "<space>jm",
+        function()
+          require("treesj").toggle()
+        end,
+        "Treesitter toggle join",
+      },
+    },
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    opts = {
+      use_default_keymaps = false,
+      max_join_length = 1000,
+    },
+  },
+  {
+    "sheerun/vim-polyglot",
   },
 }
