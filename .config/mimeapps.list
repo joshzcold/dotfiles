@@ -14,6 +14,7 @@ video/mp4=mpv.desktop;
 video/mpeg=mpv.desktop;
 text/x-log=nvim.desktop;
 application/pdf=chromium-browser.desktop;chromium.desktop;
+application/x-bat=userapp-wine-8637H3.desktop;
 
 [Default Applications]
 image/gif=viewnior.desktop
@@ -24,3 +25,4 @@ x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop
 x-scheme-handler/etcher=balena-etcher.desktop
 x-scheme-handler/flashpoint=flashpoint-launcher.desktop
 x-scheme-handler/bananas=bananas.desktop
+application/x-bat=userapp-wine-8637H3.desktop
