@@ -668,3 +668,6 @@ eval "$(starship init zsh)"
 # fi
 #
 eval "$RUN"
+
+# opencode
+export PATH=/home/joshua/.opencode/bin:$PATH
