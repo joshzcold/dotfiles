@@ -7,7 +7,6 @@ return {
     -- optional: provides snippets for the snippet source
     dependencies = {
       "mikavilpas/blink-ripgrep.nvim",
-      "Kaiser-Yang/blink-cmp-avante",
       "rafamadriz/friendly-snippets",
       "L3MON4D3/LuaSnip",
     },
@@ -46,7 +45,13 @@ return {
       keymap = {
         ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
         ["<C-e>"] = { "hide", "fallback" },
-        ["<Tab>"] = { "select_next", "fallback" },
+        ["<Tab>"] = {
+          "select_next",
+          -- function() -- sidekick next edit suggestion
+          --   return require("sidekick").nes_jump_or_apply()
+          -- end,
+          "fallback",
+        },
         ["<S-Tab>"] = { "select_prev", "fallback" },
         ["<CR>"] = { "accept", "fallback" },
 
@@ -107,20 +112,13 @@ return {
           then
             return { "buffer", "ripgrep" }
           else
-            return { "lazydev", "lsp", "avante", "path", "snippets", "buffer" }
+            return { "lazydev", "lsp", "path", "snippets", "buffer" }
           end
         end,
         per_filetype = {
           org = { "orgmode" },
         },
         providers = {
-          avante = {
-            module = "blink-cmp-avante",
-            name = "Avante",
-            opts = {
-              -- options for blink-cmp-avante
-            },
-          },
           buffer = {
             name = "Buffer",
             module = "blink.cmp.sources.buffer",
