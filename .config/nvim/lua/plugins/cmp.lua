@@ -7,6 +7,7 @@ return {
     -- optional: provides snippets for the snippet source
     dependencies = {
       "mikavilpas/blink-ripgrep.nvim",
+      "Kaiser-Yang/blink-cmp-avante",
       "rafamadriz/friendly-snippets",
       "L3MON4D3/LuaSnip",
     },
@@ -21,14 +22,14 @@ return {
         completion = {
           menu = {
             auto_show = true,
-          }
+          },
         },
         keymap = {
           ["<Tab>"] = { "select_next", "fallback" },
           ["<S-Tab>"] = { "select_prev", "fallback" },
           ["<C-CR>"] = { "accept", "fallback" },
-          ['<C-c>'] = { 'cancel' },
-        }
+          ["<C-c>"] = { "cancel" },
+        },
       },
       completion = {
         documentation = {
@@ -100,19 +101,26 @@ return {
           local success, node = pcall(vim.treesitter.get_node)
           -- If in comment then only do buffer and ripgrep
           if
-              success
-              and node
-              and vim.tbl_contains({ "comment", "line_comment", "block_comment", "comment_content" }, node:type())
+            success
+            and node
+            and vim.tbl_contains({ "comment", "line_comment", "block_comment", "comment_content" }, node:type())
           then
             return { "buffer", "ripgrep" }
           else
-            return { "lazydev", "lsp", "path", "snippets", "buffer" }
+            return { "lazydev", "lsp", "avante", "path", "snippets", "buffer" }
           end
         end,
         per_filetype = {
-          org = { 'orgmode' }
+          org = { "orgmode" },
         },
         providers = {
+          avante = {
+            module = "blink-cmp-avante",
+            name = "Avante",
+            opts = {
+              -- options for blink-cmp-avante
+            },
+          },
           buffer = {
             name = "Buffer",
             module = "blink.cmp.sources.buffer",
@@ -133,9 +141,9 @@ return {
             end,
           },
           orgmode = {
-            name = 'Orgmode',
-            module = 'orgmode.org.autocompletion.blink',
-            fallbacks = { 'buffer' },
+            name = "Orgmode",
+            module = "orgmode.org.autocompletion.blink",
+            fallbacks = { "buffer" },
           },
           ripgrep = {
             enabled = function()

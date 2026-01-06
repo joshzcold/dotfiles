@@ -1,18 +1,41 @@
 -- which-key mappings in lua/mappings.lua
-function toggle_term(cmd)
-  -- body
+
+local M = {}
+
+---Toggle the terminal
+---@param term Terminal
+function _term_toggle(term)
+  local width = vim.o.columns
+  local set_width = width / 3
+  term:toggle(set_width)
+end
+
+--- 
+---@param name string Name of the terminal created
+---@param cmd string Command to execute
+---@param direction string ToggleTerm direction
+function toggle_term(name, cmd, direction)
   local Terminal = require("toggleterm.terminal").Terminal
+
+  M._toggle_terms = M._toggle_terms or {}
+
+  for _, t in pairs(M._toggle_terms) do
+    if t.display_name == name then
+      _term_toggle(t)
+      return
+    end
+  end
+
   local term = Terminal:new({
+    display_name = name,
     cmd = cmd,
     -- "term-move-issue",
     hidden = true,
-    direction = "float",
+    direction = direction or "float",
   })
+  table.insert(M._toggle_terms, term)
 
-  function _term_toggle()
-    term:toggle()
-  end
-  vim.cmd([[:lua _term_toggle()]])
+  _term_toggle(term)
   vim.api.nvim_buf_set_keymap(0, "t", "<c-j>", "<down>", { silent = true })
   vim.api.nvim_buf_set_keymap(0, "t", "<c-k>", "<up>", { silent = true })
 end

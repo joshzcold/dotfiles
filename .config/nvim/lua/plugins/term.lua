@@ -39,24 +39,24 @@ return {
 
       -- misc keymappings jira
       vim.keymap.set("n", "<leader>jb", function()
-        vim.cmd[[:JiraNewBranch]]
+        vim.cmd([[:JiraNewBranch]])
       end, { desc = "New Jira Branch" })
       vim.keymap.set("n", "<leader>jjn", function()
-        toggle_term("jira issue create")
+        toggle_term("Jira Issue Create", "jira issue create")
       end, { desc = "New Jira issue" })
       vim.keymap.set("n", "<leader>jjc", function()
-        toggle_term("jira-add-comment")
+        toggle_term("Jira Add Comment", "jira-add-comment")
       end, { desc = "New Jira comment" })
       vim.keymap.set("n", "<leader>jjm", function()
-        toggle_term("jira-add-comment")
+        toggle_term("Jira Add Comment", "jira-add-comment")
       end, { desc = "Move Jira issue" })
       vim.keymap.set("n", "<leader>jjv", function()
-        toggle_term("jira-view-issue")
+        toggle_term("Jira View Issue", "jira-view-issue")
       end, { desc = "View Jira Issue" })
 
       -- lazy git
       vim.keymap.set("n", "<leader>gl", function()
-        toggle_term("lazygit")
+        toggle_term("LazyGit", "lazygit")
       end, { desc = "Open Lazy Git" })
     end,
     config = function()
