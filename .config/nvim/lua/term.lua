@@ -4,10 +4,11 @@ local M = {}
 
 ---Toggle the terminal
 ---@param term Terminal
-function _term_toggle(term)
+---@param direction string direction string to pass to Terminal
+function _term_toggle(term, direction)
   local width = vim.o.columns
   local set_width = width / 3
-  term:toggle(set_width)
+  term:toggle(set_width, direction)
 end
 
 --- 
@@ -16,6 +17,12 @@ end
 ---@param direction string ToggleTerm direction
 function toggle_term(name, cmd, direction)
   local Terminal = require("toggleterm.terminal").Terminal
+
+  local parts = vim.split(cmd, " ")
+
+  if vim.fn.executable(parts[1]) ~= 1 then
+    vim.notify(("Command: '%s' is not found in PATH"):format(parts[1]), vim.log.levels.ERROR)
+  end
 
   M._toggle_terms = M._toggle_terms or {}
 
@@ -30,12 +37,12 @@ function toggle_term(name, cmd, direction)
     display_name = name,
     cmd = cmd,
     -- "term-move-issue",
-    hidden = true,
+    hidden = true, 
     direction = direction or "float",
   })
   table.insert(M._toggle_terms, term)
 
-  _term_toggle(term)
+  _term_toggle(term, direction or "float")
   vim.api.nvim_buf_set_keymap(0, "t", "<c-j>", "<down>", { silent = true })
   vim.api.nvim_buf_set_keymap(0, "t", "<c-k>", "<up>", { silent = true })
 end
