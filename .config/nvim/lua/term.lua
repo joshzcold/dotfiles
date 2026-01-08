@@ -11,7 +11,7 @@ function _term_toggle(term, direction)
   term:toggle(set_width, direction)
 end
 
---- 
+---
 ---@param name string Name of the terminal created
 ---@param cmd string Command to execute
 ---@param direction string ToggleTerm direction
@@ -37,7 +37,7 @@ function toggle_term(name, cmd, direction)
     display_name = name,
     cmd = cmd,
     -- "term-move-issue",
-    hidden = true, 
+    hidden = true,
     direction = direction or "float",
   })
   table.insert(M._toggle_terms, term)

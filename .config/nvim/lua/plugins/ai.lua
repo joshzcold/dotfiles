@@ -104,11 +104,7 @@ return {
         require("opencode").select()
       end, { desc = "Execute opencode action…" })
 
-      vim.keymap.set({ "n", "t" }, "<leader>Ot", function()
-        toggle_term("OpenCode", "opencode", "vertical")
-      end, { desc = "Toggle opencode" })
-
-      vim.keymap.set({ "n", "t" }, "<leader>to", function()
+      vim.keymap.set({ "n" }, "<leader>to", function()
         toggle_term("OpenCode", "opencode", "vertical")
       end, { desc = "Toggle opencode" })
 
