@@ -697,3 +697,13 @@ snippet bug "Bug for jira_create_lots_of_tickets"
     acceptance_criteria: |
       $4
     transition_type_name: Dev Ready
+
+snippet epic "Epic for jira_create_lots_of_tickets"
+  - type: Epic
+    title: "$1"
+    epic_name: "$2"
+    project_key: DV6
+    description: |
+      $3
+    non_functional_requirements: |
+      $4
