@@ -58,15 +58,23 @@ if [ "$(git rev-parse --abbrev-ref HEAD)" = "${MAIN_BRANCH}" ]; then
 
   if [ "$ans" = "Y" ] || [ "$ans" = "y" ] || [ -z "$ans" ]; then
     set -x
-    git worktree add "${worktree_path}" 1>&2
-    echo -e "${Yellow}Worktree added${Color_Off}"
-    echo -e "At this point you need to:"
-    echo
-    echo "git add <whatever>"
-    echo "git stash"
-    echo "cd ${worktree_path}"
-    echo "git stash pop"
-    { set +x; } 2>/dev/null
+    git worktree add "${worktree_path}" -b "${branch}" 1>&2
+    set +x
+    if [[ `git status --porcelain` ]]; then
+      echo -e "${Yellow}Worktree added${Color_Off}" 1>&2
+      echo -e "${Yellow}At this point you need to:${Color_Off}" 1>&2
+      echo -e "git add <whatever>" 1>&2
+      echo -e "git stash" 1>&2
+      echo -e "cd ${worktree_path}" 1>&2
+      echo -e "git stash pop" 1>&2
+      echo "" 1>&2
+      git status 1>&2
+    else
+      cd "${worktree_path}"
+      echo "Changed to directory: ${worktree_path}" 1>&2
+      echo "${worktree_path}"
+    fi
   fi
+else
+  git checkout --no-track -b "${branch}" origin/${MAIN_BRANCH} 1>&2
 fi
-git checkout --no-track -b "${branch}" origin/${MAIN_BRANCH}
