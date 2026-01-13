@@ -15,6 +15,8 @@ function git_convert_to_branch_name() {
 
 (git fetch origin &>/dev/null &)
 
+MAIN_BRANCH=$(git branch --format '%(refname:short)' --list master main)
+
 echo -e "${Yellow}Getting jira issues...${Color_Off}" 1>&2
 
 jira_command=(
@@ -48,18 +50,23 @@ if git rev-parse --verify "${branch}" &>/dev/null; then
   exit 1
 fi
 
-if [ "$(git rev-parse --abbrev-ref HEAD)" = "master" ]; then
+if [ "$(git rev-parse --abbrev-ref HEAD)" = "${MAIN_BRANCH}" ]; then
   ans=y
   worktree_path="$(dirname "$(git rev-parse --show-toplevel)")/$(basename -s .git "$(git config --get remote.origin.url)").${branch}"
-  echo -e "${Yellow}This worktree is currently 'master' do you want to create a new worktree at '${worktree_path}'? [n/Y]:${Color_Off}" 1>&2
+  echo -e "${Yellow}This worktree is currently '${MAIN_BRANCH}' do you want to create a new worktree at '${worktree_path}'? [n/Y]:${Color_Off}" 1>&2
   read -r -n1 ans
 
   if [ "$ans" = "Y" ] || [ "$ans" = "y" ] || [ -z "$ans" ]; then
     set -x
     git worktree add "${worktree_path}" 1>&2
-    cd "${worktree_path}" || exit 1
+    echo -e "${Yellow}Worktree added${Color_Off}"
+    echo -e "At this point you need to:"
+    echo
+    echo "git add <whatever>"
+    echo "git stash"
+    echo "cd ${worktree_path}"
+    echo "git stash pop"
     { set +x; } 2>/dev/null
-    echo "${worktree_path}"
   fi
 fi
-git checkout --no-track -b "${branch}" origin/master
+git checkout --no-track -b "${branch}" origin/${MAIN_BRANCH}

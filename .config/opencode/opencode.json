@@ -4,7 +4,7 @@
   "provider": {
       "google": {
         "options": {
-          "projectId": "studied-client-329420"
+          "projectId": "development-ai"
         }
       }
     }
