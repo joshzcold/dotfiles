@@ -74,6 +74,8 @@ if [ "$(git rev-parse --abbrev-ref HEAD)" = "${MAIN_BRANCH}" ]; then
       echo "Changed to directory: ${worktree_path}" 1>&2
       echo "${worktree_path}"
     fi
+  else
+    git checkout --no-track -b "${branch}" origin/${MAIN_BRANCH} 1>&2
   fi
 else
   git checkout --no-track -b "${branch}" origin/${MAIN_BRANCH} 1>&2

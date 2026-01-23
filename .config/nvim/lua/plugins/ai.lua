@@ -1,6 +1,7 @@
 return {
   {
     "folke/sidekick.nvim",
+    enabled = false,
     opts = {
       -- add any options here
       cli = {
@@ -90,7 +91,12 @@ return {
     "NickvanDyke/opencode.nvim",
     config = function()
       ---@type opencode.Opts
-      vim.g.opencode_opts = {}
+      vim.g.opencode_opts = {
+        provider = {
+          enabled = "terminal",
+          terminal = {}
+        }
+      }
 
       -- Required for `opts.events.reload`.
       vim.o.autoread = true
@@ -105,7 +111,7 @@ return {
       end, { desc = "Execute opencode action…" })
 
       vim.keymap.set({ "n" }, "<leader>to", function()
-        toggle_term("OpenCode", "opencode", "vertical")
+        toggle_term("OpenCode", "opencode --port", "vertical")
       end, { desc = "Toggle opencode" })
 
       vim.keymap.set({ "x" }, "go", function()

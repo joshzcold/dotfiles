@@ -65,7 +65,7 @@ snippet sh-multiline "multi line shell command in jenkins"
 	"""
 
 snippet sh-returnStdout "multiline shell that returns std out to variable" 
-	def ${1:myVar} = sh(script: """
+	sh(script: """
 
 	""", returnStdout: true).trim()
 

@@ -1,9 +1,7 @@
-# Home server
 Radarr - Movies http://joshua-home-server:7878/
 Sabnzbd http://joshua-home-server:8080/
 Sonarr http://joshua-home-server:8989/
 Jellyfin http://joshua-home-server:8096/web/index.html
-# General
 Android Messa https://messages.android.com/
 Awesome Wallpapers - wallhaven.cc https://alpha.wallhaven.cc/
 CharMap - Powered by OpenType.js http://bluejamesbond.github.io/CharacterMap/
@@ -189,7 +187,7 @@ google calendar https://calendar.google.com/calendar/u/1/r
 google sheets https://docs.google.com/spreadsheets/u/0/?ec=wgc-sheets-globalnav-goto&tgif=d
 Security Metrics Product EOL Spread Sheet https://docs.google.com/spreadsheets/d/1g3SOPcIII-Kdg4kHU17of4dnDw1HZUbc9depNn4SOqk/edit?gid=0#gid=0
 SecurityMetrics manager tools https://manager-tools.com/
-argocd hq-operations https://argocd.hq-operations-v-kubebalancer-1.secmet.co/applications
+argocd hq-operations https://argocd.hq-operations-v-kubebalancer-1.secmet.co/login?return_url=https%3A%2F%2Fargocd.hq-operations-v-kubebalancer-1.secmet.co%2Fapplications
 github https://github.com/
 Cohesity Kubernetes Protection Groups - SecurityMetrics https://hq-cohesity.secmet.co/protection/group/list?environment=kubernetes&lastRunStatus=Succeeded
 pingdom - SecurityMetrics https://my.solarwinds.cloud/login?response_type=code&scope=openid%20swicus&client_id=pingdom&state=pKh6HddX2H1mEpSpWMfIsxbwluVgu3dt&redirect_uri=https%3A%2F%2Fmy.pingdom.com%2Fauth%2Fswicus%2Fcallback
@@ -198,3 +196,10 @@ github notifications https://github.com/notifications
 pull requests github https://github.com/pulls?q=is%3Aopen+is%3Apr+archived%3Afalse+user%3ASecurityMetrics+author%3Ajoshzcold
 pull requests github review requested https://github.com/pulls?q=is%3Aopen+is%3Apr+archived%3Afalse+user%3ASecurityMetrics+review-requested%3Ajoshzcold
 documentation securitymetrics https://sm.docs.securitymetrics.com/
+argocd hq-devops https://argocd.hq-devops-v-kubebalancer-1.secmet.co/login?return_url=https%3A%2F%2Fargocd.hq-devops-v-kubebalancer-1.secmet.co%2Fapplications
+argocd hq-ref1 https://argocd.hq-ref1-v-kubebalancer-1.secmet.co/login?return_url=https%3A%2F%2Fargocd.hq-ref1-v-kubebalancer-1.secmet.co%2Fapplications
+argocd hq-ref2 https://argocd.hq-ref2-v-kubebalancer-1.secmet.co/login?return_url=https%3A%2F%2Fargocd.hq-ref2-v-kubebalancer-1.secmet.co%2Fapplications
+argocd AWS us https://argocd.scm-aws-us.secmet.co/login?return_url=https%3A%2F%2Fargocd.scm-aws-us.secmet.co%2Fapplications
+argocd hq-prod3 https://argocd.hq-prod3-v-kubebalancer-1.secmet.co/login?return_url=https%3A%2F%2Fargocd.hq-prod3-v-kubebalancer-1.secmet.co%2Fapplications
+argocd dk-prod1 https://argocd.dk-prod1-v-kubebalancer-1.secmet.co/applications?showFavorites=false&proj=&sync=&autoSync=&health=&namespace=&cluster=&labels=
+argocd dk-prod2 https://argocd.dk-prod2-v-kubebalancer-1.secmet.co/login?return_url=https%3A%2F%2Fargocd.dk-prod2-v-kubebalancer-1.secmet.co%2Fapplications
