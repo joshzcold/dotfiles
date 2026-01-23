@@ -1,5 +1,36 @@
 return {
   {
+    "zbirenbaum/copilot.lua",
+    dependencies = {
+      "copilotlsp-nvim/copilot-lsp", -- (optional) for NES functionality
+    },
+    config = function()
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "BlinkCmpMenuOpen",
+        callback = function()
+          vim.b.copilot_suggestion_hidden = true
+        end,
+      })
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "BlinkCmpMenuClose",
+        callback = function()
+          vim.b.copilot_suggestion_hidden = false
+        end,
+      })
+      require("copilot").setup({
+        nes = {
+          enabled = true,
+          keymap = {
+            accept_and_goto = "<leader>p",
+            accept = false,
+            dismiss = "<Esc>",
+          },
+        },
+      })
+    end,
+  },
+  {
     "folke/sidekick.nvim",
     enabled = false,
     opts = {
@@ -94,8 +125,8 @@ return {
       vim.g.opencode_opts = {
         provider = {
           enabled = "terminal",
-          terminal = {}
-        }
+          terminal = {},
+        },
       }
 
       -- Required for `opts.events.reload`.

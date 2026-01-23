@@ -8,6 +8,7 @@ return {
     dependencies = {
       "mikavilpas/blink-ripgrep.nvim",
       "rafamadriz/friendly-snippets",
+      "fang2hou/blink-copilot",
       "L3MON4D3/LuaSnip",
     },
 
@@ -112,13 +113,19 @@ return {
           then
             return { "buffer", "ripgrep" }
           else
-            return { "lazydev", "lsp", "path", "snippets", "buffer" }
+            return { "lazydev", "copilot", "lsp", "path", "snippets", "buffer" }
           end
         end,
         per_filetype = {
           org = { "orgmode" },
         },
         providers = {
+          copilot = {
+            name = "copilot",
+            module = "blink-copilot",
+            score_offset = 100,
+            async = true,
+          },
           buffer = {
             name = "Buffer",
             module = "blink.cmp.sources.buffer",
