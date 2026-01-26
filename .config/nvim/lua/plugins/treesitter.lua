@@ -1,40 +1,3 @@
--- on main branch, treesitter isn't started automatically
-vim.api.nvim_create_autocmd({ "Filetype" }, {
-  callback = function(event)
-    local ignored_fts = {
-      "snacks_dashboard",
-      "snacks_notif",
-      "snacks_input",
-      "prompt", -- bt: snacks_picker_input
-    }
-
-    if vim.tbl_contains(ignored_fts, event.match) then
-      return
-    end
-
-    -- make sure nvim-treesitter is loaded
-    local ok, nvim_treesitter = pcall(require, "nvim-treesitter")
-
-    -- no nvim-treesitter, maybe fresh install
-    if not ok then
-      return
-    end
-
-    local ft = vim.bo[event.buf].ft
-    local lang = vim.treesitter.language.get_lang(ft)
-    nvim_treesitter.install({ lang }):await(function(err)
-      if err then
-        vim.notify("Treesitter install error for ft: " .. ft .. " err: " .. err)
-        return
-      end
-
-      pcall(vim.treesitter.start, event.buf)
-      vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-      vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-    end)
-  end,
-})
-
 return {
   ---@module 'lazy'
   ---@type LazySpec
@@ -100,6 +63,26 @@ return {
       end
 
       nvim_treesitter.install(ensure_installed)
+      -- on main branch, treesitter isn't started automatically
+
+      local ts_filetypes = vim
+        .iter(ensure_installed)
+        :map(function(lang)
+          return vim.treesitter.language.get_filetypes(lang)
+        end)
+        :flatten()
+        :totable()
+      vim.api.nvim_create_autocmd({ "Filetype" }, {
+        desc = "Setup treesitter for a buffer",
+        pattern = ts_filetypes,
+        group = vim.api.nvim_create_augroup("ts_setup", { clear = true }),
+        callback = function(e)
+          vim.treesitter.start(e.buf)
+          vim.wo.foldmethod = "expr"
+          vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end,
+      })
     end,
   },
 
