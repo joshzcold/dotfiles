@@ -80,6 +80,7 @@ settings:
   content.media.audio_capture:
     https://app.slack.com: true
     https://app.zoom.us: true
+    https://chat.google.com: true
     https://discord.com: true
     https://imperva.zoom.us: true
     https://meet.google.com: true
@@ -99,6 +100,7 @@ settings:
   content.media.video_capture:
     https://app.chime.aws: true
     https://app.zoom.us: true
+    https://chat.google.com: true
     https://meet.google.com: true
     https://teams.microsoft.com: true
     https://us02web.zoom.us: true
