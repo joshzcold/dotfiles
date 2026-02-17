@@ -52,6 +52,17 @@ return {
               },
             },
           },
+          grep = {
+            list = { keys = { ["<c-x>"] = { "edit_split", mode = { "i", "n" } } } },
+            win = {
+              input = { keys = { ["<c-x>"] = { "edit_split", mode = { "i", "n" } } } },
+            },
+            formatters = {
+              file = {
+                filename_first = true,
+              },
+            },
+          },
           files = {
             list = { keys = { ["<c-x>"] = { "edit_split", mode = { "i", "n" } } } },
             win = {
