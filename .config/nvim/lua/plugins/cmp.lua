@@ -113,7 +113,7 @@ return {
           then
             return { "buffer", "ripgrep" }
           else
-            return { "lazydev", "copilot", "lsp", "path", "snippets", "buffer" }
+            return { "lazydev", "lsp", "path", "snippets", "buffer", "copilot" }
           end
         end,
         per_filetype = {

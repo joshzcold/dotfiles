@@ -393,8 +393,8 @@ function git_branch(){
   selected_line="$(git branch -a -q | fzf  -0 --bind 'ctrl-b:reload(git fetch origin; git branch -a -q)' | awk '{print $1}')"
 
   if [ ! -z "$selected_line" ];then
-    git checkout -q "$selected_line"
-    git switch "$(echo ${selected_line//origin\/})"
+    git checkout -q "$(echo ${selected_line//remotes\/})"
+    git switch "$(echo ${selected_line//remotes\/origin\/})"
     git pull
   fi
   zle push-line
@@ -671,3 +671,14 @@ eval "$RUN"
 
 # opencode
 export PATH=/home/joshua/.opencode/bin:$PATH
+
+# bun completions
+[ -s "/home/joshua/.bun/_bun" ] && source "/home/joshua/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
