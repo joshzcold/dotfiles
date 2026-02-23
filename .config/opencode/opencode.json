@@ -1,12 +1,31 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["opencode-gemini-auth@latest"],
-  "provider": {
-      "google": {
-        "options": {
-          "projectId": "development-ai"
-        }
+  "default_agent": "plan",
+  "mcp": {
+    "kubernetes": {
+      "type": "local",
+      "command": [
+        "uvx",
+        "kubernetes-mcp-server@latest",
+        "--kubeconfig",
+        "/home/joshua/.kube/k3s.yaml"
+      ],
+      "enabled": true
+    }
+  },
+  "agent": {
+    "code-review": {
+      "description": "Reviews code for best practices and potential issues",
+      "prompt": "You are a code reviewer. Focus on security, performance, maintainability, and thread safety. Present issues in a concise and easy to read format. Please limit output to the user",
+      "tools": {
+        "write": false,
+        "edit": false
       }
     }
+  },
+  "compaction": {
+    "auto": true,
+    "prune": true,
+    "reserved": 5000
+  }
 }
-
