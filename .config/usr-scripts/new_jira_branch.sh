@@ -31,6 +31,7 @@ list=""
 list+="CHORE"$'\n'
 list+="HOTFIX"$'\n'
 list+="ENHANCEMENT"$'\n'
+list+="EXPERIMENT"$'\n'
 list+="${jira_issues}"
 selected_line="$(printf '%s' "${list}" | fzf --query '')"
 [ -z "$selected_line" ] && exit 1
