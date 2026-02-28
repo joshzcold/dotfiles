@@ -58,6 +58,7 @@ static const Rule rules[] = {
     {"cypress"         , NULL     , NULL           , 0         , 0          , 0          , -1        , -1}        ,
     {"explorer.exe"    , NULL     , NULL           , 0         , 1          , 0          , -1        , -1}        ,
     {NULL              , NULL     , "notes"        , 0         , 1          , 1          , -1        , -1}        ,
+    {NULL              , NULL     , "github_reviews"        , 0         , 1          , 1          , -1        , -1}        ,
 };
 /* layout(s) */
 static const float mfact = 0.55; /* factor of master area size [0.05..0.95] */
@@ -91,6 +92,9 @@ static const char *scratchpadcmd[] = {"nixGL", "kitty", "-T", scratchpadname, NU
 
 static const char scratchpad_notes_name[] = "notes";
 static const char *scratchpad_notes_cmd[] = {"nixGL", "kitty", "-T", scratchpad_notes_name, "zsh", "-c", "nvim -c 'Org agenda a'", NULL};
+
+static const char scratchpad_reviews_name[] = "github_reviews";
+static const char *scratchpad_reviews_cmd[] = {"nixGL", "kitty", "-T", scratchpad_reviews_name, "zsh", "-c", "/home/joshua/.config/usr-scripts/github_reviews.sh", NULL};
 
 static const char *termst[] = {"st", NULL};
 static const char *screenshotcmd[] = {
@@ -127,7 +131,8 @@ static Key keys[] = {
     {MODKEY | ShiftMask, XK_n, spawn, {.v = scratchpad_notes_cmd}},
     {MODKEY, XK_s, spawn, {.v = screenshotcmd}},
     {MODKEY | ShiftMask, XK_s, spawn, {.v = snippetlaunchercmd}},
-    {MODKEY, XK_r, spawn, {.v = screenrecordcmd}},
+    {MODKEY, XK_r, spawn, {.v = scratchpad_reviews_cmd}},
+    {MODKEY | ShiftMask, XK_r, spawn, {.v = screenrecordcmd}},
     {ControlMask | ShiftMask, XK_s, spawn, {.v = lockcmd}},
     {MODKEY, XK_e, spawn, {.v = emojilaunchercmd}},
     {MODKEY, XK_t, spawn, {.v = totpcmd}},
