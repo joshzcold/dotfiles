@@ -1,12 +1,20 @@
 #!/bin/bash
 
-# Ensure dependencies are present
+# Ensure dependencies and correct version are present
+MIN_GH_VERSION="2.74.0"
 for cmd in gh fzf parallel; do
 	if ! command -v "$cmd" &>/dev/null; then
 		echo "Error: '$cmd' is not installed."
 		exit 1
 	fi
 done
+
+# Check gh version
+current_gh_version=$(gh version | head -n1 | awk '{print $3}')
+if [[ "$(printf '%s\n%s' "$MIN_GH_VERSION" "$current_gh_version" | sort -V | head -n1)" != "$MIN_GH_VERSION" ]]; then
+	echo "Error: 'gh' version $current_gh_version is too old. Minimum required is $MIN_GH_VERSION."
+	exit 1
+fi
 
 # Define colors
 GREEN='\e[32m'
