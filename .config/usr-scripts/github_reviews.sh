@@ -9,11 +9,10 @@ for cmd in gh fzf parallel; do
 done
 
 # Define colors
-GREEN='\e[32m'
-YELLOW='\e[33m'
-BLUE='\e[34m'
-GRAY='\e[90m'
-NC='\e[0m' # No Color
+GREEN=$'\033[32m'
+YELLOW=$'\033[33m'
+BLUE=$'\033[34m'
+NC=$'\033[0m' # No Color
 # BOLD='\e[1m' # Unused
 
 # Spinner function
@@ -46,11 +45,13 @@ stop_spinner() {
 
 # Temporary files cleanup trap
 cleanup() {
-	rm -f /tmp/combined_prs*
+	if [ -n "$FIFO_FILE" ]; then
+		rm -f "$FIFO_FILE"
+	fi
 	# Ensure spinner is stopped if script exits early
 	stop_spinner
 }
-# trap cleanup EXIT
+trap cleanup EXIT
 
 # Ensure user is logged in to gh
 if ! gh auth status &>/dev/null; then
@@ -58,12 +59,35 @@ if ! gh auth status &>/dev/null; then
 	gh auth login
 fi
 
-# Get the current GitHub username
-start_spinner "Getting GitHub username..."
-USER=$(gh api user --jq .login)
-stop_spinner
-
 ORG="SecurityMetrics"
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/github_reviews"
+CACHE_FILE="$CACHE_DIR/prs.txt"
+USER_CACHE_FILE="$CACHE_DIR/user.txt"
+AUTH_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/gh/hosts.yml"
+FIFO_FILE=""
+
+mkdir -p "$CACHE_DIR"
+
+# Get the current GitHub username (cache for faster startup)
+start_spinner "Getting GitHub username..."
+AUTH_FINGERPRINT=""
+if [ -f "$AUTH_FILE" ]; then
+	AUTH_FINGERPRINT=$(sha256sum "$AUTH_FILE" | awk '{print $1}')
+fi
+
+if [ -f "$USER_CACHE_FILE" ] && [ -s "$USER_CACHE_FILE" ]; then
+	read -r CACHED_USER CACHED_FINGERPRINT <"$USER_CACHE_FILE"
+	if [ -n "$CACHED_USER" ] && [ "$CACHED_FINGERPRINT" = "$AUTH_FINGERPRINT" ]; then
+		USER="$CACHED_USER"
+	else
+		USER=$(gh api user --jq .login)
+		printf "%s %s" "$USER" "$AUTH_FINGERPRINT" >"$USER_CACHE_FILE"
+	fi
+else
+	USER=$(gh api user --jq .login)
+	printf "%s %s" "$USER" "$AUTH_FINGERPRINT" >"$USER_CACHE_FILE"
+fi
+stop_spinner
 
 # Function to fetch and format PRs
 fetch_prs() {
@@ -73,65 +97,72 @@ fetch_prs() {
 	local color="$4"
 
 	gh search prs $query --limit 50 --json number,title,author,assignees,repository \
-		--template "{{range .}}$sortnum$color$label | {{if gt (len .title) 60}}{{printf \"%.60s...\" .title}}{{else}}{{.title}}{{end}} | {{.repository.name}} | {{.number}} | @{{.author.login}} | {{range .assignees}}@{{.login}} {{end}}| {{.repository.nameWithOwner}}{{printf \"\\n\"}}{{end}}"
+		--template "{{range .}}$sortnum$color$label | {{if gt (len .title) 60}}{{printf \"%.60s...\" .title}}{{else}}{{.title}}{{end}} | {{.repository.name}} | {{.number}} | @{{.author.login}} | {{range .assignees}}@{{.login}} {{end}}| {{.repository.nameWithOwner}}{{printf \"\\t\"}}{{.repository.nameWithOwner}}{{printf \"\\t\"}}{{.number}}{{printf \"\\n\"}}{{end}}"
+}
+
+fetch_all_prs() {
+	parallel --keep-order --line-buffer --link fetch_prs "{1}" "{2}" "{3}" "{4}" ::: \
+		"is:open is:pr archived:false user:$ORG review-requested:$USER draft:false" \
+		"is:open is:pr archived:false user:$ORG review-requested:$USER draft:true" \
+		"is:open is:pr archived:false user:$ORG author:$USER draft:false" \
+		"is:open is:pr archived:false user:$ORG author:$USER draft:true" \
+		"is:open is:pr archived:false user:$ORG draft:false" \
+		"is:open is:pr archived:false user:$ORG draft:true" \
+		::: "[1]" "[2]" "[3]" "[4]" "[5]" "[6]" \
+		::: "[REVIEW]" "[REVIEW] (draft)" "[MINE]" "[MINE] (draft)" "[ORG]" "[ORG] (draft)" \
+		::: "$YELLOW" "$YELLOW" "$GREEN" "$GREEN" "$BLUE" "$BLUE" |
+		awk 'NF && !seen[$0]++' |
+		sed 's/^\[[0-9]]//'
 }
 
 # Export for parallel
 export -f fetch_prs
 export ORG USER GREEN YELLOW BLUE NC
 
-# Fetch PRs in parallel
+# Fetch PRs in parallel (streaming)
 start_spinner "Fetching PRs..."
-parallel --link fetch_prs "{1}" "{2}" "{3}" "{4}" ::: \
-	"is:open is:pr archived:false user:$ORG review-requested:$USER draft:false" \
-	"is:open is:pr archived:false user:$ORG review-requested:$USER draft:true" \
-	"is:open is:pr archived:false user:$ORG author:$USER draft:false" \
-	"is:open is:pr archived:false user:$ORG author:$USER draft:true" \
-	"is:open is:pr archived:false user:$ORG draft:false" \
-	"is:open is:pr archived:false user:$ORG draft:true" \
-	::: "[1]" "[2]" "[3]" "[4]" "[5]" "[6]" \
-	::: "[REVIEW]" "[REVIEW] (draft)" "[MINE]" "[MINE] (draft)" "[ORG]" "[ORG] (draft)" \
-	::: "$YELLOW" "$YELLOW" "$GREEN" "$GREEN" "$BLUE" "$BLUE" \
-	>/tmp/combined_prs
-stop_spinner
-
-# Deduplicate so a PR shows up only in the first category it appears in.
-INPUT_DATA=$(grep -v '^$' /tmp/combined_prs | sort | awk '!seen[$0]++')
-
-# Remove the sorting prefix [1][REVIEW]...
-INPUT_DATA=$(echo -e "$INPUT_DATA" | sed 's/^\[[0-9]]//')
 
 if [[ "$1" == "--debug" ]]; then
+	INPUT_DATA=$(fetch_all_prs)
+	stop_spinner
+	printf "%s\n" "$INPUT_DATA" >"$CACHE_FILE"
 	echo "Raw data:"
-	echo -e "$(cat /tmp/combined_prs)"
-	echo -e "\nProcessed data:"
 	echo -e "$INPUT_DATA"
 	exit 0
 fi
 
 if [[ "$1" == "--test" ]]; then
-	echo -e "$INPUT_DATA" | column -t -s '|' | head -n 5 | while read -r line; do
-		# The repo is always the last field.
-		full_repo=$(echo "$line" | grep -o '[^ ]*$' | sed 's/\x1b\[[0-9;]*m//g')
-		# The PR number is the 4th field from the end in the | separated data,
-		# but in column -t it's usually 4 fields back from the repo (author, reviewer, number, repo).
-		# We use the fact that the PR number is purely numeric.
-		num=$(echo "$line" | sed 's/\x1b\[[0-9;]*m//g' | awk '{for(i=NF-1;i>0;i--) if($i ~ /^[0-9]+$/) {print $i; break}}')
+	INPUT_DATA=$(fetch_all_prs)
+	stop_spinner
+	printf "%s\n" "$INPUT_DATA" >"$CACHE_FILE"
+	printf "%s\n" "$INPUT_DATA" | head -n 5 | while IFS=$'\t' read -r display full_repo num; do
 		echo "Testing: gh pr view \"$num\" --repo \"$full_repo\""
 		gh pr view "$num" --repo "$full_repo" --json number,title -q '"#\(.number) \(.title)"'
 	done
 	exit 0
 fi
 
-echo -e "$INPUT_DATA" | column -t -s '|' |
-	fzf --ansi --multi --no-sort \
-		--header "Select PRs (TAB: select, ENTER: open, CTRL-U/D: scroll preview)" \
-		--bind "ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down" \
-		--preview "full_repo=\$(echo {} | grep -o '[^ ]*$' | sed 's/\x1b\[[0-9;]*m//g'); num=\$(echo {} | sed 's/\x1b\[[0-9;]*m//g' | awk '{for(i=NF-1;i>0;i--) if(\$i ~ /^[0-9]+\$/) {print \$i; break}}'); GH_FORCE_TTY=100% gh pr view \"\$num\" --repo \"\$full_repo\"" \
-		--preview-window='top:40%' |
-	while read -r line; do
-		full_repo=$(echo "$line" | awk '{print $NF}' | xargs)
-		num=$(echo "$line" | awk '{for(i=NF-1;i>0;i--) if($i ~ /^[0-9]+$/) {print $i; break}}' | xargs)
+FIFO_FILE=$(mktemp -u /tmp/github_reviews_fifo.XXXXXX)
+mkfifo "$FIFO_FILE"
+
+(
+	if [ -f "$CACHE_FILE" ]; then
+		cat "$CACHE_FILE"
+	fi
+	fetch_all_prs | tee "$CACHE_FILE"
+) | awk 'NF && !seen[$0]++' >"$FIFO_FILE" &
+FETCH_PID=$!
+(
+	wait "$FETCH_PID"
+	stop_spinner
+) &
+
+fzf --ansi --multi --no-sort --delimiter $'\t' --with-nth 1 \
+	--header "Select PRs (TAB: select, ENTER: open, CTRL-U/D: scroll preview)" \
+	--bind "ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down" \
+	--preview "GH_FORCE_TTY=100% gh pr view {3} --repo {2}" \
+	--preview-window='top:40%' <"$FIFO_FILE" |
+	while IFS=$'\t' read -r display full_repo num; do
 		url="https://github.com/$full_repo/pull/$num#partial-pull-merging"
 
 		echo -e "Opening ${BLUE}$url${NC} in browser..."

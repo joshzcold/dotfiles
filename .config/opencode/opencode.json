@@ -10,7 +10,7 @@
         "--kubeconfig",
         "/home/joshua/.kube/k3s.yaml"
       ],
-      "enabled": true
+      "enabled": false
     },
     "grafana": {
       "type": "local",
@@ -20,9 +20,9 @@
       ],
       "environment": {
         "GRAFANA_URL": "https://grafana.secmet.co",
-        "GRAFANA_SERVICE_ACCOUNT_TOKEN": "{env:GRAFANA_SERVICE_ACCOUNT_TOKEN}"
+        "GRAFANA_SERVICE_ACCOUNT_TOKEN": "glsa_MSVYVSIklFNGxMnNit4zOtheBacsf7QL_e7a849ed"
       },
-      "enabled": true
+      "enabled": false
     }
   },
   "agent": {
