@@ -52,8 +52,8 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 
 -- Ansible
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "yaml.ansible", "yaml" },
-  callback = function()
+  pattern = { "yaml.ansible" },
+  callback = function(e)
     map("n", "<leader>lab", "Iansible.builtin.<esc>")
     map("n", "<leader>lay", "A # noqa yaml[line-length]<esc>")
     map(
@@ -65,19 +65,27 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     map("n", "<leader>laf", "<cmd>AnsibleLintFix<cr>", { desc = "Ansible Lint Fix" })
     vim.opt_local.makeprg = "uv run ansible-lint -p --nocolor --strict"
     vim.opt_local.keywordprg = "ansible-doc"
-    map("n", "<leader>/t", "",
-      { desc = "Search for ansible task", callback = function() Snacks.picker.grep({ search = "- name: " }) end })
+    map("n", "<leader>/t", "", {
+      desc = "Search for ansible task",
+      callback = function()
+        Snacks.picker.grep({ search = "- name: " })
+      end,
+    })
+    -- 1. Disable the jumpy indent functions (like GetAnsibleIndent)
+    vim.opt_local.indentexpr = ""
+
+    -- 2. Disable old-school smartindent which fights with YAML
+    vim.opt_local.smartindent = false
+
+    -- 3. Ensure we don't trigger re-indent on '-' or ':'
+    vim.opt_local.indentkeys:remove({ "-", ":" })
+    vim.treesitter.start(e.buf)
+    vim.wo.foldmethod = "expr"
+    vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
   end,
 })
--- set yaml.ansible file type based on search match
--- vim.api.nvim_create_autocmd({ "BufRead" }, {
---   pattern = { "*.yaml", "*.yml" },
---   callback = function()
---     if vim.fn.search([[\stasks:\|- name:]], "nw") > 0 then
---       vim.opt_local.ft = "yaml.ansible"
---     end
---   end,
--- })
+
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = { "*/playbooks/*.yml", "*/tasks/*.yml" },
   callback = function()
@@ -106,16 +114,16 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 vim.api.nvim_create_autocmd({ "BufNewFile" }, {
   pattern = { "*.sh" },
   callback = function()
-    local file = vim.fn.expand('%')
+    local file = vim.fn.expand("%")
     local perms = vim.fn.getfperm(file)
     local owner_permissions = perms:sub(1, 3)
     if owner_permissions ~= "rwx" then
       vim.schedule(function()
         vim.ui.select({
           "Yes",
-          "No"
+          "No",
         }, {
-          prompt = "Add executable permission to this script on write?"
+          prompt = "Add executable permission to this script on write?",
         }, function(choice)
           if choice == "Yes" then
             vim.api.nvim_create_autocmd({ "BufWritePost" }, {
@@ -124,7 +132,7 @@ vim.api.nvim_create_autocmd({ "BufNewFile" }, {
                 vim.system({ "chmod", "+x", file })
                 vim.notify("Added executable permissions to: " .. file)
                 vim.api.nvim_del_autocmd(writePostAutoCmd.id)
-              end
+              end,
             })
           end
         end)
@@ -159,8 +167,8 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "typescript", "typescriptreact", "javascript" },
   callback = function()
-      vim.opt_local.makeprg = "npm run lint"
-      vim.cmd.compiler("eslint")
+    vim.opt_local.makeprg = "npm run lint"
+    vim.cmd.compiler("eslint")
   end,
 })
 
@@ -198,8 +206,7 @@ vim.api.nvim_create_autocmd("LspProgress", {
   ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
   callback = function(ev)
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
-    local value = ev.data.params
-        .value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
+    local value = ev.data.params.value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
     if not client or type(value) ~= "table" then
       return
     end
@@ -231,7 +238,7 @@ vim.api.nvim_create_autocmd("LspProgress", {
       title = client.name,
       opts = function(notif)
         notif.icon = #progress[client.id] == 0 and " "
-            or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+          or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
       end,
     })
   end,

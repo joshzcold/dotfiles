@@ -203,3 +203,4 @@ argocd AWS us https://argocd.scm-aws-us.secmet.co/login?return_url=https%3A%2F%2
 argocd hq-prod3 https://argocd.hq-prod3-v-kubebalancer-1.secmet.co/login?return_url=https%3A%2F%2Fargocd.hq-prod3-v-kubebalancer-1.secmet.co%2Fapplications
 argocd dk-prod1 https://argocd.dk-prod1-v-kubebalancer-1.secmet.co/applications?showFavorites=false&proj=&sync=&autoSync=&health=&namespace=&cluster=&labels=
 argocd dk-prod2 https://argocd.dk-prod2-v-kubebalancer-1.secmet.co/login?return_url=https%3A%2F%2Fargocd.dk-prod2-v-kubebalancer-1.secmet.co%2Fapplications
+gemini https://gemini.google.com/app
