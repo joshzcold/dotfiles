@@ -23,16 +23,15 @@
         "GRAFANA_SERVICE_ACCOUNT_TOKEN": "${env:GRAFANA_SERVICE_ACCOUNT_TOKEN}"
       },
       "enabled": false
-    }
-  },
-  "agent": {
-    "code-review": {
-      "description": "Reviews code for best practices and potential issues",
-      "prompt": "You are a code reviewer. Focus on security, performance, maintainability, and thread safety. Present issues in a concise and easy to read format. Please limit output to the user",
-      "tools": {
-        "write": false,
-        "edit": false
-      }
+    },
+    "chrome-devtools": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ],
+      "enabled": false
     }
   },
   "compaction": {
