@@ -204,3 +204,4 @@ argocd hq-prod3 https://argocd.hq-prod3-v-kubebalancer-1.secmet.co/login?return_
 argocd dk-prod1 https://argocd.dk-prod1-v-kubebalancer-1.secmet.co/applications?showFavorites=false&proj=&sync=&autoSync=&health=&namespace=&cluster=&labels=
 argocd dk-prod2 https://argocd.dk-prod2-v-kubebalancer-1.secmet.co/login?return_url=https%3A%2F%2Fargocd.dk-prod2-v-kubebalancer-1.secmet.co%2Fapplications
 gemini https://gemini.google.com/app
+graphite code review https://app.graphite.com/#
