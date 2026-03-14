@@ -64,7 +64,7 @@ in
     pkgs.parallel
     pkgs.picom
     # pkgs.qutebrowser
-    (config.lib.nixGL.wrap pkgs.qutebrowser)
+    (config.lib.nixGL.wrap pkgsUnstable.qutebrowser)
     pkgs.redis
     pkgs.ripgrep
     pkgs.rofi
