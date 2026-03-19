@@ -171,7 +171,8 @@ fzf --ansi --multi --no-sort --delimiter $'\t' --with-nth 1 \
 	--preview "GH_FORCE_TTY=100% gh pr view {3} --repo {2}" \
 	--preview-window='top:40%' <"$FIFO_FILE" |
 	while IFS=$'\t' read -r display full_repo num; do
-		url="https://github.com/$full_repo/pull/$num"
+		# url="https://github.com/$full_repo/pull/$num"
+		url="https://app.graphite.com/github/pr/$full_repo/$num"
 
 		echo -e "Opening ${BLUE}$url${NC} in browser..."
 		if [[ "$OSTYPE" == "linux-gnu"* ]]; then
