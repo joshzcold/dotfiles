@@ -8,7 +8,7 @@
         "uvx",
         "kubernetes-mcp-server@latest",
         "--kubeconfig",
-        "/home/joshua/.kube/k3s.yaml"
+        "{env:KUBECONFIG}"
       ],
       "enabled": false
     },

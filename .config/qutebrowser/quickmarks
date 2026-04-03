@@ -90,68 +90,79 @@ xmatters https://securitymetrics.xmatters.com
 IT securitymetrics naming policy scheme https://docs.google.com/document/d/1rc8zgwL3r-wmfgyymYC0_7MNucSvLSp62RJbAIIe-WE/edit#heading=h.c8l5u4nobwdw
 Securitymetrics server room HQ diagram https://docs.google.com/spreadsheets/d/1A8uuNrDXSK0XiCGTF_AXScVKs9KxvuBvgNad05CsPmw/edit#gid=1221234709
 network cheatsheet sercuritymetrics IT https://docs.google.com/spreadsheets/d/1SzYBwvaWsUGu3ec8gP2OqnaeMALlr01pzRILasY6ZgY/edit#gid=0
-What we have been doing devops https://docs.google.com/document/d/1ZD9ro9FK1Z9l0nWCNM0wOCSw-YdnQ3qXnayE8GBCRV8/edit
-dk-mscan-phv-scan-1 10.102.23.27
-dk-prod1-p-db-1 10.101.23.39
-dk-prod1-phv-apphost-1 10.101.23.10
-dk-prod1-phv-apphost-2 10.101.23.11
-dk-prod1-phv-apphost-3 10.23.7.103
-dk-prod1-phv-apphost-4 10.101.23.13
-dk-prod1-phv-apphost-5 10.101.23.14
-dk-prod1-phv-tools-1 10.102.23.19
-dk-prod2-p-db-2 10.102.23.39
-dk-prod2-phv-apphost-1 10.102.23.10
-dk-prod2-phv-apphost-2 10.102.23.11
-dk-prod2-phv-apphost-3 10.102.23.12
-dk-prod2-phv-apphost-4 10.102.23.13
-dk-prod2-phv-apphost-5 10.102.23.14
-dk-prod2-phv-tools-1 10.102.23.19
-hq-devtools-phv-devdb 10.23.0.38
-hq-devops-phv-apphost-1 10.23.10.3
-hq-devops-phv-apphost-2 10.23.10.4
-hq-devops-phv-apphost-3 10.23.10.5
-hq-devops-phv-apphost-4 10.23.10.6
-hq-devops-phv-apphost-5 10.23.10.8
-hq-devops-phv-apphost-6 10.23.10.9
-hq-devops-phv-apphost-7 10.23.10.10
-hq-devops-phv-apphost-8 10.23.10.11
-hq-devtools-phv-tools-1 10.23.0.30
-hq-devtools-phv-tools-2 10.23.0.37
-hq-devtools-phv-tools-5 10.23.0.56
-hq-forensics-phv-compute-1 10.90.23.3
-hq-forensics-phv-compute-2 10.90.23.4
-hq-forensics-phv-compute-3 10.90.23.5
-hq-operations-phv-apphost-1 10.23.7.41
-hq-operations-phv-apphost-2 10.23.7.42
-hq-operations-phv-apphost-3 10.23.7.43
-hq-prod3-p-db-1 10.23.7.106
-hq-prod3-p-db-3 10.100.23.20
-hq-prod3-p-db-4 10.100.23.21
-hq-prod3-phv-apphost-1 10.100.23.10
-hq-prod3-phv-apphost-2 10.100.23.11
-hq-prod3-phv-apphost-3 10.100.23.12
-hq-prod3-phv-apphost-4 10.100.23.13
-hq-prod3-phv-apphost-5 10.100.23.14
-hq-prodtools-phv-tools-1 10.23.0.55
-hq-ref-p-db-1 10.105.23.39
-hq-ref-p-db-2 10.105.23.40
-hq-ref-phv-apphost-1 10.105.23.10
-hq-ref-phv-apphost-2 10.105.23.11
-hq-ref-phv-apphost-3 10.105.23.12
-hq-ref-phv-apphost-4 10.105.23.13
-hq-ref-phv-apphost-5 10.105.23.14
-hq-ref-phv-tools-1 10.105.23.19
-hq-ref2-phv-apphost-1 10.23.10.14
-hq-ref2-phv-apphost-2 10.23.10.15
-hq-ref2-phv-apphost-3 10.23.10.16
-hq-ref2-phv-apphost-4 10.23.10.17
-hq-ref2-phv-apphost-5 10.23.10.18
-hq-scanprod-phv-scan-1 10.23.0.41
-hq-scanprod-phv-scan-2 10.23.0.42
-hq-scanprod-phv-scan-4 10.23.0.44
-hq-scanprod-phv-scan-6 10.23.0.46
-hq-vision-phv-apphost-1 10.100.23.27
-hq-vision-phv-apphost-2 10.100.23.28
+
+hq-devops-phv-apphost-3	https://ipmi-hq-devops-phv-apphost-3.secmet.co
+hq-devops-phv-apphost-2	https://ipmi-hq-devops-phv-apphost-2.secmet.co
+hq-devops-phv-apphost-4	https://ipmi-hq-devops-phv-apphost-4.secmet.co
+hq-ref1-p-apphost-1	https://ipmi-hq-ref1-p-apphost-1.secmet.co
+hq-ref1-p-apphost-2	https://ipmi-hq-ref1-p-apphost-2.secmet.co
+hq-ref1-p-apphost-5	https://ipmi-hq-ref1-p-apphost-5.secmet.co
+hq-ref1-p-apphost-4	https://ipmi-hq-ref1-p-apphost-4.secmet.co
+hq-ref1-p-apphost-3	https://ipmi-hq-ref1-p-apphost-3.secmet.co
+hq-devops-phv-apphost-1	https://ipmi-hq-devops-phv-apphost-1.secmet.co
+hq-ref2-p-apphost-4	https://ipmi-hq-ref2-p-apphost-4.secmet.co
+hq-dev-phv-apphost-5
+hq-dev-phv-apphost-4
+hq-operations-phv-apphost-1	https://ipmi-hq-operations-phv-apphost-1.secmet.co
+hq-operations-phv-apphost-2	https://ipmi-hq-operations-phv-apphost-2.secmet.co
+hq-devops-phv-apphost-5	https://ipmi-hq-devops-phv-apphost-5.secmet.co
+hq-ref2-p-apphost-1	https://ipmi-hq-ref2-p-apphost-1.secmet.co
+hq-operations-phv-apphost-3	https://ipmi-hq-operations-phv-apphost-3.secmet.co
+hq-dev-p-apphost-1	https://ipmi-hq-dev-p-apphost-1.secmet.co
+hq-ref2-p-apphost-5	https://ipmi-hq-ref2-p-apphost-5.secmet.co
+hq-ref2-p-apphost-2	https://ipmi-hq-ref2-p-apphost-2.secmet.co
+hq-devsec1-phv-apphost-1	https://ipmi-hq-devsec1-phv-apphost-1.secmet.co
+hq-vision-phv-apphost-2	https://ipmi-hq-vision-phv-apphost-2.secmet.co
+hq-ref2-p-apphost-3	https://ipmi-hq-ref2-p-apphost-3.secmet.co
+hq-vision-phv-apphost-1	https://ipmi-hq-vision-phv-apphost-1.secmet.co
+hq-dev-phv-apphost-6
+hq-devops-phv-apphost-6	https://ipmi-hq-devops-phv-apphost-6.secmet.co
+hq-devops-phv-apphost-7	https://ipmi-hq-devops-phv-apphost-7.secmet.co
+hq-devops-phv-apphost-8
+hq-prod3-p-apphost-1	https://ipmi-hq-prod3-p-apphost-1.secmet.co
+hq-prod3-p-apphost-2	https://ipmi-hq-prod3-p-apphost-2.secmet.co
+hq-prod3-p-apphost-3	https://ipmi-hq-prod3-p-apphost-3.secmet.co
+hq-prod3-p-apphost-4	https://ipmi-hq-prod3-p-apphost-4.secmet.co
+hq-prod3-p-apphost-5	https://ipmi-hq-prod3-p-apphost-5.secmet.co
+dk-prod2-p-apphost-5	https://ipmi-dk-prod2-p-apphost-5.secmet.co
+dk-prod2-p-apphost-4	https://ipmi-dk-prod2-p-apphost-4.secmet.co
+dk-prod2-p-apphost-3	https://ipmi-dk-prod2-p-apphost-3.secmet.co
+dk-prod2-p-apphost-2	https://ipmi-dk-prod2-p-apphost-2.secmet.co
+dk-prod2-p-apphost-1	https://ipmi-dk-prod2-p-apphost-1.secmet.co
+dk-prod1-p-apphost-3	https://ipmi-dk-prod1-p-apphost-3.secmet.co
+dk-prod1-p-apphost-4	https://ipmi-dk-prod1-p-apphost-4.secmet.co
+dk-prod1-p-apphost-1	https://ipmi-dk-prod1-p-apphost-1.secmet.co
+dk-prod1-p-apphost-5	https://ipmi-dk-prod1-p-apphost-5.secmet.co
+dk-prod1-p-apphost-2	https://ipmi-dk-prod1-p-apphost-2.secmet.co
+dk-prodsec1-phv-apphost-1	https://ipmi-dk-prodsec1-phv-apphost-1.secmet.co
+dk-prodsec1-phv-apphost-3	https://ipmi-dk-prodsec1-phv-apphost-3.secmet.co
+dk-prodsec1-phv-apphost-2	https://ipmi-dk-prodsec1-phv-apphost-2.secmet.co
+
+hq-ref-p-dbfw-1	https://ipmi-hq-ref-p-dbfw-1.secmet.co
+sg-prod3-p-dbborder-1
+hq-dev-p-dbhost	https://ipmi-hq-dev-p-dbhost.secmet.co
+hq-ref1-p-db-1	https://ipmi-hq-ref1-p-db-1.secmet.co
+hq-ref2-p-db-2	https://ipmi-hq-ref2-p-db-2.secmet.co
+hq-ref2-p-db-1	https://ipmi-hq-ref2-p-db-1.secmet.co
+hq-ref1-p-db-2	https://ipmi-hq-ref1-p-db-2.secmet.co
+sg-prod3-p-dbfw-1	https://ipmi-sg-prod3-p-dbfw-1.secmet.co
+hq-prod3-p-db-1	https://ipmi-hq-prod3-p-db-1.secmet.co
+dk-prod2-p-db-1	https://ipmi-dk-prod2-p-db-1.secmet.co
+dk-prod2-p-dbfw-1	https://ipmi-dk-prod2-p-dbfw-1.secmet.co
+dk-prod1-p-dbfw-1	https://ipmi-dk-prod1-p-dbfw-1.secmet.co
+dk-prod1-p-db-1	https://ipmi-dk-prod1-p-db-1.secmet.co
+
+hq-devtools-phv-tools-2	https://ipmi-hq-devtools-phv-tools-2.secmet.co
+hq-devtools-phv-tools-1	https://ipmi-hq-devtools-phv-tools-1.secmet.co
+hq-devtools-phv-tools-4	https://ipmi-hq-devtools-phv-tools-4.secmet.co
+hq-devtools-phv-tools-5	https://ipmi-hq-devtools-phv-tools-5.secmet.co
+hq-prodtools-phv-tools-1	https://ipmi-hq-prodtools-phv-tools-1.secmet.co
+hq-ref-phv-tools-1
+hq-devtools-phv-tools-6	https://ipmi-hq-devtools-phv-tools-6.secmet.co
+hq-prod3-phv-tools-1	https://ipmi-hq-prod3-phv-tools-1.secmet.co
+dk-prod2-phv-tools-1	https://ipmi-dk-prod2-phv-tools-1.secmet.co
+dk-prod1-p-tools-1	https://ipmi-dk-prod1-p-tools-1.secmet.co
+
 devops prometheus https://hq-devops-v-prometheus.secmet.co/alerts
 devops tools prometheus https://hq-devtools-v-prometheus-1.secmet.co/alerts
 devscan prometheus https://hq-devscan-v-prometheus-1.secmet.co/alerts?search=
