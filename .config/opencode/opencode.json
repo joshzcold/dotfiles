@@ -8,7 +8,7 @@
         "uvx",
         "kubernetes-mcp-server@latest",
         "--kubeconfig",
-        "{env:KUBECONFIG}"
+        "/home/joshua/.kube/k3s.yaml"
       ],
       "enabled": false
     },
@@ -32,11 +32,40 @@
         "chrome-devtools-mcp@latest"
       ],
       "enabled": false
+    },
+    "atlassian": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "mcp-remote",
+        "https://mcp.atlassian.com/v1/mcp"
+      ],
+      "enabled": false
+    }
+  },
+  "permission": {
+    "bash": {
+      "*git commit *": "ask",
+      "*git push *": "ask"
+    },
+    "glob": {
+      "**/node_modules/**": "ask",
+      "**/.venv/**": "ask",
+      "**/.nox/**": "ask",
+      "**/.git/**": "ask"
+    },
+    "grep": {
+      "**/node_modules/**": "ask",
+      "**/.venv/**": "ask",
+      "**/.nox/**": "ask",
+      "**/.git/**": "ask"
     }
   },
   "compaction": {
     "auto": true,
     "prune": true,
-    "reserved": 5000
-  }
+    "reserved": 3000
+  },
+  "share": "disabled"
 }
