@@ -2,7 +2,7 @@
 
 # Ensure dependencies and correct version are present
 MIN_GH_VERSION="2.74.0"
-for cmd in gh fzf parallel; do
+for cmd in gh fzf parallel curl python3; do
 	if ! command -v "$cmd" &>/dev/null; then
 		echo "Error: '$cmd' is not installed."
 		exit 1
@@ -125,7 +125,8 @@ fetch_all_prs() {
 
 # Export for parallel
 export -f fetch_prs
-export ORG USER GREEN YELLOW BLUE NC
+export -f fetch_all_prs
+export ORG USER GREEN YELLOW BLUE NC CACHE_FILE
 
 # Fetch PRs in parallel (streaming)
 start_spinner "Fetching PRs..."
@@ -150,29 +151,52 @@ if [[ "$1" == "--test" ]]; then
 	exit 0
 fi
 
-FIFO_FILE=$(mktemp -u /tmp/github_reviews_fifo.XXXXXX)
-mkfifo "$FIFO_FILE"
+if [ -f "$CACHE_FILE" ]; then
+	FZF_INPUT="$CACHE_FILE"
+else
+	FZF_INPUT="/dev/null"
+fi
+
+LISTEN_PORT=$(python3 - <<'PY'
+import socket
+s = socket.socket()
+s.bind(("127.0.0.1", 0))
+print(s.getsockname()[1])
+s.close()
+PY
+)
+
+stop_spinner
 
 (
-	if [ -f "$CACHE_FILE" ]; then
-		cat "$CACHE_FILE"
+	TMP_CACHE=$(mktemp "$CACHE_DIR/prs.txt.tmp.XXXXXX")
+	if fetch_all_prs >"$TMP_CACHE"; then
+		if [ -s "$TMP_CACHE" ]; then
+			mv "$TMP_CACHE" "$CACHE_FILE"
+		else
+			rm -f "$TMP_CACHE"
+		fi
+	else
+		rm -f "$TMP_CACHE"
 	fi
-	fetch_all_prs | tee "$CACHE_FILE"
-) | awk 'NF && !seen[$0]++' >"$FIFO_FILE" &
-FETCH_PID=$!
-(
-	wait "$FETCH_PID"
-	stop_spinner
+	for i in $(seq 1 20); do
+		if curl -s -X POST "http://127.0.0.1:$LISTEN_PORT" \
+			-d "reload(cat \"$CACHE_FILE\")" >/dev/null; then
+			break
+		fi
+		sleep 0.1
+	done
 ) &
 
 fzf --ansi --multi --no-sort --delimiter $'\t' --with-nth 1 \
+	--listen "127.0.0.1:$LISTEN_PORT" \
 	--header "Select PRs (TAB: select, ENTER: open, CTRL-U/D: scroll preview)" \
 	--bind "ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down" \
 	--preview "GH_FORCE_TTY=100% gh pr view {3} --repo {2}" \
-	--preview-window='top:40%' <"$FIFO_FILE" |
+	--preview-window='top:40%' <"$FZF_INPUT" |
 	while IFS=$'\t' read -r display full_repo num; do
-		url="https://github.com/$full_repo/pull/$num"
-		# url="https://app.graphite.com/github/pr/$full_repo/$num"
+		# url="https://github.com/$full_repo/pull/$num"
+		url="https://app.graphite.com/github/pr/$full_repo/$num"
 
 		echo -e "Opening ${BLUE}$url${NC} in browser..."
 		if [[ "$OSTYPE" == "linux-gnu"* ]]; then
