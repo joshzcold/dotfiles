@@ -110,8 +110,8 @@ fetch_prs() {
 
 fetch_all_prs() {
 	parallel --keep-order --line-buffer --link fetch_prs "{1}" "{2}" "{3}" "{4}" ::: \
-		"is:open is:pr archived:false user:$ORG review-requested:$USER draft:false" \
-		"is:open is:pr archived:false user:$ORG review-requested:$USER draft:true" \
+		"is:open is:pr archived:false user:$ORG (review-requested:$USER OR reviewed-by:$USER) draft:false" \
+		"is:open is:pr archived:false user:$ORG (review-requested:$USER OR reviewed-by:$USER) draft:true" \
 		"is:open is:pr archived:false user:$ORG author:$USER draft:false" \
 		"is:open is:pr archived:false user:$ORG author:$USER draft:true" \
 		"is:open is:pr archived:false user:$ORG draft:false" \
