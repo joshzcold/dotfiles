@@ -20,6 +20,7 @@ fi
 GREEN=$'\033[32m'
 YELLOW=$'\033[33m'
 BLUE=$'\033[34m'
+PURPLE=$'\033[35m'
 NC=$'\033[0m' # No Color
 # BOLD='\e[1m' # Unused
 
@@ -110,15 +111,17 @@ fetch_prs() {
 
 fetch_all_prs() {
 	parallel --keep-order --line-buffer --link fetch_prs "{1}" "{2}" "{3}" "{4}" ::: \
-		"is:open is:pr archived:false user:$ORG (review-requested:$USER OR reviewed-by:$USER) draft:false" \
-		"is:open is:pr archived:false user:$ORG (review-requested:$USER OR reviewed-by:$USER) draft:true" \
+		"is:open is:pr archived:false user:$ORG review-requested:$USER draft:false" \
+		"is:open is:pr archived:false user:$ORG review-requested:$USER draft:true" \
+		"is:open is:pr archived:false user:$ORG reviewed-by:$USER draft:false" \
+		"is:open is:pr archived:false user:$ORG reviewed-by:$USER draft:true" \
 		"is:open is:pr archived:false user:$ORG author:$USER draft:false" \
 		"is:open is:pr archived:false user:$ORG author:$USER draft:true" \
 		"is:open is:pr archived:false user:$ORG draft:false" \
 		"is:open is:pr archived:false user:$ORG draft:true" \
-		::: "[1]" "[2]" "[3]" "[4]" "[5]" "[6]" \
-		::: "[REVIEW]" "[REVIEW] (draft)" "[MINE]" "[MINE] (draft)" "[ORG]" "[ORG] (draft)" \
-		::: "$YELLOW" "$YELLOW" "$GREEN" "$GREEN" "$BLUE" "$BLUE" |
+		::: "[1]" "[2]" "[3]" "[4]" "[5]" "[6]" "[7]" "[8]" \
+	::: "[NEEDS REVIEW]" "[NEEDS REVIEW] (draft)" "REVIEWED" "REVIEWED (draft)" "[MINE]" "[MINE] (draft)" "[ORG]" "[ORG] (draft)" \
+		::: "$YELLOW" "$YELLOW" "$PURPLE" "$PURPLE" "$GREEN" "$GREEN" "$BLUE" "$BLUE" |
 		awk 'NF && !seen[$0]++' |
 		sed 's/^\[[0-9]]//'
 }
@@ -126,7 +129,7 @@ fetch_all_prs() {
 # Export for parallel
 export -f fetch_prs
 export -f fetch_all_prs
-export ORG USER GREEN YELLOW BLUE NC CACHE_FILE
+export ORG USER GREEN YELLOW BLUE PURPLE NC CACHE_FILE
 
 # Fetch PRs in parallel (streaming)
 start_spinner "Fetching PRs..."
