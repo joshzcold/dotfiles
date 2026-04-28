@@ -59,6 +59,7 @@ static const Rule rules[] = {
     {"explorer.exe"    , NULL     , NULL           , 0         , 1          , 0          , -1        , -1}        ,
     {NULL              , NULL     , "notes"        , 0         , 1          , 1          , -1        , -1}        ,
     {NULL              , NULL     , "github_reviews"        , 0         , 1          , 1          , -1        , -1}        ,
+    {NULL              , NULL     , "qutebrowser_quickmarks"        , 0         , 1          , 1          , -1        , -1}        ,
 };
 /* layout(s) */
 static const float mfact = 0.55; /* factor of master area size [0.05..0.95] */
@@ -86,7 +87,8 @@ static const char *dmenucmd[] = {
     "dmenu_run", "-m",      dmenumon, "-fn",    dmenufont, "-nb",     col_gray1,
     "-nf",       col_gray3, "-sb",    col_cyan, "-sf",     col_gray4, NULL};
 static const char *termcmd[] = {"nixGL", "kitty", NULL};
-static const char *termcmdStartWork[] = {"bash", "-c", "RUN='work' nixGL kitty --detach zsh -is", NULL};
+static const char scratchpad_qutebrowser_quickmarks_name[] = "qutebrowser_quickmarks";
+static const char *scratchpad_qutebrowser_quickmarks_cmd[] = {"nixGL", "kitty", "-T", scratchpad_qutebrowser_quickmarks_name, "zsh", "-c", "/home/joshua/.config/usr-scripts/qutebrowser_quickmarks.sh", NULL};
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = {"nixGL", "kitty", "-T", scratchpadname, NULL};
 
@@ -126,7 +128,7 @@ static Key keys[] = {
     /* modifier                     key        function        argument */
     {MODKEY, XK_d, spawn, {.v = applaunchercmd}},
     {MODKEY, XK_Return, spawn, {.v = termcmd}},
-    {MODKEY, XK_w, spawn, {.v = termcmdStartWork}},
+    {MODKEY, XK_w, spawn, {.v = scratchpad_qutebrowser_quickmarks_cmd}},
     {MODKEY, XK_grave, togglescratch, {.v = scratchpadcmd}},
     {MODKEY | ShiftMask, XK_n, spawn, {.v = scratchpad_notes_cmd}},
     {MODKEY, XK_s, spawn, {.v = screenshotcmd}},

@@ -101,8 +101,6 @@ hq-ref1-p-apphost-4	https://ipmi-hq-ref1-p-apphost-4.secmet.co
 hq-ref1-p-apphost-3	https://ipmi-hq-ref1-p-apphost-3.secmet.co
 hq-devops-phv-apphost-1	https://ipmi-hq-devops-phv-apphost-1.secmet.co
 hq-ref2-p-apphost-4	https://ipmi-hq-ref2-p-apphost-4.secmet.co
-hq-dev-phv-apphost-5
-hq-dev-phv-apphost-4
 hq-operations-phv-apphost-1	https://ipmi-hq-operations-phv-apphost-1.secmet.co
 hq-operations-phv-apphost-2	https://ipmi-hq-operations-phv-apphost-2.secmet.co
 hq-devops-phv-apphost-5	https://ipmi-hq-devops-phv-apphost-5.secmet.co
@@ -115,10 +113,8 @@ hq-devsec1-phv-apphost-1	https://ipmi-hq-devsec1-phv-apphost-1.secmet.co
 hq-vision-phv-apphost-2	https://ipmi-hq-vision-phv-apphost-2.secmet.co
 hq-ref2-p-apphost-3	https://ipmi-hq-ref2-p-apphost-3.secmet.co
 hq-vision-phv-apphost-1	https://ipmi-hq-vision-phv-apphost-1.secmet.co
-hq-dev-phv-apphost-6
 hq-devops-phv-apphost-6	https://ipmi-hq-devops-phv-apphost-6.secmet.co
 hq-devops-phv-apphost-7	https://ipmi-hq-devops-phv-apphost-7.secmet.co
-hq-devops-phv-apphost-8
 hq-prod3-p-apphost-1	https://ipmi-hq-prod3-p-apphost-1.secmet.co
 hq-prod3-p-apphost-2	https://ipmi-hq-prod3-p-apphost-2.secmet.co
 hq-prod3-p-apphost-3	https://ipmi-hq-prod3-p-apphost-3.secmet.co
@@ -139,7 +135,6 @@ dk-prodsec1-phv-apphost-3	https://ipmi-dk-prodsec1-phv-apphost-3.secmet.co
 dk-prodsec1-phv-apphost-2	https://ipmi-dk-prodsec1-phv-apphost-2.secmet.co
 
 hq-ref-p-dbfw-1	https://ipmi-hq-ref-p-dbfw-1.secmet.co
-sg-prod3-p-dbborder-1
 hq-dev-p-dbhost	https://ipmi-hq-dev-p-dbhost.secmet.co
 hq-ref1-p-db-1	https://ipmi-hq-ref1-p-db-1.secmet.co
 hq-ref2-p-db-2	https://ipmi-hq-ref2-p-db-2.secmet.co
