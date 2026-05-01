@@ -42,9 +42,7 @@ zle -N zle-keymap-select
 export ZSH=$HOME/.oh-my-zsh
 export EDITOR=nvim
 export VISUAL=nvim
-export NPM_PACKAGES="${HOME}/.npm-packages"
 export VAULT_ADDR="https://vault.secmet.co:8200"
-export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 export MANPAGER="nvim +Man!"
 export GOPATH=$HOME/.go
 export GOROOT=/usr/local/go
@@ -98,7 +96,6 @@ export PATH=$PATH:$HOME/apps/bin
 export PATH=$PATH:$HOME.cargo/bin
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export PATH=$PATH:./node_modules/.bin
-export PATH=$PATH:$NPM_PACKAGES/bin
 export PATH=$PATH:/opt/flutter/bin
 export PATH=$PATH:/opt/android-sdk/tools/bin
 export PATH=$PATH:$HOME/.config/usr-scripts
@@ -489,19 +486,114 @@ function fast_ssh_broadcast(){
 
 }
 
-function nvm() {
-  if [ -z "$NVM_DIR" ]  ; then
+function _nvm_setup() {
+  if [ -z "$NVM_DIR" ]; then
     if [ -d "/usr/share/nvm" ]; then
-      [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
-      source /usr/share/nvm/nvm.sh --no-use
-      source /usr/share/nvm/bash_completion
-      source /usr/share/nvm/install-nvm-exec
-    elif [ -d "$HOME/.nvm/" ]; then
+      export NVM_DIR="$HOME/.nvm"
+      _nvm_source="/usr/share/nvm/nvm.sh"
+      _nvm_completion="/usr/share/nvm/bash_completion"
+      _nvm_exec="/usr/share/nvm/install-nvm-exec"
+    elif [ -d "$HOME/.nvm" ]; then
       export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+      _nvm_source="$NVM_DIR/nvm.sh"
+    elif [ -n "${XDG_CONFIG_HOME-}" ] && [ -d "$XDG_CONFIG_HOME/nvm" ]; then
+      export NVM_DIR="$XDG_CONFIG_HOME/nvm"
+      _nvm_source="$NVM_DIR/nvm.sh"
     fi
+  else
+    _nvm_source="$NVM_DIR/nvm.sh"
   fi
-  command nvm "$@"
+
+  if [ -s "${_nvm_source:-}" ]; then
+    \. "$_nvm_source"
+    [ -s "${_nvm_completion:-}" ] && \. "$_nvm_completion"
+    [ -s "${_nvm_exec:-}" ] && \. "$_nvm_exec"
+  fi
+
+  unset _nvm_source _nvm_completion _nvm_exec
+}
+
+function nvm() {
+  unset -f nvm
+  _nvm_setup
+  if typeset -f nvm >/dev/null; then
+    nvm "$@"
+  else
+    echo "nvm is not installed" >&2
+    return 127
+  fi
+}
+
+if [ -z "$NVM_DIR" ]; then
+  if [ -d "/usr/share/nvm" ]; then
+    export NVM_DIR="$HOME/.nvm"
+  elif [ -d "$HOME/.nvm" ]; then
+    export NVM_DIR="$HOME/.nvm"
+  elif [ -n "${XDG_CONFIG_HOME-}" ] && [ -d "$XDG_CONFIG_HOME/nvm" ]; then
+    export NVM_DIR="$XDG_CONFIG_HOME/nvm"
+  fi
+fi
+
+if [ -n "$NVM_DIR" ] && [ -f "$NVM_DIR/alias/default" ]; then
+  _nvm_default="$(cat "$NVM_DIR/alias/default")"
+  if [ -f "$NVM_DIR/alias/$_nvm_default" ]; then
+    _nvm_default="$(cat "$NVM_DIR/alias/$_nvm_default")"
+  fi
+  if [ -d "$NVM_DIR/versions/node/$_nvm_default/bin" ]; then
+    export PATH="$NVM_DIR/versions/node/$_nvm_default/bin:$PATH"
+  fi
+  unset _nvm_default
+fi
+
+function _nvm_lazy_load() {
+  if [ -n "${_NVM_LAZY_LOADING-}" ]; then
+    return 0
+  fi
+  if [ -n "${NVM_DIR-}" ] && command -v node >/dev/null 2>&1; then
+    case "$(command -v node)" in
+      "$NVM_DIR"/*) return 0 ;;
+    esac
+  fi
+  _NVM_LAZY_LOADING=1
+  _nvm_setup
+  nvm use --silent default >/dev/null 2>&1 || nvm use --silent node >/dev/null 2>&1
+  unset _NVM_LAZY_LOADING
+}
+
+function node() {
+  if [ -n "${_NVM_LAZY_LOADING-}" ]; then
+    command node "$@"
+    return
+  fi
+  _nvm_lazy_load
+  command node "$@"
+}
+
+function npm() {
+  if [ -n "${_NVM_LAZY_LOADING-}" ]; then
+    command npm "$@"
+    return
+  fi
+  _nvm_lazy_load
+  command npm "$@"
+}
+
+function npx() {
+  if [ -n "${_NVM_LAZY_LOADING-}" ]; then
+    command npx "$@"
+    return
+  fi
+  _nvm_lazy_load
+  command npx "$@"
+}
+
+function pi() {
+  if [ -n "${_NVM_LAZY_LOADING-}" ]; then
+    command pi "$@"
+    return
+  fi
+  _nvm_lazy_load
+  command pi "$@"
 }
 
 
