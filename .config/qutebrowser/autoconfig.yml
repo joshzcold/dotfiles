@@ -53,6 +53,7 @@ settings:
     https://teams.microsoft.com: true
     https://www.webrtc-experiment.com: true
   content.geolocation:
+    https://app.getgarner.com: true
     https://myhealthplusforms.intermountainhealthcare.org: true
     https://outlook.office.com: true
     https://portal.superiorvision.com: true
