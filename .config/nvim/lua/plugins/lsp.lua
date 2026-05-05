@@ -335,7 +335,6 @@ return {
 
       local tools_ensure_installed = {
         "stylua",
-        "codespell",
         "shellcheck",
         "shfmt",
         "ruff",
