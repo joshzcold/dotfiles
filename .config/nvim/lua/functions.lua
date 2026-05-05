@@ -119,38 +119,38 @@ vim.api.nvim_create_user_command("AnsibleLintFix", function()
           table.insert(result_list, v)
         end
         require("telescope.pickers")
-            .new({}, {
-              prompt_title = "Ansible Lint Fix",
-              finder = require("telescope.finders").new_table({
-                results = result_list,
-              }),
-              attach_mappings = function(prompt_bufnr, _)
-                actions.select_default:replace(function()
-                  actions.close(prompt_bufnr)
-                  local selection = action_state.get_selected_entry()
-                  local fix = string.match(selection[1], "(%w+).+")
-                  vim.cmd("wa")
-                  Job:new({
-                    command = "ansible-lint",
-                    args = { "--nocolor", "-x", "role-name", "--fix", fix, vim.api.nvim_buf_get_name(0) },
-                    stdin = function()
-                      local content = vim.api.nvim_buf_get_lines(0, 0, vim.api.nvim_buf_line_count(0), false)
-                      return table.concat(content, "\n")
-                    end,
-                    on_exit = function(k, _)
-                      vim.schedule(function()
-                        if k.code ~= 0 then
-                          vim.notify(vim.inspect(j._stderr_results))
-                        end
-                      end)
-                    end,
-                  }):start()
-                end)
-                return true
-              end,
-              sorter = require("telescope.config").values.generic_sorter({}),
-            })
-            :find()
+          .new({}, {
+            prompt_title = "Ansible Lint Fix",
+            finder = require("telescope.finders").new_table({
+              results = result_list,
+            }),
+            attach_mappings = function(prompt_bufnr, _)
+              actions.select_default:replace(function()
+                actions.close(prompt_bufnr)
+                local selection = action_state.get_selected_entry()
+                local fix = string.match(selection[1], "(%w+).+")
+                vim.cmd("wa")
+                Job:new({
+                  command = "ansible-lint",
+                  args = { "--nocolor", "-x", "role-name", "--fix", fix, vim.api.nvim_buf_get_name(0) },
+                  stdin = function()
+                    local content = vim.api.nvim_buf_get_lines(0, 0, vim.api.nvim_buf_line_count(0), false)
+                    return table.concat(content, "\n")
+                  end,
+                  on_exit = function(k, _)
+                    vim.schedule(function()
+                      if k.code ~= 0 then
+                        vim.notify(vim.inspect(j._stderr_results))
+                      end
+                    end)
+                  end,
+                }):start()
+              end)
+              return true
+            end,
+            sorter = require("telescope.config").values.generic_sorter({}),
+          })
+          :find()
       end)
     end,
   }):sync()
@@ -166,7 +166,7 @@ vim.api.nvim_create_user_command("InsertJiraTag", function()
   for _, text in pairs(buf_text) do
     -- ignore comments
     if string.find(text, "#.+") == nil then
-      -- preform search for jira tag
+      -- perform search for jira tag
       local search_check = string.find(text, branch_tag, 1, true)
       if search_check then
         found = true
@@ -201,18 +201,18 @@ vim.api.nvim_create_user_command("OrgModeTODO", function()
     return
   end
   vim.print(title .. output)
-  if vim.fn.executable('notify-send') == 1 then
+  if vim.fn.executable("notify-send") == 1 then
     vim.system({
-      'notify-send',
-      ('--icon=~/.local/share/nvim/lazy/orgmode/assets/nvim-orgmode-small.png'),
-      '--app-name=orgmode',
+      "notify-send",
+      "--icon=~/.local/share/nvim/lazy/orgmode/assets/nvim-orgmode-small.png",
+      "--app-name=orgmode",
       title,
       output,
     })
   end
 
-  if vim.fn.executable('terminal-notifier') == 1 then
-    vim.system({ 'terminal-notifier', '-title', title, '-message', output })
+  if vim.fn.executable("terminal-notifier") == 1 then
+    vim.system({ "terminal-notifier", "-title", title, "-message", output })
   end
   if #vim.api.nvim_list_uis() == 0 then
     vim.cmd([[qall!]])
@@ -237,5 +237,5 @@ vim.api.nvim_create_user_command("WipeWindowlessBufs", function()
 end, { desc = "Wipeout all buffers not shown in a window" })
 
 vim.api.nvim_create_user_command("JiraNewBranch", function()
-  toggle_term("New Jira Branch","zsh -c 'new_jira_branch.sh || sleep 3'")
+  toggle_term("New Jira Branch", "zsh -c 'new_jira_branch.sh || sleep 3'")
 end, { desc = "Run new jira branch command in pop up terminal" })
