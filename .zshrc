@@ -164,7 +164,7 @@ alias mk="mkvirtualenv"
 alias wk="workon"
 alias dk="deactivate"
 alias flow="./flow"
-alias home-manager-upgrade="sudo -i nix-channel --update && home-manager switch"
+alias home-manager-upgrade="nix-channel --update && home-manager switch"
 alias q='pi -p'
 function p81dns {
     sudo resolvectl dns p81 10.29.10.2 ||
