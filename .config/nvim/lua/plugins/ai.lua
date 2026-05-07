@@ -1,7 +1,7 @@
 return {
   {
     "coder/claudecode.nvim",
-    enabled = false,
+    enabled = true,
     dependencies = { "folke/snacks.nvim" },
     config = true,
     keys = {

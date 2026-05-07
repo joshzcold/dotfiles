@@ -1,9 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "default_agent": "plan",
-  "plugin": [
-    "opencode-chrome-annotation@latest"
-  ],
   "mcp": {
     "drawio": {
       "type": "local",
@@ -16,7 +13,7 @@
         "uvx",
         "kubernetes-mcp-server@latest",
         "--kubeconfig",
-        "/home/joshua/.kube/hq-devsec1-cluster-kubeconfig.yaml"
+        "/home/joshua/.kube/k3s.yaml"
       ],
       "enabled": false
     },
