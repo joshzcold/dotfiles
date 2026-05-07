@@ -12,7 +12,15 @@ elif [[ "$remote" =~ .*github.* ]]; then
 	repo_name="$(basename -s .git "$remote")"
 	branch_name="$(git rev-parse --abbrev-ref HEAD)"
 	project_name="$(echo "$remote" | rev | cut -d: -f1 | cut -d/ -f2 |  rev)"
-	url="https://github.com/${project_name}/${repo_name}/compare/${branch_name}?expand=1"
+	if command -v gh >/dev/null 2>&1; then
+		if pr_url="$(gh pr view --json url -q .url 2>/dev/null)"; then
+			url="$pr_url"
+		else
+			url="https://github.com/${project_name}/${repo_name}/compare/${branch_name}?expand=1"
+		fi
+	else
+		url="https://github.com/${project_name}/${repo_name}/compare/${branch_name}?expand=1"
+	fi
 else
 	notify-send "$0: Unknown remote for this script: ${remote}"
 fi
