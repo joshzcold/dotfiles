@@ -1,8 +1,16 @@
 #!/usr/bin/env bash
 set -eou pipefail
 remote="$(git config --get remote.origin.url)"
+open_jenkins=false
+if [[ "${1:-}" == "--jenkins" || "${1:-}" == "jenkins" || "${1:-}" == "-j" ]]; then
+	open_jenkins=true
+fi
 
-if [[ "$remote" =~ .*bitbucket.* ]]; then
+if [[ "$open_jenkins" == true ]]; then
+	branch_name="$(git rev-parse --abbrev-ref HEAD)"
+	branch_path="${branch_name//\//%2F}"
+	url="https://jenkins-build.secmet.co/job/Github/job/sm/job/${branch_path}/"
+elif [[ "$remote" =~ .*bitbucket.* ]]; then
 	project_name="$(echo "$remote" | rev | cut -d/ -f2 | rev)"
 	repo_name="$(basename -s .git "$remote")"
 	branch_name="$(git rev-parse --abbrev-ref HEAD)"

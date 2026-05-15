@@ -162,6 +162,7 @@ map("n", "<leader>bx", ":%bd|e#<cr>", { desc = "Delete All Other Buffers" })
 
 map("n", "<leader>gp", ":GitPush<cr>", { desc = "Git Sync" })
 map("n", "<leader>gP", ":!open_review.sh<cr>", { desc = "Open Pull Request" })
+map("n", "<leader>gJ", ":!open_review.sh --jenkins<cr>", { desc = "Open Jenkins Build" })
 map("n", "<leader>gr", ":GitPushWithReview<cr>", { desc = "Git Sync with review" })
 map("n", "<leader>gu", ":Git pull<cr>", { desc = "Git pull" })
 
