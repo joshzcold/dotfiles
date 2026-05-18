@@ -38,7 +38,12 @@ export VAULT_TOKEN
 
 echo "$VAULT_TOKEN" | vault login - || {
 	notify "Vault login failed, preforming oidc login in default browser"
-	vault login -no-print -address ${VAULT_ADDR} -method oidc role=admin
+	vault login -no-print -address ${VAULT_ADDR} -method oidc role=admin || {
+		notify "Vault OIDC login failed"
+		exit 1
+	}
+	VAULT_TOKEN=$(cat $HOME/.vault-token)
+	export VAULT_TOKEN
 }
 
 function traverse() {
@@ -90,7 +95,10 @@ set -o pipefail
 
 function lookup_secret_folder() {
 
-	json=$(vault kv get -format=json "${selection}")
+	json=$(vault kv get -format=json "${selection}") || {
+		notify "Vault lookup failed for ${selection}"
+		exit 1
+	}
 
 	echo "$json" | jq -r '.data.data | keys' &>/dev/null || {
 		notify "No secrets found..."
