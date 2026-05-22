@@ -39,6 +39,7 @@ return {
           },
           ---@type snacks.picker.explorer.Config
           explorer = {
+            follow_file = false,
             win = {
               list = {
                 keys = {
@@ -87,10 +88,12 @@ return {
 
         local search_dirs = {}
         if picker then
-          local selected = picker:selected({fallback= true})
-          for _, sel in ipairs(selected) do
-            if sel.dir then
-              table.insert(search_dirs, Snacks.picker.util.path(sel))
+          local selected = picker:selected()
+          if #selected > 0 then
+            for _, sel in ipairs(selected) do
+              if sel.dir then
+                table.insert(search_dirs, Snacks.picker.util.path(sel))
+              end
             end
           end
         end
@@ -110,10 +113,12 @@ return {
 
         local search_dirs = {}
         if picker then
-          local selected = picker:selected({fallback= true})
-          for _, sel in ipairs(selected) do
-            if sel.dir then
-              table.insert(search_dirs, Snacks.picker.util.path(sel))
+          local selected = picker:selected()
+          if #selected > 0 then
+            for _, sel in ipairs(selected) do
+              if sel.dir then
+                table.insert(search_dirs, Snacks.picker.util.path(sel))
+              end
             end
           end
         end
