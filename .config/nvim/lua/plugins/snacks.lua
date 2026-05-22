@@ -42,6 +42,7 @@ return {
             win = {
               list = {
                 keys = {
+                  ["<c-x>"] = { "edit_split", mode = { "n", "i" } },
                   ["x"] = "explorer_move",
                   ["<ESC>"] = "<ESC>",
                   ["m"] = "explorer_move",

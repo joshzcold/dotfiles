@@ -65,7 +65,7 @@ trap cleanup EXIT
 # Ensure user is logged in to gh
 if ! gh auth status &>/dev/null; then
 	echo "Not logged in to GitHub CLI. Starting login..."
-	gh auth login
+	gh auth login -h github.com
 fi
 
 ORG="SecurityMetrics"
