@@ -42,23 +42,12 @@
         "https://mcp.atlassian.com/v1/mcp"
       ],
       "enabled": false
-    },
-    "flow": {
-      "type": "local",
-      "command": [
-        "./flow",
-        "mcp"
-      ],
-      "enabled": false
     }
   },
   "permission": {
     "bash": {
       "*git commit *": "ask",
       "*git push *": "ask"
-    },
-    "read": {
-      "/tmp/flow_bg_*.log": "allow"
     },
     "glob": {
       "**/node_modules/**": "ask",
