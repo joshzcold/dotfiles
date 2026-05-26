@@ -186,9 +186,9 @@ securitymetrics api docs ALL https://demo.securitymetrics.com/standards/?service
 everydollar budget https://www.everydollar.com/app/budget
 google calendar https://calendar.google.com/calendar/u/1/r
 google sheets https://docs.google.com/spreadsheets/u/0/?ec=wgc-sheets-globalnav-goto&tgif=d
+google docs https://docs.google.com/document/u/0/
 Security Metrics Product EOL Spread Sheet https://docs.google.com/spreadsheets/d/1g3SOPcIII-Kdg4kHU17of4dnDw1HZUbc9depNn4SOqk/edit?gid=0#gid=0
 SecurityMetrics manager tools https://manager-tools.com/
-argocd hq-operations https://argocd.hq-operations-v-kubebalancer-1.secmet.co/login?return_url=https%3A%2F%2Fargocd.hq-operations-v-kubebalancer-1.secmet.co%2Fapplications
 github https://github.com/
 Cohesity Kubernetes Protection Groups - SecurityMetrics https://hq-cohesity.secmet.co/protection/group/list?environment=kubernetes&lastRunStatus=Succeeded
 pingdom - SecurityMetrics https://my.solarwinds.cloud/login?response_type=code&scope=openid%20swicus&client_id=pingdom&state=pKh6HddX2H1mEpSpWMfIsxbwluVgu3dt&redirect_uri=https%3A%2F%2Fmy.pingdom.com%2Fauth%2Fswicus%2Fcallback
@@ -197,15 +197,16 @@ github notifications https://github.com/notifications
 pull requests github https://github.com/pulls?q=is%3Aopen+is%3Apr+archived%3Afalse+user%3ASecurityMetrics+author%3Ajoshzcold
 pull requests github review requested https://github.com/pulls?q=is%3Aopen+is%3Apr+archived%3Afalse+user%3ASecurityMetrics+review-requested%3Ajoshzcold
 documentation securitymetrics https://sm.docs.securitymetrics.com/
-argocd hq-devops https://argocd.hq-devops-v-kubebalancer-1.secmet.co/login?return_url=https%3A%2F%2Fargocd.hq-devops-v-kubebalancer-1.secmet.co%2Fapplications
-argocd hq-ref1 https://argocd.hq-ref1-v-kubebalancer-1.secmet.co/login?return_url=https%3A%2F%2Fargocd.hq-ref1-v-kubebalancer-1.secmet.co%2Fapplications
-argocd hq-ref2 https://argocd.hq-ref2-v-kubebalancer-1.secmet.co/login?return_url=https%3A%2F%2Fargocd.hq-ref2-v-kubebalancer-1.secmet.co%2Fapplications
-argocd AWS us https://argocd.scm-aws-us.secmet.co/login?return_url=https%3A%2F%2Fargocd.scm-aws-us.secmet.co%2Fapplications
-argocd hq-prod3 https://argocd.hq-prod3-v-kubebalancer-1.secmet.co/login?return_url=https%3A%2F%2Fargocd.hq-prod3-v-kubebalancer-1.secmet.co%2Fapplications
-argocd dk-prod1 https://argocd.dk-prod1-v-kubebalancer-1.secmet.co/applications?showFavorites=false&proj=&sync=&autoSync=&health=&namespace=&cluster=&labels=
-argocd dk-prod2 https://argocd.dk-prod2-v-kubebalancer-1.secmet.co/login?return_url=https%3A%2F%2Fargocd.dk-prod2-v-kubebalancer-1.secmet.co%2Fapplications
+argocd hq-devops https://argocd.hq-devops-v-kubebalancer-1.secmet.co/login
+argocd hq-ref1 https://argocd.hq-ref1-v-kubebalancer-1.secmet.co/login
+argocd hq-ref2 https://argocd.hq-ref2-v-kubebalancer-1.secmet.co/login
+argocd AWS us https://argocd.scm-aws-us.secmet.co/login
+argocd hq-prod3 https://argocd.hq-prod3-v-kubebalancer-1.secmet.co/login
+argocd dk-prod1 https://argocd.dk-prod1-v-kubebalancer-1.secmet.co/login
+argocd dk-prod2 https://argocd.dk-prod2-v-kubebalancer-1.secmet.co/login
+argocd hq-operations https://argocd.hq-operations-v-kubebalancer-1.secmet.co/login
+argocd dk-prodsec1 https://argocd.dk-prodsec1-v-kubebalancer-1.secmet.co/login
+argocd hq-devsec1 https://argocd.hq-devsec1-v-kubebalancer-1.secmet.co/login
 gemini https://gemini.google.com/app
 graphite code review https://app.graphite.com/#
-argocd hq-devsec1 https://argocd.hq-devsec1-v-kubebalancer-1.secmet.co/login?return_url=https%3A%2F%2Fargocd.hq-devsec1-v-kubebalancer-1.secmet.co%2Fapplications
 Google Card V2 Builder https://addons.gsuite.google.com/uikit/builder
-google docs https://docs.google.com/document/u/0/
