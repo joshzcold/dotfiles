@@ -22,7 +22,14 @@ echo -e "${Yellow}Getting jira issues...${Color_Off}" 1>&2
 jira_command=(
   jira issue list --plain
   --columns 'KEY,STATUS,TYPE,ASSIGNEE,SUMMARY'
-  -s 'In Progress' -s 'Code Review' -s 'In QA' -s 'QA Ready' -s 'Merge Ready' -s "In Approval"
+  -s 'In Progress'
+  -s 'Code Review'
+  -s 'In QA'
+  -s 'QA Ready'
+  -s 'Merge Ready'
+  -s "In Approval"
+  -s "Release Ready"
+  -s "Merge Ready"
   --no-headers
 )
 
@@ -61,7 +68,7 @@ if [ "$(git rev-parse --abbrev-ref HEAD)" = "${MAIN_BRANCH}" ]; then
     set -x
     git worktree add "${worktree_path}" -b "${branch}" 1>&2
     set +x
-    if [[ `git status --porcelain` ]]; then
+    if [[ $(git status --porcelain) ]]; then
       echo -e "${Yellow}Worktree added${Color_Off}" 1>&2
       echo -e "${Yellow}At this point you need to:${Color_Off}" 1>&2
       echo -e "git add <whatever>" 1>&2
