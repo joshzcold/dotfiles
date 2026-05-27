@@ -153,19 +153,20 @@ hq-devtools-phv-tools-6 https://ipmi-hq-devtools-phv-tools-6.secmet.co
 hq-prod3-phv-tools-1 https://ipmi-hq-prod3-phv-tools-1.secmet.co
 dk-prod2-phv-tools-1 https://ipmi-dk-prod2-phv-tools-1.secmet.co
 dk-prod1-p-tools-1 https://ipmi-dk-prod1-p-tools-1.secmet.co
-devops prometheus https://hq-devops-v-prometheus.secmet.co/alerts
+devops prometheus https://hq-devops-v-prometheus-1.secmet.co/alerts
+dk-prodsec1 prometheus https://dk-prodsec1-v-prometheus-1.secmet.co/alerts
 devops tools prometheus https://hq-devtools-v-prometheus-1.secmet.co/alerts
 devscan prometheus https://hq-devscan-v-prometheus-1.secmet.co/alerts?search=
-devvis prometheus https://hq-devvis-v-prometheus.secmet.co/alerts?search=
-hq-ref1 prometheus https://hq-ref1-v-prometheus.secmet.co/alerts
-hq-ref2 prometheus https://hq-ref2-v-prometheus.secmet.co/alerts
-hqref2 prometheus https://hq-ref2-v-prometheus.secmet.co/alerts
-prodtools prometheus https://hq-prodtools-v-prometheus.secmet.co/alerts
-scan prod prometheus https://hq-prodscan-v-prometheus.secmet.co/alerts
-vision prod prometheus https://hq-prodvis-v-prometheus.secmet.co/alerts
-hq-prod3 prometheus https://hq-prod3-v-prometheus.secmet.co/alerts
-dk-prod1 prometheus https://dk-prod1-v-prometheus.secmet.co/alerts
-dk-prod2 prometheus https://dk-prod2-v-prometheus.secmet.co/alerts
+devvis prometheus https://hq-devvis-v-prometheus-1.secmet.co/alerts?search=
+hq-ref1 prometheus https://hq-ref1-v-prometheus-1.secmet.co/alerts
+hq-ref2 prometheus https://hq-ref2-v-prometheus-1.secmet.co/alerts
+hqref2 prometheus https://hq-ref2-v-prometheus-1.secmet.co/alerts
+prodtools prometheus https://hq-prodtools-v-prometheus-1.secmet.co/alerts
+scan prod prometheus https://hq-prodscan-v-prometheus-1.secmet.co/alerts
+vision prod prometheus https://hq-prodvis-v-prometheus-1.secmet.co/alerts
+hq-prod3 prometheus https://hq-prod3-v-prometheus-1.secmet.co/alerts
+dk-prod1 prometheus https://dk-prod1-v-prometheus-1.secmet.co/alerts
+dk-prod2 prometheus https://dk-prod2-v-prometheus-1.secmet.co/alerts
 scm-do-us prometheus https://prometheus.scm-us.secmet.co/alerts
 scm-aws-us prometheus https://prometheus.scm-aws-us.secmet.co/alerts
 logs securitymetrics grafana https://grafana.secmet.co/d/fe1z87vr4enswe/log-view

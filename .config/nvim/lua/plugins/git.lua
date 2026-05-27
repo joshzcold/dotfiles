@@ -7,14 +7,43 @@ return {
       vim.keymap.set("n", "<leader>gg", function()
         vim.cmd([[:Git]])
       end, { desc = "Git" })
+      vim.keymap.set("n", "<leader>gp", function()
+        vim.cmd("Git push")
+      end, { desc = "Git push" })
+
       vim.keymap.set("n", "<leader>gR", function()
-        vim.cmd([[:Git fetch origin]])
-        vim.cmd([[:Git rebase -i origin/master]])
+        vim.cmd("Git fetch origin")
+        vim.cmd("Git rebase -i origin/master")
       end, { desc = "Git rebase with origin/master" })
     end,
     config = function()
-      --Use q to quit from fugituve
       vim.cmd([[au FileType fugitive nnoremap <silent> <buffer> q :norm gq<cr>]])
+
+      -- :git (lowercase) expands to :Git in command mode
+      vim.cmd("cnoreabbrev git Git")
+
+      -- Override :Git with a smart router: terminal for subcommands that need a TTY,
+      -- passthrough to fugitive#Command for everything else.
+      local tty_subcmds = { push = true, pull = true, fetch = true }
+      vim.api.nvim_create_user_command("Git", function(opts)
+        local subcmd = (opts.args:match("^(%S+)") or ""):lower()
+        if tty_subcmds[subcmd] then
+          vim.cmd("split | terminal git " .. opts.args)
+          vim.cmd("startinsert")
+        else
+          local cmd = vim.fn["fugitive#Command"](opts.line1, opts.count, opts.range, opts.bang and 1 or 0, opts.mods, opts.args)
+          vim.cmd(cmd)
+        end
+      end, {
+        nargs = "*",
+        bang = true,
+        range = -1,
+        force = true,
+        complete = function(arglead, cmdline, cursorpos)
+          return vim.fn["fugitive#Complete"](arglead, cmdline, cursorpos)
+        end,
+        desc = "Git",
+      })
     end,
   }, -- Git commands in nvim
   {

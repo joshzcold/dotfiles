@@ -2,6 +2,7 @@ require("functions")
 require("autocmd")
 require("options")
 require("mappings")
+require('vim._core.ui2').enable()
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
