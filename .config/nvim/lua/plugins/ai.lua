@@ -7,7 +7,7 @@ return {
     keys = {
       { "<leader>a", nil, desc = "AI/Claude Code" },
       { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
-      { "<leader>ao", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
+      { "<leader>ao", "V<cmd>ClaudeCodeSend<cr>", desc = "Send line to Claude" },
       { "<leader>ao", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
       -- Diff management
       { "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
