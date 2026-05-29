@@ -30,6 +30,21 @@ return {
         if tty_subcmds[subcmd] then
           vim.cmd("split | terminal git " .. opts.args)
           vim.cmd("startinsert")
+          local term_buf = vim.api.nvim_get_current_buf()
+          vim.api.nvim_create_autocmd("TermClose", {
+            buffer = term_buf,
+            once = true,
+            callback = function()
+              vim.schedule(function()
+                for _, b in ipairs(vim.api.nvim_list_bufs()) do
+                  if vim.api.nvim_buf_is_loaded(b) and vim.bo[b].filetype == "fugitive" then
+                    vim.api.nvim_buf_call(b, function() vim.cmd("edit") end)
+                    break
+                  end
+                end
+              end)
+            end,
+          })
         else
           local cmd = vim.fn["fugitive#Command"](opts.line1, opts.count, opts.range, opts.bang and 1 or 0, opts.mods, opts.args)
           vim.cmd(cmd)
