@@ -272,6 +272,7 @@ return {
                 globals = {
                   "vim",
                   "Snacks",
+                  "hl", -- Hyprland Lua API
                 },
               },
               format = {

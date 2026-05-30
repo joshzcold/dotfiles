@@ -179,6 +179,43 @@ function symlink_apps_usr_local_bin() {
 	fi
 }
 
+function setup_hyprland() {
+	user_prompt "Setup Hyprland LightDM session"
+	if [[ $REPLY =~ ^[Yy]$ ]]; then
+		set -x
+		sudo mkdir -p /usr/share/wayland-sessions
+		sudo tee /usr/share/wayland-sessions/hyprland.desktop >/dev/null <<EOT
+[Desktop Entry]
+Name=Hyprland
+Comment=An intelligent dynamic tiling Wayland compositor
+Exec=/home/joshua/.local/bin/hyprland-session
+Type=Application
+EOT
+		mkdir -p ~/.local/bin
+		tee ~/.local/bin/hyprland-session >/dev/null <<'EOT'
+#!/bin/bash
+LOG="$HOME/.local/share/hyprland-session.log"
+mkdir -p "$(dirname "$LOG")"
+exec > >(tee -a "$LOG") 2>&1
+echo "--- Session start $(date) ---"
+. /etc/profile.d/nix.sh
+export PATH="$HOME/.nix-profile/bin:$PATH"
+export GBM_BACKENDS_PATH=/usr/lib/x86_64-linux-gnu/gbm
+export GBM_BACKEND=nvidia-drm
+export __EGL_VENDOR_LIBRARY_DIRS=/usr/share/glvnd/egl_vendor.d:/usr/share/egl/egl_external_platform.d
+export LIBVA_DRIVER_NAME=nvidia
+export __GLX_VENDOR_LIBRARY_NAME=nvidia
+echo "Hyprland binary: $(command -v Hyprland 2>/dev/null || echo 'NOT FOUND')"
+exec nixGL Hyprland
+EOT
+		chmod +x ~/.local/bin/hyprland-session
+		echo 'options nvidia_drm modeset=1' | sudo tee /etc/modprobe.d/nvidia.conf
+		sudo update-initramfs -u
+		sudo usermod -aG video,render $USER
+		{ set +x; } 2>/dev/null
+	fi
+}
+
 function symlink_ssh_key_from_codepaste() {
 	user_prompt "Symlink ssh key from codepaste"
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -203,6 +240,7 @@ function run_all() {
 	install_bob_neovim
 	install_tree_sitter_cli
 	symlink_apps_usr_local_bin
+	setup_hyprland
 	symlink_ssh_key_from_codepaste
 }
 
@@ -222,7 +260,8 @@ function show_menu() {
 	echo " 11) Install bob neovim"
 	echo " 12) Install tree-sitter cli"
 	echo " 13) Symlink apps into /usr/local/bin"
-	echo " 14) Symlink ssh key from codepaste"
+	echo " 14) Setup Hyprland LightDM session"
+	echo " 15) Symlink ssh key from codepaste"
 	echo "  a) All (prompt each step)"
 	echo "  q) Quit"
 }
@@ -245,7 +284,8 @@ while true; do
 	11) install_bob_neovim ;;
 	12) install_tree_sitter_cli ;;
 	13) symlink_apps_usr_local_bin ;;
-	14) symlink_ssh_key_from_codepaste ;;
+	14) setup_hyprland ;;
+	15) symlink_ssh_key_from_codepaste ;;
 	a | A) run_all ;;
 	q | Q) exit 0 ;;
 	*) echo -e "${RED}Invalid option.${RESET}" ;;
