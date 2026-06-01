@@ -1,0 +1,222 @@
+" Force Escape to definitely close the command line in ex-mode
+exbind <Escape> ex_close
+
+" Make Ctrl+C also act as a hard close for the command line
+exbind <C-c> ex_close
+
+bmark http://joshua-home-server:7878/ Radarr - Movies
+bmark http://joshua-home-server:8080/ Sabnzbd
+bmark http://joshua-home-server:8989/ Sonarr
+bmark http://joshua-home-server:8096/web/index.html Jellyfin
+bmark https://messages.android.com/ Android Messa
+bmark https://alpha.wallhaven.cc/ Awesome Wallpapers - wallhaven.cc
+bmark http://bluejamesbond.github.io/CharacterMap/ CharMap - Powered by OpenType.js
+bmark https://www.rockymountainpower.net/index.html Electric Bill Pay
+bmark https://apps.timwhitlock.info/emoji/tables/unicode Emoji unicode characters for use on the web
+bmark https://www.dominionenergy.com/ Gas Bill Payment
+bmark https://ici.homesite.com/OnlineServicing/Policy/Documents/ Geico Home Self Service
+bmark https://chrome.google.com/webstore/devconsole Google Developer Dashboard
+bmark https://iconify.design/icon-sets/ MIT Icons
+bmark https://drive.google.com/drive/folders/0B7H6hIZDxNXeQW9uODA5UkM0ZG8 Nintendo Wii - Scrubbed Retail Collection (NTSC) - Google Drive
+bmark https://r-roms.github.io/ ROMs mega thread
+bmark https://securityhomemortgage.yourmortgageonline.com/ Security Home Mortgage
+bmark https://www.xpressbillpay.com/#/?org=Springville10040 Springville Bill Pay
+bmark https://web.whatsapp.com/ WhatsApp
+bmark http://192.168.0.1/webpages/index.html Wireless Router Archer C1200
+bmark http://digital.alight.com/microfocus/ Your Benefits Resources -- Greeting Page
+bmark https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html ansible filters
+bmark https://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html ansicolor guide
+bmark https://vault.bitwarden.com/#/login bitwarden web vault
+bmark https://remotedesktop.google.com/access chrome remote desktop
+bmark https://docs.google.com/spreadsheets/u/1/d/13B823ukxdVMocowo1s5XnT3tzciOfruhUVePENKc01o/htmlview# clone hero aggregations
+bmark https://chorus.fightthe.pw/ clone hero search
+bmark https://crontab.guru/ crontab guru
+bmark http://localhost:631/ cups printers
+bmark https://app.diagrams.net/ draw.io diagrams
+bmark https://drive.google.com/drive/u/0/home google drive
+bmark https://www.w3schools.com/colors/colors_names.asp html color reference
+bmark https://www.w3schools.com/charsets/ref_emoji.asp html emoji reference
+bmark https://my.imperva.com/admin/login imperva WAF Security Metrics
+bmark https://jenkins-build.secmet.co/env-vars.html/ jenkins env vars
+bmark https://www.jenkins.io/doc/pipeline/examples/ jenkins examples
+bmark https://github.com/jenkinsci/extended-choice-parameter-plugin/blob/master/src/main/java/com/cwctravel/hudson/plugins/extended_choice_parameter/ExtendedChoiceParameterDefinition.java jenkins bmark choice reference
+quickmark https://10.29.158.99/job/Theater/pipeline-syntax/gdsl jenkins gdsl
+bmark https://jenkinsci.github.io/job-dsl-plugin/ jenkins job dsl
+bmark https://www.jenkins.io/doc/book/pipeline/syntax/ jenkins pipeline synatax
+bmark https://www.jenkins.io/doc/pipeline/steps/pipeline-utility-steps/#readjson-read-json-from-files-in-the-workspace jenkins pipeline utility steps
+bmark https://joshzcold.github.io/blog/ joshzcold blog
+bmark https://keepersecurity.com/vault/# keeper password manager security metrics
+bmark https://kubernetes.io/docs/reference/kubectl/cheatsheet/ kubectl Cheat Sheet - Kubernetes
+bmark https://kubernetes.io/docs/reference/kubernetes-api/ kubernetes api docs
+bmark https://mail.google.com/mail/u/0/#inbox/FMfcgzGljvPVNvSwVfHWTqtGfQVFKLKr mail gmail google mail
+bmark https://smart-choice.wealthcareportal.com/Page/Dashboard microfocus hsa
+bmark https://loansphereservicingdigital.bkiconnect.com/myservicemac/#/dashboard myservicemac mortage bill pay
+bmark https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md neovim none-ls builtins
+bmark https://search.nixos.org/packages nix packages
+bmark https://aur.archlinux.org/packages?K=nerd-fonts&SB=p patched fonts arch
+bmark https://app.pluralsight.com/library/ pluralsight
+bmark https://r-roms.github.io/ roms mega thread
+bmark https://www.employeenavigator.com/employee/Home security metrics benefits
+bmark https://member.my.healthequity.com/hsa/22698249-010 security metrics hsa
+bmark https://cloud.smartdraw.com smart draw diagrams
+bmark https://open.spotify.com/browse/featured spotify
+bmark https://angel-rs.github.io/css-color-filter-generator/ svg hex to svg filter css
+bmark https://experience.adobe.com/#/@securitymetrics/so:securi6/analytics/spa/index.html?path=launch&defaultLandingPage=true%23/workspace AEM Management Analytics
+bmark https://experience.adobe.com/#/@securitymetrics/home AEM Management Customer
+bmark https://experience.adobe.com/#/@securitymetrics/target/activities AEM Management Target
+bmark https://experience.adobe.com/#/@securitymetrics/cloud-manager/repositories.html/program/5705 AEM management
+bmark https://securitymetrics.awsapps.com/start AWS Security Metrics Signin
+bmark https://securitymetrics.atlassian.net/servicedesk/customer/portals IT servicedesk
+bmark https://hq-operations-v-cert-1.secmet.co/login/?next=/ SecurityMetrics IT certificate server
+bmark https://tenable.secmet.co SecurityMetrics Tenable Prod
+bmark https://hq-dev-v-tenable-1.secmet.co SecurityMetrics Tenable Dev
+bmark https://cloud.digitalocean.com/kubernetes/clusters?i=26882c Securitymetrics Digital Ocean
+bmark https://securitymetrics.atlassian.net/wiki/spaces/DEVOPS/pages/1285849102/Imperva+WAF+Runbook Site failover Imperva WAF
+bmark https://securitymetrics.bamboohr.com/home/ bamboohr securitymetrics
+bmark https://bitbucket.secmet.co/dashboard bitbucket git
+bmark https://hq-cohesity.secmet.co/login cohesity backups
+bmark https://securitymetrics.atlassian.net/wiki/spaces/DEVOPS/overview confluence
+bmark https://www.securitymetrics.com/api/v2/scheduler/vitals current prod site securitymetrics
+bmark https://securitymetrics.atlassian.net/jira/software/c/projects/DV6/boards/292 devops kanban board jira
+bmark https://vault.secmet.co:8200/ui/vault/secrets hasicorp vault
+bmark https://console.jumpcloud.com/login jumpcloud securitymetrics
+bmark https://securitymetrics.okta.com/app/UserHome okta securitymetrics portal
+bmark https://www.securitymetrics.com/smapi/healthcheck/vitals production postgres-11 vitals
+bmark https://www.securitymetrics.com/api/v2/scheduler/vitals production vitals
+bmark https://www.securitymetrics.com/api/v3/pci/healthcheck/vitals productions postgres-13 vitals
+bmark https://search-sm-es-v1-prod-wnjyqjs5yqaxdyyocnmefuun5e.us-west-2.es.amazonaws.com/_plugin/kibana/app/discover#/ pulse pipeline kibana securitymetrics
+bmark https://search-sm-es-v1-prod-wnjyqjs5yqaxdyyocnmefuun5e.us-west-2.es.amazonaws.com/ pulse pipeline kibana/es securitymetrics
+bmark https://registry.secmet.co/ registry binary repo nexus
+bmark https://www.principal.com/ securitymetrics dental benefits
+bmark https://jenkins-build.secmet.co/job/Github/job/sm/job/master/ securitymetrics jenkins current mono-repo master builds
+bmark https://payroll.paylogics.com/payday-benefits securitymetrics payroll
+bmark https://hq-inf3-v-vcenter-1.secmet.co securitymetrics vsphere hq-inf3
+bmark https://securitymetrics.snipe-it.io/account/view-assets snipe-it
+bmark https://securitymetrics.xmatters.com xmatters
+bmark https://docs.google.com/document/d/1rc8zgwL3r-wmfgyymYC0_7MNucSvLSp62RJbAIIe-WE/edit#heading=h.c8l5u4nobwdw IT securitymetrics naming policy scheme
+bmark https://docs.google.com/spreadsheets/d/1A8uuNrDXSK0XiCGTF_AXScVKs9KxvuBvgNad05CsPmw/edit#gid=1221234709 Securitymetrics server room HQ diagram
+bmark https://docs.google.com/spreadsheets/d/1SzYBwvaWsUGu3ec8gP2OqnaeMALlr01pzRILasY6ZgY/edit#gid=0 network cheatsheet sercuritymetrics IT
+bmark https://ipmi-hq-devops-phv-apphost-3.secmet.co hq-devops-phv-apphost-3
+bmark https://ipmi-hq-devops-phv-apphost-2.secmet.co hq-devops-phv-apphost-2
+bmark https://ipmi-hq-devops-phv-apphost-4.secmet.co hq-devops-phv-apphost-4
+bmark https://ipmi-hq-ref1-p-apphost-1.secmet.co hq-ref1-p-apphost-1
+bmark https://ipmi-hq-ref1-p-apphost-2.secmet.co hq-ref1-p-apphost-2
+bmark https://ipmi-hq-ref1-p-apphost-5.secmet.co hq-ref1-p-apphost-5
+bmark https://ipmi-hq-ref1-p-apphost-4.secmet.co hq-ref1-p-apphost-4
+bmark https://ipmi-hq-ref1-p-apphost-3.secmet.co hq-ref1-p-apphost-3
+bmark https://ipmi-hq-devops-phv-apphost-1.secmet.co hq-devops-phv-apphost-1
+bmark https://ipmi-hq-ref2-p-apphost-4.secmet.co hq-ref2-p-apphost-4
+bmark https://ipmi-hq-operations-phv-apphost-1.secmet.co hq-operations-phv-apphost-1
+bmark https://ipmi-hq-operations-phv-apphost-2.secmet.co hq-operations-phv-apphost-2
+bmark https://ipmi-hq-devops-phv-apphost-5.secmet.co hq-devops-phv-apphost-5
+bmark https://ipmi-hq-ref2-p-apphost-1.secmet.co hq-ref2-p-apphost-1
+bmark https://ipmi-hq-operations-phv-apphost-3.secmet.co hq-operations-phv-apphost-3
+bmark https://ipmi-hq-dev-p-apphost-1.secmet.co hq-dev-p-apphost-1
+bmark https://ipmi-hq-ref2-p-apphost-5.secmet.co hq-ref2-p-apphost-5
+bmark https://ipmi-hq-ref2-p-apphost-2.secmet.co hq-ref2-p-apphost-2
+bmark https://ipmi-hq-devsec1-phv-apphost-1.secmet.co hq-devsec1-phv-apphost-1
+bmark https://ipmi-hq-vision-phv-apphost-2.secmet.co hq-vision-phv-apphost-2
+bmark https://ipmi-hq-ref2-p-apphost-3.secmet.co hq-ref2-p-apphost-3
+bmark https://ipmi-hq-vision-phv-apphost-1.secmet.co hq-vision-phv-apphost-1
+bmark https://ipmi-hq-devops-phv-apphost-6.secmet.co hq-devops-phv-apphost-6
+bmark https://ipmi-hq-devops-phv-apphost-7.secmet.co hq-devops-phv-apphost-7
+bmark https://ipmi-hq-prod3-p-apphost-1.secmet.co hq-prod3-p-apphost-1
+bmark https://ipmi-hq-prod3-p-apphost-2.secmet.co hq-prod3-p-apphost-2
+bmark https://ipmi-hq-prod3-p-apphost-3.secmet.co hq-prod3-p-apphost-3
+bmark https://ipmi-hq-prod3-p-apphost-4.secmet.co hq-prod3-p-apphost-4
+bmark https://ipmi-hq-prod3-p-apphost-5.secmet.co hq-prod3-p-apphost-5
+bmark https://ipmi-dk-prod2-p-apphost-5.secmet.co dk-prod2-p-apphost-5
+bmark https://ipmi-dk-prod2-p-apphost-4.secmet.co dk-prod2-p-apphost-4
+bmark https://ipmi-dk-prod2-p-apphost-3.secmet.co dk-prod2-p-apphost-3
+bmark https://ipmi-dk-prod2-p-apphost-2.secmet.co dk-prod2-p-apphost-2
+bmark https://ipmi-dk-prod2-p-apphost-1.secmet.co dk-prod2-p-apphost-1
+bmark https://ipmi-dk-prod1-p-apphost-3.secmet.co dk-prod1-p-apphost-3
+bmark https://ipmi-dk-prod1-p-apphost-4.secmet.co dk-prod1-p-apphost-4
+bmark https://ipmi-dk-prod1-p-apphost-1.secmet.co dk-prod1-p-apphost-1
+bmark https://ipmi-dk-prod1-p-apphost-5.secmet.co dk-prod1-p-apphost-5
+bmark https://ipmi-dk-prod1-p-apphost-2.secmet.co dk-prod1-p-apphost-2
+bmark https://ipmi-dk-prodsec1-phv-apphost-1.secmet.co dk-prodsec1-phv-apphost-1
+bmark https://ipmi-dk-prodsec1-phv-apphost-3.secmet.co dk-prodsec1-phv-apphost-3
+bmark https://ipmi-dk-prodsec1-phv-apphost-2.secmet.co dk-prodsec1-phv-apphost-2
+bmark https://ipmi-hq-ref-p-dbfw-1.secmet.co hq-ref-p-dbfw-1
+bmark https://ipmi-hq-dev-p-dbhost.secmet.co hq-dev-p-dbhost
+bmark https://ipmi-hq-ref1-p-db-1.secmet.co hq-ref1-p-db-1
+bmark https://ipmi-hq-ref2-p-db-2.secmet.co hq-ref2-p-db-2
+bmark https://ipmi-hq-ref2-p-db-1.secmet.co hq-ref2-p-db-1
+bmark https://ipmi-hq-ref1-p-db-2.secmet.co hq-ref1-p-db-2
+bmark https://ipmi-sg-prod3-p-dbfw-1.secmet.co sg-prod3-p-dbfw-1
+bmark https://ipmi-hq-prod3-p-db-1.secmet.co hq-prod3-p-db-1
+bmark https://ipmi-dk-prod2-p-db-1.secmet.co dk-prod2-p-db-1
+bmark https://ipmi-dk-prod2-p-dbfw-1.secmet.co dk-prod2-p-dbfw-1
+bmark https://ipmi-dk-prod1-p-dbfw-1.secmet.co dk-prod1-p-dbfw-1
+bmark https://ipmi-dk-prod1-p-db-1.secmet.co dk-prod1-p-db-1
+bmark https://ipmi-hq-devtools-phv-tools-2.secmet.co hq-devtools-phv-tools-2
+bmark https://ipmi-hq-devtools-phv-tools-1.secmet.co hq-devtools-phv-tools-1
+bmark https://ipmi-hq-devtools-phv-tools-4.secmet.co hq-devtools-phv-tools-4
+bmark https://ipmi-hq-devtools-phv-tools-5.secmet.co hq-devtools-phv-tools-5
+bmark https://ipmi-hq-prodtools-phv-tools-1.secmet.co hq-prodtools-phv-tools-1
+bmark https://ipmi-hq-devtools-phv-tools-6.secmet.co hq-devtools-phv-tools-6
+bmark https://ipmi-hq-prod3-phv-tools-1.secmet.co hq-prod3-phv-tools-1
+bmark https://ipmi-dk-prod2-phv-tools-1.secmet.co dk-prod2-phv-tools-1
+bmark https://ipmi-dk-prod1-p-tools-1.secmet.co dk-prod1-p-tools-1
+bmark https://hq-devops-v-prometheus-1.secmet.co/alerts devops prometheus
+bmark https://dk-prodsec1-v-prometheus-1.secmet.co/alerts dk-prodsec1 prometheus
+bmark https://hq-devtools-v-prometheus-1.secmet.co/alerts devops tools prometheus
+bmark https://hq-devscan-v-prometheus-1.secmet.co/alerts?search= devscan prometheus
+bmark https://hq-devvis-v-prometheus-1.secmet.co/alerts?search= devvis prometheus
+bmark https://hq-ref1-v-prometheus-1.secmet.co/alerts hq-ref1 prometheus
+bmark https://hq-ref2-v-prometheus-1.secmet.co/alerts hq-ref2 prometheus
+bmark https://hq-ref2-v-prometheus-1.secmet.co/alerts hqref2 prometheus
+bmark https://hq-prodtools-v-prometheus-1.secmet.co/alerts prodtools prometheus
+bmark https://hq-prodscan-v-prometheus-1.secmet.co/alerts scan prod prometheus
+bmark https://hq-prodvis-v-prometheus-1.secmet.co/alerts vision prod prometheus
+bmark https://hq-prod3-v-prometheus-1.secmet.co/alerts hq-prod3 prometheus
+bmark https://dk-prod1-v-prometheus-1.secmet.co/alerts dk-prod1 prometheus
+bmark https://dk-prod2-v-prometheus-1.secmet.co/alerts dk-prod2 prometheus
+bmark https://prometheus.scm-us.secmet.co/alerts scm-do-us prometheus
+bmark https://prometheus.scm-aws-us.secmet.co/alerts scm-aws-us prometheus
+bmark https://grafana.secmet.co/d/fe1z87vr4enswe/log-view logs securitymetrics grafana
+bmark https://jenkins-build.secmet.co jenkins build
+bmark https://jenkins-devops.secmet.co jenkins devops
+bmark https://jenkins-prod.secmet.co jenkins prod
+bmark https://jenkins-build.secmet.co/plugin/job-dsl/api-viewer/index.html# Jenkins jobdsl build docs
+bmark https://jenkins-devops.secmet.co/manage/pluginManager/ jenkins devops plugins
+bmark https://jenkins-build.secmet.co/manage/pluginManager/ jenkins build plugins
+bmark https://jenkins-prod.secmet.co/manage/pluginManager/ jenkins prod plugins
+bmark https://grafana.secmet.co/?orgId=1 securitymetrics grafana
+bmark https://www.google.com/search?sca_esv=dba731e05581bad3&q=magika&udm=2&fbs=AEQNm0Aa4sjWe7Rqy32pFwRj0UkWd8nbOJfsBGGB5IQQO6L3J7pRxUp2pI1mXV9fBsfh39Jw_Y7pXPv6W9UjIXzt09-YcTgsUhtl-bmark-dOy7kluzuXglrFMeQQKhBoX0REo4mT6a3kD6fayV4jOQuG-yfkqvSjfKZQ&sa=X&ved=2ahUKEwjN-Onmt5mKAxUoE0QIHfepBXAQtKgLegQIGBAB&biw=1910&bih=1019&dpr=1 eme
+quickmark https://slack.com/signin#workspaces Slack signin
+bmark https://app.slack.com/client/T04QWL02E Slack findd space
+bmark https://ess.findd.io/ess/time findd portal
+bmark https://dev.azure.com/finddinc/ Azure Devops Findd
+bmark https://demo.securitymetrics.com/standards/?service_names=ALL securitymetrics api docs ALL
+bmark https://www.everydollar.com/app/budget everydollar budget
+bmark https://calendar.google.com/calendar/u/1/r google calendar
+bmark https://docs.google.com/spreadsheets/u/0/?ec=wgc-sheets-globalnav-goto&tgif=d google sheets
+bmark https://docs.google.com/document/u/0/ google docs
+bmark https://docs.google.com/spreadsheets/d/1g3SOPcIII-Kdg4kHU17of4dnDw1HZUbc9depNn4SOqk/edit?gid=0#gid=0 Security Metrics Product EOL Spread Sheet
+bmark https://manager-tools.com/ SecurityMetrics manager tools
+bmark https://github.com/ github
+bmark https://hq-cohesity.secmet.co/protection/group/list?environment=kubernetes&lastRunStatus=Succeeded Cohesity Kubernetes Protection Groups - SecurityMetrics
+bmark https://my.solarwinds.cloud/login?response_type=code&scope=openid%20swicus&client_id=pingdom&state=pKh6HddX2H1mEpSpWMfIsxbwluVgu3dt&redirect_uri=https%3A%2F%2Fmy.pingdom.bmark%2Fauth%2Fswicus%2Fcallback pingdom - SecurityMetrics
+quickmark https://github.com/pulls?q=is%3Aopen+is%3Apr+archived%3Afalse+user%3ASecurityMetrics+review-requested%3Ajoshzcold github securitymetrics pull requests
+bmark https://github.com/notifications github notifications
+bmark https://github.com/pulls?q=is%3Aopen+is%3Apr+archived%3Afalse+user%3ASecurityMetrics+author%3Ajoshzcold pull requests github
+bmark https://github.com/pulls?q=is%3Aopen+is%3Apr+archived%3Afalse+user%3ASecurityMetrics+review-requested%3Ajoshzcold pull requests github review requested
+bmark https://sm.docs.securitymetrics.com/ documentation securitymetrics
+bmark https://argocd.hq-devops-v-kubebalancer-1.secmet.co/login argocd hq-devops
+bmark https://argocd.hq-ref1-v-kubebalancer-1.secmet.co/login argocd hq-ref1
+bmark https://argocd.hq-ref2-v-kubebalancer-1.secmet.co/login argocd hq-ref2
+bmark https://argocd.scm-aws-us.secmet.co/login argocd AWS us
+bmark https://argocd.hq-prod3-v-kubebalancer-1.secmet.co/login argocd hq-prod3
+bmark https://argocd.dk-prod1-v-kubebalancer-1.secmet.co/login argocd dk-prod1
+bmark https://argocd.dk-prod2-v-kubebalancer-1.secmet.co/login argocd dk-prod2
+bmark https://argocd.hq-operations-v-kubebalancer-1.secmet.co/login argocd hq-operations
+bmark https://argocd.dk-prodsec1-v-kubebalancer-1.secmet.co/login argocd dk-prodsec1
+bmark https://argocd.hq-devsec1-v-kubebalancer-1.secmet.co/login argocd hq-devsec1
+bmark https://gemini.google.com/app gemini
+bmark https://app.graphite.com/# graphite code review
+bmark https://addons.gsuite.google.com/uikit/builder Google Card V2 Builder
+bmark https://docs.google.com/document/u/0/ google docs
+bmark https://docs.google.com/document/u/0/ google docs
+bmark http://joshua-home-server:8686/login?returnUrl=%2F Lidarr - Music
