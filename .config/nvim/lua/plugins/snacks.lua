@@ -45,6 +45,34 @@ return {
                 keys = {
                   ["<c-x>"] = { "edit_split", mode = { "n", "i" } },
                   ["x"] = "explorer_move",
+                  ["<CR>"] = function()
+                    local picker = Snacks.picker.get({ source = "explorer" })[1]
+                    if not picker then return end
+                    local selected = picker:selected()
+                    local current = picker:current()
+                    -- Multiselect with files: open them in the main window
+                    if #selected > 0 then
+                      local files = vim.tbl_filter(function(t) return not t.dir end, selected)
+                      if #files > 0 then
+                        vim.api.nvim_set_current_win(picker.main)
+                        vim.cmd("edit " .. vim.fn.fnameescape(Snacks.picker.util.path(files[1])))
+                        for i = 2, #files do
+                          local buf = vim.fn.bufadd(Snacks.picker.util.path(files[i]))
+                          vim.bo[buf].buflisted = true
+                        end
+                        return
+                      end
+                    end
+                    -- Single item: expand dir or open file
+                    if current then
+                      if current.dir then
+                        picker:action("confirm")
+                      else
+                        vim.api.nvim_set_current_win(picker.main)
+                        vim.cmd("edit " .. vim.fn.fnameescape(Snacks.picker.util.path(current)))
+                      end
+                    end
+                  end,
                   ["<ESC>"] = "<ESC>",
                   ["m"] = "explorer_move",
                   ["/"] = function()
