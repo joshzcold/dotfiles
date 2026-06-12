@@ -98,6 +98,8 @@ static const char *scratchpad_notes_cmd[] = {"nixGL", "kitty", "-T", scratchpad_
 static const char scratchpad_reviews_name[] = "github_reviews";
 static const char *scratchpad_reviews_cmd[] = {"nixGL", "kitty", "-T", scratchpad_reviews_name, "zsh", "-c", "/home/joshua/.config/usr-scripts/github_reviews.sh", NULL};
 
+static const char *gamma_reset_cmd[] = {"xrandr", "--output", "DisplayPort-2", "--gamma", "1:1:1", NULL};
+
 static const char *termst[] = {"st", NULL};
 static const char *screenshotcmd[] = {
     "/home/joshua/.config/usr-scripts/screenshot.sh"};
@@ -130,6 +132,7 @@ static Key keys[] = {
     {MODKEY, XK_Return, spawn, {.v = termcmd}},
     {MODKEY, XK_w, spawn, {.v = scratchpad_qutebrowser_quickmarks_cmd}},
     {MODKEY, XK_grave, togglescratch, {.v = scratchpadcmd}},
+    {MODKEY, XK_g, spawn, {.v = gamma_reset_cmd}},
     {MODKEY | ShiftMask, XK_n, spawn, {.v = scratchpad_notes_cmd}},
     {MODKEY, XK_s, spawn, {.v = screenshotcmd}},
     {MODKEY | ShiftMask, XK_s, spawn, {.v = snippetlaunchercmd}},
