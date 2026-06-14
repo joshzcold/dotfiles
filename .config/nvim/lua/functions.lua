@@ -51,7 +51,27 @@ end
 
 vim.api.nvim_create_user_command("GitPushWithReview", function()
   git_write_with_input()
-  vim.api.nvim_command(":!git pushg")
+  vim.fn.jobstart("git pushg", {
+    on_stderr = function(_, data)
+      vim.schedule(function()
+        for _, line in ipairs(data) do
+          if line ~= "" then
+            vim.api.nvim_out_write(line .. "\n")
+          end
+        end
+      end)
+    end,
+    on_stdout = function(_, data)
+      vim.schedule(function()
+        for _, line in ipairs(data) do
+          if line ~= "" then
+            vim.fn.setreg("+", line)
+            vim.notify("Copied to clipboard:\n" .. line, vim.log.levels.INFO)
+          end
+        end
+      end)
+    end,
+  })
 end, {})
 
 vim.api.nvim_create_user_command("GitPush", function()

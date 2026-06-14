@@ -161,8 +161,24 @@ map("n", "<leader>bx", ":%bd|e#<cr>", { desc = "Delete All Other Buffers" })
 -- git g
 
 map("n", "<leader>gp", ":GitPush<cr>", { desc = "Git Sync" })
-map("n", "<leader>gP", ":!open_review.sh<cr>", { desc = "Open Pull Request" })
-map("n", "<leader>gJ", ":!open_review.sh --jenkins<cr>", { desc = "Open Jenkins Build" })
+local function open_review(extra_args)
+  vim.fn.jobstart("open_review.sh" .. (extra_args or ""), {
+    on_stdout = function(_, data)
+      vim.schedule(function()
+        for _, line in ipairs(data) do
+          if line ~= "" then
+            vim.fn.setreg("+", line)
+            vim.notify("Copied to clipboard:\n" .. line, vim.log.levels.INFO)
+            break
+          end
+        end
+      end)
+    end,
+  })
+end
+
+map("n", "<leader>gP", "", { desc = "Open Pull Request", callback = function() open_review() end })
+map("n", "<leader>gJ", "", { desc = "Open Jenkins Build", callback = function() open_review(" --jenkins") end })
 map("n", "<leader>gr", ":GitPushWithReview<cr>", { desc = "Git Sync with review" })
 map("n", "<leader>gu", ":Git pull<cr>", { desc = "Git pull" })
 

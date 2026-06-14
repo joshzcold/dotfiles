@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -eou pipefail
+
 remote="$(git config --get remote.origin.url)"
 open_jenkins=false
 if [[ "${1:-}" == "--jenkins" || "${1:-}" == "jenkins" || "${1:-}" == "-j" ]]; then
@@ -14,12 +15,11 @@ elif [[ "$remote" =~ .*bitbucket.* ]]; then
 	project_name="$(echo "$remote" | rev | cut -d/ -f2 | rev)"
 	repo_name="$(basename -s .git "$remote")"
 	branch_name="$(git rev-parse --abbrev-ref HEAD)"
-
 	url="https://bitbucket.secmet.co/projects/${project_name}/repos/${repo_name}/pull-requests?create&sourceBranch=refs/heads/${branch_name}"
 elif [[ "$remote" =~ .*github.* ]]; then
 	repo_name="$(basename -s .git "$remote")"
 	branch_name="$(git rev-parse --abbrev-ref HEAD)"
-	project_name="$(echo "$remote" | rev | cut -d: -f1 | cut -d/ -f2 |  rev)"
+	project_name="$(echo "$remote" | rev | cut -d: -f1 | cut -d/ -f2 | rev)"
 	if command -v gh >/dev/null 2>&1; then
 		if pr_url="$(gh pr view --json url -q .url 2>/dev/null)"; then
 			url="$pr_url"
@@ -30,7 +30,11 @@ elif [[ "$remote" =~ .*github.* ]]; then
 		url="https://github.com/${project_name}/${repo_name}/compare/${branch_name}?expand=1"
 	fi
 else
-	notify-send "$0: Unknown remote for this script: ${remote}"
+	echo "$0: Unknown remote: ${remote}" >&2
+	exit 1
 fi
 
-qutebrowser ":open -t $url"
+echo "$url"
+if [[ -z "${SSH_CLIENT:-}" && -z "${SSH_TTY:-}" ]]; then
+	qutebrowser ":open -t $url"
+fi
