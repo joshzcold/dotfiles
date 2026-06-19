@@ -56,7 +56,7 @@ vim.api.nvim_create_user_command("GitPushWithReview", function()
       vim.schedule(function()
         for _, line in ipairs(data) do
           if line ~= "" then
-            vim.api.nvim_out_write(line .. "\n")
+            vim.notify(line, vim.log.levels.WARN)
           end
         end
       end)
@@ -65,8 +65,12 @@ vim.api.nvim_create_user_command("GitPushWithReview", function()
       vim.schedule(function()
         for _, line in ipairs(data) do
           if line ~= "" then
-            vim.fn.setreg("+", line)
-            vim.notify("Copied to clipboard:\n" .. line, vim.log.levels.INFO)
+            if vim.env.SSH_CLIENT ~= nil or vim.env.SSH_TTY ~= nil then
+              vim.fn.setreg("+", line)
+              vim.notify("Copied to clipboard:\n" .. line, vim.log.levels.INFO)
+            else
+              vim.notify(line, vim.log.levels.INFO)
+            end
           end
         end
       end)
