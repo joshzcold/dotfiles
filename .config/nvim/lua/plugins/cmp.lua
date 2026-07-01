@@ -8,7 +8,6 @@ return {
     dependencies = {
       "mikavilpas/blink-ripgrep.nvim",
       "rafamadriz/friendly-snippets",
-      "fang2hou/blink-copilot",
       "L3MON4D3/LuaSnip",
     },
 
@@ -120,12 +119,6 @@ return {
           org = { "orgmode" },
         },
         providers = {
-          copilot = {
-            name = "copilot",
-            module = "blink-copilot",
-            score_offset = 100,
-            async = true,
-          },
           buffer = {
             name = "Buffer",
             module = "blink.cmp.sources.buffer",
