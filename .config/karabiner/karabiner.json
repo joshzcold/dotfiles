@@ -8,8 +8,43 @@
                             {
                                 "conditions": [
                                     {
+                                        "bundle_identifiers": ["NoMachine"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "description": "NoMachine: left_command -> left_option (Meta)",
+                                "from": {
+                                    "key_code": "left_command",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "left_option" }],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["NoMachine"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "description": "NoMachine: right_command -> right_option (Meta)",
+                                "from": {
+                                    "key_code": "right_command",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "right_option" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
                                         "bundle_identifiers": [
-                                            "kitty"
+                                            "kitty",
+                                            "com.nomachine"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -38,7 +73,8 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "kitty"
+                                            "kitty",
+                                            "com.nomachine"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -67,7 +103,8 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "kitty"
+                                            "kitty",
+                                            "com.nomachine"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -96,7 +133,8 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "kitty"
+                                            "kitty",
+                                            "com.nomachine"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
