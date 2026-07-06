@@ -451,6 +451,7 @@ function fast_ssh(){
     if nmcli c show | grep p81 > /dev/null; then
       command=("work")
     fi
+
     command+=(ssh "$host")
     # add to history
     print -s "${command[@]}"

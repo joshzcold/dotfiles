@@ -165,10 +165,13 @@ local function open_review(extra_args)
   vim.fn.jobstart("open_review.sh" .. (extra_args or ""), {
     on_stdout = function(_, data)
       vim.schedule(function()
+        local in_ssh = vim.env.SSH_TTY ~= nil or vim.env.SSH_CONNECTION ~= nil
         for _, line in ipairs(data) do
           if line ~= "" then
-            vim.fn.setreg("+", line)
-            vim.notify("Copied to clipboard:\n" .. line, vim.log.levels.INFO)
+            if in_ssh then
+              vim.fn.setreg("+", line)
+              vim.notify("Copied to clipboard:\n" .. line, vim.log.levels.INFO)
+            end
             break
           end
         end
