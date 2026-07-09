@@ -369,14 +369,60 @@ function vgit(){
     [ ! -z $found_path ] && nvim $(echo "$found_path" | tr "\n" " ")
 }
 
+typeset -g CGIT_FRECENCY_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/cgit_frecency"
+
+# Record/bump a visit. Format per line: rank|last_epoch|path
+# NOTE: local var is named repo_path, not path -- `path` is zsh's special
+# array tied to $PATH, and shadowing it breaks command lookup in this scope.
+function _cgit_frecency_touch(){
+  local repo_path="$1"
+  local now=$EPOCHSECONDS
+  [[ -n "$now" ]] || now=$(date +%s)
+  mkdir -p "${CGIT_FRECENCY_FILE:h}" 2>/dev/null
+  [[ -f "$CGIT_FRECENCY_FILE" ]] || : > "$CGIT_FRECENCY_FILE"
+  awk -v path="$repo_path" -v now="$now" -F'|' '
+    BEGIN { OFS="|"; found=0 }
+    $3 == path { print $1+1, now, path; found=1; next }
+    NF == 3    { print }
+    END        { if (!found) print 1, now, path }
+  ' "$CGIT_FRECENCY_FILE" | sort -t'|' -k1,1 -rn | head -n 500 > "${CGIT_FRECENCY_FILE}.tmp" \
+    && mv "${CGIT_FRECENCY_FILE}.tmp" "$CGIT_FRECENCY_FILE"
+}
+
+# Print known paths ranked by frecency (rank decayed by recency), highest first.
+function _cgit_frecency_sorted(){
+  [[ -f "$CGIT_FRECENCY_FILE" ]] || return 0
+  local now=$EPOCHSECONDS
+  [[ -n "$now" ]] || now=$(date +%s)
+  awk -v now="$now" -F'|' '
+    NF == 3 {
+      rank = $1; t = $2; path = $3
+      dx = now - t
+      if      (dx < 3600)   score = rank * 4
+      else if (dx < 86400)  score = rank * 2
+      else if (dx < 604800) score = rank / 2
+      else                  score = rank / 4
+      print score "|" path
+    }
+  ' "$CGIT_FRECENCY_FILE" | sort -t'|' -k1,1 -rn | cut -d'|' -f2-
+}
+
 function cgit(){
   local cmd=${FZF_ALT_C_COMMAND:-"fd --search-path $HOME/git --glob '*.git' --no-ignore-vcs --hidden --prune --exec dirname {}"}
   setopt localoptions pipefail no_aliases 2> /dev/null
-  local dir="$(eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --preview='cd {}; git symbolic-ref -q --short HEAD || git describe --tags --exact-match' --reverse --preview-window up,1,border-horizontal $FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS" $(__fzfcmd) +m)"
+
+  # Frecency-ranked repos first, then whatever fd finds, deduped -- both are
+  # streamed straight into fzf (no array capture, no per-path stat) so the
+  # UI appears immediately instead of waiting for fd to finish scanning.
+  local dir="$(
+    { _cgit_frecency_sorted; eval "$cmd"; } | awk '!seen[$0]++' | \
+      FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --preview='cd {}; git symbolic-ref -q --short HEAD || git describe --tags --exact-match' --reverse --preview-window up,1,border-horizontal $FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS" $(__fzfcmd) +m
+  )"
   if [[ -z "$dir" ]]; then
     zle redisplay
     return 0
   fi
+  [[ -d "$dir" ]] && _cgit_frecency_touch "$dir"
   zle push-line # Clear buffer. Auto-restored on next prompt.
   BUFFER="cd ${(q)dir}"
 
