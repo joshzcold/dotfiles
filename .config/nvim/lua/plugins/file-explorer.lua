@@ -14,7 +14,7 @@ return {
   {
     {
       "kyazdani42/nvim-tree.lua",
-      enabled = false,
+      enabled = true,
       dependencies = {
         { "nvim-tree/nvim-web-devicons" },
       },
@@ -45,7 +45,7 @@ return {
           vim.keymap.set("n", "<CR>", api.node.open.edit, opts("Open"))
           vim.keymap.set("n", "l", api.node.open.edit, opts("Open"))
           vim.keymap.set("n", "h", api.node.open.edit, opts("Open"))
-          vim.keymap.set("n", "<Tab>", api.node.open.preview, opts("Open Preview"))
+          vim.keymap.set("n", "<Tab>", api.marks.toggle, opts("Toggle Bookmark"))
           vim.keymap.set("n", ">", api.node.navigate.sibling.next, opts("Next Sibling"))
           vim.keymap.set("n", "<", api.node.navigate.sibling.prev, opts("Previous Sibling"))
           vim.keymap.set("n", ".", api.node.run.cmd, opts("Run Command"))

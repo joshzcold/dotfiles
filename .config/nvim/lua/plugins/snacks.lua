@@ -1,5 +1,21 @@
 ---@module 'snacks'
 ---@diagnostic disable: missing-fields`
+
+-- Collect the directories currently bookmarked (marked with `m`) in nvim-tree.
+local function nvim_tree_marked_dirs()
+  local ok, api = pcall(require, "nvim-tree.api")
+  if not ok then
+    return {}
+  end
+  local dirs = {}
+  for _, node in ipairs(api.marks.list()) do
+    if node.type == "directory" then
+      table.insert(dirs, node.absolute_path)
+    end
+  end
+  return dirs
+end
+
 return {
   {
     "folke/snacks.nvim",
@@ -111,22 +127,8 @@ return {
     -- stylua: ignore
     keys = {
       { "<leader><space>", function()
-        local pickers = Snacks.picker.get({source= "explorer"})
-        local picker = pickers[1]
-
-        local search_dirs = {}
-        if picker then
-          local selected = picker:selected()
-          if #selected > 0 then
-            for _, sel in ipairs(selected) do
-              if sel.dir then
-                table.insert(search_dirs, Snacks.picker.util.path(sel))
-              end
-            end
-          end
-        end
-
-        if search_dirs then
+        local search_dirs = nvim_tree_marked_dirs()
+        if #search_dirs > 0 then
           Snacks.picker.files({ follow = true, hidden = true, dirs = search_dirs })
         else
           Snacks.picker.smart()
@@ -136,22 +138,9 @@ return {
       { "<leader>/b",      function() Snacks.picker.grep_buffers() end,                            desc = "Buffers" },
       { "<leader>bb",      function() Snacks.picker.buffers() end,                                 desc = "Buffers" },
       { "<leader>//",      function()
-        local pickers = Snacks.picker.get({source= "explorer"})
-        local picker = pickers[1]
-
-        local search_dirs = {}
-        if picker then
-          local selected = picker:selected()
-          if #selected > 0 then
-            for _, sel in ipairs(selected) do
-              if sel.dir then
-                table.insert(search_dirs, Snacks.picker.util.path(sel))
-              end
-            end
-          end
-        end
-        if search_dirs then
-          Snacks.picker.grep({dirs =search_dirs})
+        local search_dirs = nvim_tree_marked_dirs()
+        if #search_dirs > 0 then
+          Snacks.picker.grep({ dirs = search_dirs })
         else
           Snacks.picker.grep()
         end
@@ -160,7 +149,7 @@ return {
       { "<leader>/:",      function() Snacks.picker.command_history() end,                         desc = "Command History" },
       { "<leader>/h",      function() Snacks.picker.help() end,                                    desc = "Neovim Help Docs" },
       { "<leader>/n",      function() Snacks.picker.notifications() end,                           desc = "Notification History" },
-      { "<leader>/e",      function() Snacks.explorer() end,                                       desc = "File Explorer" },
+      -- { "<leader>/e",      function() Snacks.explorer() end,                                       desc = "File Explorer" },
       { "<leader>/q",      function() Snacks.picker.resume() end,                                  desc = "Resume search" },
       { "<leader>ju",      function() Snacks.picker.undo() end,                                    desc = "Undo history" },
       { "<leader>/u",      function() Snacks.picker.undo() end,                                    desc = "Undo history" },

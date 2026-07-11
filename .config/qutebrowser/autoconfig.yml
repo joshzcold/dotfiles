@@ -156,4 +156,4 @@ settings:
     global: left
   url.searchengines:
     global:
-      DEFAULT: https://kagi.com/search?q={}
+      DEFAULT: https://duckduckgo.com/?q={}
