@@ -208,6 +208,7 @@ argocd dk-prod2 https://argocd.dk-prod2-v-kubebalancer-1.secmet.co/login
 argocd hq-operations https://argocd.hq-operations-v-kubebalancer-1.secmet.co/login
 argocd dk-prodsec1 https://argocd.dk-prodsec1-v-kubebalancer-1.secmet.co/login
 argocd hq-devsec1 https://argocd.hq-devsec1-v-kubebalancer-1.secmet.co/login
+kargo hq-operations https://kargo.hq-operations-v-kubebalancer-1.secmet.co/
 gemini https://gemini.google.com/app
 graphite code review https://app.graphite.com/#
 Google Card V2 Builder https://addons.gsuite.google.com/uikit/builder
