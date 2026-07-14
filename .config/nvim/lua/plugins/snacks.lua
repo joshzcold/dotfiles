@@ -8,6 +8,10 @@ local function nvim_tree_marked_dirs()
     return {}
   end
   local dirs = {}
+  local marks = api.marks.list()
+  if marks == nil then
+    return dirs
+  end
   for _, node in ipairs(api.marks.list()) do
     if node.type == "directory" then
       table.insert(dirs, node.absolute_path)
