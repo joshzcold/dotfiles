@@ -1,31 +1,34 @@
 #!/bin/bash
 set -x
 
-battery(){
+export PATH="$HOME/.nix-profile/bin:$PATH"
+export XDG_DATA_DIRS="$HOME/.nix-profile/share:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
+
+battery() {
   [ ! -f "/sys/class/power_supply/BAT0/capacity" ] && return
   local percent=$(cat /sys/class/power_supply/BAT0/capacity)
   local status=$(cat /sys/class/power_supply/BAT0/uevent | grep -o -P "(?<=POWER_SUPPLY_STATUS=).*")
   if [[ ! "$percent" = 100 ]]; then
     if [[ "$status" = "Charging" ]]; then
-      echo "[bat ⚡ $percent%]" 
+      echo "[bat ⚡ $percent%]"
     else
       if [[ $percent < 15 ]]; then
-        echo "[bat $percent% LOW BATTERY !]" 
+        echo "[bat $percent% LOW BATTERY !]"
       else
-        echo "[bat $percent%]" 
+        echo "[bat $percent%]"
       fi
     fi
   fi
 }
 
-vpn(){
+vpn() {
   local vpn=$(nmcli c show --active | grep -P ".*?(?=[ \t]wireguard[ \t])" | awk -F '  ' '{print $1}')
   if [[ ! -z $vpn ]]; then
     echo "[vpn $vpn]"
   fi
 }
 
-wifi(){
+wifi() {
   local wifi=$(nmcli c show --active | grep -P ".*?(?=[ \t]wifi.*)" | awk -F '  ' '{print $1}')
   if [[ ! -z $wifi ]]; then
     echo "[wifi $wifi]"
@@ -34,12 +37,25 @@ wifi(){
 
 while true; do
   xsetroot -name "$(battery) $(wifi) $(vpn) $(date +"%m-%d %r")"
-   sleep 5    # Update time every 5 seconds
+  sleep 5 # Update time every 5 seconds
 done &
 
 while true; do
-    # Log stderror to a file 
-    /usr/local/bin/dwm 2> ~/.dwm.log
-    # No error logging
-    # dwm >/dev/null 2>&1
+  # Log stderror to a file
+  if command -v nixGL; then
+    {
+      echo "------------------------------"
+      echo "Running dwm through nixGL"
+      echo "------------------------------"
+    } >>~/.dwm.log
+    nixGL /usr/local/bin/dwm 2>>~/.dwm.log
+  else
+    {
+      echo "------------------------------"
+      echo "Running dwm"
+      echo "------------------------------"
+    } >>~/.dwm.log
+    /usr/local/bin/dwm 2>>~/.dwm.log
+  fi
+  sleep 1
 done

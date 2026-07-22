@@ -50,6 +50,8 @@ in
     pkgs.kdePackages.dolphin
     pkgs.kdePackages.dolphin-plugins
     pkgs.kdePackages.kde-gtk-config
+    pkgs.kdePackages.kdeconnect-kde
+    pkgs.kdePackages.systemsettings
     pkgs.kitty
     pkgs.kubectl
     pkgs.kubernetes-helm
