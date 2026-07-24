@@ -1,5 +1,8 @@
 /* See LICENSE file for copyright and license details. */
 #include <X11/XF86keysym.h>
+
+#define SESSION_FILE "/tmp/dwm-session"
+
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int gappx     = 5;        /* gap pixel between windows */

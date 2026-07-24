@@ -1,5 +1,8 @@
 /* See LICENSE file for copyright and license details. */
 #include <X11/XF86keysym.h>
+
+#define SESSION_FILE "/tmp/dwm-session"
+
 /* appearance */
 static const unsigned int borderpx = 0; /* border pixel of windows */
 static const unsigned int gappx = 5;    /* gap pixel between windows */
@@ -191,7 +194,7 @@ static Key keys[] = {
     {MODKEY, XK_n, nametag, {0}},
     TAGKEYS(XK_1, 0) TAGKEYS(XK_2, 1) TAGKEYS(XK_3, 2) TAGKEYS(XK_4, 3)
         TAGKEYS(XK_5, 4) TAGKEYS(XK_6, 5) TAGKEYS(XK_7, 6) TAGKEYS(XK_8, 7)
-            TAGKEYS(XK_9, 8){MODKEY | ShiftMask, XK_q, quit, {0}},
+            TAGKEYS(XK_9, 8){MODKEY | ShiftMask, XK_q, quit, {.i = 1}},
 };
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,

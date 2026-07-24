@@ -85,7 +85,8 @@ enum { SchemeNorm, SchemeSel }; /* color schemes */
 enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
        NetSystemTray, NetSystemTrayOP, NetSystemTrayOrientation, NetSystemTrayOrientationHorz,
        NetWMFullscreen, NetActiveWindow, NetWMWindowType,
-       NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
+       NetWMWindowTypeDialog, NetClientList,
+       NetNumberOfDesktops, NetCurrentDesktop, NetWMDesktop, NetLast }; /* EWMH atoms */
 enum { Manager, Xembed, XembedInfo, XLast }; /* Xembed atoms */
 enum { WMProtocols, WMDelete, WMState, WMTakeFocus, WMLast }; /* default atoms */
 enum { ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
@@ -239,12 +240,15 @@ static void resizeclient(Client *c, int x, int y, int w, int h);
 static void resizemouse(const Arg *arg);
 static void resizerequest(XEvent *e);
 static void restack(Monitor *m);
+static void restoreSession(void);
 static void run(void);
 static void runAutostart(void);
+static void saveSession(void);
 static void scan(void);
 static int sendevent(Window w, Atom proto, int m, long d0, long d1, long d2, long d3, long d4);
 static void sendmon(Client *c, Monitor *m);
 static void setclientstate(Client *c, long state);
+static void setclientdesktop(Client *c);
 static void setfocus(Client *c);
 static void setfullscreen(Client *c, int fullscreen);
 static void setgaps(const Arg *arg);
@@ -329,6 +333,7 @@ static void (*handler[LASTEvent]) (XEvent *) = {
 };
 static Atom wmatom[WMLast], netatom[NetLast], xatom[XLast];
 static int running = 1;
+static int restart = 0;
 static Cur *cursor[CurLast];
 static Clr **scheme;
 static Display *dpy;
@@ -1322,6 +1327,20 @@ killclient(const Arg *arg)
 	}
 }
 
+/* Publish a client's tag as its EWMH _NET_WM_DESKTOP (0-based index of its lowest set tag),
+ * so tools like xdotool/pagers can tell which dwm tag a window lives on. Called whenever a
+ * client's tags change (manage/tag/toggletag). */
+void
+setclientdesktop(Client *c)
+{
+	long desktop = 0;
+	unsigned int t = c->tags;
+	if (t)
+		while (!(t & 1)) { t >>= 1; desktop++; }
+	XChangeProperty(dpy, c->win, netatom[NetWMDesktop], XA_CARDINAL, 32,
+		PropModeReplace, (unsigned char *) &desktop, 1);
+}
+
 void
 manage(Window w, XWindowAttributes *wa)
 {
@@ -1392,6 +1411,7 @@ manage(Window w, XWindowAttributes *wa)
 		(unsigned char *) &(c->win), 1);
 	XMoveResizeWindow(dpy, c->win, c->x + 2 * sw, c->y, c->w, c->h); /* some windows require this */
 	setclientstate(c, NormalState);
+	setclientdesktop(c);
 	if (c->mon == selmon)
 		unfocus(selmon->sel, 0);
 	c->mon->sel = c;
@@ -1626,9 +1646,62 @@ propertynotify(XEvent *e)
 }
 
 void
+saveSession(void)
+{
+	FILE *fw = fopen(SESSION_FILE, "w");
+	for (Client *c = selmon->clients; c != NULL; c = c->next) { // get all the clients with their tags and write them to the file
+		fprintf(fw, "%lu %u\n", c->win, c->tags);
+	}
+	fclose(fw);
+}
+
+void
+restoreSession(void)
+{
+	// restore session
+	FILE *fr = fopen(SESSION_FILE, "r");
+	if (!fr)
+		return;
+
+	char *str = malloc(23 * sizeof(char)); // allocate enough space for excepted input from text file
+	while (fscanf(fr, "%[^\n] ", str) != EOF) { // read file till the end
+		long unsigned int winId;
+		unsigned int tagsForWin;
+		int check = sscanf(str, "%lu %u", &winId, &tagsForWin); // get data
+		if (check != 2) // break loop if data wasn't read correctly
+			break;
+
+		for (Client *c = selmon->clients; c ; c = c->next) { // add tags to every window by winId
+			if (c->win == winId) {
+				c->tags = tagsForWin;
+				break;
+			}
+		}
+    }
+
+	for (Client *c = selmon->clients; c ; c = c->next) { // refocus on windows
+		focus(c);
+		restack(c->mon);
+	}
+
+	for (Monitor *m = selmon; m; m = m->next) // rearrange all monitors
+		arrange(m);
+
+	free(str);
+	fclose(fr);
+
+	// delete a file
+	remove(SESSION_FILE);
+}
+
+void
 quit(const Arg *arg)
 {
+	if(arg->i) restart = 1;
 	running = 0;
+
+	if (restart == 1)
+		saveSession();
 }
 
 Monitor *
@@ -2029,6 +2102,9 @@ setup(void)
 	netatom[NetWMWindowType] = XInternAtom(dpy, "_NET_WM_WINDOW_TYPE", False);
 	netatom[NetWMWindowTypeDialog] = XInternAtom(dpy, "_NET_WM_WINDOW_TYPE_DIALOG", False);
 	netatom[NetClientList] = XInternAtom(dpy, "_NET_CLIENT_LIST", False);
+	netatom[NetNumberOfDesktops] = XInternAtom(dpy, "_NET_NUMBER_OF_DESKTOPS", False);
+	netatom[NetCurrentDesktop] = XInternAtom(dpy, "_NET_CURRENT_DESKTOP", False);
+	netatom[NetWMDesktop] = XInternAtom(dpy, "_NET_WM_DESKTOP", False);
 	xatom[Manager] = XInternAtom(dpy, "MANAGER", False);
 	xatom[Xembed] = XInternAtom(dpy, "_XEMBED", False);
 	xatom[XembedInfo] = XInternAtom(dpy, "_XEMBED_INFO", False);
@@ -2056,6 +2132,15 @@ setup(void)
 	/* EWMH support per view */
 	XChangeProperty(dpy, root, netatom[NetSupported], XA_ATOM, 32,
 		PropModeReplace, (unsigned char *) netatom, NetLast);
+	/* publish tag count + current desktop so pagers/xdotool can read tag positions;
+	 * per-window _NET_WM_DESKTOP is set in setclientdesktop() as tags change. */
+	{
+		long ndesktops = LENGTH(tags), curdesktop = 0;
+		XChangeProperty(dpy, root, netatom[NetNumberOfDesktops], XA_CARDINAL, 32,
+			PropModeReplace, (unsigned char *) &ndesktops, 1);
+		XChangeProperty(dpy, root, netatom[NetCurrentDesktop], XA_CARDINAL, 32,
+			PropModeReplace, (unsigned char *) &curdesktop, 1);
+	}
 	XDeleteProperty(dpy, root, netatom[NetClientList]);
 	/* select events */
 	wa.cursor = cursor[CurNormal]->cursor;
@@ -2130,6 +2215,7 @@ tag(const Arg *arg)
 {
 	if (selmon->sel && arg->ui & TAGMASK) {
 		selmon->sel->tags = arg->ui & TAGMASK;
+		setclientdesktop(selmon->sel);
 		focus(NULL);
 		arrange(selmon);
 	}
@@ -2257,6 +2343,7 @@ toggletag(const Arg *arg)
 	newtags = selmon->sel->tags ^ (arg->ui & TAGMASK);
 	if (newtags) {
 		selmon->sel->tags = newtags;
+		setclientdesktop(selmon->sel);
 		focus(NULL);
 		arrange(selmon);
 	}
@@ -3200,8 +3287,10 @@ main(int argc, char *argv[])
 		die("pledge");
 #endif /* __OpenBSD__ */
 	scan();
+	restoreSession();
   runAutostart();
 	run();
+	if(restart) execvp(argv[0], argv);
 	cleanup();
 	XCloseDisplay(dpy);
 	return EXIT_SUCCESS;
