@@ -741,9 +741,10 @@ clientmessage(XEvent *e)
 			XClassHint ch = {"dwmsystray", "dwmsystray"};
 			XSetClassHint(dpy, c->win, &ch);
 			XReparentWindow(dpy, c->win, systray->win, 0, 0);
-			/* use parents background color */
-			swa.background_pixel  = scheme[SchemeNorm][ColBg].pixel;
-			XChangeWindowAttributes(dpy, c->win, CWBackPixel, &swa);
+			/* use parents background pixmap (ParentRelative) so GTK3 StatusIcon
+			   apps (nm-applet, volctl) composite their transparent icons correctly */
+			swa.background_pixmap = ParentRelative;
+			XChangeWindowAttributes(dpy, c->win, CWBackPixmap, &swa);
 			sendevent(c->win, netatom[Xembed], StructureNotifyMask, CurrentTime, XEMBED_EMBEDDED_NOTIFY, 0 , systray->win, XEMBED_EMBEDDED_VERSION);
 			/* FIXME not sure if I have to send these events, too */
 			sendevent(c->win, netatom[Xembed], StructureNotifyMask, CurrentTime, XEMBED_FOCUS_IN, 0 , systray->win, XEMBED_EMBEDDED_VERSION);
