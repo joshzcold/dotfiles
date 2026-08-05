@@ -38,13 +38,34 @@ return {
       vim.o.foldenable = true
       vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 
-      -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
-      vim.keymap.set("n", "zR", require("ufo").openAllFolds)
-      vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+      -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself.
+      -- ufo drives folds through `foldmethod=manual`, so buffers we opt out of
+      -- below (which keep `foldmethod=expr`) need the builtin commands instead.
+      local function fold_all(ufo_fn, native)
+        return function()
+          if vim.wo.foldmethod == "manual" then
+            require("ufo")[ufo_fn]()
+          else
+            vim.cmd("normal! " .. native)
+          end
+        end
+      end
+      vim.keymap.set("n", "zR", fold_all("openAllFolds", "zR"), { desc = "Open all folds" })
+      vim.keymap.set("n", "zM", fold_all("closeAllFolds", "zM"), { desc = "Close all folds" })
 
       require("ufo").setup({
         open_fold_hl_timeout = 0,
         fold_virt_text_handler = handler,
+        -- ufo sets `foldmethod=manual` on the buffers it manages, which silently
+        -- disables any custom foldexpr -- `&foldexpr` still reads correctly, it
+        -- is just never evaluated. Hand GitHub PR buffers and the snacks picker
+        -- preview back to native folding so their own foldexprs run.
+        provider_selector = function(bufnr, filetype, _)
+          local name = vim.api.nvim_buf_get_name(bufnr)
+          if filetype == "markdown.gh" or filetype == "snacks_picker_preview" or name:match("^gh://") then
+            return "" -- '' means "ufo, keep out of this buffer"
+          end
+        end,
       })
     end,
   },

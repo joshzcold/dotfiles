@@ -72,6 +72,90 @@ local function snacks_dark_diff_colors()
   util.set_hl(hl, { managed = false })
 end
 
+-- Snacks folds gh buffers with treesitter markdown, which folds the *list* of
+-- comments as a single node -- so `zc` on any thread header collapses every
+-- thread at once. Give each top-level comment/review its own fold (and each
+-- reply inside a review a nested one), while treesitter keeps handling the
+-- description and the markup inside a comment body.
+--
+-- A comment header is a `*` list marker whose line also carries a timestamp
+-- ("3 hours ago", "Apr 29, 2024") -- markdown bullets in a PR description or a
+-- CodeRabbit summary use the same marker, so the timestamp is what separates a
+-- thread from prose. Indent gives the nesting: 1 space = thread, 4 = reply,
+-- 7 = reply-to-reply.
+---@return number? depth
+local function gh_comment_depth(line)
+  local indent = line:match("^(%s*)%*%s")
+  if not indent then
+    return nil
+  end
+  local dated = line:match("%f[%a]ago%f[%A]") or line:match("%a+%s+%d+,%s+%d%d%d%d")
+  if not dated then
+    return nil
+  end
+  return math.min(math.floor(#indent / 3) + 1, 3)
+end
+
+local gh_folds = {} ---@type table<number, {tick: number, depth: table<number, number>}>
+
+local function gh_fold_depths(buf)
+  local cached = gh_folds[buf]
+  local tick = vim.api.nvim_buf_get_changedtick(buf)
+  if cached and cached.tick == tick then
+    return cached.depth
+  end
+  local depth, current = {}, 0
+  for i, line in ipairs(vim.api.nvim_buf_get_lines(buf, 0, -1, false)) do
+    local d = gh_comment_depth(line)
+    if d then
+      current, depth[i] = d, -d -- negative marks "a fold starts here"
+    else
+      depth[i] = current
+    end
+  end
+  gh_folds[buf] = { tick = tick, depth = depth }
+  return depth
+end
+
+function _G.gh_fold_expr(lnum)
+  lnum = lnum or vim.v.lnum
+  local depth = gh_fold_depths(vim.api.nvim_get_current_buf())[lnum] or 0
+  if depth < 0 then
+    return ">" .. -depth -- thread or reply starts on this line
+  end
+  local ts = vim.treesitter.foldexpr(lnum)
+  if depth == 0 then
+    return ts -- description and headers: plain treesitter folds
+  end
+  -- Inside a comment: keep treesitter's structure but never let it drop below
+  -- the thread, or the thread's own fold would end early.
+  return math.max(tonumber(tostring(ts):match("%d+")) or 0, depth + 1)
+end
+
+-- Same idea for the review comment boxes rendered inside a PR diff. There is no
+-- syntax tree there, but every box line carries its `comment_id` in the buffer's
+-- per-line metadata, so a run of one id is exactly one box.
+local gh_diff_folds = {} ---@type table<number, {tick: number, level: table<number, string|number>}>
+
+function _G.gh_diff_fold_expr(lnum)
+  lnum = lnum or vim.v.lnum
+  local buf = vim.api.nvim_get_current_buf()
+  local tick = vim.api.nvim_buf_get_changedtick(buf)
+  local cached = gh_diff_folds[buf]
+  if not (cached and cached.tick == tick) then
+    local meta = Snacks.picker.highlight.meta(buf) or {}
+    local level, prev = {}, nil
+    for i = 1, vim.api.nvim_buf_line_count(buf) do
+      local id = (meta[i] or {}).comment_id
+      level[i] = id and (id ~= prev and ">1" or 1) or 0
+      prev = id
+    end
+    cached = { tick = tick, level = level }
+    gh_diff_folds[buf] = cached
+  end
+  return cached.level[lnum] or 0
+end
+
 -- GitHub PRs where I'm the author OR a requested reviewer.
 -- GitHub search has no OR operator, so run one `gh pr list --search` per
 -- qualifier and merge the results, de-duped by item uri.
@@ -118,6 +202,26 @@ return {
         -- it is skipped on issue buffers because gh_diff is PR-only.
         keys = {
           diff = { "d", "gh_diff", desc = "View PR diff" },
+          -- Comments render as markdown list items, so treesitter folding already
+          -- gives each one a fold. This flips the whole buffer between "collapsed
+          -- to headers" and "everything open"; za/zo/zc still work per comment.
+          fold = {
+            "zi",
+            function()
+              local win = vim.api.nvim_get_current_win()
+              vim.wo[win].foldlevel = vim.wo[win].foldlevel > 1 and 1 or 99
+            end,
+            desc = "Toggle comment folds",
+          },
+        },
+        -- Open PRs as a skimmable list: thread headers visible, bodies folded.
+        -- foldmethod/foldenable are spelled out rather than inherited, so a
+        -- window that never picked up the snacks defaults still folds.
+        wo = {
+          foldmethod = "expr",
+          foldexpr = "v:lua.gh_fold_expr()",
+          foldenable = true,
+          foldlevel = 1,
         },
       },
       notifier = {
@@ -188,6 +292,13 @@ return {
                 },
               },
               preview = {
+                -- Fold the review comment boxes; zc/zo/za work on them, and
+                -- foldlevel 99 leaves them open until you close one.
+                wo = {
+                  foldmethod = "expr",
+                  foldexpr = "v:lua.gh_diff_fold_expr()",
+                  foldlevel = 99,
+                },
                 keys = {
                   ["<c-h>"] = "focus_input",
                   -- Next/previous file without leaving the diff. Unmapped, these
@@ -463,6 +574,32 @@ return {
                   vim.api.nvim_set_current_win(main)
                 end
                 vim.cmd.edit(uri)
+              end,
+            })
+          end
+
+          -- "Open in web browser" shells out to `gh <type> view --web`, which obeys
+          -- $BROWSER (/usr/bin/qutebrowser here) and so bypasses the desktop's own
+          -- handler. Hand the item's url to xdg-open instead.
+          if ok and type(gh_actions.actions.gh_browse) == "table" and vim.fn.executable("xdg-open") == 1 then
+            local orig = gh_actions.actions.gh_browse
+            gh_actions.actions.gh_browse = vim.tbl_extend("force", orig, {
+              action = function(item, ctx)
+                local items = ctx and ctx.items or { item }
+                local opened = {} ---@type string[]
+                for _, it in ipairs(items) do
+                  if type(it) == "table" and type(it.url) == "string" then
+                    vim.system({ "xdg-open", it.url }, { detach = true })
+                    opened[#opened + 1] = "#" .. tostring(it.number)
+                  end
+                end
+                if #opened == 0 then
+                  return orig.action(item, ctx) -- no urls to hand over: leave it to snacks
+                end
+                Snacks.notify.info(("Opened %s in web browser"):format(table.concat(opened, ", ")))
+                if ctx and ctx.picker then
+                  ctx.picker.list:set_selected() -- clear selection, as snacks does
+                end
               end,
             })
           end
