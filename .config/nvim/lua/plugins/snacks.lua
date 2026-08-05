@@ -20,6 +20,89 @@ local function nvim_tree_marked_dirs()
   return dirs
 end
 
+-- Kanagawa's floats and diff colors are tuned for its stock `#1f1f28` background,
+-- so against the `#0a0c0f` override in `lua/plugins/themes.lua` the picker sits on
+-- a lighter `NormalFloat` (#16161d) and the diff reads as washed out. Put every
+-- snacks surface on the real editor background and blend the diff colors into it.
+local function snacks_dark_diff_colors()
+  if vim.o.background ~= "dark" then
+    return -- kanagawa-lotus keeps its own palette
+  end
+  local util = Snacks.util
+  local bg = util.color("Normal", "bg")
+  if not bg then
+    return -- transparent colorscheme: nothing to blend against
+  end
+
+  -- The per-window groups (SnacksPickerPreview, SnacksPickerListBorder, ...) are
+  -- default links to these four, so overriding the base cascades to all of them.
+  -- The comment boxes in a PR diff ride along: they are drawn with `FloatBorder`,
+  -- which 'winhighlight' remaps to SnacksPickerPreviewBorder inside the preview.
+  local hl = {
+    SnacksPicker = { fg = util.color("NormalFloat"), bg = bg },
+    SnacksPickerBorder = { fg = util.color("FloatBorder"), bg = bg },
+    SnacksPickerTitle = { fg = util.color("FloatTitle"), bg = bg },
+    SnacksPickerFooter = { fg = util.color({ "FloatFooter", "FloatTitle" }), bg = bg },
+    -- Same treatment for `gh_open` buffers, which have their own float groups.
+    SnacksGhNormal = { fg = util.color("NormalFloat"), bg = bg },
+    SnacksGhNormalFloat = { fg = util.color("NormalFloat"), bg = bg },
+    SnacksGhBorder = { fg = util.color("FloatBorder"), bg = bg },
+    SnacksGhTitle = { fg = util.color("FloatTitle"), bg = bg },
+    SnacksGhFooter = { fg = util.color({ "FloatFooter", "FloatTitle" }), bg = bg },
+  }
+  -- { snacks suffix, diff group, accent group for the line numbers }
+  for _, spec in ipairs({
+    { "Add", "DiffAdd", "Added" },
+    { "Delete", "DiffDelete", "Removed" },
+    { "Context", "DiffChange", "Changed" },
+  }) do
+    local name, group, accent = spec[1], spec[2], spec[3]
+    local base = util.color(group, "bg")
+    local fg = util.color({ group, accent })
+    if base then
+      hl["SnacksDiff" .. name] = { bg = util.blend(base, bg, 0.5) }
+      hl["SnacksDiff" .. name .. "LineNr"] = {
+        bg = util.blend(base, bg, 0.3), -- gutter a shade below the line
+        fg = fg and util.blend(fg, bg, 0.6) or nil,
+      }
+    end
+  end
+  -- managed = false: snacks must not cache and replay these, or the dark blend
+  -- would follow us into the light theme.
+  util.set_hl(hl, { managed = false })
+end
+
+-- GitHub PRs where I'm the author OR a requested reviewer.
+-- GitHub search has no OR operator, so run one `gh pr list --search` per
+-- qualifier and merge the results, de-duped by item uri.
+local function gh_pr_mine(opts)
+  local qualifiers = { "author:@me", "review-requested:@me" }
+  return Snacks.picker.pick(vim.tbl_deep_extend("force", {
+    source = "gh_pr",
+    title = "  PRs (mine + review requests)",
+    finder = function(fopts, ctx)
+      ---@async
+      return function(cb)
+        local seen = {}
+        for _, qualifier in ipairs(qualifiers) do
+          local o = vim.tbl_extend("force", {}, fopts)
+          o.search = vim.trim(qualifier .. " " .. (ctx.filter.search or ""))
+          require("snacks.gh.api")
+            .list("pr", function(items)
+              for _, item in ipairs(items or {}) do
+                if not seen[item.uri] then
+                  seen[item.uri] = true
+                  cb(item)
+                end
+              end
+            end, o)
+            :wait()
+        end
+      end
+    end,
+  }, opts or {}))
+end
+
 return {
   {
     "folke/snacks.nvim",
@@ -30,9 +113,12 @@ return {
     opts = {
       bigfile = {},
       gh = {
-        -- your gh configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
+        -- Merged with the defaults (<cr> actions, i edit, a comment, c close,
+        -- o reopen). `d` is free here since gh buffers are not modifiable, and
+        -- it is skipped on issue buffers because gh_diff is PR-only.
+        keys = {
+          diff = { "d", "gh_diff", desc = "View PR diff" },
+        },
       },
       notifier = {
         enabled = true,
@@ -47,6 +133,75 @@ return {
           cwd = true,
         },
         sources = {
+          -- Review PR diffs in a full-screen 30/70 vertical split: file list on
+          -- the left, diff on the right. `a` in the diff adds a comment on the
+          -- cursor line or visual selection.
+          --
+          -- Every size here is relative, so `VimResized` recomputes them and the
+          -- ratio holds. The `sidebar` preset could not: its width was absolute
+          -- columns, and its `preview = "main"` diff is a float over the main
+          -- window rather than a layout window, so neither followed a resize.
+          ---@type snacks.picker.gh.diff.Config
+          gh_diff = {
+            layout = {
+              layout = {
+                box = "horizontal",
+                width = 0, -- 0 = fill the editor
+                height = 0,
+                backdrop = false,
+                {
+                  box = "vertical",
+                  width = 0.3,
+                  min_width = 30, -- floor on narrow terminals
+                  border = true,
+                  title = "{title} {live} {flags}",
+                  title_pos = "center",
+                  { win = "input", height = 1, border = "bottom" },
+                  { win = "list", border = "none" },
+                },
+                -- No width: flexes into the remaining 70%.
+                { win = "preview", title = "{preview}", border = true },
+              },
+            },
+            -- <cr> jumps into the diff, same as <c-l>. Without this the source
+            -- has no confirm action and falls back to "jump", which tries to
+            -- edit the diff's path in cwd -- a file that isn't there when the
+            -- repo isn't checked out locally.
+            confirm = "focus_preview",
+            -- Scroll the diff with <c-d>/<c-u> from the file list. The list is
+            -- short here, so its own scroll keys are worth giving up.
+            -- <c-l> jumps into the diff, <c-h> back to the picker, matching the
+            -- global window-navigation maps in `lua/mappings.lua`.
+            win = {
+              input = {
+                keys = {
+                  ["<c-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
+                  ["<c-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
+                  ["<c-l>"] = { "focus_preview", mode = { "i", "n" } },
+                },
+              },
+              list = {
+                keys = {
+                  ["<c-d>"] = "preview_scroll_down",
+                  ["<c-u>"] = "preview_scroll_up",
+                  ["<c-l>"] = "focus_preview",
+                },
+              },
+              preview = {
+                keys = {
+                  ["<c-h>"] = "focus_input",
+                  -- Next/previous file without leaving the diff. Unmapped, these
+                  -- fall through to the global <c-w>j / <c-w>k / <c-w>w in
+                  -- mappings.lua, which move focus out of the float and tear the
+                  -- picker down. <c-n> matches snacks' own input/list binding.
+                  ["<c-j>"] = "list_down",
+                  ["<c-k>"] = "list_up",
+                  ["<c-n>"] = "list_down",
+                  ["<c-p>"] = "list_up",
+                },
+              },
+            },
+          },
           ---@type snacks.picker.buffers.Config
           buffers = {
             win = {
@@ -67,12 +222,16 @@ return {
                   ["x"] = "explorer_move",
                   ["<CR>"] = function()
                     local picker = Snacks.picker.get({ source = "explorer" })[1]
-                    if not picker then return end
+                    if not picker then
+                      return
+                    end
                     local selected = picker:selected()
                     local current = picker:current()
                     -- Multiselect with files: open them in the main window
                     if #selected > 0 then
-                      local files = vim.tbl_filter(function(t) return not t.dir end, selected)
+                      local files = vim.tbl_filter(function(t)
+                        return not t.dir
+                      end, selected)
                       if #files > 0 then
                         vim.api.nvim_set_current_win(picker.main)
                         vim.cmd("edit " .. vim.fn.fnameescape(Snacks.picker.util.path(files[1])))
@@ -187,12 +346,127 @@ return {
       { "<leader>cR",      function() Snacks.rename.rename_file() end,                             desc = "Rename File" },
       { "<leader>gB",      function() Snacks.gitbrowse() end,                                      desc = "Git Browse",               mode = { "n", "v" } },
       { "<leader>un",      function() Snacks.notifier.hide() end,                                  desc = "Dismiss All Notifications" },
-
     },
     init = function()
+      -- Re-derive the diff colors whenever the theme changes (`:ThemeToggleLights`
+      -- included). Scheduled so it lands after the colorscheme and after snacks
+      -- re-applies its own defaults.
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        group = vim.api.nvim_create_augroup("snacks_diff_colors", { clear = true }),
+        callback = function()
+          vim.schedule(snacks_dark_diff_colors)
+        end,
+      })
+
+      -- Open a PR straight from a URL or `owner/repo#123`:
+      --   :GhPr https://github.com/cli/cli/pull/9000
+      -- With no argument the URL is read from the clipboard. No clone needed --
+      -- `gh` is given the repo explicitly, so this works anywhere.
+      -- Defined here (not on VeryLazy) so `nvim -c "GhPr <url>"` works too.
+      vim.api.nvim_create_user_command("GhPr", function(cmd)
+        local arg = vim.trim(cmd.args)
+        if arg == "" then
+          arg = vim.trim(vim.fn.getreg("+"))
+          arg = arg ~= "" and arg or vim.trim(vim.fn.getreg("*"))
+        end
+        local repo, number = arg:match("([^/]+/[^/]+)/pull/(%d+)")
+        if not repo then
+          repo, number = arg:match("([%w._-]+/[%w._-]+)#(%d+)")
+        end
+        if not repo then
+          vim.notify(
+            "GhPr: expected a PR url or owner/repo#number, got: " .. (arg == "" and "<empty clipboard>" or arg),
+            vim.log.levels.ERROR
+          )
+          return
+        end
+        -- Scheduled so the buffer opens after startup finishes.
+        vim.schedule(function()
+          -- Open the PR overview buffer rather than the diff: it carries the
+          -- description, comments and reviews, and `<cr>` there offers "View PR
+          -- diff" to get into the review flow.
+          local uri = ("gh://%s/pr/%s"):format(repo, number)
+
+          -- The gh:// buffer fetches asynchronously and sits empty until the
+          -- render lands, so spin a notification until it has content.
+          local notif_id = "gh_pr_loading"
+          local msg = ("Loading %s#%s"):format(repo, number)
+          local timer = assert((vim.uv or vim.loop).new_timer())
+          local buf ---@type number?
+          local waited = 0
+
+          local function stop()
+            timer:stop()
+            if not timer:is_closing() then
+              timer:close()
+            end
+            Snacks.notifier.hide(notif_id)
+          end
+
+          timer:start(
+            0,
+            80,
+            vim.schedule_wrap(function()
+              waited = waited + 80
+              -- Done once the render lands; bail out if the buffer went away or
+              -- `gh` is hanging.
+              local gone = buf and not vim.api.nvim_buf_is_valid(buf)
+              local rendered = buf and not gone and vim.api.nvim_buf_line_count(buf) > 3
+              if gone or rendered or waited > 60000 then
+                return stop()
+              end
+              Snacks.notify(msg, {
+                id = notif_id,
+                title = "GitHub PR",
+                icon = Snacks.util.spinner(),
+                timeout = false, -- replaced each tick, hidden by stop()
+              })
+            end)
+          )
+
+          local ok, err = pcall(vim.cmd.edit, uri)
+          if not ok then
+            stop()
+            vim.notify("GhPr: " .. tostring(err), vim.log.levels.ERROR)
+            return
+          end
+          buf = vim.api.nvim_get_current_buf()
+        end)
+      end, { nargs = "?", desc = "Open a GitHub PR buffer by URL (clipboard if omitted)" })
+
       vim.api.nvim_create_autocmd("User", {
         pattern = "VeryLazy",
         callback = function()
+          -- Initial pass: the startup ColorScheme event fires before the autocmd
+          -- above exists, since the theme also loads at priority 1000.
+          snacks_dark_diff_colors()
+
+          -- Repair "Open PR in buffer". Snacks implements it with
+          -- `Snacks.picker.actions.jump`, which discards the PR item it is handed
+          -- and re-reads the picker's selection -- inside `gh_diff` that is a diff
+          -- entry whose path is not on disk, so it opens an empty buffer. Edit the
+          -- PR's own `gh://` uri instead. Drop this if snacks fixes it upstream.
+          local ok, gh_actions = pcall(require, "snacks.gh.actions")
+          if ok and type(gh_actions.actions.gh_open) == "table" then
+            local orig = gh_actions.actions.gh_open
+            gh_actions.actions.gh_open = vim.tbl_extend("force", orig, {
+              action = function(item, ctx)
+                local uri = type(item) == "table" and item.uri or nil
+                if type(uri) ~= "string" or not uri:match("^gh://") then
+                  return orig.action(item, ctx) -- unexpected item: leave it to snacks
+                end
+                local main = ctx and ctx.picker and ctx.picker.main
+                if ctx and ctx.picker then
+                  ctx.picker:close()
+                end
+                if main and vim.api.nvim_win_is_valid(main) then
+                  vim.api.nvim_set_current_win(main)
+                end
+                vim.cmd.edit(uri)
+              end,
+            })
+          end
+
           -- Setup some globals for debugging (lazy-loaded)
           _G.dd = function(...)
             Snacks.debug.inspect(...)

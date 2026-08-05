@@ -191,26 +191,63 @@ stop_spinner
 	done
 ) &
 
+if [[ "$OSTYPE" == "darwin"* ]]; then
+	OPENER="open"
+else
+	OPENER="xdg-open"
+fi
+
+open_in_browser() {
+	local full_repo="$1" num="$2" url="$3"
+
+	echo -e "Opening ${BLUE}$url${NC} in browser..."
+	if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+		xdg-open "$url" &>/dev/null
+	elif [[ "$OSTYPE" == "darwin"* ]]; then
+		open "$url" &>/dev/null
+	else
+		if ! gh pr view --repo "$full_repo" "$num" --web; then
+			echo -e "\n\033[0;31mError: Failed to open browser.\033[0m"
+			echo -e "You can set your preferred browser using: \033[0;32mexport BROWSER=google-chrome\033[0m (or your browser of choice)"
+			echo -e "Or open manually: \033[0;34m$url\033[0m\n"
+		fi
+	fi
+}
+
+# Review the PR in nvim's snacks gh picker, in its own kitty window.
+# `:GhPr` is defined in ~/.config/nvim/lua/plugins/snacks.lua and takes the URL,
+# so no clone of the repo is needed.
+open_in_nvim() {
+	local full_repo="$1" num="$2" url="$3"
+	local title="PR #$num  $full_repo"
+
+	if ! command -v kitty &>/dev/null; then
+		echo -e "\033[0;33mkitty not found; opening in the browser instead.\033[0m"
+		open_in_browser "$full_repo" "$num" "$url"
+		return
+	fi
+
+	echo -e "Reviewing ${BLUE}$url${NC} in nvim (new kitty window)..."
+	# Prefer remote control when we are already inside kitty, so the new window
+	# joins the running instance; otherwise spawn a detached one.
+	# if [ -n "$KITTY_LISTEN_ON" ] &&
+	# 	kitty @ --to "$KITTY_LISTEN_ON" launch --type=os-window --title "$title" \
+	# 		nvim -c "GhPr $url" >/dev/null 2>&1; then
+	# 	return
+	# fi
+	kitty --detach --title "$title" nvim -c "GhPr $url"
+}
+
 fzf --ansi --multi --no-sort --delimiter $'\t' --with-nth 1 \
 	--listen "127.0.0.1:$LISTEN_PORT" \
-	--header "Select PRs (TAB: select, ENTER: open, CTRL-U/D: scroll preview)" \
+	--header "Select PRs (TAB: select, ENTER: review in nvim, CTRL-O: browser, CTRL-U/D: scroll preview)" \
 	--bind "ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down" \
+	--bind "ctrl-o:execute-silent($OPENER 'https://github.com/{2}/pull/{3}' || gh pr view {3} --repo {2} --web)" \
 	--preview "GH_FORCE_TTY=100% gh pr view {3} --repo {2}" \
 	--preview-window='top:40%' <"$FZF_INPUT" |
 	while IFS=$'\t' read -r display full_repo num; do
 		url="https://github.com/$full_repo/pull/$num"
 		# url="https://app.graphite.com/github/pr/$full_repo/$num"
 
-		echo -e "Opening ${BLUE}$url${NC} in browser..."
-		if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-			xdg-open "$url" &>/dev/null
-		elif [[ "$OSTYPE" == "darwin"* ]]; then
-			open "$url" &>/dev/null
-		else
-			if ! gh pr view --repo "$full_repo" "$num" --web; then
-				echo -e "\n\033[0;31mError: Failed to open browser.\033[0m"
-				echo -e "You can set your preferred browser using: \033[0;32mexport BROWSER=google-chrome\033[0m (or your browser of choice)"
-				echo -e "Or open manually: \033[0;34m$url\033[0m\n"
-			fi
-		fi
+		open_in_nvim "$full_repo" "$num" "$url"
 	done

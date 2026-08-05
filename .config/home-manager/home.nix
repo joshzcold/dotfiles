@@ -54,7 +54,7 @@ in
     pkgs.kdePackages.systemsettings
     pkgs.kitty
     pkgs.kubectl
-    pkgs.kubernetes-helm
+    # pkgs.kubernetes-helm
     pkgs.kubetail
     pkgs.lazygit
     pkgs.luarocks-nix
