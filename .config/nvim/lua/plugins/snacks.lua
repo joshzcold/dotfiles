@@ -156,6 +156,126 @@ function _G.gh_diff_fold_expr(lnum)
   return cached.level[lnum] or 0
 end
 
+-- Review only what landed since my own last review of a PR. GitHub stamps every
+-- review with the commit it was submitted against, so the incremental diff is
+-- `compare/<review sha>...<head sha>`.
+--
+-- Caveat inherited from GitHub's own "changes since your last review": if the
+-- branch was updated from its base in between, that merge shows up here too.
+---@param item snacks.picker.gh.Item PR item
+---@param base_override? string commit-ish to diff from instead of my last review
+local function gh_review_since(item, base_override)
+  if not (type(item) == "table" and item.repo and item.number and item.type == "pr") then
+    vim.notify("GhReviewSince: not a pull request buffer", vim.log.levels.ERROR)
+    return
+  end
+  local head = item.headRefOid
+  if not head then
+    vim.notify("GhReviewSince: PR head commit unknown -- opening the full diff", vim.log.levels.WARN)
+    return Snacks.picker.gh_diff({ repo = item.repo, pr = item.number })
+  end
+
+  local function open(base)
+    local args = {
+      "api",
+      "-H",
+      "Accept: application/vnd.github.v3.diff",
+      ("/repos/%s/compare/%s...%s"):format(item.repo, base, head),
+    }
+    return Snacks.picker.pick({
+      source = "gh_diff", -- inherit the review layout, keys, preview and folds
+      title = ("  #%s since %s"):format(item.number, base:sub(1, 7)),
+      finder = function(fopts, ctx)
+        fopts.previewers.diff.style = "fancy" -- only fancy renders inline comments
+        local Diff = require("snacks.picker.source.diff")
+        local Render = require("snacks.gh.render")
+        ---@async
+        return function(cb)
+          local annotations = ctx.async:schedule(function()
+            return Render.annotations(item)
+          end)
+          Diff.diff(ctx:opts({ cmd = "gh", args = args, annotations = annotations }), ctx)(function(it)
+            it.gh_item = item -- so `a`, <cr> and the actions still know the PR
+            cb(it)
+          end)
+        end
+      end,
+    })
+  end
+
+  if base_override and base_override ~= "" then
+    return open(base_override)
+  end
+
+  local notif_id = "gh_review_since"
+  Snacks.notify.info(("Finding your last review on #%s..."):format(item.number), {
+    id = notif_id,
+    title = "GitHub PR",
+    timeout = false,
+  })
+  local login, reviews ---@type string?, table[]?
+
+  local function ready()
+    if not (login and reviews) then
+      return
+    end
+    Snacks.notifier.hide(notif_id)
+    local base ---@type string?
+    for _, r in ipairs(reviews) do -- REST returns them oldest first
+      if r.login == login and r.state ~= "PENDING" and type(r.commit) == "string" then
+        base = r.commit
+      end
+    end
+    if not base then
+      Snacks.notify.warn(("No submitted review by @%s on #%s -- opening the full diff"):format(login, item.number))
+      return Snacks.picker.gh_diff({ repo = item.repo, pr = item.number })
+    end
+    if base == head then
+      return Snacks.notify.info(("Nothing new since your review of #%s (%s)"):format(item.number, base:sub(1, 7)))
+    end
+    open(base)
+  end
+
+  local function fail(what, out)
+    Snacks.notifier.hide(notif_id)
+    vim.notify(("GhReviewSince: %s failed\n%s"):format(what, out.stderr or ""), vim.log.levels.ERROR)
+  end
+
+  vim.system({ "gh", "api", "user", "--jq", ".login" }, { text = true }, vim.schedule_wrap(function(out)
+    if out.code ~= 0 then
+      return fail("gh api user", out)
+    end
+    login = vim.trim(out.stdout or "")
+    ready()
+  end))
+
+  vim.system({
+    "gh",
+    "api",
+    ("/repos/%s/pulls/%s/reviews"):format(item.repo, item.number),
+    "--paginate",
+    "--jq",
+    ".[] | {login: .user.login, state: .state, commit: .commit_id}",
+  }, { text = true }, vim.schedule_wrap(function(out)
+    if out.code ~= 0 then
+      return fail("gh api reviews", out)
+    end
+    reviews = {}
+    for line in (out.stdout or ""):gmatch("[^\n]+") do
+      local ok, r = pcall(vim.json.decode, line)
+      if ok and type(r) == "table" then
+        reviews[#reviews + 1] = r
+      end
+    end
+    ready()
+  end))
+end
+
+-- Exposed so `:GhReviewSince` and the `D` keymap share one implementation.
+function _G.gh_review_since(item, base)
+  return gh_review_since(item, base)
+end
+
 -- GitHub PRs where I'm the author OR a requested reviewer.
 -- GitHub search has no OR operator, so run one `gh pr list --search` per
 -- qualifier and merge the results, de-duped by item uri.
@@ -202,6 +322,14 @@ return {
         -- it is skipped on issue buffers because gh_diff is PR-only.
         keys = {
           diff = { "d", "gh_diff", desc = "View PR diff" },
+          -- Only the commits pushed since my own last review of this PR.
+          diff_since = {
+            "D",
+            function(item)
+              _G.gh_review_since(item)
+            end,
+            desc = "Diff since my last review",
+          },
           -- Comments render as markdown list items, so treesitter folding already
           -- gives each one a fold. This flips the whole buffer between "collapsed
           -- to headers" and "everything open"; za/zo/zc still work per comment.
@@ -544,6 +672,19 @@ return {
           buf = vim.api.nvim_get_current_buf()
         end)
       end, { nargs = "?", desc = "Open a GitHub PR buffer by URL (clipboard if omitted)" })
+
+      -- Same thing `D` does in a PR buffer, with an optional explicit base:
+      --   :GhReviewSince              -- since my last submitted review
+      --   :GhReviewSince 8e3afe5      -- since a specific commit
+      vim.api.nvim_create_user_command("GhReviewSince", function(cmd)
+        local ok, ghbuf = pcall(require, "snacks.gh.buf")
+        local attached = ok and ghbuf.attached[vim.api.nvim_get_current_buf()] or nil
+        if not attached then
+          vim.notify("GhReviewSince: run this from a gh:// PR buffer", vim.log.levels.ERROR)
+          return
+        end
+        _G.gh_review_since(attached.item, vim.trim(cmd.args))
+      end, { nargs = "?", desc = "Diff a PR since my last review (or a given commit)" })
 
       vim.api.nvim_create_autocmd("User", {
         pattern = "VeryLazy",
