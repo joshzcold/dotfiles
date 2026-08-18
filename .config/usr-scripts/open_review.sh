@@ -89,6 +89,7 @@ echo "$url"
 if [[ -z "${SSH_CLIENT:-}" && -z "${SSH_TTY:-}" ]]; then
 	if open_tab="$(qb_find_tab "$url")"; then
 		qutebrowser ":tab-select $open_tab"
+		qutebrowser ":reload"
 	else
 		qutebrowser ":open -t $url"
 	fi
