@@ -296,20 +296,20 @@ return {
         --     pylint = { enabled = false },
         --   },
         -- },
-        groovyls = {
-          filetypes = {
-            "groovy",
-            -- "Jenkinsfile",
-          },
-          settings = {
-            groovy = {
-              classpath = {},
-            },
-          },
-          on_attach = function(_, _)
-            set_groovy_classpath()
-          end,
-        },
+        -- groovyls = {
+        --   filetypes = {
+        --     -- "groovy",
+        --     -- "Jenkinsfile",
+        --   },
+        --   settings = {
+        --     groovy = {
+        --       classpath = {},
+        --     },
+        --   },
+        --   on_attach = function(_, _)
+        --     set_groovy_classpath()
+        --   end,
+        -- },
         -- https://github.com/astral-sh/ty/issues/2032
         -- https://github.com/astral-sh/ty/issues/2031
         -- ty = {},

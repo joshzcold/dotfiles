@@ -528,12 +528,14 @@ return {
     },
     -- stylua: ignore
     keys = {
+      -- `hidden` picks up dotfiles like `.github/` and `.config/`; `.gitignore`
+      -- still applies, so ignored hidden paths and `.git` itself stay out.
       { "<leader><space>", function()
         local search_dirs = nvim_tree_marked_dirs()
         if #search_dirs > 0 then
           Snacks.picker.files({ follow = true, hidden = true, dirs = search_dirs })
         else
-          Snacks.picker.smart()
+          Snacks.picker.smart({ hidden = true })
         end
       end,   desc = "Find Files" },
       { "<leader>/v",      function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
@@ -542,9 +544,9 @@ return {
       { "<leader>//",      function()
         local search_dirs = nvim_tree_marked_dirs()
         if #search_dirs > 0 then
-          Snacks.picker.grep({ dirs = search_dirs })
+          Snacks.picker.grep({ hidden = true, dirs = search_dirs })
         else
-          Snacks.picker.grep()
+          Snacks.picker.grep({ hidden = true })
         end
       end,                                    desc = "Grep" },
       { "<leader>/f",      function() Snacks.picker.treesitter() end,                              desc = "Treesitter" },
