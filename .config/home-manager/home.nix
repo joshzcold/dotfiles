@@ -41,7 +41,7 @@ in
     pkgs.fzf
     pkgs.groovy
     pkgs.haskellPackages.kmonad
-    pkgs.htop
+    pkgs.btop
     pkgs.hyperfine
     # pkgs.jira-cli-go update when past v1.7.0
     pkgs.jq
