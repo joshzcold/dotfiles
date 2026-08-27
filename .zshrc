@@ -212,39 +212,26 @@ function _notify(){
   fi
 }
 
-# kitty re-materializes the theme named in kitty.conf's BEGIN_KITTY_THEME block
-# whenever current-theme.conf changes, so editing that file never sticks. Apply
-# the background override as a live color via remote control instead.
-function _kitty_apply_theme(){
-  local theme="$1" bg="$2"
-  local conf="$HOME/.config/kitty/current-theme.conf"
-
-  kitty +kitten themes --reload-in=all "$theme" || return 1
-
-  # The kitten writes the theme file and reloads asynchronously; let that finish
-  # so the reload does not overwrite the live colors set below.
-  local i
-  for i in {1..20}; do
-    grep -q "^## name: ${theme}\$" "$conf" 2>/dev/null && break
-    sleep 0.1
-  done
-  sleep 0.3
-
-  [ -n "$bg" ] || return 0
-
-  local sock
-  for sock in /tmp/kitty-*(N); do
-    kitty @ --to "unix:${sock}" set-colors --all --configured "background=${bg}" 2>/dev/null
-  done
-}
-
 function toggle_lights(){
+  # BSD sed needs an explicit backup suffix for -i; GNU sed does not accept one as a separate arg.
+  if [[ "$OSTYPE" == darwin* ]]; then
+    local -a sed_i=(sed -i '')
+  else
+    local -a sed_i=(sed -i)
+  fi
+
   if [ -n "$CURRENT_KITTY_THEME" ]; then
-    _kitty_apply_theme Kanagawa_dragon "#0a0c0f" || { _notify "Theme switch failed"; return 1 }
+    kitty +kitten themes --reload-in=all Kanagawa_dragon
+    (
+      {
+        sleep 3
+        "${sed_i[@]}" 's/^background.*/background #0a0c0f/g' $HOME/.config/kitty/current-theme.conf
+      } &
+    )
     export CURRENT_KITTY_THEME=
     _notify "Set theme to dark"
   else
-    _kitty_apply_theme Kanagawa_light || { _notify "Theme switch failed"; return 1 }
+    kitty +kitten themes --reload-in=all Kanagawa_light
     export CURRENT_KITTY_THEME=ON
     _notify "Set theme to light"
   fi
