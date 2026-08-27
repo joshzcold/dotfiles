@@ -146,8 +146,15 @@ return {
           ripgrep = {
             enabled = function()
               -- disable for the sm repo. Its just too big for ripgrep
-              local git_cmd = vim.fn.system("git rev-parse --show-toplevel | tr -d '\n'")
-              return not string.find(git_cmd, "dev/sm")
+              -- Cached per buffer: blink re-evaluates this on every keystroke,
+              -- so it must never spawn a process.
+              local ok = vim.b.blink_ripgrep_enabled
+              if ok == nil then
+                local root = vim.fs.root(0, ".git")
+                ok = not (root and root:find("dev/sm", 1, true))
+                vim.b.blink_ripgrep_enabled = ok
+              end
+              return ok
             end,
             module = "blink-ripgrep",
             name = "Ripgrep",

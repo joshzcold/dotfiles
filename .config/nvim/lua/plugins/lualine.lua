@@ -6,13 +6,33 @@ return {
     },
     config = function()
       -- User Functions
+      local repo_name_cache = {}
+
+      -- Statusline components run on every redraw, so this reads .git/config
+      -- directly and caches per repo root rather than spawning git.
       local function GetRepoName()
-        local handle = io.popen([[basename -s .git $(git config --get remote.origin.url) 2>/dev/null|| true]])
-        local result = handle:read("*a")
-        handle:close()
-        if result then
-          return result.gsub(result, "%s+", "")
+        local root = vim.fs.root(0, ".git")
+        if not root then
+          return ""
         end
+        if repo_name_cache[root] then
+          return repo_name_cache[root]
+        end
+
+        local name = vim.fs.basename(root)
+        local gitconfig = root .. "/.git/config"
+        if vim.uv.fs_stat(gitconfig) then
+          for _, line in ipairs(vim.fn.readfile(gitconfig)) do
+            local url = line:match("^%s*url%s*=%s*(.-)%s*$")
+            if url then
+              name = url:gsub("%.git$", ""):gsub("/+$", ""):match("([^/:]+)$") or name
+              break
+            end
+          end
+        end
+
+        repo_name_cache[root] = name
+        return name
       end
 
       require("lualine").setup({

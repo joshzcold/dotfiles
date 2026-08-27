@@ -19,8 +19,14 @@ vim.g.user = {
 -- Global user group to register other custom autocmds
 vim.api.nvim_create_augroup(vim.g.user.event, {})
 
-vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
-  callback = function()
+-- `syntax sync fromstart` re-parses the whole buffer, so skip it when
+-- treesitter is doing the highlighting and don't pay for it on every
+-- InsertLeave.
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  callback = function(e)
+    if vim.b[e.buf].ts_highlight or vim.bo[e.buf].syntax == "" then
+      return
+    end
     vim.cmd([[:syntax sync fromstart]])
   end,
 })

@@ -235,6 +235,10 @@ return {
     },
   },
   {
+    -- Disabled: loads a full legacy regex syntax bundle alongside treesitter,
+    -- so every buffer paid for two highlighting engines. Re-enable if a
+    -- filetype loses detection.
     "sheerun/vim-polyglot",
+    enabled = false,
   },
 }
