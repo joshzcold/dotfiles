@@ -37,7 +37,7 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 [mode.main.binding]
     # See: https://nikitabobko.github.io/AeroSpace/goodies#open-a-new-window-with-applescript
-    cmd-enter = 'exec-and-forget kitty -d ~'
+    cmd-enter = 'exec-and-forget kitty --override font_size=14.0 -d ~'
 
     # Screenshot
     cmd-s = 'exec-and-forget screencapture -c -s'
