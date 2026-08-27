@@ -202,16 +202,51 @@ function diff_remote_files(){
   eval "vimdiff ${remote_file_procs} -c '${vim_c_cmd}' -c 'colorscheme elflord' -c TOhtml"
 }
 
+function _notify(){
+  if command -v notify-send >/dev/null 2>&1; then
+    notify-send "$1"
+  elif command -v terminal-notifier >/dev/null 2>&1; then
+    terminal-notifier -message "$1"
+  else
+    osascript -e "display notification \"$1\""
+  fi
+}
+
+# kitty re-materializes the theme named in kitty.conf's BEGIN_KITTY_THEME block
+# whenever current-theme.conf changes, so editing that file never sticks. Apply
+# the background override as a live color via remote control instead.
+function _kitty_apply_theme(){
+  local theme="$1" bg="$2"
+  local conf="$HOME/.config/kitty/current-theme.conf"
+
+  kitty +kitten themes --reload-in=all "$theme" || return 1
+
+  # The kitten writes the theme file and reloads asynchronously; let that finish
+  # so the reload does not overwrite the live colors set below.
+  local i
+  for i in {1..20}; do
+    grep -q "^## name: ${theme}\$" "$conf" 2>/dev/null && break
+    sleep 0.1
+  done
+  sleep 0.3
+
+  [ -n "$bg" ] || return 0
+
+  local sock
+  for sock in /tmp/kitty-*(N); do
+    kitty @ --to "unix:${sock}" set-colors --all --configured "background=${bg}" 2>/dev/null
+  done
+}
+
 function toggle_lights(){
   if [ -n "$CURRENT_KITTY_THEME" ]; then
-    kitty +kitten themes --reload-in=all Kanagawa_dragon
-    sed -i 's/^background.*/background #0a0c0f/g' $HOME/.config/kitty/current-theme.conf
+    _kitty_apply_theme Kanagawa_dragon "#0a0c0f" || { _notify "Theme switch failed"; return 1 }
     export CURRENT_KITTY_THEME=
-    notify-send "Set theme to dark"
+    _notify "Set theme to dark"
   else
-    kitty +kitten themes --reload-in=all Kanagawa_light
+    _kitty_apply_theme Kanagawa_light || { _notify "Theme switch failed"; return 1 }
     export CURRENT_KITTY_THEME=ON
-    notify-send "Set theme to light"
+    _notify "Set theme to light"
   fi
 }
 

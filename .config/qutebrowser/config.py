@@ -26,6 +26,9 @@ c.auto_save.session = True
 c.qt.args = ["disable-blink-features=DocumentPictureInPictureAPI"]
 
 if platform.system() == "Darwin":
+    # Qt 6.11 segfaults in QMacAccessibilityElement when the macOS a11y bridge
+    # builds elements for the Chromium tree; qutebrowser's "auto" only covers Qt 6.10.1.
+    c.qt.workarounds.disable_accessibility = "always"
     c.editor.command = ["/opt/homebrew/bin/kitty", "-e", "nvim", "-u", "NONE", "{}"]
     config.bind("<Ctrl-c>", "yank selection")
     config.bind("<Ctrl-v>", r"insert-text -- {clipboard}")

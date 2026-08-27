@@ -239,6 +239,6 @@ return {
     -- so every buffer paid for two highlighting engines. Re-enable if a
     -- filetype loses detection.
     "sheerun/vim-polyglot",
-    enabled = false,
+    enabled = true,
   },
 }

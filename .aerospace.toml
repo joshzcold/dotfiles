@@ -19,6 +19,9 @@ enable-normalization-opposite-orientation-for-nested-containers = false
 # Mouse follows focus when focused monitor changes
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
+# Stay put when the last window on a workspace is closed
+# on-focus-changed = ['exec-and-forget /bin/bash /Users/joshua.cold/.config/usr-scripts/aerospace-keep-workspace.sh']
+
 # Gaps between windows (inner-*) and between monitor edges (outer-*).
 # Possible values:
 # - Constant:     gaps.outer.top = 8
@@ -47,7 +50,8 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
     cmd-shift-s = 'exec-and-forget /opt/homebrew/bin/bash ~/.config/usr-scripts/insert_snippets_macos.sh'
 
-    cmd-q = 'close --quit-if-last-window'
+    # cmd-q = 'close --quit-if-last-window'
+    cmd-q = 'close'
     cmd-n = 'exec-and-forget bash ~/.config/usr-scripts/sketchbar-rename.sh'
 
     # i3 wraps focus by default
