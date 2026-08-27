@@ -224,7 +224,7 @@ function toggle_lights(){
     kitty +kitten themes --reload-in=all Kanagawa_dragon
     (
       {
-        sleep 3
+        sleep 1
         "${sed_i[@]}" 's/^background.*/background #0a0c0f/g' $HOME/.config/kitty/current-theme.conf
       } &
     )
