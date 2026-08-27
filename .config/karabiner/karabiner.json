@@ -8,7 +8,9 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["NoMachine"],
+                                        "bundle_identifiers": [
+                                            "NoMachine"
+                                        ],
                                         "type": "frontmost_application_if"
                                     }
                                 ],
@@ -23,7 +25,9 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["NoMachine"],
+                                        "bundle_identifiers": [
+                                            "NoMachine"
+                                        ],
                                         "type": "frontmost_application_if"
                                     }
                                 ],
@@ -150,6 +154,65 @@
                                 "to": [
                                     {
                                         "key_code": "c",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "fn+c / fn+v -> command+c / command+v (except kitty and NoMachine)",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "kitty",
+                                            "com.nomachine",
+                                            "NoMachine"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "description": "fn -> command (copy)",
+                                "from": {
+                                    "key_code": "c",
+                                    "modifiers": {
+                                        "mandatory": ["fn"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "c",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "kitty",
+                                            "com.nomachine",
+                                            "NoMachine"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "description": "fn -> command (paste)",
+                                "from": {
+                                    "key_code": "v",
+                                    "modifiers": {
+                                        "mandatory": ["fn"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "v",
                                         "modifiers": ["left_command"]
                                     }
                                 ],
