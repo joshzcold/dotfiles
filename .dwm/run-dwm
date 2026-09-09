@@ -21,6 +21,29 @@ battery() {
   fi
 }
 
+cpu() {
+  # Each call runs in a command-substitution subshell, so the previous sample
+  # has to live in a file rather than a variable.
+  local state="${XDG_RUNTIME_DIR:-/tmp}/dwm-cpu-stat"
+  local prev_total=0 prev_idle=0
+  read -r _ user nice system idle iowait irq softirq steal _ </proc/stat
+  local total=$((user + nice + system + idle + iowait + irq + softirq + steal))
+  idle=$((idle + iowait))
+  [ -f "$state" ] && read -r prev_total prev_idle <"$state"
+  echo "$total $idle" >"$state"
+  local total_diff=$((total - prev_total))
+  [[ $total_diff -le 0 ]] && return
+  local idle_diff=$((idle - prev_idle))
+  echo "[cpu $((100 * (total_diff - idle_diff) / total_diff))%]"
+}
+
+memory() {
+  local total=$(grep -o -P "(?<=^MemTotal:)\s*\d+" /proc/meminfo)
+  local available=$(grep -o -P "(?<=^MemAvailable:)\s*\d+" /proc/meminfo)
+  [[ -z $total || -z $available ]] && return
+  echo "[mem $(((total - available) * 100 / total))%]"
+}
+
 vpn() {
   local vpn=$(nmcli c show --active | grep -P ".*?(?=[ \t]wireguard[ \t])" | awk -F '  ' '{print $1}')
   if [[ ! -z $vpn ]]; then
@@ -36,7 +59,7 @@ wifi() {
 }
 
 while true; do
-  xsetroot -name "$(battery) $(wifi) $(vpn) $(date +"%m-%d %r")"
+  xsetroot -name "$(cpu) $(memory) $(battery) $(wifi) $(vpn) $(date +"%m-%d %r")"
   sleep 5 # Update time every 5 seconds
 done &
 
