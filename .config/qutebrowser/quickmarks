@@ -216,3 +216,4 @@ Lidarr - Music http://joshua-home-server:8686/login?returnUrl=%2F
 Scan Console Prod https://scan-console-scan.dk-prodsec1-v-kubebalancer-1.secmet.co/
 AudioBookRequest - Audio Books http://joshua-home-server:8000/
 Prowlarr - Index Manager http://joshua-home-server:9696/
+dotfiles https://github.com/joshzcold/dotfiles
