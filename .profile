@@ -1,7 +1,7 @@
 SSH_ASKPASS=ksshaskpass
 export SSH_ASKPASS
 
-BROWSER=/usr/bin/qutebrowser
+BROWSER=$HOME/.nix-profile/bin/qutebrowser
 export BROWSER
 
 if [ -f "/home/joshua/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then

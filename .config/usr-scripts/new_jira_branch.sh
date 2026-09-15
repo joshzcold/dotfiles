@@ -19,21 +19,43 @@ MAIN_BRANCH=$(git branch --format '%(refname:short)' --list master main)
 
 echo -e "${Yellow}Getting jira issues...${Color_Off}" 1>&2
 
-jira_command=(
-  jira issue list --plain
-  --columns 'KEY,STATUS,TYPE,ASSIGNEE,SUMMARY'
-  -s 'In Progress'
-  -s 'Code Review'
-  -s 'In QA'
-  -s 'QA Ready'
-  -s 'Merge Ready'
-  -s "In Approval"
-  -s "Release Ready"
-  -s "Merge Ready"
-  --no-headers
+JIRA_PROJECT="DV6"
+JIRA_STATUSES=(
+  'In Progress'
+  'Code Review'
+  'In QA'
+  'QA Ready'
+  'Merge Ready'
+  'In Approval'
+  'Release Ready'
 )
 
-jira_issues="$("${jira_command[@]}" | grep -oP "^\w+.*")"
+status_jql="$(printf '"%s",' "${JIRA_STATUSES[@]}" | sed 's/,$//')"
+
+if ! acli jira auth status &>/dev/null; then
+  echo "Not authenticated to Jira. Run: acli jira auth login" 1>&2
+  exit 1
+fi
+
+jira_issues="$(
+  acli jira workitem search \
+    --jql "project = ${JIRA_PROJECT} AND status IN (${status_jql}) ORDER BY updated DESC" \
+    --fields 'key,status,issuetype,assignee,summary' \
+    --limit 200 \
+    --json |
+    jq -r '.[] | [
+      .key,
+      .fields.status.name,
+      .fields.issuetype.name,
+      (.fields.assignee.displayName // "Unassigned"),
+      (.fields.summary | gsub("[\t\n]"; " "))
+    ] | @tsv'
+)"
+
+if [ -z "${jira_issues}" ]; then
+  echo "No Jira issues returned" 1>&2
+fi
+
 list=""
 list+="CHORE"$'\n'
 list+="HOTFIX"$'\n'
