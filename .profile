@@ -11,3 +11,8 @@ fi
 if [ -f "$HOME/.cargo/env" ]; then
   . "$HOME/.cargo/env"
 fi
+
+# Workaround: SDL3 X11 backend calls XIQueryDevice() on a stale XInput2 device
+# id and Xlib aborts the process (XI_BadDevice). Kills shadPS4 at startup.
+SDL_VIDEO_X11_XINPUT2=0
+export SDL_VIDEO_X11_XINPUT2
