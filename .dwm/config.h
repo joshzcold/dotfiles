@@ -2,6 +2,7 @@
 #include <X11/XF86keysym.h>
 
 #define SESSION_FILE "/tmp/dwm-session"
+#define TAGS_SESSION_FILE SESSION_FILE "-tags"
 
 /* appearance */
 static const unsigned int borderpx = 0; /* border pixel of windows */
@@ -37,7 +38,7 @@ static const char emacsclient[] = "emacsclient";
 static const char emacsname[] = "emacs@";
 
 /* tagging */
-#define MAX_TAGLEN 16
+#define MAX_TAGLEN 32
 static char tags[][MAX_TAGLEN] = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
 static const Rule rules[] = {
     /* xprop(1):

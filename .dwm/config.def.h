@@ -2,6 +2,7 @@
 #include <X11/XF86keysym.h>
 
 #define SESSION_FILE "/tmp/dwm-session"
+#define TAGS_SESSION_FILE SESSION_FILE "-tags"
 
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
@@ -28,7 +29,7 @@ static const char *colors[][3]      = {
   [SchemeSel]  = { col_gray4, col_cyan,  col_orange  },
 };
 /* tagging */
-#define MAX_TAGLEN 16
+#define MAX_TAGLEN 32
 static char tags[][MAX_TAGLEN] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 static const Rule rules[] = {
   /* xprop(1):

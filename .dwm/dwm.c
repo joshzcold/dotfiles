@@ -228,6 +228,7 @@ static void moveresize(const Arg *arg);
 static void moveresizeedge(const Arg *arg);
 static void movemouse(const Arg *arg);
 static void nametag(const Arg *arg);
+static void restoreTagNames(void);
 static Client *nexttiled(Client *c);
 static void pop(Client *);
 static void propertynotify(XEvent *e);
@@ -1567,17 +1568,12 @@ nametag(const Arg *arg) {
 
 	for(i = 0; i < LENGTH(tags); i++)
 		if(selmon->tagset[selmon->seltags] & (1 << i)){
-			char buf[256];
-			char str[8];
-			sprintf(str, "%d", i + 1);
-			if (strlen(name) > 0){
-				snprintf(buf, sizeof(buf), "%s%s%s", str, " ", name);
-			}else{
-				snprintf(buf, sizeof(buf), "%s", str);
-			}
-			strcpy(tags[i], buf);
+			if (strlen(name) > 0)
+				snprintf(tags[i], MAX_TAGLEN, "%d %s", i + 1, name);
+			else
+				snprintf(tags[i], MAX_TAGLEN, "%d", i + 1);
 		}
-			
+
 	drawbars();
 }
 
@@ -1654,6 +1650,30 @@ saveSession(void)
 		fprintf(fw, "%lu %u\n", c->win, c->tags);
 	}
 	fclose(fw);
+
+	FILE *ft = fopen(TAGS_SESSION_FILE, "w");
+	if (!ft)
+		return;
+	for (int i = 0; i < LENGTH(tags); i++)
+		fprintf(ft, "%s\n", tags[i]);
+	fclose(ft);
+}
+
+void
+restoreTagNames(void)
+{
+	char line[MAX_TAGLEN + 2], *p;
+	FILE *ft = fopen(TAGS_SESSION_FILE, "r");
+	if (!ft)
+		return;
+	for (int i = 0; i < LENGTH(tags) && fgets(line, sizeof line, ft); i++) {
+		if ((p = strchr(line, '\n')))
+			*p = '\0';
+		snprintf(tags[i], MAX_TAGLEN, "%s", line);
+	}
+	fclose(ft);
+	remove(TAGS_SESSION_FILE);
+	drawbars();
 }
 
 void
@@ -3289,6 +3309,7 @@ main(int argc, char *argv[])
 #endif /* __OpenBSD__ */
 	scan();
 	restoreSession();
+	restoreTagNames();
   runAutostart();
 	run();
 	if(restart) execvp(argv[0], argv);
