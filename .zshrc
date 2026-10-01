@@ -456,11 +456,19 @@ function cgit(){
 }
 
 function git_branch(){
-  selected_line="$(git branch -a -q | fzf  -0 --bind 'ctrl-b:reload(git fetch origin; git branch -a -q)' | awk '{print $1}')"
+  local selected_line branch worktree
+  # git branch prefixes each line with two marker columns ("* " current, "+ " other worktree).
+  selected_line="$(git branch -a -q | fzf  -0 --bind 'ctrl-b:reload(git fetch origin; git branch -a -q)' | cut -c3- | awk '{print $1}')"
 
   if [ ! -z "$selected_line" ];then
-    git checkout -q "$(echo ${selected_line//remotes\/})"
-    git switch "$(echo ${selected_line//remotes\/origin\/})"
+    branch="${selected_line#remotes/origin/}"
+    worktree="$(git worktree list --porcelain | awk -v ref="branch refs/heads/$branch" '/^worktree /{p=substr($0,10)} $0==ref{print p}')"
+    if [ -n "$worktree" ]; then
+      cd "$worktree"
+    else
+      git checkout -q "${selected_line#remotes/}"
+      git switch "$branch"
+    fi
     git pull
   fi
   zle push-line
