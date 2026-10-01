@@ -304,6 +304,7 @@ static int isdescprocess(pid_t p, pid_t c);
 static Client *swallowingclient(Window w);
 static Client *termforwin(const Client *c);
 static pid_t winpid(Window w);
+static int readcmdline(pid_t pid, char *buf, size_t len);
 
 /* variables */
 static Systray *systray =  NULL;
@@ -365,6 +366,7 @@ void
 applyrules(Client *c)
 {
 	const char *class, *instance;
+	char cmdline[4096];
 	unsigned int i;
 	const Rule *r;
 	Monitor *m;
@@ -376,6 +378,9 @@ applyrules(Client *c)
 	XGetClassHint(dpy, c->win, &ch);
 	class    = ch.res_class ? ch.res_class : broken;
 	instance = ch.res_name  ? ch.res_name  : broken;
+	/* Chrome maps a placeholder window with no WM_CLASS first, so match its command line instead. */
+	if (!ch.res_name && readcmdline(c->pid, cmdline, sizeof cmdline))
+		instance = cmdline;
 
 	for (i = 0; i < LENGTH(rules); i++) {
 		r = &rules[i];
@@ -3316,4 +3321,25 @@ main(int argc, char *argv[])
 	cleanup();
 	XCloseDisplay(dpy);
 	return EXIT_SUCCESS;
+}
+
+int
+readcmdline(pid_t pid, char *buf, size_t len)
+{
+	char path[64];
+	size_t i, n;
+	FILE *f;
+
+	if (pid <= 0)
+		return 0;
+	snprintf(path, sizeof path, "/proc/%d/cmdline", (int)pid);
+	if (!(f = fopen(path, "r")))
+		return 0;
+	n = fread(buf, 1, len - 1, f);
+	fclose(f);
+	for (i = 0; i < n; i++)
+		if (buf[i] == '\0')
+			buf[i] = ' ';
+	buf[n] = '\0';
+	return n > 0;
 }
