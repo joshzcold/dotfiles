@@ -64,6 +64,7 @@ static const Rule rules[] = {
     {NULL              , NULL     , "notes"        , 0         , 1          , 1          , -1        , -1}        ,
     {NULL              , NULL     , "github_reviews"        , 0         , 1          , 1          , -1        , -1}        ,
     {NULL              , NULL     , "qutebrowser_quickmarks"        , 0         , 1          , 1          , -1        , -1}        ,
+    {NULL              , "ms-playwright" , NULL    , 1 << 8    , 0          , 0          , 1         , -1}        ,
 };
 /* layout(s) */
 static const float mfact = 0.55; /* factor of master area size [0.05..0.95] */
