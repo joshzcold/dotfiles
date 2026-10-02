@@ -29,21 +29,28 @@
     --suggestions-bg: #333;
     --suggestions-selected: #e8c000;
     --suggestions-url: #6cf;
-    --follow-text: #000;
-    --follow-url-bg: #ffef94;
-    --follow-url-border: #e3be23;
-    --follow-click-bg: #ffef94;
-    --follow-click-border: #e3be23;
-    --follow-insert-bg: #ffef94;
-    --follow-insert-border: #e3be23;
-    --follow-onclick-bg: #ffef94;
-    --follow-onclick-border: #e3be23;
-    --follow-media-bg: #ffef94;
-    --follow-media-border: #e3be23;
-    --follow-image-bg: #ffef94;
-    --follow-image-border: #e3be23;
-    --follow-other-bg: #ffef94;
-    --follow-other-border: #e3be23;
+    --follow-text: #ffd75f;
+    --follow-url-bg: #1c1c1c;
+    --follow-url-border: #555;
+    --follow-url-hover: #ffd75f33;
+    --follow-click-bg: #1c1c1c;
+    --follow-click-border: #555;
+    --follow-click-hover: #ffd75f33;
+    --follow-insert-bg: #1c1c1c;
+    --follow-insert-border: #555;
+    --follow-insert-hover: #ffd75f33;
+    --follow-onclick-bg: #1c1c1c;
+    --follow-onclick-border: #555;
+    --follow-onclick-hover: #ffd75f33;
+    --follow-media-bg: #1c1c1c;
+    --follow-media-border: #555;
+    --follow-media-hover: #ffd75f33;
+    --follow-image-bg: #1c1c1c;
+    --follow-image-border: #555;
+    --follow-image-hover: #ffd75f33;
+    --follow-other-bg: #1c1c1c;
+    --follow-other-border: #555;
+    --follow-other-hover: #ffd75f33;
     --url-hover-fg: #0ff;
     --url-hover-bg: #000;
     --scrollbar-bg: #000;
@@ -65,7 +72,8 @@
 #tabs > span:nth-child(even) {background: var(--tab-background-even);}
 #tabs > span#current-tab {background: var(--tab-selected);color: var(--fg);}
 #tabs > span > img {height: 1.1em;width: 1.1em;min-height: 1.1em;min-width: 1.1em;}
-#tabs {counter-reset: tab-counter 0;}
+/* 0-based so labels match :buffer indices and the gt menu */
+#tabs {counter-reset: tab-counter -1;}
 #tabs > span::after {order: -1;counter-increment: tab-counter 1;content: counter(tab-counter) ":";margin: auto 0 auto .25em;}
 #tabs .pinned {min-width: 3.2em !important;max-width: 3.2em;width: 3.2em;}
 
