@@ -5,9 +5,8 @@ set -euo pipefail
 #        vieb.sh --execute CMD   run CMD in the running Vieb and print its output
 #        vieb.sh --running       exit 0 when Vieb is running
 
-vieb_bin="$(command -v vieb || ls -1 "$HOME"/Downloads/Vieb-*.AppImage 2>/dev/null | sort -V | tail -1)"
-if [[ -z "$vieb_bin" ]]; then
-	echo "$0: Vieb not found on PATH or in ~/Downloads" >&2
+if ! vieb_bin="$(command -v vieb)"; then
+	echo "$0: Vieb not found on PATH" >&2
 	exit 1
 fi
 

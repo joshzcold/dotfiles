@@ -102,19 +102,7 @@ function get_nixgl() {
 #	fi
 # }
 
-# Vieb downloads its own spellcheck dictionaries, so there is no dictionary step.
-function install_vieb() {
-	user_prompt "Install Vieb AppImage to ~/.local/bin/vieb"
-	if [[ $REPLY =~ ^[Yy]$ ]]; then
-		set -x
-		url="$(curl -fsSL https://api.github.com/repos/Jelmerro/Vieb/releases/latest |
-			jq -r '.assets[] | select(.name | test("^Vieb-[0-9.]+\\.AppImage$")) | .browser_download_url')"
-		mkdir -p ~/.local/bin
-		curl -fL "$url" -o ~/.local/bin/vieb
-		chmod +x ~/.local/bin/vieb
-		{ set +x; } 2>/dev/null
-	fi
-}
+# Vieb is installed by home-manager (home.nix) and downloads its own spellcheck dictionaries.
 
 function clone_code_paste() {
 	user_prompt "Clone code-paste to ~/git"
@@ -247,7 +235,6 @@ function run_all() {
 	run_nix_home_manager
 	get_nixgl
 	# setup_dictionary_qutebrowser
-	install_vieb
 	clone_code_paste
 	setup_kmonad
 	setup_perimeter81
@@ -268,7 +255,6 @@ function show_menu() {
 	echo "  4) Run nix home-manager"
 	echo "  5) Get nixGL"
 	# echo "  6) Setup dictionary qutebrowser"
-	echo "  6) Install Vieb"
 	echo "  7) Clone code-paste to ~/git"
 	echo "  8) Setup kmonad"
 	echo "  9) setup perimeter81"
@@ -293,7 +279,6 @@ while true; do
 	4) run_nix_home_manager ;;
 	5) get_nixgl ;;
 	# 6) setup_dictionary_qutebrowser ;;
-	6) install_vieb ;;
 	7) clone_code_paste ;;
 	8) setup_kmonad ;;
 	9) setup_perimeter81 ;;

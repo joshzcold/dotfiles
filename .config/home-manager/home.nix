@@ -5,6 +5,24 @@ let
   nixGL.packages = import <nixgl> { inherit pkgs; };
   pkgsUnstable = import <nixpkgs-unstable> {};
 
+  # nixpkgs dropped vieb, so install the pinned upstream AppImage with its desktop entry and icons.
+  # appimageTools.wrapType2 can't be used: Ubuntu's AppArmor userns restriction makes its bwrap fail.
+  vieb = let
+    pname = "vieb";
+    version = "12.10.0";
+    src = pkgs.fetchurl {
+      url = "https://github.com/Jelmerro/Vieb/releases/download/${version}/Vieb-${version}.AppImage";
+      hash = "sha256-2Ehc5AxRfhMBOVrJ8Ca542NGDUlxlyrygfmYFO2D0wY=";
+    };
+    contents = pkgs.appimageTools.extract { inherit pname version src; };
+  in pkgs.runCommand "${pname}-${version}" { } ''
+    install -Dm555 ${src} $out/bin/vieb
+    install -Dm444 ${contents}/vieb.desktop -t $out/share/applications
+    substituteInPlace $out/share/applications/vieb.desktop \
+      --replace-fail 'Exec=AppRun' "Exec=$out/bin/vieb"
+    cp -r ${contents}/usr/share/icons $out/share
+  '';
+
 in
 
 {
@@ -67,6 +85,7 @@ in
     pkgs.picom
     # pkgs.qutebrowser
     (config.lib.nixGL.wrap pkgsUnstable.qutebrowser)
+    vieb
     pkgs.redis
     pkgs.ripgrep
     pkgs.rofi
