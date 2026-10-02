@@ -1,0 +1,184 @@
+" Translated from ~/.config/qutebrowser (config.py + autoconfig.yml)
+" Quickmarks live in quickmarks.viebrc, regenerate it with ~/.vieb/scripts/gen_quickmarks
+
+" Look: ~/.config/Vieb/colors/qutebrowser.css
+colorscheme qutebrowser
+set guifontsize=13
+set guitabbar=always guinavbar=always
+
+" Options
+set tabnewposition=end
+set vimcommand="kitty --class=float -e nvim -u NONE"
+set restoretabs=all
+set nativetheme=dark
+set nodarkreader
+set adblocker=off
+set useragent=["Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"]
+set searchengine=https://duckduckgo.com/?q=%s
+set spelllang=en-US
+set permissionclipboardread=allow
+set permissionclipboardwrite=allow
+set permissioncertificateerror=ask
+set tabclosefocus=right
+set permissionsallowed=["^https://app\\.chime\\.aws/~camera~mediadevices~microphone~notifications","^https://app\\.getgarner\\.com/~geolocation","^https://app\\.slack\\.com/~microphone~mediadevices~notifications","^https://app\\.zoom\\.us/~microphone~mediadevices~camera~notifications","^https://calendar\\.google\\.com/~notifications","^https://chat\\.google\\.com/~microphone~mediadevices~camera","^https://chat\\.gooogle\\.com/~notifications","^https://classic\\.minecraft\\.net/~pointerlock","^https://discord\\.com/~microphone~mediadevices","^https://drive\\.google\\.com/~notifications","^https://gemini\\.google\\.com/~notifications","^https://imperva\\.zoom\\.us/~microphone~mediadevices","^https://mail\\.google\\.com/~notifications","^https://meet\\.google\\.com/~microphone~mediadevices~camera~notifications","^https://messages\\.google\\.com/~notifications","^https://myhealthplusforms\\.intermountainhealthcare\\.org/~geolocation","^https://online-voice-recorder\\.com/~microphone~mediadevices","^https://outlook\\.office\\.com/~geolocation~notifications","^https://portal\\.superiorvision\\.com/~geolocation","^https://teams\\.microsoft\\.com/~microphone~mediadevices~camera~notifications","^https://us02web\\.zoom\\.us/~microphone~mediadevices~camera","^https://us04web\\.zoom\\.us/~microphone~mediadevices","^https://voice\\.google\\.com/~microphone~mediadevices~notifications","^https://web\\.whatsapp\\.com/~notifications","^https://www\\.bennish\\.net/~notifications","^https://www\\.cinemark\\.com/~geolocation","^https://www\\.dominos\\.com/~geolocation","^https://www\\.facebook\\.com/~microphone~mediadevices~camera","^https://www\\.google\\.com/~geolocation","^https://www\\.harborfreight\\.com/~geolocation","^https://www\\.homedepot\\.com/~geolocation","^https://www\\.ikea\\.com/~geolocation","^https://www\\.interstatebatteries\\.com/~geolocation","^https://www\\.lowes\\.com/~geolocation","^https://www\\.onlinemictest\\.com/~microphone~mediadevices","^https://www\\.oreillyauto\\.com/~geolocation","^https://www\\.smithsfoodanddrug\\.com/~geolocation","^https://www\\.uccu\\.com/~geolocation"]
+set permissionsasked=["^https://meet\\.google\\.com/~displaycapture","^https://teams\\.microsoft\\.com/~displaycapture","^https://www\\.webrtc-experiment\\.com/~displaycapture"]
+
+" qutebrowser default bindings (Vieb defaults that already match are left alone)
+" Single keys that would otherwise make the qutebrowser prefixes below ambiguous
+nunmap ;
+nunmap c
+nunmap p
+nunmap P
+nunmap s
+nunmap S
+nunmap w
+nunmap [
+nunmap ]
+nunmap {
+nunmap }
+nunmap BB
+nunmap BD
+nunmap BH
+nunmap BS
+nunmap BV
+nunmap BZ
+
+nmap o <toExploreMode><BS>
+nmap go <toExploreMode><End>
+nmap O <:tabnew><toExploreMode>
+nmap gO <openNewTabWithCurrentUrl><End>
+nmap ga <:tabnew>
+nmap <C-t> <:tabnew>
+nmap <C-S-w> <:quitall>
+nmap D <:set tabclosefocus=left><:close><:set tabclosefocus=right>
+nmap co <:lclose><:rclose>
+nmap T <toCommandMode>buffer<Space>
+nmap gm <moveTabEnd>
+nmap gJ <moveTabForward>
+nmap gK <moveTabBackward>
+nmap J <nextTab>
+nmap K <previousTab>
+nmap <C-PageDown> <nextTab>
+nmap <C-PageUp> <previousTab>
+nmap gC <openNewTabWithCurrentUrl><CR>
+nmap <F5> <refreshTab>
+nmap <C-F5> <refreshTabWithoutCache>
+nmap ;b <startFollowNewTab>
+nmap ;f <startFollowNewTab>
+nmap ;y <startFollowCopyLink>
+nmap ;d <downloadLink>
+nmap ;t <startFollowCurrentTab>
+nmap <C-S-t> <reopenTab>
+nmap V <p.start><p.startVisualSelect>
+nmap `<Any> <storeScrollPos>
+nmap yp <pageToClipboard>
+nmap yd <:set externalcommand=~/.vieb/scripts/domain_to_clip><openLinkExternal>
+nmap pp <openFromClipboard>
+nmap Pp <:tabnew><openFromClipboard>
+nmap m <:set externalcommand=~/.vieb/scripts/quickmark_save><openLinkExternal>
+nmap sf <:write>
+nmap ss <toCommandMode>set<Space>
+nmap sl <toCommandMode>set<Space>
+nmap sk <toCommandMode>nmap<Space>
+nmap = <zoomReset>
+nmap [[ <previousPage>
+nmap ]] <nextPage>
+nmap {{ <previousPageNewTab>
+nmap }} <nextPageNewTab>
+nmap gU <openNewTabWithCurrentUrl><CR><toParentUrl>
+nmap wi <:devtools>
+nmap wIh <:devtools vsplit>
+nmap wIl <:devtools vsplit>
+nmap wIj <:devtools split>
+nmap wIk <:devtools split>
+nmap wIw <:devtools window>
+nmap gd <:write>
+nmap cd <:downloads>
+nmap gt <toCommandMode>buffer<Space>
+nmap <C-Tab> <:buffer #>
+nmap <C-^> <:buffer #>
+nmap <C-v> <toInsertMode>
+nmap <C-q> <:quitall>
+nmap ZQ <:quitall>
+nmap ZZ <:quitall>
+nmap <A-9> <:buffer -1>
+nmap g0 <:buffer 0>
+nmap g^ <:buffer 0>
+nmap g$ <:buffer -1>
+nmap <C-s> <stopLoadingPage>
+nmap <C-A-p> <:print>
+nmap Ss <:help>
+nmap Sh <:history>
+nmap <C-p> <:pin>
+nmap <A-m> <:mute>
+
+imap <C-e> <editWithVim>
+
+cmap <C-p> <commandHistoryPrevious>
+cmap <C-n> <commandHistoryNext>
+cmap <C-Tab> <nextSuggestionSection>
+cmap <C-S-Tab> <prevSuggestionSection>
+cmap <C-e> <End>
+cmap <C-x><C-e> <editWithVim>
+emap <C-Tab> <nextSuggestionSection>
+emap <C-S-Tab> <prevSuggestionSection>
+emap <C-e> <End>
+emap <C-x><C-e> <editWithVim>
+cmap <C-a> <Home>
+cmap <C-b> <Left>
+cmap <C-f> <Right>
+cmap <A-b> <C-Left>
+cmap <A-f> <C-Right>
+cmap <C-u> <S-Home><BS>
+cmap <C-k> <S-End><BS>
+cmap <A-d> <C-S-Right><BS>
+cmap <C-w> <C-S-Left><BS>
+cmap <A-BS> <C-S-Left><BS>
+cmap <C-?> <Del>
+cmap <C-h> <BS>
+emap <C-a> <Home>
+emap <C-b> <Left>
+emap <C-f> <Right>
+emap <A-b> <C-Left>
+emap <A-f> <C-Right>
+emap <C-u> <S-Home><BS>
+emap <C-k> <S-End><BS>
+emap <A-d> <C-S-Right><BS>
+emap <C-w> <C-S-Left><BS>
+emap <A-BS> <C-S-Left><BS>
+emap <C-?> <Del>
+emap <C-h> <BS>
+
+pmap c <toNormalMode>
+pmap e <p.moveFastRight>
+pmap <Space> <p.startVisualSelect>
+vmap v <p.start>
+vmap <CR> <p.copyText>
+vmap <C-Space> <toNormalMode><p.start><p.startVisualSelect>
+
+" Personal mappings from config.py and autoconfig.yml
+nmap <C-o> <:buffer #>
+nmap <C-i> <:buffer #>
+nmap gk <moveTabForward>
+nmap gj <moveTabBackward>
+nmap J <previousTab>
+nmap K <nextTab>
+nmap j <scrollDown>
+nmap <F12> <:devtools>
+nmap <C-S-c> <:runjsinpage ~/.vieb/scripts/copy_selection.js>
+vmap <C-S-c> <p.copyText>
+nmap <C-j> <:runjsinpage ~/.vieb/scripts/jenkins_rebuild.js>
+nmap <C-g> <:runjsinpage ~/.vieb/scripts/go_to_gravity.js>
+nmap <C-S-b> <:!~/.vieb/scripts/multi_quickmark>
+nmap <C-t> <:set darkreader!>
+nmap <C-b> <:set externalcommand=~/.vieb/scripts/clone_pullrequest><openLinkExternal>
+nmap ,m <:set externalcommand=mpv><openLinkExternal>
+nmap Y <:set externalcommand=~/.vieb/scripts/url_path_to_clip><openLinkExternal>
+nmap gI <insertAtFirstInput><editWithVim>
+nmap gu <toExploreMode><End>
+nmap b <:!~/.vieb/scripts/multi_quickmark>
+nmap B <:!~/.vieb/scripts/multi_quickmark>
+
+source ./quickmarks.viebrc
+
+" vim: ft=vim

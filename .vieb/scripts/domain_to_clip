@@ -1,0 +1,6 @@
+#!/usr/bin/env python3
+import subprocess
+import sys
+from urllib import parse
+
+subprocess.run(["xclip", "-selection", "clip"], input=parse.urlparse(sys.argv[1]).netloc.encode())

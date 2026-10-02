@@ -1,0 +1,7 @@
+#!/usr/bin/env python3
+import subprocess
+import sys
+from urllib import parse
+
+url = parse.urlparse(sys.argv[1])
+subprocess.run(["xclip", "-selection", "clip"], input=(url.path + url.fragment).encode())

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+vieb_bin=$(command -v vieb || ls -1 "$HOME"/Downloads/Vieb-*.AppImage 2>/dev/null | sort -V | tail -1)
+tmpfile=$(mktemp)
+trap 'rm -f "$tmpfile"' EXIT
+
+kitty --class=float -e bash -c "fzf -m < ~/.vieb/quickmarks > $tmpfile"
+
+mapfile -t urls < <(awk '{print $NF}' "$tmpfile")
+[ "${#urls[@]}" -gt 0 ] && "$vieb_bin" --no-sandbox "${urls[@]}"
+exit 0

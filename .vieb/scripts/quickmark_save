@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+url="$1"
+kitty --class=float -e bash -c '
+  read -rp "Quickmark name for $1: " name
+  [ -n "$name" ] && printf "%s %s\n" "$name" "$1" >> ~/.vieb/quickmarks
+' _ "$url"
+~/.vieb/scripts/gen_quickmarks

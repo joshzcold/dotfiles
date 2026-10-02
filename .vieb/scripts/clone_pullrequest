@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -ex
+
+token=$(cat /home/joshua/git/codepaste/BitBucketPat)
+url="$1"
+
+project=$(echo "$url" | grep -oP "(?<=projects/).*?(?=/)")
+host=$(echo "$url" | grep -oP "https://.*?(?=/)")
+repo=$(echo "$url" | grep -oP "(?<=repos/).*?(?=/)")
+pull_num=$(echo "$url" | grep -oP "(?<=pull-requests/)\d+")
+
+echo "$project, $host, $repo, $pull_num"
+
+res=$(curl --fail -k -L -H "Authorization: Bearer ${token}" \
+  "${host}/rest/api/1.0/projects/${project}/repos/${repo}/pull-requests/${pull_num}")
+echo "$res" | jq '.'
+
+title=$(echo "$res" | jq -r '.title' | sed 's/[[:blank:]]/_/g' )
+href=$(echo "$res" | jq -r '.links.self[0].href')
+src=$(echo "$res" | jq -r '.fromRef.repository.links.clone[] | select(.name == "ssh") | .href')
+branch=$(echo "$res" | jq -r '.fromRef.displayId')
+
+
+rm -rf "/tmp/bitbucket/${title}"
+mkdir -p "/tmp/bitbucket/${title}"
+cd "/tmp/bitbucket/${title}"
+git clone -b "${branch}" --single-branch "${src}" .
+
+kitty -d="/tmp/bitbucket/${title}" nvim
+
+rm -rf "/tmp/bitbucket/${title}"

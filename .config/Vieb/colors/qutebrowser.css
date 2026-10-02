@@ -1,0 +1,87 @@
+/* qutebrowser look: thin numbered tabs on top, statusbar-style navbar at the bottom, default qutebrowser colors. */
+:root {
+    --bg: #000;
+    --fg: #fff;
+    --tab-background: #1c1c1c;
+    --tab-background-even: #262626;
+    --tab-selected: #4a4a4a;
+    --tab-suspended: #111;
+    --tab-fg: #999;
+    --visible-tab: #000;
+    --mode-normal-fg: #fff;
+    --mode-normal-bg: #000;
+    --mode-command-fg: #fff;
+    --mode-command-bg: #000;
+    --mode-insert-fg: #fff;
+    --mode-insert-bg: #006400;
+    --mode-follow-fg: #fff;
+    --mode-follow-bg: #000;
+    --mode-explore-fg: #fff;
+    --mode-explore-bg: #000;
+    --mode-search-fg: #fff;
+    --mode-search-bg: #000;
+    --mode-pointer-fg: #fff;
+    --mode-pointer-bg: #800080;
+    --mode-visual-fg: #fff;
+    --mode-visual-bg: #a12dff;
+    --url-default: #0f0;
+    --suggestions-border: #000;
+    --suggestions-bg: #333;
+    --suggestions-selected: #e8c000;
+    --suggestions-url: #6cf;
+    --follow-text: #000;
+    --follow-url-bg: #ffef94;
+    --follow-url-border: #e3be23;
+    --follow-click-bg: #ffef94;
+    --follow-click-border: #e3be23;
+    --follow-insert-bg: #ffef94;
+    --follow-insert-border: #e3be23;
+    --follow-onclick-bg: #ffef94;
+    --follow-onclick-border: #e3be23;
+    --follow-media-bg: #ffef94;
+    --follow-media-border: #e3be23;
+    --follow-image-bg: #ffef94;
+    --follow-image-border: #e3be23;
+    --follow-other-bg: #ffef94;
+    --follow-other-border: #e3be23;
+    --url-hover-fg: #0ff;
+    --url-hover-bg: #000;
+    --scrollbar-bg: #000;
+}
+
+/* layout: tabs, page, then the navbar as a bottom statusbar */
+#tabs {order: 1;}
+#page-container {order: 2;}
+#navbar {order: 3;}
+#app.navigationhidden #navbar {position: static;}
+#url-hover {bottom: 0;left: auto;right: 0;}
+#suggest-dropdown {top: auto;bottom: 0;flex-direction: column-reverse;}
+#mode-suggestions {top: auto;bottom: 1.4em;flex-direction: column-reverse;}
+#app.navigationhidden #suggest-dropdown {top: auto;bottom: 0;}
+
+/* tabs */
+#tabs {gap: 0;background: #111;}
+#tabs > span {height: 1.4em;background: var(--tab-background);color: var(--tab-fg);}
+#tabs > span:nth-child(even) {background: var(--tab-background-even);}
+#tabs > span#current-tab {background: var(--tab-selected);color: var(--fg);}
+#tabs > span > img {height: 1.1em;width: 1.1em;min-height: 1.1em;min-width: 1.1em;}
+#tabs {counter-reset: tab-counter 0;}
+#tabs > span::after {order: -1;counter-increment: tab-counter 1;content: counter(tab-counter) ":";margin: auto 0 auto .25em;}
+#tabs .pinned {min-width: 3.2em !important;max-width: 3.2em;width: 3.2em;}
+
+/* statusbar */
+#logo {display: none;}
+#navbar {height: 1.4em;}
+#mode-container {width: auto;padding: 0 .4em;}
+#mode {font-size: 1em;font-weight: normal;text-transform: uppercase;}
+#mode::before {content: "-- ";}
+#mode::after {content: " MODE --";}
+#app[current-mode=normal] #mode-container {display: none;}
+#url {border: none;margin: 0;padding: 0 .3em;color: var(--url-default);}
+#app[current-mode=command] #url, #app[current-mode=explore] #url, #app[current-mode=search] #url {color: var(--fg);}
+#app[current-mode=insert] #navbar {background: var(--mode-insert-bg);}
+#app[current-mode=pointer] #navbar {background: var(--mode-pointer-bg);}
+#app[current-mode=visual] #navbar {background: var(--mode-visual-bg);}
+#suggest-dropdown div {padding: .1em .4em;margin: 0;}
+#suggest-dropdown div.selected {color: #000;}
+#suggest-dropdown div.selected .url {color: #000;}
