@@ -1,7 +1,8 @@
 SSH_ASKPASS=ksshaskpass
 export SSH_ASKPASS
 
-BROWSER=$HOME/.nix-profile/bin/qutebrowser
+# BROWSER=$HOME/.nix-profile/bin/qutebrowser
+BROWSER=$HOME/.config/usr-scripts/vieb.sh
 export BROWSER
 
 if [ -f "/home/joshua/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
