@@ -1,92 +1,69 @@
 #!/usr/bin/env bash
 set -eou pipefail
 
-# # Print two lines: the current URL of an already-open qutebrowser tab matching
-# # $1 (empty if none), and the index just right of the last pinned tab in the
-# # active window. Dumping the live session is the only way to read tab state from
-# # outside qutebrowser; :tab-select then matches that URL as a substring.
-# qb_tab_state() {
-#	local url="$1" dump out=""
-#
-#	# With no running instance there is nothing to search, and sending it a
-#	# command would start a browser in the foreground and block.
-#	compgen -G "${XDG_RUNTIME_DIR:-/run/user/$UID}/qutebrowser/ipc-*" >/dev/null || return 1
-#
-#	dump="$(mktemp -t qb-session.XXXXXX.yml)"
-#	qutebrowser ":session-save --quiet --no-history $dump" >/dev/null 2>&1 || { rm -f "$dump"; return 1; }
-#	out="$(python3 - "$dump" "$url" <<-'PY'
-#		import sys, time, yaml
-#
-#		dump, target = sys.argv[1], sys.argv[2]
-#
-#		# session-save runs asynchronously in the browser process.
-#		for _ in range(30):
-#		    try:
-#		        session = yaml.safe_load(open(dump)) or {}
-#		    except yaml.YAMLError:
-#		        session = {}
-#		    if session.get('windows'):
-#		        break
-#		    time.sleep(0.1)
-#		else:
-#		    sys.exit(1)
-#
-#		def current_url(tab):
-#		    history = tab.get('history') or []
-#		    entry = next((e for e in history if e.get('active')), history[-1] if history else None)
-#		    return entry.get('url', '') if entry else None
-#
-#		found = ''
-#		for window in session['windows']:
-#		    for tab in window.get('tabs') or []:
-#		        tab_url = current_url(tab)
-#		        if tab_url is None:
-#		            continue
-#		        # Prefix match so .../pull/123 finds a tab sitting on
-#		        # .../pull/123/files, but never on .../pull/1234.
-#		        rest = tab_url[len(target):] if tab_url.startswith(target) else None
-#		        if rest is not None and (rest == '' or rest[0] in '/?#'):
-#		            found = tab_url
-#		            break
-#		    if found:
-#		        break
-#
-#		# A new tab lands at the end, so the last pinned index is where it belongs.
-#		windows = session['windows']
-#		active = next((w for w in windows if w.get('active')), windows[0])
-#		pinned = [i for i, tab in enumerate(active.get('tabs') or [], start=1) if tab.get('pinned')]
-#
-#		print(found)
-#		print((pinned[-1] if pinned else 0) + 1)
-#	PY
-#	)" || out=""
-#	rm -f "$dump"
-#
-#	[[ -n "$out" ]] || return 1
-#	printf '%s\n' "$out"
-# }
+# Print two lines: the current URL of an already-open qutebrowser tab matching
+# $1 (empty if none), and the index just right of the last pinned tab in the
+# active window. Dumping the live session is the only way to read tab state from
+# outside qutebrowser; :tab-select then matches that URL as a substring.
+qb_tab_state() {
+	local url="$1" dump out=""
 
-# Print the index of an already-open Vieb tab whose url matches $1, empty if none.
-# :buffers lists every tab as "<index>: <url>", which :buffer <index> can switch to.
-vieb_tab_index() {
-	local url="$1" buffers
+	# With no running instance there is nothing to search, and sending it a
+	# command would start a browser in the foreground and block.
+	compgen -G "${XDG_RUNTIME_DIR:-/run/user/$UID}/qutebrowser/ipc-*" >/dev/null || return 1
 
-	buffers="$(vieb.sh --execute buffers)" || return 1
-	python3 - "$url" "$buffers" <<-'PY'
-		import sys
+	dump="$(mktemp -t qb-session.XXXXXX.yml)"
+	qutebrowser ":session-save --quiet --no-history $dump" >/dev/null 2>&1 || { rm -f "$dump"; return 1; }
+	out="$(python3 - "$dump" "$url" <<-'PY'
+		import sys, time, yaml
 
-		target, buffers = sys.argv[1], sys.argv[2]
-		for line in buffers.splitlines():
-		    index, sep, tab_url = line.partition(": ")
-		    if not sep or not index.isdigit():
-		        continue
-		    # Prefix match so .../pull/123 finds a tab sitting on
-		    # .../pull/123/files, but never on .../pull/1234.
-		    rest = tab_url[len(target):] if tab_url.startswith(target) else None
-		    if rest is not None and (rest == '' or rest[0] in '/?#'):
-		        print(index)
+		dump, target = sys.argv[1], sys.argv[2]
+
+		# session-save runs asynchronously in the browser process.
+		for _ in range(30):
+		    try:
+		        session = yaml.safe_load(open(dump)) or {}
+		    except yaml.YAMLError:
+		        session = {}
+		    if session.get('windows'):
 		        break
+		    time.sleep(0.1)
+		else:
+		    sys.exit(1)
+
+		def current_url(tab):
+		    history = tab.get('history') or []
+		    entry = next((e for e in history if e.get('active')), history[-1] if history else None)
+		    return entry.get('url', '') if entry else None
+
+		found = ''
+		for window in session['windows']:
+		    for tab in window.get('tabs') or []:
+		        tab_url = current_url(tab)
+		        if tab_url is None:
+		            continue
+		        # Prefix match so .../pull/123 finds a tab sitting on
+		        # .../pull/123/files, but never on .../pull/1234.
+		        rest = tab_url[len(target):] if tab_url.startswith(target) else None
+		        if rest is not None and (rest == '' or rest[0] in '/?#'):
+		            found = tab_url
+		            break
+		    if found:
+		        break
+
+		# A new tab lands at the end, so the last pinned index is where it belongs.
+		windows = session['windows']
+		active = next((w for w in windows if w.get('active')), windows[0])
+		pinned = [i for i, tab in enumerate(active.get('tabs') or [], start=1) if tab.get('pinned')]
+
+		print(found)
+		print((pinned[-1] if pinned else 0) + 1)
 	PY
+	)" || out=""
+	rm -f "$dump"
+
+	[[ -n "$out" ]] || return 1
+	printf '%s\n' "$out"
 }
 
 remote="$(git config --get remote.origin.url)"
@@ -124,34 +101,21 @@ fi
 
 echo "$url"
 if [[ -z "${SSH_CLIENT:-}" && -z "${SSH_TTY:-}" ]]; then
-	# open_tab="" pin_index=""
-	# if state="$(qb_tab_state "$url")"; then
-	# 	open_tab="$(printf '%s\n' "$state" | sed -n 1p)"
-	# 	pin_index="$(printf '%s\n' "$state" | sed -n 2p)"
-	# fi
-	# if [[ -n "$open_tab" ]]; then
-	# 	qutebrowser ":tab-select $open_tab"
-	# 	qutebrowser ":reload"
-	# else
-	# 	qutebrowser ":open -t $url"
-	# 	# Pin the review tab and park it at the right edge of the pinned block so
-	# 	# it keeps the same spot every time.
-	# 	if [[ -n "$pin_index" ]]; then
-	# 		qutebrowser ":tab-pin"
-	# 		qutebrowser ":tab-move $pin_index"
-	# 	fi
-	# fi
-	open_tab=""
-	if vieb.sh --running; then
-		open_tab="$(vieb_tab_index "$url")" || open_tab=""
+	open_tab="" pin_index=""
+	if state="$(qb_tab_state "$url")"; then
+		open_tab="$(printf '%s\n' "$state" | sed -n 1p)"
+		pin_index="$(printf '%s\n' "$state" | sed -n 2p)"
 	fi
 	if [[ -n "$open_tab" ]]; then
-		vieb.sh --execute "call <:buffer $open_tab><refreshTab>" >/dev/null
-	elif vieb.sh --running; then
-		# Vieb pins a tab at the right edge of the pinned block, so the review tab
-		# keeps the same spot every time.
-		vieb.sh --execute "call <:tabnew $url><:pin! true>" >/dev/null
+		qutebrowser ":tab-select $open_tab"
+		qutebrowser ":reload"
 	else
-		vieb.sh "$url"
+		qutebrowser ":open -t $url"
+		# Pin the review tab and park it at the right edge of the pinned block so
+		# it keeps the same spot every time.
+		if [[ -n "$pin_index" ]]; then
+			qutebrowser ":tab-pin"
+			qutebrowser ":tab-move $pin_index"
+		fi
 	fi
 fi

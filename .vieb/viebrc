@@ -13,7 +13,6 @@ set restoretabs=all
 set nativetheme=dark
 set nodarkreader
 set adblocker=off
-set useragent=["Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"]
 set searchengine=https://duckduckgo.com/?q=%s
 set spelllang=en-US
 set permissionclipboardread=allow

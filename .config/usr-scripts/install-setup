@@ -93,16 +93,14 @@ function get_nixgl() {
 	fi
 }
 
-# function setup_dictionary_qutebrowser() {
-#	user_prompt "Setup dictionary qutebrowser"
-#	if [[ $REPLY =~ ^[Yy]$ ]]; then
-#		set -x
-#		/home/joshua/.nix-profile/share/qutebrowser/scripts/dictcli.py install en-US
-#		{ set +x; } 2>/dev/null
-#	fi
-# }
-
-# Vieb is installed by home-manager (home.nix) and downloads its own spellcheck dictionaries.
+function setup_dictionary_qutebrowser() {
+	user_prompt "Setup dictionary qutebrowser"
+	if [[ $REPLY =~ ^[Yy]$ ]]; then
+		set -x
+		/home/joshua/.nix-profile/share/qutebrowser/scripts/dictcli.py install en-US
+		{ set +x; } 2>/dev/null
+	fi
+}
 
 function clone_code_paste() {
 	user_prompt "Clone code-paste to ~/git"
@@ -136,14 +134,14 @@ function setup_perimeter81() {
 	fi
 }
 
-# function install_node_deps_qutebrowser() {
-#	user_prompt "Install nodejs dependencies for qutebrowser"
-#	if [[ $REPLY =~ ^[Yy]$ ]]; then
-#		# user specific packages
-#		cd ~/.config/qutebrowser/userscripts
-#		npm install qutejs
-#	fi
-# }
+function install_node_deps_qutebrowser() {
+	user_prompt "Install nodejs dependencies for qutebrowser"
+	if [[ $REPLY =~ ^[Yy]$ ]]; then
+		# user specific packages
+		cd ~/.config/qutebrowser/userscripts
+		npm install qutejs
+	fi
+}
 
 function install_bob_neovim() {
 	user_prompt "Install bob neovim"
@@ -234,11 +232,11 @@ function run_all() {
 	setup_packages_and_nix_channel
 	run_nix_home_manager
 	get_nixgl
-	# setup_dictionary_qutebrowser
+	setup_dictionary_qutebrowser
 	clone_code_paste
 	setup_kmonad
 	setup_perimeter81
-	# install_node_deps_qutebrowser
+	install_node_deps_qutebrowser
 	install_bob_neovim
 	install_tree_sitter_cli
 	symlink_apps_usr_local_bin
@@ -254,11 +252,11 @@ function show_menu() {
 	echo "  3) Setup packages and nix-channel"
 	echo "  4) Run nix home-manager"
 	echo "  5) Get nixGL"
-	# echo "  6) Setup dictionary qutebrowser"
+	echo "  6) Setup dictionary qutebrowser"
 	echo "  7) Clone code-paste to ~/git"
 	echo "  8) Setup kmonad"
 	echo "  9) setup perimeter81"
-	# echo " 10) Install nodejs dependencies for qutebrowser"
+	echo " 10) Install nodejs dependencies for qutebrowser"
 	echo " 11) Install bob neovim"
 	echo " 12) Install tree-sitter cli"
 	echo " 13) Symlink apps into /usr/local/bin"
@@ -278,11 +276,11 @@ while true; do
 	3) setup_packages_and_nix_channel ;;
 	4) run_nix_home_manager ;;
 	5) get_nixgl ;;
-	# 6) setup_dictionary_qutebrowser ;;
+	6) setup_dictionary_qutebrowser ;;
 	7) clone_code_paste ;;
 	8) setup_kmonad ;;
 	9) setup_perimeter81 ;;
-	# 10) install_node_deps_qutebrowser ;;
+	10) install_node_deps_qutebrowser ;;
 	11) install_bob_neovim ;;
 	12) install_tree_sitter_cli ;;
 	13) symlink_apps_usr_local_bin ;;
