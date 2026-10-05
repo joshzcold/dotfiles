@@ -13,6 +13,50 @@ function git_convert_to_branch_name() {
   echo "$output"
 }
 
+FZF_TABS=('All' 'In Progress' 'Code Review' 'Other')
+
+function fzf_tab_header() {
+  local tab out=""
+  for tab in "${FZF_TABS[@]}"; do
+    if [ "${tab}" = "$1" ]; then
+      out+=$'\033[7m'" ${tab} "$'\033[0m'"  "
+    else
+      out+=" ${tab}   "
+    fi
+  done
+  echo "${out}"
+}
+
+# Non-issue lines (CHORE, HOTFIX, ...) have one field and show on every tab.
+function fzf_tab_filter() {
+  awk -F '\t' -v tab="$1" '
+    NF == 1 || tab == "All" { print; next }
+    tab == "Other" { if ($2 != "In Progress" && $2 != "Code Review") print; next }
+    $2 == tab
+  ' "$2"
+}
+
+# Prints the fzf actions that move from the current tab ($FZF_PROMPT) by $1 steps.
+function fzf_tab_switch() {
+  local step="$1" current="${2%> }" file="$3" i next
+  for i in "${!FZF_TABS[@]}"; do
+    [ "${FZF_TABS[$i]}" = "${current}" ] && break
+  done
+  next="${FZF_TABS[$(((i + step + ${#FZF_TABS[@]}) % ${#FZF_TABS[@]}))]}"
+  echo "change-prompt(${next}> )+change-header($(fzf_tab_header "${next}"))+reload('${BASH_SOURCE[0]}' --fzf-tab-filter '${next}' '${file}')+first"
+}
+
+case "$1" in
+--fzf-tab-filter)
+  fzf_tab_filter "$2" "$3"
+  exit
+  ;;
+--fzf-tab-switch)
+  fzf_tab_switch "$2" "$3" "$4"
+  exit
+  ;;
+esac
+
 (git fetch origin &>/dev/null &)
 
 MAIN_BRANCH=$(git branch --format '%(refname:short)' --list master main)
@@ -39,11 +83,11 @@ fi
 
 jira_issues="$(
   acli jira workitem search \
-    --jql "project = ${JIRA_PROJECT} AND status IN (${status_jql}) ORDER BY updated DESC" \
+    --jql "(project = ${JIRA_PROJECT} AND status IN (${status_jql})) OR (assignee = currentUser() AND issuetype IN (Story, Task, Bug, Sub-task) AND statusCategory != Done) ORDER BY updated DESC" \
     --fields 'key,status,issuetype,assignee,summary' \
     --limit 200 \
     --json |
-    jq -r '.[] | [
+    jq -r --arg prefix "${JIRA_PROJECT}-" 'sort_by(.key | startswith($prefix) | not) | .[] | [
       .key,
       .fields.status.name,
       .fields.issuetype.name,
@@ -62,7 +106,19 @@ list+="HOTFIX"$'\n'
 list+="ENHANCEMENT"$'\n'
 list+="EXPERIMENT"$'\n'
 list+="${jira_issues}"
-selected_line="$(printf '%s' "${list}" | fzf --query '')"
+
+list_file="$(mktemp)"
+trap 'rm -f "${list_file}"' EXIT
+printf '%s\n' "${list}" >"${list_file}"
+
+self="${BASH_SOURCE[0]}"
+selected_line="$(
+  fzf_tab_filter 'In Progress' "${list_file}" | fzf --query '' \
+    --prompt 'In Progress> ' \
+    --header "$(fzf_tab_header 'In Progress')" \
+    --bind "tab:transform:'${self}' --fzf-tab-switch 1 \"\$FZF_PROMPT\" '${list_file}'" \
+    --bind "shift-tab:transform:'${self}' --fzf-tab-switch -1 \"\$FZF_PROMPT\" '${list_file}'"
+)"
 [ -z "$selected_line" ] && exit 1
 key="$(echo "${selected_line}" | awk '{print $1}')"
 
