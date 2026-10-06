@@ -575,7 +575,8 @@ swallow(Client *p, Client *c)
 	detach(c);
 	detachstack(c);
 
-	setclientstate(c, WithdrawnState);
+	/* The terminal (p->win, before the swap below) is what gets hidden. */
+	setclientstate(p, WithdrawnState);
 	XUnmapWindow(dpy, p->win);
 
 	p->swallowing = c;

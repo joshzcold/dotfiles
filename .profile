@@ -1,7 +1,9 @@
 SSH_ASKPASS=ksshaskpass
 export SSH_ASKPASS
 
-BROWSER=$HOME/.nix-profile/bin/qutebrowser
+# BROWSER=$HOME/.nix-profile/bin/qutebrowser
+# riptide links to the hackers-browser checkout's build for now.
+BROWSER=$HOME/.local/bin/riptide
 export BROWSER
 
 if [ -f "/home/joshua/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then

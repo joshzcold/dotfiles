@@ -66,6 +66,63 @@ qb_tab_state() {
 	printf '%s\n' "$out"
 }
 
+# riptide's version of qb_tab_state: the same two lines, read from a saved
+# session (TOML in riptide's data directory, the active window first).
+rt_tab_state() {
+	local url="$1" data name="_open-review" dump out=""
+
+	# With no running instance there is nothing to search, and sending it a
+	# command would start a browser in the foreground and block.
+	compgen -G "${XDG_RUNTIME_DIR:-/run/user/$UID}/riptide/*.sock" >/dev/null || return 1
+
+	data="$(riptide --paths | sed -n 's/^data: *//p')"
+	dump="$data/sessions/$name.toml"
+	rm -f "$dump"
+	riptide ":session-save $name" >/dev/null 2>&1 || return 1
+	out="$(python3 - "$dump" "$url" <<-'PY'
+		import sys, time, tomllib
+
+		dump, target = sys.argv[1], sys.argv[2]
+
+		# The running browser saves the session after this script asked for it.
+		for _ in range(30):
+		    try:
+		        session = tomllib.load(open(dump, 'rb'))
+		    except (OSError, tomllib.TOMLDecodeError):
+		        session = {}
+		    if session.get('windows'):
+		        break
+		    time.sleep(0.1)
+		else:
+		    sys.exit(1)
+
+		found = ''
+		for window in session['windows']:
+		    for tab in window.get('tabs') or []:
+		        tab_url = tab.get('url', '')
+		        # Prefix match so .../pull/123 finds a tab sitting on
+		        # .../pull/123/files, but never on .../pull/1234.
+		        rest = tab_url[len(target):] if tab_url.startswith(target) else None
+		        if rest is not None and (rest == '' or rest[0] in '/?#'):
+		            found = tab_url
+		            break
+		    if found:
+		        break
+
+		# A new tab lands at the end, so the last pinned index is where it belongs.
+		active = session['windows'][0]
+		pinned = [i for i, tab in enumerate(active.get('tabs') or [], start=1) if tab.get('pinned')]
+
+		print(found)
+		print((pinned[-1] if pinned else 0) + 1)
+	PY
+	)" || out=""
+	rm -f "$dump"
+
+	[[ -n "$out" ]] || return 1
+	printf '%s\n' "$out"
+}
+
 remote="$(git config --get remote.origin.url)"
 open_jenkins=false
 if [[ "${1:-}" == "--jenkins" || "${1:-}" == "jenkins" || "${1:-}" == "-j" ]]; then
@@ -102,20 +159,24 @@ fi
 echo "$url"
 if [[ -z "${SSH_CLIENT:-}" && -z "${SSH_TTY:-}" ]]; then
 	open_tab="" pin_index=""
-	if state="$(qb_tab_state "$url")"; then
+	# if state="$(qb_tab_state "$url")"; then
+	if state="$(rt_tab_state "$url")"; then
 		open_tab="$(printf '%s\n' "$state" | sed -n 1p)"
 		pin_index="$(printf '%s\n' "$state" | sed -n 2p)"
 	fi
 	if [[ -n "$open_tab" ]]; then
-		qutebrowser ":tab-select $open_tab"
-		qutebrowser ":reload"
+		# qutebrowser ":tab-select $open_tab"
+		# qutebrowser ":reload"
+		riptide ":tab-select $open_tab" ":reload"
 	else
-		qutebrowser ":open -t $url"
+		# qutebrowser ":open -t $url"
+		riptide ":open -t $url"
 		# Pin the review tab and park it at the right edge of the pinned block so
 		# it keeps the same spot every time.
 		if [[ -n "$pin_index" ]]; then
-			qutebrowser ":tab-pin"
-			qutebrowser ":tab-move $pin_index"
+			# qutebrowser ":tab-pin"
+			# qutebrowser ":tab-move $pin_index"
+			riptide ":tab-pin" ":tab-move $pin_index"
 		fi
 	fi
 fi

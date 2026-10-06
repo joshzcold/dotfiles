@@ -2,7 +2,8 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-quickmarks_file="$HOME/.config/qutebrowser/quickmarks"
+# quickmarks_file="$HOME/.config/qutebrowser/quickmarks"
+quickmarks_file="$HOME/.config/riptide/quickmarks"
 
 if [[ ! -f "$quickmarks_file" ]]; then
 	echo "Quickmarks file not found: $quickmarks_file" >&2
@@ -19,6 +20,7 @@ fi
 while IFS=$'\n' read -r line; do
 	url=$(echo "$line" | rev | cut --delimiter=' ' --fields=-1 | rev)
 	if [[ -n "$url" ]]; then
-		qutebrowser ":open -t $url"
+		# qutebrowser ":open -t $url"
+		riptide ":open -t $url"
 	fi
 done <<<"$selection"
