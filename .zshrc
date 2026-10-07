@@ -433,12 +433,12 @@ function cgit(){
   local cmd=${FZF_ALT_C_COMMAND:-"fd --search-path $HOME/git --glob '*.git' --no-ignore-vcs --hidden --prune --exec dirname {}"}
   setopt localoptions pipefail no_aliases 2> /dev/null
 
-  # Frecency-ranked repos first, then whatever fd finds, deduped -- both are
-  # streamed straight into fzf (no array capture, no per-path stat) so the
-  # UI appears immediately instead of waiting for fd to finish scanning.
+  # fzf runs the source itself so it kills fd on exit; piping into fzf made $(...) wait for the full scan.
+  # fzf only uses FZF_DEFAULT_COMMAND when stdin is a tty, and ZLE widgets don't provide one, hence </dev/tty.
   local dir="$(
-    { _cgit_frecency_sorted; eval "$cmd"; } | awk '!seen[$0]++' | \
-      FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --preview='cd {}; git symbolic-ref -q --short HEAD || git describe --tags --exact-match' --reverse --preview-window up,1,border-horizontal $FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS" $(__fzfcmd) +m
+    CGIT_RECENT="$(_cgit_frecency_sorted)" \
+    FZF_DEFAULT_COMMAND="{ [ -n \"\$CGIT_RECENT\" ] && printf '%s\n' \"\$CGIT_RECENT\"; $cmd; } | awk '!seen[\$0]++'" \
+    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --preview='cd {}; git symbolic-ref -q --short HEAD || git describe --tags --exact-match' --reverse --preview-window up,1,border-horizontal $FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS" $(__fzfcmd) +m < /dev/tty
   )"
   if [[ -z "$dir" ]]; then
     zle redisplay
