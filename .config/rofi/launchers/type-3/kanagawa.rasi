@@ -1,0 +1,20 @@
+@import "~/.config/rofi/emoji/emoji.rasi"
+
+configuration {
+    modi:                "drun";
+    show-icons:          true;
+    display-drun:        "";
+    drun-display-format: "{name}";
+}
+
+entry {
+    placeholder: "Search apps";
+}
+
+element {
+    spacing: 12px;
+}
+element-icon {
+    size:   24px;
+    cursor: inherit;
+}
