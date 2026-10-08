@@ -1,0 +1,11 @@
+/* Kanagawa Dragon, matched to ~/.config/kitty/current-theme.conf */
+* {
+    background:     #0a0c0fFF;
+    background-alt: #12120fFF;
+    foreground:     #c5c9c5FF;
+    selected:       #2d4f67FF;
+    active:         #8a9a7bFF;
+    urgent:         #c4746eFF;
+    accent:         #c8c093FF;
+    muted:          #a6a69cFF;
+}

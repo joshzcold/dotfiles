@@ -1,0 +1,99 @@
+configuration {
+    show-icons: false;
+}
+
+@import "~/.config/rofi/colors/kanagawa-dragon.rasi"
+
+* {
+    font:             "LigaSauceCodePro Nerd Font 12";
+    background-color: transparent;
+    text-color:       @foreground;
+}
+
+window {
+    location:         center;
+    anchor:           center;
+    width:            640px;
+    border:           2px solid;
+    border-color:     @selected;
+    border-radius:    8px;
+    background-color: @background;
+}
+
+mainbox {
+    spacing:  12px;
+    padding:  20px;
+    children: [ "inputbar", "message", "listview" ];
+}
+
+inputbar {
+    spacing:          10px;
+    padding:          10px 14px;
+    border:           0px 0px 0px 3px;
+    border-color:     @accent;
+    border-radius:    4px;
+    background-color: @background-alt;
+    children:         [ "prompt", "entry" ];
+}
+prompt {
+    text-color: @accent;
+}
+entry {
+    placeholder:       "Search emoji";
+    placeholder-color: @muted;
+    cursor:            text;
+}
+
+message {
+    padding:          8px 14px;
+    border-radius:    4px;
+    background-color: @background-alt;
+}
+textbox {
+    text-color:     @muted;
+    vertical-align: 0.5;
+}
+
+listview {
+    lines:        10;
+    columns:      1;
+    spacing:      4px;
+    cycle:        true;
+    dynamic:      true;
+    scrollbar:    true;
+    fixed-height: true;
+}
+scrollbar {
+    handle-width:     4px;
+    handle-color:     @selected;
+    border-radius:    4px;
+    background-color: @background-alt;
+}
+
+element {
+    padding:       8px 12px;
+    border-radius: 4px;
+    cursor:        pointer;
+}
+element normal.normal,
+element alternate.normal {
+    background-color: transparent;
+    text-color:       @foreground;
+}
+element selected.normal {
+    border:           0px 0px 0px 3px;
+    border-color:     @accent;
+    background-color: @selected;
+    text-color:       @accent;
+}
+element-text {
+    text-color:     inherit;
+    highlight:      bold #e6c384;
+    vertical-align: 0.5;
+}
+
+error-message {
+    padding:          20px;
+    background-color: @background;
+    text-color:       @urgent;
+}
