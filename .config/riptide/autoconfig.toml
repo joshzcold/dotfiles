@@ -1,0 +1,26 @@
+# Written by riptide when you use :set, :bind or :unbind.
+# Loaded before config.toml and config.lua, which override it.
+# Prefer editing those files; changes here may be overwritten.
+
+"colors.hints.bg" = "#061793"
+"colors.hints.border" = "#0a1ca3"
+"colors.hints.fg" = "#ffffff"
+"colors.hints.match.fg" = "#ffb752"
+"content.notifications.presenter" = "libnotify"
+"content.notifications.timeout" = 10000
+"spellcheck.languages" = ["en-US"]
+"ui.theme" = "riptide"
+
+[per_domain."https://calendar.google.com"]
+"content.notifications.enabled" = "true"
+
+[per_domain."https://gemini.google.com"]
+"content.notifications.enabled" = "true"
+
+[per_domain."https://meet.google.com"]
+"content.desktop_capture" = "true"
+"content.media.audio_capture" = "true"
+"content.media.video_capture" = "true"
+
+[per_domain."https://web.whatsapp.com"]
+"content.notifications.enabled" = "true"

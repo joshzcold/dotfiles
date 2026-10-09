@@ -1,0 +1,18 @@
+# Kanagawa Lotus, the light variant of kanagawa.nvim.
+[palette]
+base = "#e5ddb0"      # lotusWhite2
+surface = "#f2ecbc"   # lotusWhite3
+surface2 = "#e7dba0"  # lotusWhite4
+surface3 = "#e4d794"  # lotusWhite5
+fg = "#545464"        # lotusInk1
+muted = "#716e61"     # lotusGray2
+accent = "#4d699b"    # lotusBlue4
+yellow = "#77713f"    # lotusYellow
+red = "#c84053"       # lotusRed
+orange = "#cc6d00"    # lotusOrange
+green = "#6f894e"     # lotusGreen
+blue = "#4e8ca2"      # lotusTeal1
+
+[colors]
+"completion.item.selected.bg" = "#c7d7e0"
+"completion.item.selected.fg" = "#43436c"

@@ -1,0 +1,19 @@
+# Kanagawa Dragon, from kanagawa.nvim, with kitty's #0a0c0f background.
+[palette]
+base = "#0a0c0f"      # status bar, headers
+surface = "#181616"   # tab bar, completion, prompts (dragonBlack3)
+surface2 = "#1d1c19"  # alternating tabs (dragonBlack2)
+surface3 = "#282727"  # (dragonBlack4)
+fg = "#c5c9c5"        # dragonWhite
+muted = "#a6a69c"     # dragonGray
+accent = "#8ba4b0"    # dragonBlue2
+yellow = "#c4b28a"    # dragonYellow
+red = "#c4746e"       # dragonRed
+orange = "#b6927b"    # dragonOrange
+green = "#8a9a7b"     # dragonGreen2
+blue = "#658594"      # dragonBlue
+
+[colors]
+# Selection as in kitty and Neovim: waveBlue2 behind oldWhite.
+"completion.item.selected.bg" = "#2d4f67"
+"completion.item.selected.fg" = "#c8c093"
