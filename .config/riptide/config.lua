@@ -41,6 +41,9 @@ if rt.platform == "macos" then
   -- rt.bind("<Ctrl-v>", "insert-text -- {clipboard}")
 end
 
+-- Bitwarden logins through the bw CLI; riptide adds the passwords plugin it fills through.
+rt.pack.add({ "https://github.com/joshzcold/riptide-plugins", subdir = "bitwarden" })
+
 -- Page notifications go to the Linux desktop (D-Bus, like any app). "messages"
 -- would show them in riptide's status bar instead.
 c.content.notifications.presenter = "auto"
