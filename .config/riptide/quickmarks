@@ -210,6 +210,18 @@ argocd hq-operations https://argocd.hq-operations-v-kubebalancer-1.secmet.co/log
 argocd dk-prodsec1 https://argocd.dk-prodsec1-v-kubebalancer-1.secmet.co/login
 argocd hq-devsec1 https://argocd.hq-devsec1-v-kubebalancer-1.secmet.co/login
 kargo hq-operations https://kargo.hq-operations-v-kubebalancer-1.secmet.co/
+backstage hq-operations https://backstage.hq-operations-v-kubebalancer-1.secmet.co/
+tekton dev hq-devops https://tekton-dev.hq-devops-v-kubebalancer-1.secmet.co/
+tekton dev hq-operations https://tekton-dev.hq-operations-v-kubebalancer-1.secmet.co/
+tekton dev hq-dev https://tekton-dev.hq-dev-v-kubebalancer-1.secmet.co/
+tekton dev hq-devsec1 https://tekton-dev.hq-devsec1-v-kubebalancer-1.secmet.co/
+tekton dev hq-ref1 https://tekton-dev.hq-ref1-v-kubebalancer-1.secmet.co/
+tekton prod hq-devops https://tekton-prod.hq-devops-v-kubebalancer-1.secmet.co/
+tekton prod hq-operations https://tekton-prod.hq-operations-v-kubebalancer-1.secmet.co/
+tekton prod dk-prod1 https://tekton-prod.dk-prod1-v-kubebalancer-1.secmet.co/
+tekton prod dk-prod2 https://tekton-prod.dk-prod2-v-kubebalancer-1.secmet.co/
+tekton prod dk-prodsec1 https://tekton-prod.dk-prodsec1-v-kubebalancer-1.secmet.co/
+tekton prod sg-prod3 https://tekton-prod.sg-prod3-v-kubebalancer-1.secmet.co/
 gemini https://gemini.google.com/app
 graphite code review https://app.graphite.com/#
 Google Card V2 Builder https://addons.gsuite.google.com/uikit/builder
