@@ -210,7 +210,7 @@ argocd hq-operations https://argocd.hq-operations-v-kubebalancer-1.secmet.co/log
 argocd dk-prodsec1 https://argocd.dk-prodsec1-v-kubebalancer-1.secmet.co/login
 argocd hq-devsec1 https://argocd.hq-devsec1-v-kubebalancer-1.secmet.co/login
 kargo hq-operations https://kargo.hq-operations-v-kubebalancer-1.secmet.co/
-backstage hq-operations https://backstage.hq-operations-v-kubebalancer-1.secmet.co/
+backstage hq-operations https://pipelines.secmet.co/
 tekton dev hq-devops https://tekton-dev.hq-devops-v-kubebalancer-1.secmet.co/
 tekton dev hq-operations https://tekton-dev.hq-operations-v-kubebalancer-1.secmet.co/
 tekton dev hq-dev https://tekton-dev.hq-dev-v-kubebalancer-1.secmet.co/
