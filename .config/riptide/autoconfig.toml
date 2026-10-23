@@ -6,6 +6,7 @@
 "colors.hints.border" = "#0a1ca3"
 "colors.hints.fg" = "#ffffff"
 "colors.hints.match.fg" = "#ffb752"
+"content.blocking.whitelist" = ["mail.google.com"]
 "content.notifications.presenter" = "libnotify"
 "content.notifications.timeout" = 10000
 "spellcheck.languages" = ["en-US"]

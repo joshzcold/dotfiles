@@ -44,6 +44,26 @@ end
 -- Bitwarden logins through the bw CLI; riptide adds the passwords plugin it fills through.
 rt.pack.add({ "https://github.com/joshzcold/riptide-plugins", subdir = "bitwarden" })
 
+-- Edit the focused text field in nvim, drawn over the field: <Ctrl-Shift-e> or :firenvim.
+-- It opens by itself on text areas; its "⊘ ignore" button can leave a field or site alone from then on.
+rt.pack.add({ "https://github.com/joshzcold/riptide-plugins", subdir = "firenvim", opts = {} })
+
+-- Mark pages and jump to them: <Space>a marks, <Space>1-4 jump, <Space>h lists.
+rt.pack.add({ "https://github.com/joshzcold/riptide-plugins", subdir = "harpoon" })
+-- The page's article alone, in a tab of its own: gR or :reader.
+rt.pack.add({ "https://github.com/joshzcold/riptide-plugins", subdir = "reader" })
+-- Fuzzy-find tabs, history, bookmarks and quickmarks: <Space>ff, ft, fh, fb, fq.
+rt.pack.add({ "https://github.com/joshzcold/riptide-plugins", subdir = "telescope" })
+-- Edit tabs, bookmarks and quickmarks as text in nvim: :oil tabs, :oil bookmarks, :oil quickmarks.
+rt.pack.add({ "https://github.com/joshzcold/riptide-plugins", subdir = "oil" })
+-- Jump to text by two of its characters: <Space>s (caret mode there), <Space>S (follow its link).
+rt.pack.add({ "https://github.com/joshzcold/riptide-plugins", subdir = "flash" })
+-- A cleaner command line, questions, tabs and status bar; :noice turns it off and on.
+-- The palette and the centered questions need these two settings.
+c.ui.overlay.position = "floating"
+c.prompt.position = "center"
+rt.pack.add({ "https://github.com/joshzcold/riptide-plugins", subdir = "noice" })
+
 -- Page notifications go to the Linux desktop (D-Bus, like any app). "messages"
 -- would show them in riptide's status bar instead.
 c.content.notifications.presenter = "auto"
