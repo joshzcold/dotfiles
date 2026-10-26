@@ -60,7 +60,7 @@ rt.pack.add({ "https://github.com/joshzcold/riptide-plugins", subdir = "oil" })
 rt.pack.add({ "https://github.com/joshzcold/riptide-plugins", subdir = "flash" })
 -- A cleaner command line, questions, tabs and status bar; :noice turns it off and on.
 -- The palette and the centered questions need these two settings.
-c.ui.overlay.position = "floating"
+c.ui.overlay.position = "center"
 c.prompt.position = "center"
 rt.pack.add({ "https://github.com/joshzcold/riptide-plugins", subdir = "noice" })
 
