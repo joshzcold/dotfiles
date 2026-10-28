@@ -24,5 +24,8 @@
 "content.media.camera" = "Poly Studio P5 webcam"
 "content.media.video_capture" = "true"
 
+[per_domain."https://ntfy.sh"]
+"content.notifications.enabled" = "true"
+
 [per_domain."https://web.whatsapp.com"]
 "content.notifications.enabled" = "true"
