@@ -24,6 +24,7 @@
 "content.media.camera" = "Poly Studio P5 webcam"
 "content.media.speaker" = ""
 "content.media.video_capture" = "true"
+"content.notifications.enabled" = "true"
 
 [per_domain."https://ntfy.sh"]
 "content.notifications.enabled" = "true"

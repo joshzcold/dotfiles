@@ -14,15 +14,14 @@ rt.bind("gj", "tab-move -")
 rt.bind("j", "scroll down")
 rt.bind("gu", "edit-url")
 
--- not supported: tab-focus stack-prev/stack-next, devtools, yank selection, spawn --userscript
--- rt.bind("<Ctrl-o>", "tab-focus stack-prev")
--- rt.bind("<Ctrl-i>", "tab-focus stack-next")
--- rt.bind("<F12>", "devtools")
--- rt.bind("<Ctrl-Shift-c>", "yank selection")
--- rt.bind("<Ctrl-j>", "spawn --userscript jenkins_rebuild")
--- rt.bind("<Ctrl-g>", "spawn --userscript go_to_gravity")
--- rt.bind("<Ctrl-Shift-b>", "spawn --userscript multi_quickmark")
--- rt.bind("<Ctrl-t>", "spawn --userscript toggle_dark_mode")
+rt.bind("<Ctrl-o>", "tab-focus stack-prev")
+rt.bind("<Ctrl-i>", "tab-focus stack-next")
+rt.bind("<F12>", "devtools")
+rt.bind("<Ctrl-Shift-c>", "yank selection")
+rt.bind("<Ctrl-j>", "spawn --userscript jenkins_rebuild")
+rt.bind("<Ctrl-g>", "spawn --userscript go_to_gravity")
+rt.bind("<Ctrl-Shift-b>", "spawn --userscript multi_quickmark")
+rt.bind("<Ctrl-t>", "spawn --userscript toggle_dark_mode")
 
 -- From ~/.config/qutebrowser/autoconfig.yml. The defaults already have q, qa and wq.
 local aliases = rt.get("aliases")
@@ -37,9 +36,36 @@ c.aliases = aliases
 if rt.platform == "macos" then
   -- not supported: c.qt.workarounds.disable_accessibility = "always"
   c.editor.command = { "/opt/homebrew/bin/kitty", "-e", "nvim", "-u", "NONE", "{file}" }
-  -- not supported: yank selection, insert-text
-  -- rt.bind("<Ctrl-c>", "yank selection")
-  -- rt.bind("<Ctrl-v>", "insert-text -- {clipboard}")
+  -- Karabiner rewrites ctrl+c/ctrl+v to the cmd chord, which arrives as Meta,
+  -- but CEF's native copy and paste never fire for it. Bind them per mode.
+  rt.bind("<Meta-v>", "rl-paste", "command")
+  -- yank selection reads the main frame only, so a selection in an iframe
+  -- (Gmail's compose) comes back empty; read the focused frame instead.
+  -- getSelection() also skips form fields, so check the active element first.
+  local selection_js = [[(() => {
+    const el = document.activeElement;
+    if (el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA")
+        && el.selectionStart != null && el.selectionStart !== el.selectionEnd) {
+      return el.value.slice(el.selectionStart, el.selectionEnd);
+    }
+    return String(getSelection());
+  })()]]
+
+  local function yank_selection()
+    rt.page.eval(selection_js, function(text)
+      if text and text ~= "" then
+        rt.spawn({ "pbcopy" }, { stdin = text })
+        rt.message("Yanked selection")
+      else
+        rt.run("yank selection")
+      end
+    end, { frame = "focused" })
+  end
+
+  rt.bind("<Meta-c>", yank_selection)
+  rt.bind("<Meta-c>", yank_selection, "caret")
+  rt.bind("<Meta-c>", yank_selection, "insert")
+  rt.bind("<Meta-v>", "insert-text {clipboard}", "insert")
 end
 
 -- Bitwarden logins through the bw CLI; riptide adds the passwords plugin it fills through.
