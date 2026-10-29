@@ -22,6 +22,7 @@
 "content.desktop_capture" = "true"
 "content.media.audio_capture" = "true"
 "content.media.camera" = "Poly Studio P5 webcam"
+"content.media.speaker" = ""
 "content.media.video_capture" = "true"
 
 [per_domain."https://ntfy.sh"]

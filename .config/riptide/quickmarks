@@ -230,3 +230,5 @@ AudioBookRequest - Audio Books http://joshua-home-server:8000/
 Prowlarr - Index Manager http://joshua-home-server:9696/
 dotfiles https://github.com/joshzcold/dotfiles
 riptide github https://github.com/joshzcold/riptide
+spark desktop board http://127.0.0.1:8787/?profile=dev
+spark desktop review http://127.0.0.1:8787/review?profile=dev

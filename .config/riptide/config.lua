@@ -3,7 +3,7 @@
 
 c.tabs.new_position.related = "last"
 c.auto_save.session = true
--- not supported: c.editor.command = { "kitty", "--class=float", "-e", "nvim", "-u", "NONE", "{}" }
+c.editor.command = { "kitty", "--class=float", "-e", "nvim", "-u", "NONE", "{file}" }
 -- not supported: c.qt.args = { "disable-blink-features=DocumentPictureInPictureAPI" }
 
 -- qutebrowser's J/K are the reverse of hackers-browser's defaults.
@@ -12,6 +12,7 @@ rt.bind("K", "tab-next")
 rt.bind("gk", "tab-move +")
 rt.bind("gj", "tab-move -")
 rt.bind("j", "scroll down")
+rt.bind("gu", "edit-url")
 
 -- not supported: tab-focus stack-prev/stack-next, devtools, yank selection, spawn --userscript
 -- rt.bind("<Ctrl-o>", "tab-focus stack-prev")
@@ -29,13 +30,13 @@ aliases.w = "session-save"
 aliases.wqa = "quit --save"
 c.aliases = aliases
 
--- not supported: spawn (aliases bbpull, pass; bindings ,m, <Ctrl-b>, Y), edit-url (gu),
+-- not supported: spawn (aliases bbpull, pass; bindings ,m, <Ctrl-b>, Y),
 -- gI (hint inputs --first ;; ... edit-text), per-site permissions and user agents,
 -- dark mode, content blocking, spellcheck, tabs.position, tabs.title.alignment
 
 if rt.platform == "macos" then
   -- not supported: c.qt.workarounds.disable_accessibility = "always"
-  -- not supported: c.editor.command = { "/opt/homebrew/bin/kitty", "-e", "nvim", "-u", "NONE", "{}" }
+  c.editor.command = { "/opt/homebrew/bin/kitty", "-e", "nvim", "-u", "NONE", "{file}" }
   -- not supported: yank selection, insert-text
   -- rt.bind("<Ctrl-c>", "yank selection")
   -- rt.bind("<Ctrl-v>", "insert-text -- {clipboard}")
