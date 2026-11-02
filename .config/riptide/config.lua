@@ -3,6 +3,8 @@
 
 c.tabs.new_position.related = "last"
 c.auto_save.session = true
+-- In b/B, gb/gB and :open: Tab/Shift-Tab mark, Ctrl-j/Ctrl-k move, Return opens every mark.
+c.completion.multi_select = true
 c.editor.command = { "kitty", "--class=float", "-e", "nvim", "-u", "NONE", "{file}" }
 -- not supported: c.qt.args = { "disable-blink-features=DocumentPictureInPictureAPI" }
 
@@ -20,7 +22,6 @@ rt.bind("<F12>", "devtools")
 rt.bind("<Ctrl-Shift-c>", "yank selection")
 rt.bind("<Ctrl-j>", "spawn --userscript jenkins_rebuild")
 rt.bind("<Ctrl-g>", "spawn --userscript go_to_gravity")
-rt.bind("<Ctrl-Shift-b>", "spawn --userscript multi_quickmark")
 rt.bind("<Ctrl-t>", "spawn --userscript toggle_dark_mode")
 
 -- From ~/.config/qutebrowser/autoconfig.yml. The defaults already have q, qa and wq.
