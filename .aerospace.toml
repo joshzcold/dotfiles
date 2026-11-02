@@ -51,7 +51,7 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
     cmd-shift-s = 'exec-and-forget /opt/homebrew/bin/bash ~/.config/usr-scripts/insert_snippets_macos.sh'
 
     # cmd-q = 'close --quit-if-last-window'
-    cmd-q = 'close'
+    cmd-q = 'exec-and-forget /bin/bash /Users/joshua.cold/.config/usr-scripts/aerospace-close-stay.sh'
     cmd-n = 'exec-and-forget bash ~/.config/usr-scripts/sketchbar-rename.sh'
 
     # i3 wraps focus by default
