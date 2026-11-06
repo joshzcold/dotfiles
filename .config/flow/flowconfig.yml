@@ -2,4 +2,6 @@ no_open_browser_on_ready: true
 email: joshua.cold@securitymetrics.com
 #vault_lookup_oidc_profile: admin
 flow_notifications: true
+reporters:
+  herdr: true
 e2e_test_arguments: ["--no-open-html"]

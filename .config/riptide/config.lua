@@ -4,7 +4,7 @@
 c.tabs.new_position.related = "last"
 c.auto_save.session = true
 -- In b/B, gb/gB and :open: Tab/Shift-Tab mark, Ctrl-j/Ctrl-k move, Return opens every mark.
-c.completion.multi_select = true
+c.completion.multi_select = false
 c.editor.command = { "kitty", "--class=float", "-e", "nvim", "-u", "NONE", "{file}" }
 -- not supported: c.qt.args = { "disable-blink-features=DocumentPictureInPictureAPI" }
 

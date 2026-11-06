@@ -65,6 +65,10 @@ static const Rule rules[] = {
     {NULL              , NULL     , "github_reviews"        , 0         , 1          , 1          , -1        , -1}        ,
     {NULL              , NULL     , "qutebrowser_quickmarks"        , 0         , 1          , 1          , -1        , -1}        ,
     {NULL              , "ms-playwright" , NULL    , 1 << 8    , 0          , 0          , 1         , -1}        ,
+    /* Chromium's screen-share bar, whose Hide asks for a minimize dwm doesn't support. */
+    {NULL              , NULL     , "is sharing your screen"  , 1 << 8 , 1 , 0 , 1 , -1} ,
+    {NULL              , NULL     , "is sharing a window"     , 1 << 8 , 1 , 0 , 1 , -1} ,
+    {NULL              , NULL     , "is sharing a Chrome tab" , 1 << 8 , 1 , 0 , 1 , -1} ,
 };
 /* layout(s) */
 static const float mfact = 0.55; /* factor of master area size [0.05..0.95] */
