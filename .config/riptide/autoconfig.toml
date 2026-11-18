@@ -9,6 +9,8 @@
 "content.blocking.whitelist" = ["mail.google.com", "grafana.secmet.co", "calendar.google.com", "github.com", "web.whatsapp.com", "meet.google.com"]
 "content.notifications.presenter" = "libnotify"
 "content.notifications.timeout" = 10000
+"downloads.location.picker" = true
+"fileselect.handler" = "prompt"
 "spellcheck.languages" = ["en-US"]
 "ui.theme" = "kanagawa-dragon"
 

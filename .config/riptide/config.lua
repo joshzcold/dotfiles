@@ -91,6 +91,8 @@ rt.pack.add({ "https://github.com/joshzcold/riptide-plugins", subdir = "flash" }
 c.ui.overlay.position = "center"
 c.prompt.position = "center"
 rt.pack.add({ "https://github.com/joshzcold/riptide-plugins", subdir = "noice" })
+-- A spoken summary of the page from Ollama and Piper: gA or :listen; :listen-library plays them and sets it up.
+rt.pack.add({ "https://github.com/joshzcold/riptide-plugins", subdir = "listen" })
 
 -- Page notifications go to the Linux desktop (D-Bus, like any app). "messages"
 -- would show them in riptide's status bar instead.

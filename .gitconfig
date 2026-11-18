@@ -34,3 +34,9 @@
   conflictStyle = zdiff3
 [coderabbit]
 	machineId = cli/71abf4eea14941bc87d1adcbbc5e9552
+[credential "https://github.com"]
+	helper = 
+	helper = !/nix/store/13hixqsd12vpsgjzc89fn1764ypqrqhk-gh-2.100.0/bin/.gh-wrapped auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/nix/store/13hixqsd12vpsgjzc89fn1764ypqrqhk-gh-2.100.0/bin/.gh-wrapped auth git-credential

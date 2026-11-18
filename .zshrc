@@ -74,7 +74,7 @@ export PYTHONBREAKPOINT="pudb.set_trace"
 # Set TERM based on if in ssh connection
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
   export TERM=xterm-256color
-else
+elif [ -n "$KITTY_WINDOW_ID" ]; then
   export TERM=xterm-kitty
 fi
 export JIRA_API_TOKEN=$(cat ~/git/codepaste/JiraToken)
