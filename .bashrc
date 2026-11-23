@@ -162,3 +162,7 @@ export PATH=$PATH:$HOME/.local/bin
 
 [ -f /etc/bash_completion.d/flow-completion ] && source /etc/bash_completion.d/flow-completion
 . "$HOME/.cargo/env"
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/joshua/.local/bin:$PATH"

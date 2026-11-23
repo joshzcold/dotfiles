@@ -28,6 +28,9 @@
 "content.media.video_capture" = "true"
 "content.notifications.enabled" = "true"
 
+[per_domain."https://messages.google.com"]
+"content.notifications.enabled" = "true"
+
 [per_domain."https://ntfy.sh"]
 "content.notifications.enabled" = "true"
 

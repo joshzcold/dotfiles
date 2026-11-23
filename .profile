@@ -18,3 +18,7 @@ fi
 # id and Xlib aborts the process (XI_BadDevice). Kills shadPS4 at startup.
 SDL_VIDEO_X11_XINPUT2=0
 export SDL_VIDEO_X11_XINPUT2
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/joshua/.local/bin:$PATH"
